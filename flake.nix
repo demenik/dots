@@ -95,6 +95,7 @@
         ];
         hmModules = [
           ./home/demenik.nix
+          ./home/hosts/thinkpad.nix
 
           agenix.homeManagerModules.default
           ./secrets
@@ -114,6 +115,7 @@
         ];
         hmModules = [
           ./home/demenik.nix
+          ./home/hosts/desktop.nix
 
           agenix.homeManagerModules.default
           ./secrets

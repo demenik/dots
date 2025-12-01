@@ -6,7 +6,6 @@
 
     ./desktops/hyprland
 
-    ./services/kanshi.nix
     ./services/bisync.nix
 
     ./shells/zsh
