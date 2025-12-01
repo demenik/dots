@@ -39,6 +39,10 @@
       url = "github:demenik/statusbar";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.3";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -47,6 +51,7 @@
     agenix,
     nixos-wsl,
     statusbar,
+    lanzaboote,
     ...
   } @ inputs: {
     nixosConfigurations = let
@@ -112,6 +117,9 @@
           ./nixos/full.nix
 
           statusbar.nixosModules.default
+
+          lanzaboote.nixosModules.lanzaboote
+          ./nixos/optional/lanzaboote.nix
         ];
         hmModules = [
 <<<<<<< HEAD
