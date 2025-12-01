@@ -7,4 +7,8 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     open = false;
   };
+
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
 }
