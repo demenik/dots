@@ -93,7 +93,12 @@
           statusbar.nixosModules.default
         ];
         hmModules = [
+<<<<<<< HEAD
           (import ./home/demenik.nix).full
+=======
+          ./home/demenik.nix
+          ./home/hosts/thinkpad.nix
+>>>>>>> 372f072 (feat: Configure desktop monitors)
 
           agenix.homeManagerModules.default
           ./secrets
@@ -109,7 +114,12 @@
           statusbar.nixosModules.default
         ];
         hmModules = [
+<<<<<<< HEAD
           (import ./home/demenik.nix).full
+=======
+          ./home/demenik.nix
+          ./home/hosts/desktop.nix
+>>>>>>> 372f072 (feat: Configure desktop monitors)
 
           agenix.homeManagerModules.default
           ./secrets
