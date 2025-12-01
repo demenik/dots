@@ -104,7 +104,26 @@
         ];
       };
 
-      wsl = mkNixConfig rec {
+      desktop = mkNixConfig {
+        hostName = "desktop";
+        nixOsModules = [
+          ./hosts/desktop.nix
+          ./nixos/full.nix
+
+          statusbar.nixosModules.default
+        ];
+        hmModules = [
+          ./home/demenik.nix
+
+          agenix.homeManagerModules.default
+          ./secrets
+
+          stylix.homeModules.stylix
+          ./home/stylix
+        ];
+      };
+
+      wsl = mkNixConfig {
         hostName = "wsl";
         nixOsModules = [
           ./hosts/wsl.nix
