@@ -60,7 +60,7 @@
         hostName,
         system ? "x86_64-linux",
         user ? "demenik",
-        stateVersion ? "25.05",
+        stateVersion,
         dotsDir ? "/home/${user}/dots",
         nixOsModules ? [],
         hmModules ? [],
@@ -92,6 +92,7 @@
     in {
       thinkpad = mkNixConfig {
         hostName = "thinkpad";
+        stateVersion = "25.05";
         nixOsModules = [
           ./hosts/thinkpad.nix
           ./nixos/full.nix
@@ -112,6 +113,7 @@
 
       desktop = mkNixConfig {
         hostName = "desktop";
+        stateVersion = "25.11";
         nixOsModules = [
           ./hosts/desktop.nix
           ./nixos/full.nix
@@ -135,6 +137,7 @@
 
       wsl = mkNixConfig {
         hostName = "wsl";
+        stateVersion = "25.05";
         nixOsModules = [
           ./hosts/wsl.nix
           ./nixos/headless.nix
@@ -152,7 +155,7 @@
       mkHomeConfig = {
         system ? "x86_64-linux",
         user ? "demenik",
-        stateVersion ? "25.05",
+        stateVersion,
         dotsDir ? "/home/${user}/dots",
         modules ? [],
       }:
@@ -163,6 +166,7 @@
         };
     in {
       "nix@homelab" = mkHomeConfig {
+        stateVersion = "25.05";
         user = "nix";
         dotsDir = "/home/homelab-dots";
         modules = [
@@ -170,6 +174,7 @@
         ];
       };
       "db56@wsl50" = mkHomeConfig {
+        stateVersion = "25.11";
         user = "db56";
         modules = [
           ./home/headless.nix
