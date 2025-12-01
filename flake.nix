@@ -59,7 +59,7 @@
         hostName,
         system ? "x86_64-linux",
         user ? "demenik",
-        stateVersion ? "25.05",
+        stateVersion,
         dotsDir ? "/home/${user}/dots",
         nixOsModules ? [],
         hmModules ? [],
@@ -91,6 +91,7 @@
     in {
       thinkpad = mkNixConfig {
         hostName = "thinkpad";
+        stateVersion = "25.05";
         nixOsModules = [
           ./hosts/thinkpad.nix
           ./nixos/full.nix
@@ -98,12 +99,8 @@
           statusbar.nixosModules.default
         ];
         hmModules = [
-<<<<<<< HEAD
           (import ./home/demenik.nix).full
-=======
-          ./home/demenik.nix
           ./home/hosts/thinkpad.nix
->>>>>>> 372f072 (feat: Configure desktop monitors)
 
           agenix.homeManagerModules.default
           ./secrets
@@ -112,6 +109,7 @@
 
       desktop = mkNixConfig {
         hostName = "desktop";
+        stateVersion = "25.11";
         nixOsModules = [
           ./hosts/desktop.nix
           ./nixos/full.nix
@@ -122,12 +120,8 @@
           ./nixos/optional/lanzaboote.nix
         ];
         hmModules = [
-<<<<<<< HEAD
           (import ./home/demenik.nix).full
-=======
-          ./home/demenik.nix
           ./home/hosts/desktop.nix
->>>>>>> 372f072 (feat: Configure desktop monitors)
 
           agenix.homeManagerModules.default
           ./secrets
@@ -136,6 +130,7 @@
 
       wsl = mkNixConfig {
         hostName = "wsl";
+        stateVersion = "25.05";
         nixOsModules = [
           ./hosts/wsl.nix
           ./nixos/headless.nix
@@ -153,7 +148,7 @@
       mkHomeConfig = {
         system ? "x86_64-linux",
         user ? "demenik",
-        stateVersion ? "25.05",
+        stateVersion,
         dotsDir ? "/home/${user}/dots",
         modules ? [],
       }:
@@ -164,6 +159,7 @@
         };
     in {
       "nix@homelab" = mkHomeConfig rec {
+        stateVersion = "25.05";
         user = "nix";
         dotsDir = "/home/${user}/homelab-dots";
         modules = [
@@ -171,6 +167,7 @@
         ];
       };
       "db56@wsl50" = mkHomeConfig {
+        stateVersion = "25.11";
         user = "db56";
         modules = [
           (import ./home/demenik.nix).headless
