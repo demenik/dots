@@ -70,14 +70,14 @@ while IFS="|" read -r hash subject; do
     feat) feats="${feats}\n${line}" ;;
     fix) fixes="${fixes}\n${line}" ;;
     refactor) refactors="${refactors}\n- ${line}" ;;
-    perf) perfs="${perfs}\n- ${line}" ;;
-    style) styles="${styles}\n- ${line}" ;;
-    test) tests="${tests}\n- ${line}" ;;
-    build) builds="${builds}\n- ${line}" ;;
-    ops) ops="${ops}\n- ${line}" ;;
-    docs) docs="${docs}\n- ${line}" ;;
-    chore) chores="${chores}\n- ${line}" ;;
-    merge) merges="${merges}\n- ${line}" ;;
+    perf) perfs="${perfs}\n${line}" ;;
+    style) styles="${styles}\n${line}" ;;
+    test) tests="${tests}\n${line}" ;;
+    build) builds="${builds}\n${line}" ;;
+    ops) ops="${ops}\n${line}" ;;
+    docs) docs="${docs}\n${line}" ;;
+    chore) chores="${chores}\n${line}" ;;
+    merge) merges="${merges}\n${line}" ;;
     *) others="${others}\n${line} (Type: $type)" ;;
     esac
   else
