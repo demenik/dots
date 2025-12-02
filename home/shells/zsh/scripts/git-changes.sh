@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
+TARGET_BRANCH=${2:-$(git rev-parse --abbrev-ref HEAD)}
+
 if [ -n "$1" ]; then
   BASE_BRANCH="$1"
 else
-  if git show-ref --verify --quiet refs/heads/dev; then
+  if [ "$TARGET_BRANCH" != "dev" ] && git show-ref --verify --quiet refs/heads/dev; then
     BASE_BRANCH="dev"
   elif git show-ref --verify --quiet refs/heads/main; then
     BASE_BRANCH="main"
@@ -13,8 +15,6 @@ else
     BASE_BRANCH="main"
   fi
 fi
-
-TARGET_BRANCH=${2:-$(git rev-parse --abbrev-ref HEAD)}
 
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "Error: Not a git repository." >&2
