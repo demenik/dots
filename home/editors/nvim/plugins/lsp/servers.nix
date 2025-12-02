@@ -111,6 +111,14 @@
       rust_analyzer = {
         enable = true;
         packageFallback = true;
+        config.rust-analyzer = {
+          procMacro.enable = true;
+          check = {
+            command = "clippy";
+            allTargets = false;
+          };
+          cargo.allFeatures = true;
+        };
       };
       clangd.enable = true;
       cmake.enable = true;
