@@ -28,10 +28,10 @@ fi
 REMOTE_URL=$(git config --get remote.origin.url)
 REPO_URL=""
 
-if [[ "$REMOTE_URL" == *"github.com"* || $REMOTE_URL == *"gitlab.com"* || $REMOTE_URL == *"gitlab.uni-ulm.de"* ]]; then
+if [[ "$REMOTE_URL" == git@* ]]; then
   REPO_URL=$(echo "$REMOTE_URL" | sed -E 's/git@([^:]+):/https:\/\/\1\//')
-  REPO_URL=${REPO_URL%.git}
 fi
+REPO_URL=${REPO_URL%.git}
 
 get_commit_link() {
   local hash=$1
