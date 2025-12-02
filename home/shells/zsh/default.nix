@@ -6,7 +6,7 @@
   imports = [
     ./prompt.nix
     ./aliases.nix
-    ./scripts.nix
+    ./scripts
   ];
 
   home.sessionVariables."SHELL" = "${lib.getExe pkgs.zsh}";
