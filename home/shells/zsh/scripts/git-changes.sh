@@ -85,7 +85,7 @@ while IFS="|" read -r hash subject; do
     others="${others}\n${line}"
   fi
 
-done < <(git log --no-merges --pretty=format:"%H|%s" "$BASE_BRANCH..$TARGET_BRANCH")
+done < <(git log --no-merges --pretty=tformat:"%H|%s" "$BASE_BRANCH..$TARGET_BRANCH")
 
 if [ -n "$feats" ]; then
   echo -e "\n- **New Features:**$feats"
