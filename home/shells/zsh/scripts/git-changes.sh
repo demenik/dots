@@ -54,9 +54,6 @@ chores=""
 merges=""
 others=""
 
-echo "Generating changelog for '$TARGET_BRANCH' (comparing against '$BASE_BRANCH')..."
-echo "-------------------------------------------------------------------------------"
-
 while IFS="|" read -r hash subject; do
   link=$(get_commit_link "$hash")
 
@@ -69,7 +66,7 @@ while IFS="|" read -r hash subject; do
     case "$type" in
     feat) feats="${feats}\n${line}" ;;
     fix) fixes="${fixes}\n${line}" ;;
-    refactor) refactors="${refactors}\n- ${line}" ;;
+    refactor) refactors="${refactors}\n${line}" ;;
     perf) perfs="${perfs}\n${line}" ;;
     style) styles="${styles}\n${line}" ;;
     test) tests="${tests}\n${line}" ;;
