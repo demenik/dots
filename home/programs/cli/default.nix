@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   imports = [
     ./zoxide.nix
     ./bat.nix
@@ -9,5 +9,9 @@
     ./jq.nix
     ./ai.nix
     ./debugging.nix
+  ];
+
+  home.packages = with pkgs; [
+    tree
   ];
 }
