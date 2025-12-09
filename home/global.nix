@@ -44,6 +44,11 @@
     gpg.enable = true;
   };
 
+  services.gpg-agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses;
+  };
+
   home = {
     inherit stateVersion;
     username = lib.mkDefault user;
