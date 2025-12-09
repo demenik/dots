@@ -35,6 +35,7 @@
             [user]
             email = "dominik.bernroider@uni-ulm.de"
             name = "Dominik Bernroider"
+            signingkey = "FAD30D241ADDEE7C"
           ''}";
         };
 
