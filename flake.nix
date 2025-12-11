@@ -75,7 +75,7 @@
               {
                 home-manager = {
                   # useGlobalPkgs = true;
-                  backupFileExtension = "backup";
+                  backupFileExtension = "bak";
 
                   users."${user}".imports = hmModules;
                   extraSpecialArgs = specialArgs;
