@@ -12,8 +12,8 @@
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
 
-      name = "npm-app";
-      version = "0.1.0";
+      name = "<1>";
+      version = "<2>";
 
       buildInputs = with pkgs; [
         nodejs
@@ -28,7 +28,7 @@
         inherit (pkgs.importNpmLock) npmConfigHook;
 
         installPhase = ''
-          # ...
+          <0>
         '';
       };
 
