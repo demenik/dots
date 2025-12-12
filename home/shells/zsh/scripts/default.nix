@@ -9,7 +9,7 @@
       # sh
       ''
         cd ${dotsDir}
-        git add -A 2>/dev/null
+        git add --intent-to-add . 2>/dev/null
         sudo nixos-rebuild $@ switch --flake .
         cd - >/dev/null
       ''
@@ -20,8 +20,8 @@
       # sh
       ''
         cd ${dotsDir}
-        git add -A 2>/dev/null
-        sudo nix flake $@ update
+        git add --intent-to-add . 2>/dev/null
+        nix flake $@ update
         cd - >/dev/null
       ''
     )
