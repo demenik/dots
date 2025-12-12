@@ -5,7 +5,17 @@
     rustaceanvim = {
       enable = false;
       settings = {
-        server.cmd = ["rust-analyzer"];
+        server = {
+          cmd = ["rust-analyzer"];
+          default_settings.rust-analyzer = {
+            procMacro.enable = true;
+            check = {
+              command = "clippy";
+              allTargets = false;
+            };
+            cargo.allFeatures = true;
+          };
+        };
         dap.adapter.__raw = let
           codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb;
           extensionPath = "${codelldb}/share/vscode/extensions/vadimcn.vscode-lldb";
