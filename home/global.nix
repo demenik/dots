@@ -3,6 +3,7 @@
   pkgs,
   stateVersion,
   lib,
+  config,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
@@ -18,6 +19,7 @@
       enable = true;
       settings = {
         commit.gpgsign = true;
+        gpg.format = "ssh";
 
         url = {
           "ssh://git@gitlab.uni-ulm.de".insteadOf = "https://gitlab.uni-ulm.de";
@@ -27,7 +29,7 @@
         user = {
           email = "dominik.bernroider@icloud.com";
           name = "demenik";
-          signingkey = "D3EC91B5457F4864";
+          signingkey = "${config.home.homeDirectory}/.ssh/id_rsa";
         };
 
         "includeIf \"hasconfig:remote.*.url:git@gitlab.uni-ulm.de:*/**\"" = {
@@ -35,7 +37,6 @@
             [user]
             email = "dominik.bernroider@uni-ulm.de"
             name = "Dominik Bernroider"
-            signingkey = "FAD30D241ADDEE7C"
           ''}";
         };
 
@@ -47,7 +48,7 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-curses;
+    pinentry.package = pkgs.pinentry-curses;
   };
 
   home = {
