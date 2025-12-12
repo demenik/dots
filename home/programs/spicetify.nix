@@ -26,6 +26,9 @@ in {
       volumePercentage
       allOfArtist
     ];
+
+    theme = spicePkgs.themes.catppuccin;
+    colorScheme = "mocha";
   };
 
   wayland.windowManager.hyprland.settings.windowrulev2 = [
