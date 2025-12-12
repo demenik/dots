@@ -41,4 +41,12 @@
     template = builtins.readFile ./gradle.flake.nix;
     placeholders."0" = "25";
   };
+  flakenpm = {
+    template = builtins.readFile ./npm.flake.nix;
+    placeholders = {
+      "1" = "npm-app";
+      "2" = "0.1.0";
+      "0" = null;
+    };
+  };
 }
