@@ -15,7 +15,7 @@
 
     activation.configureGodot = let
       configDir = "${config.xdg.configHome}/godot";
-      execFlags = "--server ./.godothost --remote-send \\\"<C-\\\\><C-N>:n {file}<CR>{line}G{col}|\\\"";
+      execFlags = pkgs.lib.escapeShellArg ''"--server ./.godothost --remote-send \":e {file} | call cursor({line},{col})<CR>\""'';
     in
       lib.hm.dag.entryAfter ["writeBoundary"]
       # bash
@@ -36,8 +36,11 @@
           local key="$1"
           local value="$2"
 
+          local sed_value="''${value//\\/\\\\}"
+          sed_value="''${sed_value//&/\\&}"
+
           if grep -q "^$key =" "$SETTINGS_FILE"; then
-            sed "s#^$key =.*#$key = $value#" "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+            sed "s#^$key =.*#$key = $sed_value#" "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
           else
             if grep -q '\[resource\]' "$SETTINGS_FILE"; then
               echo "$key = $value" >> "$SETTINGS_FILE"
@@ -48,7 +51,7 @@
         # External editor (nvim)
         update_setting "text_editor/external/use_external_editor" "true"
         update_setting "text_editor/external/exec_path" "\"${pkgs.neovim}/bin/nvim\""
-        update_setting "text_editor/external/exec_flags" "\"${execFlags}\""
+        update_setting "text_editor/external/exec_flags" ${execFlags}
 
         # Catppuccin Mocha interface theme
         update_setting "interface/theme/preset" "\"Custom\""
