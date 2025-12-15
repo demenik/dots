@@ -45,9 +45,6 @@
       };
 
       show_labelDetails = true;
-      before.__raw = ''
-        require'tailwind-tools.cmp'.lspkind_format
-      '';
     };
   };
 }
