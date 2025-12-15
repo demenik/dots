@@ -52,9 +52,6 @@
           local key="$1"
           local value="$2"
 
-          # local sed_value="''${value//\\/\\\\}"
-          # sed_value="''${sed_value//&/\\&}"
-
           if grep -q "^$key =" "$SETTINGS_FILE"; then
             sed "s#^$key =.*#$key = $value#" "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
           else
