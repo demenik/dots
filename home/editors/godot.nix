@@ -15,7 +15,23 @@
 
     activation.configureGodot = let
       configDir = "${config.xdg.configHome}/godot";
-      execFlags = pkgs.lib.escapeShellArg ''"--server ./.godothost --remote-send \":e {file} | call cursor({line},{col})<CR>\""'';
+      # This script requires $TERMINAL to be set to your default terminal
+      godotNvimWrapper =
+        pkgs.writeShellScript "godot-nvim-wrapper"
+        # bash
+        ''
+          FILE="$1"
+          LINE="$2"
+          COL="$3"
+          SERVER="./.godothost"
+
+          if [ -S "$SERVER" ]; then
+            $(which nvim) --server "$SERVER" --remote-send ":e $FILE | call cursor($LINE,$COL)<CR>"
+          else
+            nohup "$(which $TERMINAL)" -e $(which nvim) --listen "$SERVER" "$FILE" "+call cursor($LINE,$COL)" >/dev/null 2>&1 &
+            exit 0
+          fi
+        '';
     in
       lib.hm.dag.entryAfter ["writeBoundary"]
       # bash
@@ -36,11 +52,11 @@
           local key="$1"
           local value="$2"
 
-          local sed_value="''${value//\\/\\\\}"
-          sed_value="''${sed_value//&/\\&}"
+          # local sed_value="''${value//\\/\\\\}"
+          # sed_value="''${sed_value//&/\\&}"
 
           if grep -q "^$key =" "$SETTINGS_FILE"; then
-            sed "s#^$key =.*#$key = $sed_value#" "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+            sed "s#^$key =.*#$key = $value#" "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
           else
             if grep -q '\[resource\]' "$SETTINGS_FILE"; then
               echo "$key = $value" >> "$SETTINGS_FILE"
@@ -50,8 +66,8 @@
 
         # External editor (nvim)
         update_setting "text_editor/external/use_external_editor" "true"
-        update_setting "text_editor/external/exec_path" "\"${pkgs.neovim}/bin/nvim\""
-        update_setting "text_editor/external/exec_flags" ${execFlags}
+        update_setting "text_editor/external/exec_path" "\"${godotNvimWrapper}\""
+        update_setting "text_editor/external/exec_flags" "\"{file} {line} {col}\""
 
         # Catppuccin Mocha interface theme
         update_setting "interface/theme/preset" "\"Custom\""
