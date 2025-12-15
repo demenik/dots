@@ -1,5 +1,5 @@
 {
-  programs.zsh.shellAliases = {
+  home.shellAliases = {
     v = "nvim";
     c = "clear";
     cp = "cp -riv";
