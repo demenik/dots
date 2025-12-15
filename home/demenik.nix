@@ -15,7 +15,7 @@
     ./programs
     ./editors/nvim
     ./editors/intellij.nix
-    ./editors/cursor.nix
+    ./editors/godot.nix
   ];
 
   home.file.".face" = {
