@@ -18,6 +18,8 @@
     gotools
     google-java-format
     ktlint
+    gdtoolkit_4
+
     rustfmt
     clang-tools
     cmake-format
@@ -60,6 +62,8 @@
         go = ["goimports" "gofmt"];
         java = ["google-java-format"];
         kotlin = ["ktlint"];
+        gdscript = ["gdformat"];
+
         rust = ["rustfmt"];
         c = ["clang_format"];
         cmake = ["cmake_format"];
