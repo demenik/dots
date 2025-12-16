@@ -24,7 +24,6 @@
 
     rainbow-delimiters.enable = true;
     twilight.enable = true;
-    zen-mode.enable = true;
 
     nvim-tree = {
       enable = true;

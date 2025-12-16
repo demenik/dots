@@ -10,6 +10,7 @@
     ./silicon.nix
     ./todo-comments.nix
     ./debugging.nix
+    ./snacks.nix
   ];
 
   plugins = {
