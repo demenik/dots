@@ -32,9 +32,6 @@
         -- vim.cmd [[ :map <Right> <Nop> ]]
         -- vim.cmd [[ :map <Down> <Nop> ]]
 
-        -- Enable diagnostics virtual text
-        vim.diagnostic.config({ virtual_text = true })
-
         -- Add filetypes
         vim.filetype.add({
           pattern = {

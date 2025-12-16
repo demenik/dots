@@ -152,10 +152,7 @@ wk.add {
 	set_key.trouble("t", "todo", "Todo"),
 	set_key.trouble("q", "qflist", "QuickFix List"),
 	set_key.trouble("L", "loclist", "Location List"),
-  set_key.cmd("xv", function()
-    local current_value = vim.diagnostic.config().virtual_text
-    vim.diagnostic.config({ virtual_text = not current_value })
-  end, "Toggle virtual text"),
+  set_key.cmd("xv", "TinyInlineDiag toggle", "Toggle virtual text"),
 
 	--- LSP ---
 	set_key.trouble("l", "lsp", "LSP"),
