@@ -63,11 +63,11 @@
         specialArgs = {inherit inputs stateVersion user dotsDir;};
       in
         nixpkgs.lib.nixosSystem {
-          inherit system specialArgs;
-
+          inherit specialArgs;
           modules =
             [
               {
+                nixpkgs.hostPlatform = system;
                 networking.hostName = hostName;
               }
 
@@ -147,7 +147,7 @@
         modules ? [],
       }:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {inherit system;};
+          pkgs = import nixpkgs {hostPlatform = system;};
           inherit modules;
           extraSpecialArgs = {inherit inputs stateVersion user dotsDir;};
         };

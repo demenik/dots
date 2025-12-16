@@ -14,7 +14,7 @@
     ageFiles;
 in {
   home.packages = with inputs; [
-    agenix.packages."${pkgs.system}".default
+    agenix.packages."${pkgs.stdenv.hostPlatform.system}".default
   ];
 
   age = {
