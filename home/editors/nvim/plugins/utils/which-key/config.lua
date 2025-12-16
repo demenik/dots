@@ -82,9 +82,6 @@ wk.add {
 set_key.lsp = function(key, action)
 	return set_key.cmd("l" .. key, "Lsp" .. action, action)
 end
-set_key.lsp_saga = function(key, action, desc)
-	return set_key.cmd("l" .. key, "Lspsaga " .. action, desc or action)
-end
 wk.add {
 	{ "<leader>l", group = "Lsp" },
 	set_key.lsp("i", "Info"),
@@ -94,9 +91,9 @@ wk.add {
 	set_key.cmd("lf", require("conform").format, "Format"),
 	set_key.cmd("lF", "ConformInfo", "Format"),
 
-	set_key.lsp_saga("r", "rename"),
-	set_key.lsp_saga("o", "outline"),
-	set_key.lsp_saga("a", "code_action", "Code Action"),
+  set_key.cmd("lr", vim.lsp.buf.rename, "Rename"),
+  set_key.cmd("lo", vim.lsp.buf.document_symbol, "Outline"),
+  set_key.cmd("la", vim.lsp.buf.code_action, "Code Action"),
 }
 
 --- FZF keys ---
