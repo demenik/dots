@@ -24,8 +24,6 @@ in {
       playNext
       volumePercentage
       allOfArtist
-      playNext
-      # coverAmbience
     ];
 
     # https://github.com/spicetify/marketplace/blob/main/resources/snippets.json
@@ -37,7 +35,7 @@ in {
       # Make the search bar dynamic, so it only shows when you hover over it.
       # ":root {\n  margin-top: -16px;\n}\n#global-nav-bar {\n  position: absolute;\n  width: calc(100% + 16px);\n  background: none;\n  opacity: 0;\n  z-index: 12;\n  top: 16px;\n  transition: opacity 0.3s ease-in-out;\n}\n#global-nav-bar:hover {\n  z-index: 12;\n  opacity: 1;\n}\n.Root__now-playing-bar {\n  transform: translateY(16px);\n}\naside[aria-label=\"Now playing bar\"] {\n  transform: translateY(-8px);\n}\n.Root__globalNav .main-globalNav-navLink {\n  background: none;\n}\n.e_N7UqrrJQ0fAw9IkNAL {\n  padding-top: 56px;\n}\n.marketplace-tabBar, .marketplace-tabBar-nav {\n  padding-top: 48px;\n}\n.marketplace-header {\n  padding-top: 16px;\n}\n.marketplace-header__left {\n  padding-top: 16px;\n}\n.main-topBar-background {\n  background-color: #121212;\n}\n.liw6Y_iPu2DJRwk10x9d .FLyfurPaIDAlwjsF3mLf{\n  display: none;\n}"
       # Removes gradient from home page and playlist page
-      ".main-entityHeader-backgroundColor { display: none !important; } .main-actionBarBackground-background { display: none !important; } .main-home-homeHeader { display: none !important; } .playlist-playlist-actionBarBackground-background { display: none !important; }"
+      # ".main-entityHeader-backgroundColor { display: none !important; } .main-actionBarBackground-background { display: none !important; } .main-home-homeHeader { display: none !important; } .playlist-playlist-actionBarBackground-background { display: none !important; }"
       # Hides Sidebar ScrollBar near playlist section
       "#Desktop_LeftSidebar_Id .os-scrollbar-handle, .Root__nav-bar .os-scrollbar-handle, #Desktop_LeftSidebar_Id .os-scrollbar-track, .Root__nav-bar .os-scrollbar-track { visibility: hidden; }"
       # Thin rounded modern scrollbar
