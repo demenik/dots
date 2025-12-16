@@ -27,7 +27,11 @@
     ''
       vim.api.nvim_create_autocmd("VimEnter", {
         desc = "Automatically enter Nix devshell",
-        command = "NixDevelop",
+        callback = function()
+          if vim.fn.filereadable "flake.nix" == 1 then
+            vim.cmd "NixDevelop"
+          end
+        end,
       })
     '';
 }
