@@ -1,6 +1,5 @@
 {
   imports = [
-    ./alpha
     ./lualine
     ./toggleterm.nix
     ./which-key
@@ -10,7 +9,7 @@
     ./silicon.nix
     ./todo-comments.nix
     ./debugging.nix
-    ./snacks.nix
+    ./snacks
   ];
 
   plugins = {
