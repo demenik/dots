@@ -1,5 +1,10 @@
 {
-  imports = [./servers.nix ./lint.nix ./otter.nix];
+  imports = [
+    ./servers.nix
+    ./lint.nix
+    ./otter.nix
+    ./lazydev.nix
+  ];
 
   programs.nixvim = {
     plugins = {

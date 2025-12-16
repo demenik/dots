@@ -24,39 +24,7 @@
 
       bashls.enable = true;
       nixd.enable = true;
-      lua_ls = {
-        enable = true;
-        config.on_init.__raw =
-          # lua
-          ''
-            function(client)
-              if client.workspace_folders then
-                local path = client.workspace_folders[1].name
-                if
-                  path ~= vim.fn.stdpath('config')
-                  and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-                then
-                  return
-                end
-              end
-              client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-                runtime = {
-                  version = 'LuaJIT',
-                  path = {
-                    'lua/?.lua',
-                    'lua/?/init.lua',
-                  },
-                },
-                workspace = {
-                  checkThirdParty = false,
-                  library = {
-                    vim.env.VIMRUNTIME
-                  }
-                }
-              })
-            end
-          '';
-      };
+      lua_ls.enable = true;
 
       ltex_plus = {
         enable = true;
@@ -84,7 +52,7 @@
       jsonls = {
         enable = true;
         config.json = {
-          schemas.__raw = "require('schemastore').json.schemas()";
+          schemas.__raw = ''require("schemastore").json.schemas()'';
           validate.enable = true;
         };
       };
@@ -95,7 +63,7 @@
             enable = false;
             url = "";
           };
-          schemas.__raw = "require('schemastore').yaml.schemas()";
+          schemas.__raw = ''require("schemastore").yaml.schemas()'';
         };
       };
 
