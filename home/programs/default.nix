@@ -25,7 +25,7 @@
   ];
 
   home.packages = with pkgs; [
-    inputs.bettersoundcloud.packages.${system}.default
+    inputs.bettersoundcloud.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     gimp
     aseprite
