@@ -127,6 +127,6 @@
   };
 
   extraConfigLua = ''
-    vim.g.slow_format_filetypes = {};
+    vim.g.slow_format_filetypes = {}
   '';
 }
