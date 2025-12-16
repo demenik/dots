@@ -6,6 +6,10 @@
       lspkind = import ./lspkind.nix;
       lspconfig.enable = true;
       trouble.enable = true;
+      tiny-inline-diagnostic = {
+        enable = true;
+        settings.options.multilines.enabled = true;
+      };
     };
 
     keymaps = let
