@@ -13,19 +13,15 @@ local set_key = {
   end,
 }
 
-local function smart_buffer_delete()
-  local current_buf = vim.api.nvim_get_current_buf()
-  pcall(vim.cmd.bnext)
-  if current_buf == vim.api.nvim_get_current_buf() then
-    vim.cmd.enew()
-  end
-  pcall(vim.cmd, "bdelete " .. current_buf)
-end
-
 wk.add {
   set_key.cmd("e", require("nvim-tree.api").tree.toggle, "Files"),
   set_key.cmd("w", "w!", "Write buffer"),
-  set_key.cmd("d", smart_buffer_delete, "Delete buffer"),
+  set_key.cmd("d", function()
+    Snacks.bufdelete()
+  end, "Delete buffer"),
+  set_key.cmd("D", function()
+    Snacks.bufdelete.all()
+  end, "Delete all buffers"),
   set_key.cmd("Q", "qa", "Quit all", true),
   set_key.cmd("q", "quit", "Quit window", true),
 }
@@ -189,8 +185,7 @@ wk.add {
 
   set_key.cmd("r", require("grug-far").open, "Replace"),
   set_key.cmd("z", function()
-    vim.wo.number = false
-    require("zen-mode").toggle()
+    Snacks.zen()
   end, "Zen Mode"),
   set_key.cmd("u", "UndotreeToggle", "Undo Tree"),
   set_key.cmd("H", "HexokinaseToggle", "Hexokinase"),

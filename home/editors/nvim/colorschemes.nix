@@ -28,6 +28,7 @@
           which_key = true;
           neotest = true;
           dap = true;
+          snacks.enable = true;
         };
         custom_highlights =
           # lua
