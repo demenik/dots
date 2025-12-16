@@ -61,7 +61,7 @@
       ltex_plus = {
         enable = true;
         config = let
-          inherit (import ./ltex.nix) filetypes enabled;
+          inherit (import ./ltex.nix) filetypes enabled dictionary;
         in {
           inherit filetypes;
           settings.ltex = {
@@ -69,9 +69,7 @@
             languageToolHttpServerUri = "https://languagetool.demenik.dev";
             language = "en-US";
             additionalRules.motherTongue = "de-DE";
-            dictionary.en-US = [
-              "ags"
-            ];
+            inherit dictionary;
           };
         };
       };

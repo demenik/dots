@@ -1,4 +1,16 @@
 {
+  # lsp.servers.ltex_plus.config.settings.ltex.dictionary = {
+  dictionary = {
+    en-US = [
+      "ags"
+      "fzf"
+      "Gitsigns"
+      "Vimtex"
+      "dap"
+      "neotest"
+    ];
+  };
+
   # lsp.servers.ltex_plus.config.filetypes = [
   filetypes = [
     # Default values (https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#ltex_plus)
