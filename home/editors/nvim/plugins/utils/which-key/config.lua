@@ -112,7 +112,6 @@ wk.add {
   set_key.fzf("C", "colorschemes", "Colorschemes"),
   set_key.fzf("t", "tabs", "Tabs"),
   set_key.fzf("T", "treesitter", "Treesitter"),
-  -- set_key.cmd("fh", "FzfHarpoon", "Harpoon"),
   set_key.fzf("s", "spell_suggest", "Spelling suggest"),
 
   { "<leader>fg", group = "Git" },
