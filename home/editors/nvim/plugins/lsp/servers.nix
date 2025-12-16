@@ -4,7 +4,11 @@
 
     extraPackages = let
       kotlin-lsp = pkgs.callPackage ./kotlin-lsp.nix {};
-    in [kotlin-lsp];
+    in
+      with pkgs; [
+        kotlin-lsp
+        ltex-ls-plus
+      ];
 
     plugins = {
       jdtls.enable = true;
@@ -54,9 +58,16 @@
           '';
       };
 
-      typos_lsp = {
+      ltex_plus = {
         enable = true;
-        config.init_options.diagnosticSeverity = "Hint";
+        config.settings.ltex = {
+          languageToolHttpServerUri = "https://languagetool.demenik.dev";
+          language = "en-US";
+          additionalRules.motherTongue = "de-DE";
+          dictionary.en-US = [
+            "ags"
+          ];
+        };
       };
 
       html.enable = true;
