@@ -60,13 +60,19 @@
 
       ltex_plus = {
         enable = true;
-        config.settings.ltex = {
-          languageToolHttpServerUri = "https://languagetool.demenik.dev";
-          language = "en-US";
-          additionalRules.motherTongue = "de-DE";
-          dictionary.en-US = [
-            "ags"
-          ];
+        config = let
+          inherit (import ./ltex.nix) filetypes enabled;
+        in {
+          inherit filetypes;
+          settings.ltex = {
+            inherit enabled;
+            languageToolHttpServerUri = "https://languagetool.demenik.dev";
+            language = "en-US";
+            additionalRules.motherTongue = "de-DE";
+            dictionary.en-US = [
+              "ags"
+            ];
+          };
         };
       };
 
