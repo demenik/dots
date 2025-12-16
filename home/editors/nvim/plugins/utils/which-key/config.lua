@@ -16,6 +16,7 @@ local set_key = {
 wk.add {
   set_key.cmd("e", require("nvim-tree.api").tree.toggle, "Files"),
   set_key.cmd("w", "w!", "Write buffer"),
+  set_key.cmd("n", "ene | startinsert", "New buffer"),
   set_key.cmd("d", function()
     Snacks.bufdelete()
   end, "Delete buffer"),
