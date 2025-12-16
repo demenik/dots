@@ -43,7 +43,7 @@
       in {
         sh = ["shellcheck" "shfmt"];
         lua = ["stylua"];
-        nix = ["alejandra"];
+        nix = ["alejandra" "injected"];
 
         html = prettier;
         css = prettier;
