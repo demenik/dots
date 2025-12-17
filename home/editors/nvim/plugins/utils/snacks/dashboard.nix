@@ -1,5 +1,5 @@
 {
-  plugins.snacks.dashboard = let
+  plugins.snacks.settings.dashboard = let
     themes = import ./themes.nix;
     theme = themes.dg_baby;
   in {
