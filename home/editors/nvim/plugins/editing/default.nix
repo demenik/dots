@@ -23,7 +23,6 @@
     };
 
     rainbow-delimiters.enable = true;
-    twilight.enable = true;
 
     nvim-tree = {
       enable = true;
