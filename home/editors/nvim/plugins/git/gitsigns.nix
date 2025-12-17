@@ -1,6 +1,5 @@
 {
   enable = true;
-
   settings = {
     numhl = true;
     current_line_blame = true;

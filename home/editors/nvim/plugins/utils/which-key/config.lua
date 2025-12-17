@@ -1,5 +1,4 @@
 local wk = require "which-key"
-local gitsigns = require "gitsigns"
 local Terminal = require("toggleterm.terminal").Terminal
 
 local set_key = {
@@ -14,7 +13,7 @@ local set_key = {
 }
 
 wk.add {
-  set_key.cmd("e", require("nvim-tree.api").tree.toggle, "Files"),
+  set_key.cmd("e", "NvimTreeToggle", "Files"),
   set_key.cmd("w", "w!", "Write buffer"),
   set_key.cmd("n", "ene | startinsert", "New buffer"),
   set_key.cmd("d", function()
@@ -29,7 +28,7 @@ wk.add {
 
 set_key.git_signs = function(key, action, desc)
   return set_key.cmd("g" .. key, function()
-    gitsigns[action]()
+    require("gitsigns")[action]()
   end, desc)
 end
 
@@ -64,14 +63,14 @@ wk.add {
   set_key.git_signs("hv", "preview_hunk", "Preview"),
   set_key.git_signs("hu", "undo_stage_hunk", "Undo Stage"),
   set_key.cmd("ghn", function()
-    gitsigns.nav_hunk "next"
+    require("gitsigns").nav_hunk "next"
   end, "Next"),
   set_key.cmd("ghp", function()
-    gitsigns.nav_hunk "prev"
+    require("gitsigns").nav_hunk "prev"
   end, "Previous"),
   set_key.git_signs("hd", "diffthis", "Diff this"),
   set_key.cmd("ghD", function()
-    gitsigns.diffthis "~"
+    require("gitsigns").diffthis "~"
   end, "Diff this"),
 }
 
