@@ -6,7 +6,7 @@
     ./fzf-lua.nix
     ./grug-far.nix
     ./presence.nix
-    ./silicon.nix
+    # ./silicon.nix
     ./todo-comments.nix
     ./debugging.nix
     ./snacks

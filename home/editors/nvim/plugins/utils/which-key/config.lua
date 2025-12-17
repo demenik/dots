@@ -172,9 +172,9 @@ wk.add {
   set_key.cmd("mv", "MarkdownPreviewToggle", "Browser preview"),
 
   --- Snap (Silicon) --
-  { "<leader>S", group = "Snap(Silicon)" },
-  set_key.cmd("Ss", require("silicon").file, "Save as file"),
-  set_key.cmd("Sc", require("silicon").clip, "Copy to clipboard"),
+  -- { "<leader>S", group = "Snap(Silicon)" },
+  -- set_key.cmd("Ss", require("silicon").file, "Save as file"),
+  -- set_key.cmd("Sc", require("silicon").clip, "Copy to clipboard"),
 
   --- Latex (Vimtex) --
   { "<leader>L", group = "Latex" },

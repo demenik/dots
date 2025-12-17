@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   plugins = {
     markdown-preview = {
       enable = true;
@@ -16,8 +16,4 @@
       };
     };
   };
-
-  extraPlugins = let
-    builds = import ../../builds.nix pkgs;
-  in [builds.table-nvim];
 }
