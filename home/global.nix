@@ -24,6 +24,7 @@
         url = {
           "ssh://git@gitlab.uni-ulm.de".insteadOf = "https://gitlab.uni-ulm.de";
           "ssh://git@github.com".insteadOf = "https://github.com";
+          "ssh://git@gitea.demenik.dev".insteadOf = "https://gitea.demenik.dev";
         };
 
         user = {
@@ -32,16 +33,34 @@
           signingkey = "${config.home.homeDirectory}/.ssh/id_rsa";
         };
 
-        "includeIf \"hasconfig:remote.*.url:git@gitlab.uni-ulm.de:*/**\"" = {
-          path = "${pkgs.writeText ".gitconfig-gitlab.uni-ulm.de" ''
-            [user]
-            email = "dominik.bernroider@uni-ulm.de"
-            name = "Dominik Bernroider"
-          ''}";
-        };
-
         init.defaultBranch = "main";
       };
+
+      includes = let
+        mkRemoteSsh = {
+          user ? "git",
+          url,
+          config,
+        }: {
+          condition = "hasconfig:remote.*.url:${user}@${url}:*/**";
+          path = "${pkgs.writeText "gitconfig-${url}" (pkgs.lib.generators.toGitINI config)}";
+        };
+      in [
+        (mkRemoteSsh {
+          url = "gitlab.uni-ulm.de";
+          config.user = {
+            email = "dominik.bernroider@uni-ulm.de";
+            name = "Dominik Bernroider";
+          };
+        })
+        (mkRemoteSsh {
+          url = "gitea.demenik.dev";
+          config.user = {
+            email = "mail@demenik.dev";
+            name = "demenik";
+          };
+        })
+      ];
     };
     gpg.enable = true;
   };
