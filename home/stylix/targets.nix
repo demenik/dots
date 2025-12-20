@@ -10,7 +10,5 @@
 
     spicetify.enable = false;
     vesktop.enable = false;
-
-    rofi.enable = false;
   };
 }
