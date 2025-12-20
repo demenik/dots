@@ -147,7 +147,7 @@
         modules ? [],
       }:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {hostPlatform = system;};
+          pkgs = import nixpkgs {inherit system;};
           inherit modules;
           extraSpecialArgs = {inherit inputs stateVersion user dotsDir;};
         };
