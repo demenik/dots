@@ -27,6 +27,10 @@
         user = "git";
         identitiesOnly = true;
       };
+      "lg" = {
+        hostname = "192.168.178.160";
+        user = "root";
+      };
     };
   };
 }
