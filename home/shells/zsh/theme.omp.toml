@@ -57,6 +57,9 @@ final_space = true
       fetch_upstream_icon = true
       fetch_status = true
 
+    [blocks.segments.properties.upstream_icons]
+      "gitea.demenik.dev" = ""
+
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
