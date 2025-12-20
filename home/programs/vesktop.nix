@@ -1,4 +1,6 @@
-{
+{config, ...}: let
+  inherit (config.lib.stylix) colors;
+in {
   wayland.windowManager.hyprland.settings.windowrulev2 =
     [
       "workspace 4, class:^(vesktop)$"
@@ -18,8 +20,8 @@
       discordBranch = "stable";
       minimizeToTray = false;
       arRPC = true;
-      splashColor = "#cba6f7";
-      splashBackground = "#1e1e2e";
+      splashColor = "#${colors.base0E}";
+      splashBackground = "#${colors.base00}";
     };
 
     vencord = {
