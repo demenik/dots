@@ -1,8 +1,6 @@
 {config, ...}: let
   inherit (config.lib.stylix) colors;
 in {
-  stylix.targets.vesktop.enable = false;
-
   wayland.windowManager.hyprland.settings.windowrulev2 =
     [
       "workspace 4, class:^(vesktop)$"
