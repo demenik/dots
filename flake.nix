@@ -156,13 +156,13 @@
         user = "nix";
         dotsDir = "/home/homelab-dots";
         modules = [
-          ./home/headless.nix
+          ./home/demenik.nix
         ];
       };
       "db56@wsl50" = mkHomeConfig {
         user = "db56";
         modules = [
-          ./home/headless.nix
+          ./home/demenik.nix
         ];
       };
     };
