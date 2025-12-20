@@ -45,7 +45,6 @@
     nixpkgs,
     home-manager,
     agenix,
-    stylix,
     nixos-wsl,
     statusbar,
     ...
@@ -98,9 +97,6 @@
 
           agenix.homeManagerModules.default
           ./secrets
-
-          stylix.homeModules.stylix
-          ./home/stylix
         ];
       };
 
@@ -117,9 +113,6 @@
 
           agenix.homeManagerModules.default
           ./secrets
-
-          stylix.homeModules.stylix
-          ./home/stylix
         ];
       };
 

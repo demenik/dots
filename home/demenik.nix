@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./global.nix
     ./xdg-desktop.nix
@@ -16,6 +20,9 @@
     ./editors/nvim
     ./editors/intellij.nix
     ./editors/godot.nix
+
+    inputs.stylix.homeModules.stylix
+    ./stylix
   ];
 
   home.file.".face" = {
