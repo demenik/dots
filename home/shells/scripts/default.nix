@@ -6,29 +6,27 @@
   home.packages = with pkgs; [
     (
       writeScriptBin "rebuild"
-      # sh
+      # bash
       ''
-        cd ${dotsDir}
+        cd "${dotsDir}" || exit
         git add --intent-to-add . 2>/dev/null
         sudo nixos-rebuild $@ switch --flake .
-        cd - >/dev/null
+        cd - >/dev/null || exit
       ''
     )
-
     (
       writeScriptBin "update"
-      # sh
+      # bash
       ''
-        cd ${dotsDir}
+        cd "${dotsDir}" || exit
         git add --intent-to-add . 2>/dev/null
         nix flake $@ update
-        cd - >/dev/null
+        cd - >/dev/null || exit
       ''
     )
-
     (
       writeScriptBin "nix"
-      # sh
+      # bash
       ''
         NIX=${pkgs.lib.getExe pkgs.nix}
 
@@ -41,7 +39,6 @@
         fi
       ''
     )
-
     (writeScriptBin "git-changes" (builtins.readFile ./git-changes.sh))
   ];
 }
