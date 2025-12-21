@@ -42,8 +42,6 @@ in {
       ".os-scrollbar-handle { width:0.25rem!important;border-radius:10rem !important; transition: width 300ms ease-in-out; } .os-scrollbar-handle:focus,.os-scrollbar-handle:focus-within,.os-scrollbar-handle:hover { width:0.35rem!important }"
       # Replaces the highly saturated lyrics backgrounds with a very subtle dark gradient
       ".lyrics-lyrics-background { background-image: linear-gradient(315deg,var(--lyrics-color-background),black); background-size: 500%; } .lyrics-lyricsContent-lyric.lyrics-lyricsContent-highlight { color: white; } .lyrics-lyricsContent-lyric { color: #424242; }"
-      # Makes the Progress/Volume bar glide
-      "@property --progress-bar-transform { inherits: true; initial-value: 0%; syntax: '<percentage>'; } .progress-bar { transition: --progress-bar-transform 1s linear !important; } .progress-bar--isDragging { transition-duration: 150ms !important; }"
       # Hides the Mini Player button.
       "button:has(path[d='M16 2.45c0-.8-.65-1.45-1.45-1.45H1.45C.65 1 0 1.65 0 2.45v11.1C0 14.35.65 15 1.45 15h5.557v-1.5H1.5v-11h13V7H16V2.45z']), button:has(path[d='M16 2.45c0-.8-.65-1.45-1.45-1.45H1.45C.65 1 0 1.65 0 2.45v11.1C0 14.35.65 15 1.45 15h5.557v-1.5H1.5v-11h13V7H16z']) {display: none;}"
       # Hides the Full Screen button.
