@@ -40,5 +40,6 @@
       ''
     )
     (writeScriptBin "git-changes" (builtins.readFile ./git-changes.sh))
+    (writeScriptBin "copy" (builtins.readFile ./copy.sh))
   ];
 }
