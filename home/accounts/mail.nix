@@ -85,20 +85,20 @@
     };
 
     "Self-hosted" = rec {
-      address = "mail@demenik.tech";
+      address = "mail@demenik.dev";
       userName = address;
       realName = "Dominik Bernroider";
 
       passwordCommand = getPass address;
 
       imap = {
-        host = "mail.demenik.tech";
+        host = "mail.demenik.dev";
         port = 993;
         tls.enable = true;
       };
 
       smtp = {
-        host = "mail.demenik.tech";
+        host = "mail.demenik.dev";
         port = 587;
         tls = {
           enable = true;
