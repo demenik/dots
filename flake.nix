@@ -145,9 +145,9 @@
           extraSpecialArgs = {inherit inputs stateVersion user dotsDir;};
         };
     in {
-      "nix@homelab" = mkHomeConfig {
+      "nix@homelab" = mkHomeConfig rec {
         user = "nix";
-        dotsDir = "/home/homelab-dots";
+        dotsDir = "/home/${user}/homelab-dots";
         modules = [
           ./home/demenik.nix
         ];
