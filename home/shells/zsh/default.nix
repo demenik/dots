@@ -4,9 +4,8 @@
   ...
 }: {
   imports = [
+    ../default.nix
     ./prompt.nix
-    ./aliases.nix
-    ./scripts
   ];
 
   home.sessionVariables."SHELL" = "${lib.getExe pkgs.zsh}";

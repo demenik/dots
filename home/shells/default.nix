@@ -1,0 +1,6 @@
+{
+  import = [
+    ./scripts
+    ./aliases.nix
+  ];
+}
