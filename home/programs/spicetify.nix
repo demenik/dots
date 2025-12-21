@@ -12,7 +12,6 @@ in {
   in {
     enable = true;
     alwaysEnableDevTools = true;
-    spotifyLaunchFlags = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
     enabledExtensions = with spicePkgs.extensions; [
       keyboardShortcut
