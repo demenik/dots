@@ -22,7 +22,7 @@
     wakatime.enable = true;
     vim-suda = {
       enable = true;
-      settings.smart_edit = true;
+      settings.smart_edit = 1;
     };
   };
 
