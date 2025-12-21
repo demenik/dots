@@ -30,11 +30,30 @@ in {
       # Reveals the playlist gradient header gradient with a fade in effect
       # css
       ''
-        .main-entityHeader-overlay,
+        @keyframes softMaskReveal {
+          0% {
+            -webkit-mask-position: 0% 100%;
+            mask-position: 0% 100%;
+            opacity: 0;
+          }
+          100% {
+            -webkit-mask-position: 0% 0%;
+            mask-position: 0% 0%;
+            opacity: 1;
+          }
+        }
+
         .main-actionBarBackground-background,
         .main-entityHeader-overlay,
+        .main-entityHeader-background,
         .main-entityHeader-backgroundColor {
-          -webkit-transition: 3s;
+          -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 90%);
+          mask-image: linear-gradient(to bottom, black 50%, transparent 90%);
+          -webkit-mask-size: 100% 200%;
+          mask-size: 100% 200%;
+          -webkit-mask-position: 0% 100%;
+          mask-position: 0% 100%;
+          animation: softMaskReveal 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
       ''
 
