@@ -93,7 +93,7 @@
           statusbar.nixosModules.default
         ];
         hmModules = [
-          ./home/demenik.nix
+          (import ./home/demenik.nix).full
 
           agenix.homeManagerModules.default
           ./secrets
@@ -109,7 +109,7 @@
           statusbar.nixosModules.default
         ];
         hmModules = [
-          ./home/demenik.nix
+          (import ./home/demenik.nix).full
 
           agenix.homeManagerModules.default
           ./secrets
@@ -126,7 +126,7 @@
           <nixos-wsl/modules>
         ];
         hmModules = [
-          ./home/headless.nix
+          (import ./home/demenik.nix).headless
         ];
       };
     };
@@ -149,13 +149,13 @@
         user = "nix";
         dotsDir = "/home/${user}/homelab-dots";
         modules = [
-          ./home/demenik.nix
+          (import ./home/demenik.nix).headless
         ];
       };
       "db56@wsl50" = mkHomeConfig {
         user = "db56";
         modules = [
-          ./home/demenik.nix
+          (import ./home/demenik.nix).headless
         ];
       };
     };
