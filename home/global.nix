@@ -30,7 +30,7 @@
         };
 
         user = {
-          email = "dominik.bernroider@icloud.com";
+          email = "mail@demenik.dev";
           name = "demenik";
           signingkey = "${config.home.homeDirectory}/.ssh/id_rsa.pub";
         };
