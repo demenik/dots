@@ -19,7 +19,9 @@
       enable = true;
       settings = {
         commit.gpgsign = true;
+        tag.gpgsign = true;
         gpg.format = "ssh";
+        gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
 
         url = {
           "ssh://git@gitlab.uni-ulm.de".insteadOf = "https://gitlab.uni-ulm.de";
@@ -30,7 +32,7 @@
         user = {
           email = "dominik.bernroider@icloud.com";
           name = "demenik";
-          signingkey = "${config.home.homeDirectory}/.ssh/id_rsa";
+          signingkey = "${config.home.homeDirectory}/.ssh/id_rsa.pub";
         };
 
         init.defaultBranch = "main";
