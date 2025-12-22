@@ -93,7 +93,7 @@
         in {
           ud = mkEngine {
             icon = "https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico";
-            template = "https://unduck.demenik.tech";
+            template = "https://unduck.demenik.dev";
             params = {q = "{searchTerms}";};
           };
 
