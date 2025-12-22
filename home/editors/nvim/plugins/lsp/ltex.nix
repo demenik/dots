@@ -35,18 +35,14 @@
     "xhtml"
 
     # Code languages
-    "sh" # LTeX: shellscript
     "c"
-    "cs" # LTeX: csharp
     "cpp"
     "clojure"
-    "coffee" # LTeX: coffeescript
     "dart"
     "elixir"
     "elm"
     "erlang"
     "fsharp"
-    "fortran" # LTeX: fortran-modern
     "go"
     "groovy"
     "haskell"
@@ -61,7 +57,6 @@
     "perl"
     "perl6"
     "php"
-    "ps1" # LTeX: powershell
     "puppet"
     "python"
     "r"
@@ -101,18 +96,14 @@
     "xhtml"
 
     # Supported coding languages (https://ltex-plus.github.io/ltex-plus/supported-languages.html#programming-languages)
-    "shellscript"
     "c"
-    "csharp"
     "cpp"
     "clojure"
-    "coffeescript"
     "dart"
     "elixier"
     "elm"
     "erlang"
     "fsharp"
-    "fortran-modern"
     "go"
     "groovy"
     "haskell"
@@ -127,7 +118,6 @@
     "perl"
     "perl6"
     "php"
-    "powershell"
     "puppet"
     "python"
     "r"
