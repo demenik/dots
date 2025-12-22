@@ -23,6 +23,7 @@
           "toggleterm",
           "Trouble",
           "snacks_dashboard",
+          "leetcode.nvim",
         },
         callback = function()
           vim.b.miniindentscope_disable = true

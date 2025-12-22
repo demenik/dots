@@ -10,6 +10,7 @@
     ./todo-comments.nix
     ./debugging.nix
     ./snacks
+    ./leetcode.nix
   ];
 
   plugins = {
