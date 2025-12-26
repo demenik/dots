@@ -12,6 +12,7 @@
 
     plugins = {
       jdtls.enable = true;
+      schemastore.enable = true;
     };
 
     lsp.servers = {
@@ -51,20 +52,11 @@
       taplo.enable = true;
       jsonls = {
         enable = true;
-        config.json = {
-          schemas.__raw = ''require("schemastore").json.schemas()'';
-          validate.enable = true;
-        };
+        config.json.validate.enable = true;
       };
       yamlls = {
         enable = true;
-        config.yaml = {
-          schemaStore = {
-            enable = false;
-            url = "";
-          };
-          schemas.__raw = ''require("schemastore").yaml.schemas()'';
-        };
+        config.yaml.schemaStore.enable = false;
       };
 
       texlab.enable = true;
