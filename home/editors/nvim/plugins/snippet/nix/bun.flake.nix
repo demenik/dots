@@ -12,9 +12,11 @@
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
     in {
-      buildImports = with pkgs; [
-        bun
-        <0>
-      ];
+      devShells.default = pkgs.mkShell {
+        buildImports = with pkgs; [
+          bun
+          <0>
+        ];
+      };
     });
 }
