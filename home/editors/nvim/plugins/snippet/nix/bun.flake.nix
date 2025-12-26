@@ -13,7 +13,7 @@
       pkgs = import nixpkgs {inherit system;};
     in {
       devShells.default = pkgs.mkShell {
-        buildImports = with pkgs; [
+        packages = with pkgs; [
           bun
           <0>
         ];
