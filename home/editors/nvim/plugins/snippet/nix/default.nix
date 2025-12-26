@@ -53,4 +53,8 @@
     template = builtins.readFile ./shell.flake.nix;
     placeholders."0" = null;
   };
+  flakebun = {
+    template = builtins.readFile ./bun.flake.nix;
+    placeholders."0" = null;
+  };
 }
