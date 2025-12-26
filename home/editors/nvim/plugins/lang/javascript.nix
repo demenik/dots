@@ -3,7 +3,7 @@
     template-string-nvim
   ];
 
-  extraConfig =
+  extraConfigLua =
     # lua
     ''
       require("template-string").setup {
