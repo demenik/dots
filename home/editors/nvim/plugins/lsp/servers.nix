@@ -1,7 +1,5 @@
 {pkgs, ...}: {
   programs.nixvim = {
-    extraPlugins = with pkgs.vimPlugins; [SchemaStore-nvim];
-
     extraPackages = let
       kotlin-lsp = pkgs.callPackage ./kotlin-lsp.nix {};
     in
