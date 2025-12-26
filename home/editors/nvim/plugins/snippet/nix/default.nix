@@ -49,4 +49,8 @@
       "0" = null;
     };
   };
+  flakeshell = {
+    template = builtins.readFile ./shell.flake.nix;
+    placeholders."0" = null;
+  };
 }
