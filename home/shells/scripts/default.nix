@@ -10,7 +10,7 @@
       ''
         cd "${dotsDir}" || exit
         git add --intent-to-add . 2>/dev/null
-        sudo nixos-rebuild $@ switch --flake .
+        nixos-rebuild $@ switch --flake . --sudo
         cd - >/dev/null || exit
       ''
     )

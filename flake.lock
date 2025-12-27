@@ -673,15 +673,15 @@
       "locked": {
         "lastModified": 1765915198,
         "narHash": "sha256-+MPEwY6bQuD4RgYsmHg6sYG5e0fIfnTxAZq6SEiG/4M=",
-        "owner": "demenik",
-        "repo": "statusbar",
+        "ref": "refs/heads/main",
         "rev": "307286232bb9b321ac88818733dbb84874abb101",
-        "type": "github"
+        "revCount": 20,
+        "type": "git",
+        "url": "ssh://git@gitea.demenik.dev/demenik/statusbar.git"
       },
       "original": {
-        "owner": "demenik",
-        "repo": "statusbar",
-        "type": "github"
+        "type": "git",
+        "url": "ssh://git@gitea.demenik.dev/demenik/statusbar.git"
       }
     },
     "stylix": {
