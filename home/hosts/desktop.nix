@@ -7,10 +7,14 @@
     workspace =
       [
         "2, monitor:DP-1, default:true, persistent:true"
+        "3, monitor:DP-1"
         "1, monitor:HDMI-A-1, default:true, persistent:true"
 
         "m[DP-1], layoutopt:orientation:top"
       ]
-      ++ map (i: "${builtins.toString i}, monitor:HDMI-A-1") [3 4 5 6 7 8 9 10];
+      ++ map (i: "${builtins.toString i}, monitor:HDMI-A-1") [4 5 6 7 8 9 10];
+    windowrulev2 = [
+      "workspace 3, class:^(vesktop)$"
+    ];
   };
 }
