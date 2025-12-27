@@ -111,7 +111,7 @@
         hostName = "desktop";
         stateVersion = "25.11";
         nixOsModules = [
-          ./hosts/desktop.nix
+          ./hosts/desktop
           ./nixos/full.nix
 
           statusbar.nixosModules.default
