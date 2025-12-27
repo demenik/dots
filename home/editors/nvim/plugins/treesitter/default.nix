@@ -2,7 +2,7 @@
   plugins = {
     treesitter = {
       enable = true;
-      folding = false;
+      folding.enable = false;
       nixGrammars = true;
       nixvimInjections = true;
       settings = import ./settings.nix;
