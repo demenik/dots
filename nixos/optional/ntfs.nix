@@ -1,0 +1,27 @@
+{
+  boot.supportedFilesystems = ["ntfs"];
+  services = {
+    gvfs.enable = true;
+    udisks2.enable = true;
+  };
+
+  security.polkit.extraConfig =
+    # js
+    ''
+      polkit.addRule(function (action, subject) {
+        var YES = polkit.Result.YES;
+        var permission = {
+          "org.freedesktop.udisks2.filesystem-mount": YES,
+          "org.freedesktop.udisks2.filesystem-mount-system": YES,
+          "org.freedesktop.udisks2.encrypted-unlock": YES,
+          "org.freedesktop.udisks2.encrypted-unlock-system": YES,
+          "org.freedesktop.udisks2.eject-media": YES,
+          "org.freedesktop.udisks2.power-off-drive": YES,
+        };
+
+        if (subject.isInGroup("wheel")) {
+          return permission[action.id];
+        }
+      });
+    '';
+}

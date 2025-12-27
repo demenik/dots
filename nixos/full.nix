@@ -19,6 +19,7 @@
     ./optional/docker.nix
     ./optional/direnv.nix
     ./optional/wireshark.nix
+    ./optional/ntfs.nix
   ];
 
   programs.zsh.enable = true;
