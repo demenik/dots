@@ -10,9 +10,9 @@
     };
     gc = {
       automatic = true;
-      options = "--delete-older-than 2d";
+      dates = "weekly";
+      options = "--delete-older-than 7d";
     };
-    optimise.automatic = true;
   };
 
   nixpkgs.config.allowUnfree = true;
