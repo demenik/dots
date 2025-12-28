@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  user,
+  pkgs,
+  ...
+}: {
   programs.steam = {
     enable = true;
 
@@ -7,6 +11,13 @@
     localNetworkGameTransfers.openFirewall = true;
 
     extest.enable = true;
+  };
+
+  home-manager.users.${user} = {
+    wayland.windowManager.hyprland.settings.windowrulev2 = map (rule: "${rule}, class:^(steam)$, title:^(Sign in to Steam)$") [
+      "float"
+      "center"
+    ];
   };
 
   environment.systemPackages = with pkgs; [
