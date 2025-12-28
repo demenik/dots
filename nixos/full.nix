@@ -14,7 +14,7 @@
     ./optional/bluetooth.nix
     ./optional/fprint.nix
     ./optional/vm.nix
-    ./optional/gaming.nix
+    ./optional/gaming
     ./optional/adb.nix
     ./optional/docker.nix
     ./optional/direnv.nix
