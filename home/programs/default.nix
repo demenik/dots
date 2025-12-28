@@ -6,7 +6,7 @@
   imports = [
     ./cli
 
-    ./firefox.nix
+    ./browsers/firefox.nix
     ./qbittorrent.nix
 
     ./nmgui.nix
