@@ -12,7 +12,7 @@ final_space = true
   newline = true
 
   [[blocks.segments]]
-    template = '{{ if .Root }}root{{ else }}{{ .UserName }}{{ end }}@{{ .HostName }} '
+    template = '{{ .UserName }}@{{ .HostName }} '
     foreground = '#cba6f7'
     type = 'session'
     style = 'plain'
