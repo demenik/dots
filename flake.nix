@@ -47,6 +47,10 @@
       url = "github:Rishabh5321/thorium_flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wallpaperengine-gui = {
+      url = "github:MikiDevLog/wallpaperengine-gui";
+      flake = false;
+    };
   };
 
   outputs = {

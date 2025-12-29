@@ -618,7 +618,8 @@
         "spicetify-nix": "spicetify-nix",
         "statusbar": "statusbar",
         "stylix": "stylix",
-        "thorium": "thorium"
+        "thorium": "thorium",
+        "wallpaperengine-gui": "wallpaperengine-gui"
       }
     },
     "rust-overlay": {
@@ -907,6 +908,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "wallpaperengine-gui": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759600913,
+        "narHash": "sha256-A2+8zKHns1UKQ5r0XXp0AaNAB+eAnEe8GfKpiARrqVY=",
+        "owner": "MikiDevLog",
+        "repo": "wallpaperengine-gui",
+        "rev": "0471c9d9abf4286d2a6abb1703d8598b7520f6a2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MikiDevLog",
+        "repo": "wallpaperengine-gui",
         "type": "github"
       }
     }
