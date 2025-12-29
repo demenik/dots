@@ -617,7 +617,8 @@
         "nixvim": "nixvim",
         "spicetify-nix": "spicetify-nix",
         "statusbar": "statusbar",
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "thorium": "thorium"
       }
     },
     "rust-overlay": {
@@ -805,6 +806,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "thorium": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766688698,
+        "narHash": "sha256-bN+D0Pm4XNWyspg44Md28xLCwqEiXWO9zvI7W5km02k=",
+        "owner": "Rishabh5321",
+        "repo": "thorium_flake",
+        "rev": "0b503d082088d7a450c3eb4e45e703a43ee758e2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Rishabh5321",
+        "repo": "thorium_flake",
         "type": "github"
       }
     },
