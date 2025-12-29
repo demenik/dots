@@ -23,6 +23,8 @@
     ./office.nix
 
     ./vesktop.nix
+
+    ./wallpaper-engine.nix
   ];
 
   home.packages = with pkgs; [

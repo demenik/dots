@@ -9,7 +9,6 @@
   ];
 
   home.packages = with pkgs; [
-    hyprland
     hyprshade
 
     xdg-desktop-portal-hyprland
