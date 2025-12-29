@@ -19,6 +19,13 @@
     enableCompletion = true;
     syntaxHighlighting.enable = true;
 
+    plugins = [
+      {
+        name = "nix-zsh-completions";
+        src = pkgs.nix-zsh-completions;
+      }
+    ];
+
     initContent = ''
       bindkey -e
 
