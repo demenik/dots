@@ -7,6 +7,7 @@
     ./cli
 
     ./browsers/firefox.nix
+    ./browsers/thorium.nix
     ./qbittorrent.nix
 
     ./nmgui.nix
