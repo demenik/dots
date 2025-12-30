@@ -3,6 +3,6 @@
     enable = true;
     enableZshIntegration = true;
 
-    settings = builtins.fromTOML (builtins.readFile ./theme.omp.toml);
+    settings = fromTOML (builtins.readFile ./theme.omp.toml);
   };
 }
