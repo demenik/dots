@@ -19,6 +19,7 @@
     ./optional/direnv.nix
     ./optional/wireshark.nix
     ./optional/ntfs.nix
+    ./optional/wine.nix
   ];
 
   programs.zsh.enable = true;
