@@ -36,5 +36,6 @@
     };
   in [
     wallpaperengine-gui
+    pkgs.linux-wallpaperengine
   ];
 }
