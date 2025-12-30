@@ -19,15 +19,27 @@
     '';
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXROOT";
-    fsType = "ext4";
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/NIXROOT";
+      fsType = "ext4";
+    };
+    "/boot" = {
+      device = "/dev/disk/by-label/NIXBOOT";
+      fsType = "vfat";
+      options = ["fmask=0077" "dmask=0077"];
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXBOOT";
-    fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    "/mnt/M.2" = {
+      device = "/dev/disk/by-label/M.2";
+      fsType = "ntfs3";
+      options = ["rw" "uid=1000" "gid=100" "nofail" "x-systemd.automount"];
+    };
+    "/mnt/SSD" = {
+      device = "/dev/disk/by-label/SSD";
+      fsType = "ntfs3";
+      options = ["rw" "uid=1000" "gid=100" "nofail" "x-systemd.automount"];
+    };
   };
 
   swapDevices = [];
