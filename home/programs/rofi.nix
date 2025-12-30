@@ -1,7 +1,35 @@
-{config, ...}: {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}: {
   wayland.windowManager.hyprland.settings = {
-    bind = [
-      "SUPER, Space, exec, rofi -show drun -show-icons"
+    bind = let
+      hyprctl = lib.getExe' pkgs.hyprland "hyprctl";
+      jq = lib.getExe pkgs.jq;
+
+      rofi-toggle =
+        pkgs.writeShellScriptBin "rofi-toggle"
+        # bash
+        ''
+          if pgrep -x "rofi" >/dev/null; then
+            pkill -x rofi
+            exit 0
+          fi
+
+          current_ws=$(${hyprctl} activeworkspace -j | ${jq} '.id')
+
+          ${hyprctl} dispatch workspace 1
+          rofi -show drun -show-icons &
+
+          sleep 0.1
+          if [ "$current_ws" != "1" ]; then
+            ${hyprctl} dispatch workspace "$current_ws"
+          fi
+        '';
+    in [
+      "SUPER, Space, exec, ${lib.getExe rofi-toggle}"
     ];
 
     layerrule = map (rule: "${rule}, rofi") [
