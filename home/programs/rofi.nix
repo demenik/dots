@@ -4,14 +4,11 @@
       "SUPER, Space, exec, rofi -show drun -show-icons"
     ];
 
-    windowrulev2 = map (rule: "${rule}, class:^(Rofi)$") [
-      "float"
+    layerrule = map (rule: "${rule}, rofi") [
       "dimaround"
-      "pin"
-      "stayfocused"
-      "persistentsize"
-      "decorate 0"
-      "center 1"
+      "blur"
+      "ignorezero"
+      "animation popin 80%"
     ];
   };
 
