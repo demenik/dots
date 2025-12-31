@@ -5,6 +5,7 @@
         "steam_app_\d+"
         "lutris"
         "osu!"
+        "Minecraft.*"
       ];
     in
       map (rule: "${rule}, class:^(${classes})$") [
