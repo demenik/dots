@@ -4,6 +4,7 @@
       classes = builtins.concatStringsSep "|" [
         "steam_app_\d+"
         "lutris"
+        "osu!"
       ];
     in
       map (rule: "${rule}, class:^(${classes})$") [
