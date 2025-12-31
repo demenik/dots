@@ -41,7 +41,5 @@
     openvpn3
 
     libreoffice
-
-    prismlauncher
   ];
 }
