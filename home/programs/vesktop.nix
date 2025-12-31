@@ -16,6 +16,7 @@ in {
 
     settings = {
       discordBranch = "stable";
+      tray = false;
       minimizeToTray = false;
       arRPC = true;
       splashColor = "#${colors.base0E}";
