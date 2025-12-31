@@ -75,17 +75,6 @@
         "_" = ["trim_whitespace" "trim_newlines"];
       };
 
-      formatters = {
-        prettier = {
-          command = "prettier";
-          prepend_args = ["-w"];
-        };
-        prettierd = {
-          command = "prettierd";
-          prepend_args = ["-w"];
-        };
-      };
-
       format_on_save =
         # lua
         ''
