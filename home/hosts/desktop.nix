@@ -1,4 +1,8 @@
 {
+  imports = [
+    ../programs/games
+  ];
+
   wayland.windowManager.hyprland.settings = {
     monitor = [
       "HDMI-A-1, 1920x1080@143.98, 0x0, 1"
