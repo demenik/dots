@@ -13,6 +13,7 @@
         "immediate"
         "idleinhibit focus"
         "fullscreen"
+        "workspace 1"
       ];
   };
 }
