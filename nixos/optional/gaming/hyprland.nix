@@ -6,6 +6,7 @@
         "lutris"
         "osu!"
         "Minecraft.*"
+        "PMKM2"
       ];
     in
       map (rule: "${rule}, class:^(${classes})$") [
