@@ -1,62 +1,62 @@
-{
+pkgs: {
   indent.enable = true;
   highlight.enable = true;
 
-  ensureInstalled = [
-    "bash"
-    "lua"
-    "nix"
+  grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+    bash
+    lua
+    nix
 
-    "c"
-    "cpp"
-    "make"
-    "cmake"
+    c
+    cpp
+    make
+    cmake
 
-    "rust"
+    rust
 
-    "dockerfile"
+    dockerfile
 
-    "go"
-    "gomod"
-    "gosum"
+    go
+    gomod
+    gosum
 
-    "css"
-    "html"
-    "templ"
+    css
+    html
+    templ
 
-    "tsx"
-    "astro"
-    "javascript"
-    "typescript"
+    tsx
+    astro
+    javascript
+    typescript
 
-    "xml"
-    "json"
-    "yaml"
-    "toml"
+    xml
+    json
+    yaml
+    toml
 
-    "sql"
-    "http"
-    "graphql"
+    sql
+    http
+    graphql
 
-    "python"
-    "requirements"
+    python
+    requirements
 
-    "regex"
-    "comment"
+    regex
+    comment
 
-    "latex"
-    "markdown"
-    "markdown_inline"
+    latex
+    markdown
+    markdown_inline
 
-    "diff"
-    "gitignore"
-    "git_config"
-    "gitattributes"
+    diff
+    gitignore
+    git_config
+    gitattributes
 
-    "dart"
-    "java"
+    dart
+    java
 
-    "hyprlang"
+    hyprlang
   ];
 
   refactor = {
