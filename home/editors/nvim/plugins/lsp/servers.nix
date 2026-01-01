@@ -9,7 +9,6 @@
       ];
 
     plugins = {
-      jdtls.enable = true;
       schemastore.enable = true;
     };
 
@@ -78,7 +77,6 @@
       solargraph.enable = true;
       gdscript.enable = true;
 
-      jdtls.enable = true;
       kotlin_lsp.enable = true;
 
       # also see lang/rust.nix

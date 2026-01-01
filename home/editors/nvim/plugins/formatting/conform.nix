@@ -16,7 +16,6 @@
 
     go
     gotools
-    google-java-format
     ktlint
     gdtoolkit_4
 
@@ -60,7 +59,7 @@
         python = ["black"];
 
         go = ["goimports" "gofmt"];
-        java = ["google-java-format"];
+        java = []; # use jdtls
         kotlin = ["ktlint"];
         gdscript = ["gdformat"];
 
