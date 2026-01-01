@@ -9,6 +9,7 @@
     ./browsers/firefox.nix
     ./browsers/thorium.nix
     ./qbittorrent.nix
+    ./nautilus.nix
 
     ./nmgui.nix
     ./overskride.nix
@@ -33,8 +34,6 @@
     gimp
     aseprite
 
-    nautilus
-    nautilus-open-any-terminal
     rquickshare
     flameshot
 
