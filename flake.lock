@@ -425,11 +425,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767104570,
-        "narHash": "sha256-GKgwu5//R+cLdKysZjGqvUEEOGXXLdt93sNXeb2M/Lk=",
+        "lastModified": 1767365803,
+        "narHash": "sha256-5k07cAPVcMWx2P0zSfBQ9KqpMA6La1rz4dy/pl9GzDw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e4e78a2cbeaddd07ab7238971b16468cc1d14daf",
+        "rev": "d4e4d5cfa30455f50d034f24aa9bc0ab05388fcd",
         "type": "github"
       },
       "original": {
@@ -541,11 +541,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1767185101,
-        "narHash": "sha256-gyNczVfQMoi+OQghxBik6wx8XLsCelok9SMl1bMLUoc=",
+        "lastModified": 1767361654,
+        "narHash": "sha256-EQeicMekc0p+A8HBIAOdnyeAijqJKQYuj1CfTW4Wd+k=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "df9d3637e80b98c5b937fc73a465d0eea2c3aa88",
+        "rev": "d61584cc4cac9af1ba74ad235992df575391276d",
         "type": "github"
       },
       "original": {
@@ -673,11 +673,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767196688,
-        "narHash": "sha256-S/iaVQlZ+wGSxWSgrbXx147xLVTm+vJNYiEq9Xd91tM=",
+        "lastModified": 1767375605,
+        "narHash": "sha256-WV6nZsDLbGCD9hlWlA3XePykcjj/1zeIZ9ZN6btbW6o=",
         "ref": "refs/heads/main",
-        "rev": "144263061f54cbf9a6955425482a4240d565ed6a",
-        "revCount": 32,
+        "rev": "92df1eb20188a4f28f905f0594f200c57cb7127b",
+        "revCount": 36,
         "type": "git",
         "url": "ssh://git@gitea.demenik.dev/demenik/statusbar.git"
       },
@@ -817,11 +817,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766976579,
-        "narHash": "sha256-nyhoW1HMHLjz1YfVFRwIQG/KIs8s36kCAYe3ZC7Isjg=",
+        "lastModified": 1767273296,
+        "narHash": "sha256-Vn1qncs2hkbhPZInBQO7xE/UQTGRDLeHEfAfu2Hr8l8=",
         "owner": "Rishabh5321",
         "repo": "thorium_flake",
-        "rev": "666a25e5623866969fff354b2e3313ca768208fe",
+        "rev": "d718e426b23fd5c40171d5afda8d9c1a058190d1",
         "type": "github"
       },
       "original": {
@@ -914,11 +914,11 @@
     "wallpaperengine-gui": {
       "flake": false,
       "locked": {
-        "lastModified": 1759600913,
-        "narHash": "sha256-A2+8zKHns1UKQ5r0XXp0AaNAB+eAnEe8GfKpiARrqVY=",
+        "lastModified": 1767373234,
+        "narHash": "sha256-2COh+GuCuAwH7s3YXqosrv/MmGl8HEsiuLkuVicu8uA=",
         "owner": "MikiDevLog",
         "repo": "wallpaperengine-gui",
-        "rev": "0471c9d9abf4286d2a6abb1703d8598b7520f6a2",
+        "rev": "739b76acdfcf189c3db4cabdecd1a98e2e4d78e2",
         "type": "github"
       },
       "original": {
