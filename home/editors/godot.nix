@@ -9,10 +9,6 @@
       godot
     ];
 
-    shellAliases = {
-      godot-nvim = "nvim --listen ./.godothost";
-    };
-
     activation.configureGodot = let
       configDir = "${config.xdg.configHome}/godot";
       # This script requires $TERMINAL to be set to your default terminal
@@ -28,7 +24,7 @@
           if [ -S "$SERVER" ]; then
             $(which nvim) --server "$SERVER" --remote-send ":e $FILE | call cursor($LINE,$COL)<CR>"
           else
-            nohup "$(which $TERMINAL)" -e $(which nvim) --listen "$SERVER" "$FILE" "+call cursor($LINE,$COL)" >/dev/null 2>&1 &
+            nohup "$(which "$TERMINAL")" -e "$(which nvim)" --listen "$SERVER" "$FILE" "+call cursor($LINE,$COL)" >/dev/null 2>&1 &
             exit 0
           fi
         '';
@@ -42,8 +38,8 @@
         if [ -z "$SETTINGS_FILE" ]; then
           SETTINGS_FILE="${configDir}/editor_settings-4.5.tres"
           echo "No existing Godot settings file found. Creating at $SETTINGS_FILE"
-          echo -e '[gd_resource type="EditorSettings" format=3]\n' > "$SETTINGS_FILE"
-          echo '[resource]' >> "$SETTINGS_FILE"
+          echo -e '[gd_resource type="EditorSettings" format=3]\n' >"$SETTINGS_FILE"
+          echo '[resource]' >>"$SETTINGS_FILE"
         else
           echo "Found Godot settings file at $SETTINGS_FILE"
         fi
@@ -53,10 +49,10 @@
           local value="$2"
 
           if grep -q "^$key =" "$SETTINGS_FILE"; then
-            sed "s#^$key =.*#$key = $value#" "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+            sed "s#^$key =.*#$key = $value#" "$SETTINGS_FILE" >"$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
           else
             if grep -q '\[resource\]' "$SETTINGS_FILE"; then
-              echo "$key = $value" >> "$SETTINGS_FILE"
+              echo "$key = $value" >>"$SETTINGS_FILE"
             fi
           fi
         }
