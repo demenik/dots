@@ -1,7 +1,7 @@
 {user, ...}: {
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings.windowrulev2 = let
-      classes = builtins.concatStringsSep "|" [
+      gameClasses = [
         "steam_app_\d+"
         "lutris"
         "osu!"
@@ -9,7 +9,8 @@
         "PMKM2"
       ];
     in
-      map (rule: "${rule}, class:^(${classes})$") [
+      map (class: "tag:game, class:^(${class})$") gameClasses
+      ++ map (rule: "${rule}, tag:game$") [
         "immediate"
         "idleinhibit focus"
         "fullscreen"
