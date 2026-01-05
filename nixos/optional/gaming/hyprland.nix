@@ -10,7 +10,7 @@
       ];
     in
       map (class: "tag:game, class:^(${class})$") gameClasses
-      ++ map (rule: "${rule}, tag:game$") [
+      ++ map (rule: "${rule}, tag:game") [
         "immediate"
         "idleinhibit focus"
         "fullscreen"
