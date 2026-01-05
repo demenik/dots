@@ -11,7 +11,7 @@
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
-      jdk = pkgs.jdk <0>;
+      jdk = pkgs.jdk<0>;
     in {
       devShells.default = pkgs.mkShell {
         buildInputs = [pkgs.gradle jdk];
