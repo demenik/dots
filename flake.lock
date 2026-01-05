@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764289441,
-        "narHash": "sha256-ak+lgFiYE5PHByN1/BRkO5JP498hno6Ix24C1Qf/vec=",
+        "lastModified": 1762046771,
+        "narHash": "sha256-baVZvZZN0t9F3fvVhxmQA1/oNykXGd/YhlF19JqCLc8=",
         "owner": "aylur",
         "repo": "ags",
-        "rev": "e169694390548dfd38ff40f1ef2163d6c3ffe3ea",
+        "rev": "fe13af2daec716226ccdb3158606a8577853e0ff",
         "type": "github"
       },
       "original": {
@@ -54,11 +54,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764173295,
-        "narHash": "sha256-Jh4VtPcK2Ov+RTcV9FtyQRsxiJmXFQGfqX6jjM7/mgc=",
+        "lastModified": 1762012522,
+        "narHash": "sha256-ncEN4OVFM5M9VFc4oR3gOI5K8r99GcYxtU+Cf4Z8pbs=",
         "owner": "aylur",
         "repo": "astal",
-        "rev": "7d1fac8a4b2a14954843a978d2ddde86168c75ef",
+        "rev": "671d4229c798834190a50fb8b8d8addd19b529e9",
         "type": "github"
       },
       "original": {
@@ -673,17 +673,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1767375605,
-        "narHash": "sha256-WV6nZsDLbGCD9hlWlA3XePykcjj/1zeIZ9ZN6btbW6o=",
-        "ref": "refs/heads/main",
-        "rev": "92df1eb20188a4f28f905f0594f200c57cb7127b",
-        "revCount": 36,
-        "type": "git",
-        "url": "ssh://git@gitea.demenik.dev/demenik/statusbar.git"
+        "lastModified": 1765915198,
+        "narHash": "sha256-+MPEwY6bQuD4RgYsmHg6sYG5e0fIfnTxAZq6SEiG/4M=",
+        "owner": "demenik",
+        "repo": "statusbar",
+        "rev": "307286232bb9b321ac88818733dbb84874abb101",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@gitea.demenik.dev/demenik/statusbar.git"
+        "owner": "demenik",
+        "repo": "statusbar",
+        "type": "github"
       }
     },
     "stylix": {

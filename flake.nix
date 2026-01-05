@@ -36,7 +36,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     statusbar = {
-      url = "git+ssh://git@gitea.demenik.dev/demenik/statusbar.git";
+      url = "github:demenik/statusbar";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
