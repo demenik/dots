@@ -14,6 +14,7 @@
         "idleinhibit focus"
         "fullscreen"
         "workspace 1"
+        "center"
       ];
   };
 }
