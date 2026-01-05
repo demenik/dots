@@ -9,7 +9,7 @@
         "PMKM2"
       ];
     in
-      map (class: "tag:game, class:^(${class})$") gameClasses
+      map (class: "tag +game, class:^(${class})$") gameClasses
       ++ map (rule: "${rule}, tag:game") [
         "immediate"
         "idleinhibit focus"
