@@ -4,12 +4,12 @@
     env = ["BROWSER,firefox"];
 
     windowrulev2 =
-      [
-        "workspace 2, class:^(firefox)$"
-        "fullscreenstate -1 2, class:^(firefox)$"
-        "float, title:^(Firefox - Sharing Indicator)$"
-        "suppressevent maximize, class:^(firefox)$"
+      map (rule: "${rule}, class:^(firefox)$") [
+        "workspace 2"
+        "fullscreenstate -1 2"
+        "suppressevent maximize"
       ]
+      ++ ["float, title:^(Firefox - Sharing Indicator)$"]
       ++ map (rule: "${rule}, class:^(firefox)$, title:^(Picture-in-Picture)$") [
         "float"
         "keepaspectratio"
@@ -19,7 +19,7 @@
   };
 
   xdg = {
-    mimeApps.defaultApplications = builtins.listToAttrs (builtins.map (key: {
+    mimeApps.defaultApplications = builtins.listToAttrs (map (key: {
         name = key;
         value = ["firefox.desktop"];
       }) [
