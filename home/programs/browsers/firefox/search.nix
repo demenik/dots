@@ -6,8 +6,9 @@
     order = [
       "ud"
 
-      "no"
       "np"
+      "nur"
+      "no"
       "hm"
 
       "nv"
@@ -51,6 +52,12 @@
           channel = "unstable";
           query = "{searchTerms}";
         };
+      };
+      nur = mkEngine {
+        icon = "https://nur.nix-community.org/images/favicon.png";
+        definedAliases = ["@nur"];
+        template = "https://nur.nix-community.org";
+        params.query = "{searchTerms}";
       };
       no = mkEngine {
         icon = "https://search.nixos.org/images/nix-logo.png";
