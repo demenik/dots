@@ -22,6 +22,7 @@
     ./thunderbird.nix
     ./obsidian.nix
     ./office.nix
+    ./anki.nix
 
     ./vesktop.nix
 
