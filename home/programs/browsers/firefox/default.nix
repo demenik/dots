@@ -1,6 +1,7 @@
 {
   imports = [
     ./search.nix
+    ./extensions.nix
   ];
 
   home.sessionVariables."BROWSER" = "firefox";
