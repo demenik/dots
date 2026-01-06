@@ -94,7 +94,7 @@
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
-                  # useGlobalPkgs = true;
+                  useGlobalPkgs = true;
                   backupFileExtension = "bak";
 
                   users."${user}".imports = hmModules;
