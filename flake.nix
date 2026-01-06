@@ -169,7 +169,7 @@
         modules ? [],
       }:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {inherit system;};
+          pkgs = nixpkgs.legacyPackages.${system};
           modules =
             [
               {
