@@ -5,6 +5,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur = {
+      url = "github:nix-community/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +59,7 @@
 
   outputs = {
     nixpkgs,
+    nur,
     home-manager,
     agenix,
     nixos-wsl,
@@ -79,7 +84,10 @@
           modules =
             [
               {
-                nixpkgs.hostPlatform = system;
+                nixpkgs = {
+                  hostPlatform = system;
+                  overlays = [nur.overlays.default];
+                };
                 networking.hostName = hostName;
               }
 
@@ -162,7 +170,16 @@
       }:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {inherit system;};
-          inherit modules;
+          modules =
+            [
+              {
+                nixpkgs = {
+                  hostPlatform = system;
+                  overlays = [nur.overlays.default];
+                };
+              }
+            ]
+            ++ modules;
           extraSpecialArgs = {inherit inputs stateVersion user dotsDir;};
         };
     in {
