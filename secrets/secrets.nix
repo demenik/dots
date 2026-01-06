@@ -5,6 +5,7 @@ let
     "obsidian-personal"
     "obsidian-uni-notes"
     "nextcloud"
+    "anki"
   ];
 in
   builtins.listToAttrs (map (file: {

@@ -4,14 +4,14 @@
   user,
   ...
 }: let
-  ageFiles = builtins.attrNames (import ./secrets.nix);
-  ageNames =
-    map (
-      name:
-        with builtins;
-          substring 0 (stringLength name - 4) name
-    )
-    ageFiles;
+  mkSecret = name: opts: {
+    inherit name;
+    value =
+      opts
+      // {
+        file = ./${name}.age;
+      };
+  };
 in {
   home.packages = with inputs; [
     agenix.packages."${pkgs.stdenv.hostPlatform.system}".default
@@ -20,10 +20,13 @@ in {
   age = {
     identityPaths = ["/home/${user}/.ssh/id_ed25519"];
 
-    secrets = builtins.listToAttrs (map (name: {
-        inherit name;
-        value.file = ./${name}.age;
+    secrets = builtins.listToAttrs [
+      (mkSecret "obsidian-personal" {})
+      (mkSecret "obsidian-uni-notes" {})
+      (mkSecret "nextcloud" {})
+      (mkSecret "anki" {
+        path = "/run/user/1000/agenix/anki";
       })
-      ageNames);
+    ];
   };
 }
