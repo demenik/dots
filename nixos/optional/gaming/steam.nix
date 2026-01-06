@@ -1,12 +1,25 @@
-{user, ...}: {
+{
+  user,
+  pkgs,
+  ...
+}: {
   programs.steam = {
     enable = true;
+    package = pkgs.steam.override {
+      extraEnv = {
+        MANGOHUD = true;
+      };
+    };
 
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
 
     extest.enable = true;
+
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
   };
 
   home-manager.users.${user} = {
