@@ -51,6 +51,24 @@ in {
             --replace 'cwd + "/user_files/data"' 'os.path.expanduser("~/.local/share/Anki2/kanjigrid_user_files/data")'
         '';
       }))
+
+      (pkgs.anki-utils.buildAnkiAddon (finalAttrs: {
+        pname = "imageresizer";
+        version = "1.1";
+        src = pkgs.fetchFromGitHub {
+          owner = "mankinence";
+          repo = "ImageResizer";
+          rev = "7f0b9fe3ad518d187ca9c2bc3205c6e939785330";
+          sparseCheckout = ["2.1"];
+          hash = "sha256-HuQWB0T41PEJ5PwVE5BTJL61dcDhwnp9VoV5A8il1dM=";
+        };
+        sourceRoot = "${finalAttrs.src.name}/2.1";
+        postPatch = ''
+          substituteInPlace __init__.py \
+            --replace "os.path.join(mw.pm.addonFolder(), addon_id, 'user_files')" "os.path.expanduser('~/.local/share/Anki2/imageresizer_user_files')" \
+            --replace "os.path.join(addonDir, addon_id, 'user_files')" "os.path.expanduser('~/.local/share/Anki2/imageresizer_user_files')"
+        '';
+      }))
     ];
   };
 }
