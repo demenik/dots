@@ -13,8 +13,9 @@
 
       "nv"
       "lsp"
-
       "crates"
+
+      "proton"
     ];
 
     engines = let
@@ -91,7 +92,6 @@
         definedAliases = ["@lsp"];
         template = "https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#{searchTerms}";
       };
-
       crates = mkEngine {
         icon = "https://crates.io/assets/cargo.png";
         definedAliases = ["@crates"];
@@ -99,6 +99,13 @@
         params = {
           q = "{searchTerms}";
         };
+      };
+
+      proton = mkEngine {
+        icon = "https://head.protondb.pages.dev/sites/protondb/images/favicon.ico";
+        definedAliases = ["@proton"];
+        template = "https://www.protondb.com/search";
+        params.q = "{searchTerms}";
       };
     };
   };
