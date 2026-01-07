@@ -30,10 +30,10 @@
       options = ["fmask=0077" "dmask=0077"];
     };
 
-    "/mnt/M.2" = {
-      device = "/dev/disk/by-label/M.2";
+    "/mnt/WINSWAP" = {
+      device = "/dev/disk/by-label/WINSWAP";
       fsType = "ntfs3";
-      options = ["rw" "uid=1000" "gid=100" "nofail" "user" "x-systemd.automount" "x-gvfs-show"];
+      options = ["ro" "uid=1000" "gid=100" "nofail" "user" "x-systemd.automount" "x-gvfs-show"];
     };
     "/mnt/SSD" = {
       device = "/dev/disk/by-label/SSD";
