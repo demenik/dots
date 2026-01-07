@@ -8,4 +8,6 @@
   environment.systemPackages = with pkgs; [
     lutris
   ];
+
+  hardware.xpadneo.enable = true;
 }
