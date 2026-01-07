@@ -41,7 +41,7 @@
       ud = mkEngine {
         icon = "https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico";
         template = "https://unduck.demenik.dev";
-        params = {q = "{searchTerms}";};
+        params.q = "{searchTerms}";
       };
 
       np = mkEngine {
@@ -83,9 +83,7 @@
         icon = "https://raw.githubusercontent.com/nix-community/nixvim/main/assets/nixvim_logo.svg";
         definedAliases = ["@nv"];
         template = "https://nix-community.github.io/nixvim/";
-        params = {
-          search = "{searchTerms}";
-        };
+        params.search = "{searchTerms}";
       };
       lsp = mkEngine {
         icon = "https://github.com/neovim.png";
@@ -96,9 +94,7 @@
         icon = "https://crates.io/assets/cargo.png";
         definedAliases = ["@crates"];
         template = "https://crates.io/search";
-        params = {
-          q = "{searchTerms}";
-        };
+        params.q = "{searchTerms}";
       };
 
       proton = mkEngine {
