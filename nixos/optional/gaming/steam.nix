@@ -22,6 +22,8 @@
     ];
   };
 
+  hardware.steam-hardware.enable = true;
+
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings.windowrulev2 =
       [
