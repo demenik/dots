@@ -65,7 +65,10 @@
     };
   };
 
-  services.hypridle = import ./hypridle.nix;
+  services = {
+    hypridle = import ./hypridle.nix;
+    hyprpolkitagent.enable = true;
+  };
 
   home.sessionVariables = {
     XDG_SESSION_DESKTOP = "Hyprland";
