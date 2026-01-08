@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }: {
   home.packages = let
@@ -36,6 +37,23 @@
     };
   in [
     wallpaperengine-gui
-    pkgs.linux-wallpaperengine
   ];
+
+  services.linux-wallpaperengine = {
+    enable = true;
+    wallpapers =
+      map (monitor: {
+        inherit monitor;
+        wallpaperId = "1200920610";
+        scaling = "fill";
+      }) [
+        "HDMI-A-1"
+        "DP-1"
+        "eDP-1"
+      ];
+  };
+
+  systemd.user.services.linux-wallpaperengine.Service = {
+    Environment = ["XDG_SESSION_TYPE=wayland"];
+  };
 }
