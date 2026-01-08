@@ -28,4 +28,8 @@
       "file://${home}/Documents"
     ];
   };
+
+  wayland.windowManager.hyprland.settings.bind = [
+    "SUPER, e, exec, nautilus"
+  ];
 }
