@@ -24,14 +24,16 @@
 
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings.windowrulev2 =
-      map (rule: "${rule}, class:^(steam)$, title:^(Sign in to Steam)$") [
+      [
+        "workspace 1, class:^(steam)$"
+      ]
+      ++ map (rule: "${rule}, class:^(steam)$, title:^(Sign in to Steam)$") [
         "float"
         "center"
       ]
       ++ map (rule: "${rule}, class:^(steam)$, title:^(Launching...)$") [
         "float"
         "center"
-        "workspace 1"
         "pin"
       ];
   };
