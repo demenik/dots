@@ -20,6 +20,7 @@
     ./optional/wireshark.nix
     ./optional/ntfs.nix
     ./optional/wine.nix
+    ./optional/blueman.nix
   ];
 
   programs.zsh.enable = true;
