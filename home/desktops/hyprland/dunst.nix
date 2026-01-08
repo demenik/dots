@@ -13,7 +13,8 @@
       global = {
         width = 400;
         offset = "5x5";
-        corner_radius = 4;
+        corner_radius = 8;
+        transparency = 10;
 
         progress_bar_min_width = 380;
         progress_bar_max_width = 380;
@@ -21,7 +22,7 @@
 
         padding = 10;
         horizontal_padding = 10;
-        frame_width = 1;
+        frame_width = 2;
         gap_size = 3;
       };
 
@@ -42,4 +43,8 @@
       };
     };
   };
+
+  wayland.windowManager.hyprland.settings.layerrule = [
+    "animation popin 50%, notifications"
+  ];
 }
