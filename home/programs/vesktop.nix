@@ -3,13 +3,17 @@
 in {
   stylix.targets.vesktop.enable = false;
 
-  wayland.windowManager.hyprland.settings.windowrulev2 = map (rule: "${rule}, class:^(vesktop)$, title:^(Discord Popout)$") [
-    "float"
-    "size 640 360"
-    "keepaspectratio"
-    "pin"
-    "move 100%-w-5 100%-w-5"
-  ];
+  wayland.windowManager.hyprland.settings.windowrulev2 =
+    [
+      "noinitialfocus, class:^(vesktop)$, title:^(vesktop)$"
+    ]
+    ++ map (rule: "${rule}, class:^(vesktop)$, title:^(Discord Popout)$") [
+      "float"
+      "size 640 360"
+      "keepaspectratio"
+      "pin"
+      "move 100%-w-5 100%-w-5"
+    ];
 
   programs.vesktop = {
     enable = true;
