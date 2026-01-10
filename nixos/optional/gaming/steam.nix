@@ -16,11 +16,14 @@
     localNetworkGameTransfers.openFirewall = true;
 
     extest.enable = true;
+    protontricks.enable = true;
 
     extraCompatPackages = with pkgs; [
       proton-ge-bin
     ];
   };
+
+  programs.gamescope.enable = true;
 
   hardware.steam-hardware.enable = true;
 
@@ -36,7 +39,6 @@
       ++ map (rule: "${rule}, class:^(steam)$, title:^(Launching...)$") [
         "float"
         "center"
-        "pin"
       ];
   };
 }
