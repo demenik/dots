@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ../global.nix
     ../wayland.nix
@@ -57,6 +61,12 @@
       };
 
       animation = import ./animations.nix;
+
+      env = let
+        inherit (config.home.sessionVariables) TERMINAL;
+      in [
+        ''TERMINAL,"${TERMINAL}"''
+      ];
     };
   };
 
