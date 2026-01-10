@@ -3,6 +3,7 @@
     wayland.windowManager.hyprland.settings.windowrulev2 = let
       gameClasses = [
         "steam_app_\\d+"
+        "gamescope"
         "lutris"
         "osu!"
         "Minecraft.*"
