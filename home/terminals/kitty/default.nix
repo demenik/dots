@@ -18,5 +18,4 @@
     TERMINAL = "kitty";
     TERMINAL_CLASS = "kitty";
   };
-  wayland.windowManager.hyprland.settings.env = ["TERMINAL,kitty"];
 }
