@@ -14,6 +14,9 @@
     shellIntegration.enableZshIntegration = true;
   };
 
-  home.sessionVariables."TERMINAL" = "kitty";
+  home.sessionVariables = {
+    TERMINAL = "kitty";
+    TERMINAL_CLASS = "kitty";
+  };
   wayland.windowManager.hyprland.settings.env = ["TERMINAL,kitty"];
 }

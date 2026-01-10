@@ -6,6 +6,7 @@
     ./binds
     ./hyprlock.nix
     ./dunst.nix
+    ./rules.nix
   ];
 
   home.packages = with pkgs; [
@@ -20,18 +21,12 @@
     systemd.enable = true;
     xwayland.enable = true;
 
-    settings = let
-      rules = import ./rules.nix;
-    in {
+    settings = {
       monitor = [",preferred,auto,1"];
 
       misc.disable_hyprland_logo = true;
       misc.focus_on_activate = true;
       xwayland.force_zero_scaling = true;
-
-      layerrule = rules.layer;
-      windowrulev2 = rules.window;
-      inherit (rules) workspace;
 
       input = {
         kb_layout = "de";
