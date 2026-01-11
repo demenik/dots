@@ -1,7 +1,7 @@
 {
-  wayland.windowManager.hyprland.settings.windowrulev2 = map (rule: "${rule}, class:^(Emulator)$") [
-    "float"
-    "keepaspectratio"
-    "pin"
+  wayland.windowManager.hyprland.settings.windowrule = map (rule: "${rule}, match:class ^(Emulator)$") [
+    "float on"
+    "keep_aspect_ratio on"
+    "pin on"
   ];
 }
