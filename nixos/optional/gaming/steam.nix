@@ -31,12 +31,12 @@
   home-manager.users.${user} = {
     wayland.windowManager.hyprland.settings.windowrulev2 =
       [
-        "workspace 1, class:^(steam)$"
+        "workspace 1, match:class ^(steam)$"
       ]
       ++ map ({
         rule,
         title,
-      }: "${rule}, class:^(steam)$, title:^(${title})$")
+      }: "${rule}, match:class ^(steam)$, match:title ^(${title})$")
       (lib.cartesianProduct {
         rule = ["float" "center" "noinitialfocus"];
         title = ["Sign in to Steam" "Launching..."];

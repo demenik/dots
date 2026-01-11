@@ -2,19 +2,19 @@
   inherit (config.home.sessionVariables) TERMINAL_CLASS;
 in {
   wayland.windowManager.hyprland.settings = {
-    windowrulev2 =
+    windowrule =
       [
-        "float, class:^(hyprland-share-picker)$"
-        "workspace 3, class:^(Electron)$, title:^(BSC)$" # BetterSoundCloud
-        "workspace 3, class:^(opensoundcloud)$"
+        "float on, match:class ^(hyprland-share-picker)$"
+        "workspace 3, match:class ^(Electron)$, match:title ^(BSC)$" # BetterSoundCloud
+        "workspace 3, match:class ^(opensoundcloud)$"
 
-        "noinitialfocus, floating:0, class:^(?!${TERMINAL_CLASS}).*$" # Dont focus tiling windows on startup except $TERMINAL_CLASS
+        "no_initial_focus on, match:float on, match:class ^(?!${TERMINAL_CLASS}).*$" # Dont focus tiling windows on startup except $TERMINAL_CLASS
       ]
-      ++ map (rule: "${rule}, class:^(xdg-desktop-portal-gtk)$") [
-        "float"
+      ++ map (rule: "${rule}, match:class ^(xdg-desktop-portal-gtk)$") [
+        "float on"
         "size 800 600"
-        "center 1"
-        "dimaround"
+        "center on"
+        "dim_around on"
       ];
   };
 }

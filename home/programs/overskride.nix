@@ -3,9 +3,9 @@
     overskride
   ];
 
-  wayland.windowManager.hyprland.settings.windowrulev2 = map (rule: "${rule}, class:^(io.github.kaii_lb.Overskride)$") [
-    "float"
+  wayland.windowManager.hyprland.settings.windowrule = map (rule: "${rule}, match:class ^(io.github.kaii_lb.Overskride)$") [
+    "float on"
     "size 850 650"
-    "center"
+    "center on"
   ];
 }

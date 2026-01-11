@@ -17,8 +17,8 @@
         "m[DP-1], layoutopt:orientation:top"
       ]
       ++ map (i: "${builtins.toString i}, monitor:HDMI-A-1") [4 5 6 7 8 9 10];
-    windowrulev2 = [
-      "workspace 3, class:^(vesktop)$"
+    windowrule = [
+      "workspace 3, match:class ^(vesktop)$"
     ];
   };
 }

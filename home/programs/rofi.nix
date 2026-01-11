@@ -32,10 +32,10 @@
       "SUPER, Space, exec, ${lib.getExe rofi-toggle}"
     ];
 
-    layerrule = map (rule: "${rule}, rofi") [
-      "dimaround"
-      "blur"
-      "ignorezero"
+    layerrule = map (rule: "${rule}, match:namespace rofi") [
+      "dim_around on"
+      "blur on"
+      "ignore_alpha on"
       "animation popin 80%"
     ];
   };

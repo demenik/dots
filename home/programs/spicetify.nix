@@ -136,7 +136,7 @@ in {
     colorScheme = "mocha";
   };
 
-  wayland.windowManager.hyprland.settings.windowrulev2 = [
-    "workspace 3, class:^(Spotify)$"
+  wayland.windowManager.hyprland.settings.windowrule = [
+    "workspace 3, match:class ^(Spotify)$"
   ];
 }
