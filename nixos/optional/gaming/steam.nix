@@ -1,6 +1,7 @@
 {
   user,
   pkgs,
+  lib,
   ...
 }: {
   programs.steam = {
@@ -32,15 +33,13 @@
       [
         "workspace 1, class:^(steam)$"
       ]
-      ++ map (rule: "${rule}, class:^(steam)$, title:^(Sign in to Steam)$") [
-        "float"
-        "center"
-        "noinitialfocus"
-      ]
-      ++ map (rule: "${rule}, class:^(steam)$, title:^(Launching...)$") [
-        "float"
-        "center"
-        "noinitialfocus"
-      ];
+      ++ map ({
+        rule,
+        title,
+      }: "${rule}, class:^(steam)$, title:^(${title})$")
+      (lib.cartesianProduct {
+        rule = ["float" "center" "noinitialfocus"];
+        title = ["Sign in to Steam" "Launching..."];
+      });
   };
 }
