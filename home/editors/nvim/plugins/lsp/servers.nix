@@ -95,7 +95,7 @@
       clangd.enable = true;
       cmake.enable = true;
 
-      glslls.enable = true;
+      glslls.enable = false;
 
       qmlls.enable = true;
     };
