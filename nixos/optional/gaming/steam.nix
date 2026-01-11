@@ -35,10 +35,12 @@
       ++ map (rule: "${rule}, class:^(steam)$, title:^(Sign in to Steam)$") [
         "float"
         "center"
+        "noinitialfocus"
       ]
       ++ map (rule: "${rule}, class:^(steam)$, title:^(Launching...)$") [
         "float"
         "center"
+        "noinitialfocus"
       ];
   };
 }
