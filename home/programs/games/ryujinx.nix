@@ -3,13 +3,18 @@
     ryubing
   ];
 
-  wayland.windowManager.hyprland.settings.windowrule = map (rule: "${rule}, match:class ^(Ryujinx)$") [
-    "no_blur on"
-    "no_shadow on"
+  wayland.windowManager.hyprland.settings.windowrule = [
+    {
+      name = "ryujinx";
+      "match:class" = "^(Ryujinx)$";
 
-    "immediate on"
-    "idle_inhibit focus"
-    "workspace 1"
-    "center on"
+      no_blur = true;
+      no_shadow = true;
+
+      immediate = true;
+      idle_inhibit = "focus";
+      workspace = 1;
+      center = true;
+    }
   ];
 }

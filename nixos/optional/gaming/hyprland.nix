@@ -1,6 +1,6 @@
 {user, ...}: {
   home-manager.users.${user} = {
-    wayland.windowManager.hyprland.settings.windowrulev2 = let
+    wayland.windowManager.hyprland.settings.windowrule = let
       gameClasses = [
         "steam_app_\\d+"
         "gamescope"
@@ -11,12 +11,17 @@
       ];
     in
       map (class: "tag +game, match:class ^(${class})$") gameClasses
-      ++ map (rule: "${rule}, tag:game") [
-        "immediate"
-        "idleinhibit focus"
-        "fullscreen"
-        "workspace 1"
-        "center"
+      ++ [
+        {
+          name = "game-window";
+          "match:tag" = "game";
+
+          immediate = true;
+          idle_inhibit = "focus";
+          fullscreen = true;
+          workspace = 1;
+          center = true;
+        }
       ];
   };
 }

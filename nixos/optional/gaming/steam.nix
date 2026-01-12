@@ -29,17 +29,18 @@
   hardware.steam-hardware.enable = true;
 
   home-manager.users.${user} = {
-    wayland.windowManager.hyprland.settings.windowrulev2 =
+    wayland.windowManager.hyprland.settings.windowrule =
       [
         "workspace 1, match:class ^(steam)$"
       ]
-      ++ map ({
-        rule,
-        title,
-      }: "${rule}, match:class ^(steam)$, match:title ^(${title})$")
-      (lib.cartesianProduct {
-        rule = ["float" "center" "noinitialfocus"];
-        title = ["Sign in to Steam" "Launching..."];
-      });
+      ++ map (title: {
+        name = "silent-steam-popups";
+        "match:class" = "^(steam)$";
+        "match:title" = "^(${title})$";
+
+        float = true;
+        center = true;
+        no_initial_focus = true;
+      }) ["Sign in to Steam" "Launching..."];
   };
 }

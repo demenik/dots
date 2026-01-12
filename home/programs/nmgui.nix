@@ -3,9 +3,14 @@
     nmgui
   ];
 
-  wayland.windowManager.hyprland.settings.windowrule = map (rule: "${rule}, match:class ^(com.network.manager)$") [
-    "float on"
-    "size 500 600"
-    "center on"
+  wayland.windowManager.hyprland.settings.windowrule = [
+    {
+      name = "nmgui";
+      "match:class" = "^(com.network.manager)$";
+
+      float = true;
+      size = "500 600";
+      center = true;
+    }
   ];
 }

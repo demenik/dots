@@ -8,19 +8,27 @@
   wayland.windowManager.hyprland.settings = {
     env = ["BROWSER,firefox"];
 
-    windowrule =
-      map (rule: "${rule}, match:class ^(firefox)$") [
-        "workspace 2"
-        "fullscreen_state -1 2"
-        "suppress_event maximize"
-      ]
-      ++ ["float on, match:title ^(Firefox - Sharing Indicator)$"]
-      ++ map (rule: "${rule}, match:class ^(firefox)$, match:title ^(Picture-in-Picture)$") [
-        "float on"
-        "keep_aspect_ratio on"
-        "pin on"
-        "move 100%-w-5 100%-w-5"
-      ];
+    windowrule = [
+      {
+        name = "firefox";
+        "match:class" = "^(firefox)$";
+
+        workspace = 2;
+        fullscreen_state = "-1 2";
+        suppress_event = "maximize";
+      }
+      "float on, match:class ^(firefox)$, match:title ^(Firefox - Sharing Indicator)$"
+      {
+        name = "firefox-pip";
+        "match:class" = "^(firefox)$";
+        "match:title" = "^(Picture-in-Picture)$";
+
+        float = true;
+        keep_aspect_ratio = true;
+        pin = true;
+        move = "100%-w-5 100%-w-5";
+      }
+    ];
   };
 
   xdg = {
