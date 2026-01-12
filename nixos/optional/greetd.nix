@@ -1,11 +1,15 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
         command = ''
           ${pkgs.tuigreet}/bin/tuigreet \
-            --cmd "${pkgs.hyprland}/bin/hyprland" \
+            --cmd "${lib.getExe' pkgs.hyprland "start-hyprland"}" \
             --remember \
             --remember-session \
             --asterisks
