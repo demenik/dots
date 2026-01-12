@@ -84,7 +84,12 @@ wk.add {
   set_key.lsp("R", "Restart"),
   set_key.lsp("s", "Start"),
   set_key.lsp("x", "Stop"),
-  set_key.cmd("lf", require("conform").format, "Format"),
+  set_key.cmd("lf", function()
+    require("conform").format {
+      lsp_fallback = true,
+      timeout_ms = 2000,
+    }
+  end, "Format"),
   set_key.cmd("lF", "ConformInfo", "Format"),
 
   set_key.cmd("lr", vim.lsp.buf.rename, "Rename"),

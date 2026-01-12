@@ -71,7 +71,7 @@
         qml = ["qmlformat"];
         qmljs = ["qmlformat"];
 
-        "_" = ["trim_whitespace" "trim_newlines"];
+        # "_" = ["trim_whitespace" "trim_newlines"];
       };
 
       format_on_save =
