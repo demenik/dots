@@ -77,7 +77,7 @@ in {
             file = true;
           };
           AnonymiseFileNames = {
-            enabled = true;
+            enabled = false;
             anonymiseByDefault = true;
             method = 2;
             randomisedLength = 7;
@@ -272,7 +272,7 @@ in {
           ServerInfo.enabled = true;
           ShikiCodeblocks = {
             enabled = true;
-            theme = "https://raw.githubusercontent.com/shikijs/shiki/0b28ad8ccfbf2615f2d9d38ea8255416b8ac3043/packages/shiki/themes/dark-plus.json";
+            theme = "https://cdn.jsdelivr.net/gh/shikijs/textmate-grammars-themes@bc5436518111d87ea58eb56d97b3f9bec30e6b83/packages/tm-themes/themes/catppuccin-mocha.json";
             tryHljs = "SECONDARY";
             useDevIcon = "COLOR";
             bgOpacity = 100;
