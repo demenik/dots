@@ -18,7 +18,7 @@ in {
   ];
 
   age = {
-    identityPaths = ["/home/${user}/.ssh/id_ed25519"];
+    identityPaths = ["/home/${user}/.ssh/id_agenix"];
 
     secrets = builtins.listToAttrs [
       (mkSecret "obsidian-personal" {})
