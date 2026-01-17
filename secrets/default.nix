@@ -17,6 +17,10 @@ in {
     agenix.packages."${pkgs.stdenv.hostPlatform.system}".default
   ];
 
+  home.shellAliases = {
+    agenix = "agenix -i ~/.ssh/id_agenix";
+  };
+
   age = {
     identityPaths = ["/home/${user}/.ssh/id_agenix"];
 
