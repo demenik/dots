@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./nix.nix
+    ./audio.nix
   ];
 
   programs.dconf.enable = true;
@@ -33,16 +34,6 @@
     LC_TIME = "de_DE.UTF-8";
   };
   time.timeZone = "Europe/Berlin";
-
-  services = {
-    pulseaudio.enable = false;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
-  };
 
   security = {
     rtkit.enable = true;
