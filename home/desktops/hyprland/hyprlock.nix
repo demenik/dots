@@ -126,7 +126,7 @@
         position = "0, -20";
 
         border_size = 0;
-        rounding = 0;
+        rounding = -1;
       }) ["HDMI-A-1" "eDP-1"];
     };
   };
