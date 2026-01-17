@@ -5,7 +5,7 @@
 
     matchBlocks = {
       "*" = {
-        identityFile = "~/.ssh/id_rsa";
+        identityFile = "~/.ssh/id_ed25519";
       };
       "homelab" = {
         hostname = "46.5.154.149";

@@ -30,7 +30,7 @@
         user = {
           email = "mail@demenik.dev";
           name = "demenik";
-          signingkey = "${config.home.homeDirectory}/.ssh/id_rsa.pub";
+          signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
         };
 
         init.defaultBranch = "main";
