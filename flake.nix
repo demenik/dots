@@ -174,16 +174,7 @@
       }:
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
-          modules =
-            [
-              {
-                nixpkgs = {
-                  hostPlatform = system;
-                  overlays = [nur.overlays.default];
-                };
-              }
-            ]
-            ++ modules;
+          inherit modules;
           extraSpecialArgs = {inherit inputs stateVersion user dotsDir;};
         };
     in {
