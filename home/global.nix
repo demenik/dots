@@ -21,11 +21,17 @@
         gpg.format = "ssh";
         gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
 
-        url = {
-          "ssh://git@gitlab.uni-ulm.de".insteadOf = "https://gitlab.uni-ulm.de";
-          "ssh://git@github.com".insteadOf = "https://github.com";
-          "ssh://git@gitea.demenik.dev".insteadOf = "https://gitea.demenik.dev";
-        };
+        url = let
+          httpsToSsh = {
+            host,
+            user ? "git",
+          }: {
+            "ssh://${user}@${host}".insteadOf = "https://${host}";
+          };
+        in
+          httpsToSsh {host = "github.com";}
+          // httpsToSsh {host = "gitlab.uni-ulm.de";}
+          // httpsToSsh {host = "gitea.demenik.dev";};
 
         user = {
           email = "mail@demenik.dev";
