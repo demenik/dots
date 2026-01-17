@@ -9,7 +9,7 @@
   ];
 
   boot = {
-    initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "sd_mod"];
+    initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
     kernelModules = ["kvm-amd" "it87"];
 
     extraModulePackages = [config.boot.kernelPackages.it87];
@@ -30,11 +30,6 @@
       options = ["fmask=0077" "dmask=0077"];
     };
 
-    "/mnt/WINSWAP" = {
-      device = "/dev/disk/by-label/WINSWAP";
-      fsType = "ntfs3";
-      options = ["ro" "uid=1000" "gid=100" "nofail" "user" "x-systemd.automount" "x-gvfs-show"];
-    };
     "/mnt/SSD" = {
       device = "/dev/disk/by-label/SSD";
       fsType = "ntfs3";
@@ -42,7 +37,7 @@
     };
   };
 
-  swapDevices = [];
+  swapDevices = [{ device = "/dev/disk/by-label/SWAP"; }];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
