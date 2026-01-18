@@ -1,4 +1,8 @@
 {
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./cwd.nix
   ];
@@ -15,7 +19,7 @@
   };
 
   home.sessionVariables = {
-    TERMINAL = "kitty";
+    TERMINAL = lib.getExe pkgs.kitty;
     TERMINAL_CLASS = "kitty";
   };
 }
