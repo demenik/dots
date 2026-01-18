@@ -30,7 +30,7 @@
         text =
           # bash
           ''
-            export FILES=$(find . -not \( -path "./node_modules*" -o -path "./@girs*" \) -type f -name "*.ts*")
+            FILES=$(find . -not \( -path "./node_modules*" -o -path "./@girs*" \) -type f -name "*.ts*")
             echo "$FILES" | entr -crs 'echo "Change detected, restarting..." && ags run ./main.tsx'
           '';
       };
