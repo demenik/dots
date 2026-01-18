@@ -22,12 +22,18 @@
       version = "<2>";
       entry = "<3>";
 
-      watchScript = pkgs.writeShellScriptBin "watch" ''
-        set -euo pipefail
-
-        export FILES=$(find . -not \( -path "./node_modules*" -o -path "./@girs*" \) -type f -name "*.ts*")
-        echo "$FILES" | ${pkgs.lib.getExe pkgs.entr} -crs 'echo "Change detected, restarting..." && ags run ./main.tsx'
-      '';
+      watchScript = pkgs.writeShellApplication {
+        name = "watch";
+        runtimeInputs = with pkgs; [
+          entr
+        ];
+        text =
+          # bash
+          ''
+            export FILES=$(find . -not \( -path "./node_modules*" -o -path "./@girs*" \) -type f -name "*.ts*")
+            echo "$FILES" | entr -crs 'echo "Change detected, restarting..." && ags run ./main.tsx'
+          '';
+      };
 
       astalPackages = with ags.packages.${system}; [
         io
@@ -61,9 +67,9 @@
           ++ extraPackages;
 
         installPhase = ''
-          mkdir -p $out/bin $out/share
-          cp -r * $out/share
-          ags bundle ${entry} $out/bin/${name} -d "SRC='$out/share'"
+          mkdir -p "$out"/bin "$out"/share
+          cp -r * "$out"/share
+          ags bundle "${entry}" "$out"/bin/"${name}" -d "SRC='$out/share'"
         '';
       };
 

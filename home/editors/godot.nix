@@ -11,23 +11,29 @@
 
     activation.configureGodot = let
       configDir = "${config.xdg.configHome}/godot";
-      # This script requires $TERMINAL to be set to your default terminal
-      godotNvimWrapper =
-        pkgs.writeShellScript "godot-nvim-wrapper"
-        # bash
-        ''
-          FILE="$1"
-          LINE="$2"
-          COL="$3"
-          SERVER="./.godothost"
 
-          if [ -S "$SERVER" ]; then
-            $(which nvim) --server "$SERVER" --remote-send ":e $FILE | call cursor($LINE,$COL)<CR>"
-          else
-            nohup "$(which "$TERMINAL")" -e "$(which nvim)" --listen "$SERVER" "$FILE" "+call cursor($LINE,$COL)" >/dev/null 2>&1 &
-            exit 0
-          fi
-        '';
+      # This script requires $TERMINAL to be set to your default terminal
+      godotNvimWrapper = pkgs.writeShellApplication {
+        name = "godot-nvim-wrapper";
+        runtimeInputs = with pkgs; [
+          neovim
+        ];
+        text =
+          # bash
+          ''
+            FILE="$1"
+            LINE="$2"
+            COL="$3"
+            SERVER="./.godothost"
+
+            if [ -S "$SERVER" ]; then
+              nvim --server "$SERVER" --remote-send ":e $FILE | call cursor($LINE,$COL)<CR>"
+            else
+              nohup "$(which "$TERMINAL")" -e nvim --listen "$SERVER" "$FILE" "+call cursor($LINE,$COL)" >/dev/null 2>&1 &
+              exit 0
+            fi
+          '';
+      };
     in
       lib.hm.dag.entryAfter ["writeBoundary"]
       # bash
