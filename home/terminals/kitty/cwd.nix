@@ -22,7 +22,7 @@
           current_pid="$pid"
 
           while true; do
-            child_pid=$(pgrep -P "$current_pid" -n)
+            child_pid=$(pgrep -P "$current_pid" -n || true)
             if [[ -z "$child_pid" ]]; then break; fi
 
             cwd_file="''${XDG_RUNTIME_DIR:-/tmp}/kitty-cwd-$child_pid"
