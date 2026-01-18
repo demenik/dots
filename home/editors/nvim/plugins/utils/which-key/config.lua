@@ -192,7 +192,6 @@ wk.add {
     Snacks.zen()
   end, "Zen Mode"),
   set_key.cmd("u", "UndotreeToggle", "Undo Tree"),
-  set_key.cmd("H", "HexokinaseToggle", "Hexokinase"),
 }
 
 wk.add {
