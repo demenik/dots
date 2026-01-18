@@ -10,7 +10,7 @@
     ...
   }:
     flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {inherit system;};
+      pkgs = nixpkgs.legacyPackages.${system};
       jdk = pkgs.jdk<0>;
     in {
       devShells.default = pkgs.mkShell {
