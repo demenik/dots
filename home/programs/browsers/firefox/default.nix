@@ -1,10 +1,14 @@
 {
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./search.nix
     ./extensions.nix
   ];
 
-  home.sessionVariables."BROWSER" = "firefox";
+  home.sessionVariables."BROWSER" = lib.getExe pkgs.firefox;
   wayland.windowManager.hyprland.settings = {
     env = ["BROWSER,firefox"];
 
