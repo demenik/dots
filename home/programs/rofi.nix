@@ -29,7 +29,8 @@
           fi
         '';
     in [
-      "SUPER, Space, exec, ${lib.getExe rofi-toggle}"
+      # "SUPER, Space, exec, ${lib.getExe rofi-toggle}"
+      "SUPER, Space, exec, rofi -show drun -show-icons"
     ];
 
     layerrule = map (rule: "${rule}, match:namespace rofi") [
