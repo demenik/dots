@@ -57,16 +57,16 @@
       inherit (config.lib.formats.rasi) mkLiteral;
     in {
       "*" = let
-        inherit (config.lib.stylix) colors;
+        colors = config.lib.stylix.colors.withHashtag;
       in {
-        bg0 = mkLiteral "#${colors.base00}F2";
-        bg1 = mkLiteral "#${colors.base01}";
-        bg2 = mkLiteral "#${colors.base02}";
-        bg3 = mkLiteral "#${colors.base0E}";
-        fg0 = mkLiteral "#${colors.base05}";
-        fg1 = mkLiteral "#${colors.base04}";
-        fg2 = mkLiteral "#${colors.base03}";
-        fg3 = mkLiteral "#${colors.base02}";
+        bg0 = mkLiteral "${colors.base00}F2";
+        bg1 = mkLiteral colors.base01;
+        bg2 = mkLiteral colors.base02;
+        bg3 = mkLiteral colors.base0D;
+        fg0 = mkLiteral colors.base05;
+        fg1 = mkLiteral colors.base04;
+        fg2 = mkLiteral colors.base03;
+        fg3 = mkLiteral colors.base02;
 
         background-color = mkLiteral "transparent";
         text-color = mkLiteral "@fg0";
