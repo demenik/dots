@@ -10,7 +10,7 @@
     ./vi.nix
   ];
 
-  home.sessionVariables."SHELL" = "${lib.getExe pkgs.zsh}";
+  home.sessionVariables."SHELL" = lib.getExe pkgs.zsh;
 
   programs.zsh = {
     enable = true;
@@ -27,10 +27,13 @@
       }
     ];
 
-    initContent = ''
-      bindkey -e
+    initContent =
+      # zsh
+      ''
+        bindkey -e
 
-      export SHELL="${lib.getExe pkgs.zsh}"
-    '';
+        # workaround for nix-shell
+        export SHELL="${lib.getExe pkgs.zsh}"
+      '';
   };
 }
