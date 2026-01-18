@@ -6,31 +6,27 @@
 }: {
   wayland.windowManager.hyprland.settings = {
     bind = let
-      hyprctl = lib.getExe' pkgs.hyprland "hyprctl";
-      jq = lib.getExe pkgs.jq;
+      rofi-toggle = pkgs.writeShellApplication {
+        name = "rofi-toggle";
+        runtimeInputs = with pkgs; [
+          procps
+          jq
+          hyprland
+          rofi
+        ];
+        text =
+          # bash
+          ''
+            if pgrep -x "rofi" >/dev/null; then
+              pkill -x rofi
+              exit 0
+            fi
 
-      rofi-toggle =
-        pkgs.writeShellScriptBin "rofi-toggle"
-        # bash
-        ''
-          if pgrep -x "rofi" >/dev/null; then
-            pkill -x rofi
-            exit 0
-          fi
-
-          current_ws=$(${hyprctl} activeworkspace -j | ${jq} '.id')
-
-          ${hyprctl} dispatch workspace 1
-          rofi -show drun -show-icons &
-
-          sleep 0.1
-          if [ "$current_ws" != "1" ]; then
-            ${hyprctl} dispatch workspace "$current_ws"
-          fi
-        '';
+            rofi -show drun -show-icons -monitor HDMI-A-1
+          '';
+      };
     in [
-      # "SUPER, Space, exec, ${lib.getExe rofi-toggle}"
-      "SUPER, Space, exec, rofi -show drun -show-icons"
+      "SUPER, Space, exec, ${lib.getExe rofi-toggle}"
     ];
 
     layerrule = map (rule: "${rule}, match:namespace rofi") [
