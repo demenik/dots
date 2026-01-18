@@ -24,8 +24,8 @@
       # lua
       ''
         -- Disable netrw
-        g.loaded_netrw = 1
-        g.loaded_netrwPlugin = 1
+        vim.g.loaded_netrw = 1
+        vim.g.loaded_netrwPlugin = 1
 
         -- Hide line numbers in terminal mode
         vim.cmd [[ autocmd TermOpen * setlocal nonumber norelativenumber ]]
