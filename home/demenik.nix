@@ -33,7 +33,7 @@ rec {
       ./services/bisync.nix
 
       ./terminals/kitty
-      ./editors/intellij.nix
+      # ./editors/intellij.nix
       ./editors/godot.nix
       ./programs
     ];
