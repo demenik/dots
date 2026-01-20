@@ -40,7 +40,12 @@ in {
     })
   ];
 
-  wayland.windowManager.hyprland.settings.bind = [
-    "SUPER SHIFT, S, exec, screenshot"
-  ];
+  wayland.windowManager.hyprland.settings = {
+    bind = [
+      "SUPER SHIFT, S, exec, screenshot"
+    ];
+    layerrule = [
+      "no_anim on, match:namespace ^(selection)$"
+    ];
+  };
 }
