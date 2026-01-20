@@ -15,6 +15,7 @@
     ./rofi.nix
     ./emulator.nix
     ./vpn.nix
+    ./capture.nix
 
     ./spicetify.nix
 
