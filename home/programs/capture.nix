@@ -14,6 +14,7 @@ in {
         wl-clipboard
         jq
         hyprland
+        libnotify
       ];
       text =
         # bash
@@ -35,6 +36,7 @@ in {
 
           if SELECTION=$(echo -e "$MONITORS\n$WINDOWS" | slurp -d -c "${accent}" -w 2); then
             grim -g "$SELECTION" - | wl-copy
+            notify-send "Screenshot" "was copied to clipboard" -i camera-photo -t 3000
           fi
         '';
     })
