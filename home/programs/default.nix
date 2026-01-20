@@ -23,6 +23,7 @@
     ./obsidian.nix
     ./office.nix
     ./anki.nix
+    ./figma.nix
 
     ./vesktop.nix
 
