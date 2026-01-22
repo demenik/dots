@@ -9,4 +9,8 @@
       "x-scheme-handler/figma" = ["figma-linux.desktop"];
     };
   };
+
+  wayland.windowManager.hyprland.settings.windowrule = [
+    "workspace 1, match:class ^(figma-linux)$"
+  ];
 }
