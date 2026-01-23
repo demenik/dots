@@ -2,6 +2,7 @@
   imports = [
     ./lsp
     ./decoration
+    ./utils
   ];
 
   programs.nixvim = {
@@ -14,7 +15,6 @@
       ./lang
       ./snippet
       ./treesitter
-      ./utils
     ];
 
     plugins.mini.enable = true;
