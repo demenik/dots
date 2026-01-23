@@ -9,6 +9,14 @@ rec {
       ./shells/zsh
       ./editors/nvim
 
+      ./programs/cli/zoxide.nix
+      ./programs/cli/eza.nix
+      ./programs/cli/btop.nix
+      ./programs/cli/nh.nix
+      ./programs/cli/bat.nix
+      ./programs/cli/ncdu.nix
+      ./programs/cli/fastfetch.nix
+
       inputs.stylix.homeModules.stylix
       ./stylix
     ];
