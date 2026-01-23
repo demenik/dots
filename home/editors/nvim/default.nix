@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  lib,
   ...
 }: {
   imports = [
@@ -62,7 +63,7 @@
       '';
   };
 
-  xdg.desktopEntries.nvim = {
+  xdg.desktopEntries.nvim = lib.mkIf (config.home.sessionVariables ? TERMINAL) {
     name = "Neovim";
     genericName = "Text Editor";
     exec = "${config.home.sessionVariables.TERMINAL} -e nvim %F";
