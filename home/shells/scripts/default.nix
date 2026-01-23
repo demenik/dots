@@ -1,31 +1,5 @@
-{
-  pkgs,
-  dotsDir,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
-    (writeShellApplication {
-      name = "rebuild";
-      text =
-        # bash
-        ''
-          cd "${dotsDir}" || exit
-          git add --intent-to-add . 2>/dev/null
-          nixos-rebuild "$@" switch --flake . --sudo
-          cd - >/dev/null || exit
-        '';
-    })
-    (writeShellApplication {
-      name = "update";
-      text =
-        # bash
-        ''
-          cd "${dotsDir}" || exit
-          git add --intent-to-add . 2>/dev/null
-          nix flake "$@" update
-          cd - >/dev/null || exit
-        '';
-    })
     (writeShellApplication {
       name = "nix";
       text =
