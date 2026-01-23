@@ -10,6 +10,7 @@
     ./ai.nix
     ./debugging.nix
     ./ncdu.nix
+    ./nh.nix
   ];
 
   home.packages = with pkgs; [
