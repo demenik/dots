@@ -2,7 +2,9 @@
   user,
   pkgs,
   ...
-}: {
+}: let
+  protonBuilds = import ./proton {inherit pkgs;};
+in {
   programs.steam = {
     enable = true;
     package = pkgs.steam.override {
@@ -20,6 +22,7 @@
 
     extraCompatPackages = with pkgs; [
       proton-ge-bin
+      protonBuilds.dwproton
     ];
   };
 
