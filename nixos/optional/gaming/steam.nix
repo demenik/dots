@@ -1,7 +1,6 @@
 {
   user,
   pkgs,
-  lib,
   ...
 }: {
   programs.steam = {
