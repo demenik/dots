@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: let
   nautilus-wrapped = pkgs.symlinkJoin {
@@ -20,7 +21,7 @@ in {
     nautilus-open-any-terminal
   ];
 
-  dconf.settings."com/github/stunkymonkey/nautilus-open-any-terminal" = {
+  dconf.settings."com/github/stunkymonkey/nautilus-open-any-terminal" = lib.mkIf (config.home.sessionVariables ? TERMINAL) {
     terminal = config.home.sessionVariables.TERMINAL;
     lockAll = true;
   };
