@@ -8,7 +8,7 @@
         identityFile = "~/.ssh/id_ed25519";
       };
       "homelab" = {
-        hostname = "46.5.154.149";
+        hostname = "192.168.178.197";
         user = "nix";
       };
       "hyperion" = {
