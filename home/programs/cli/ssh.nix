@@ -10,6 +10,7 @@
       "homelab" = {
         hostname = "192.168.178.197";
         user = "nix";
+        port = 22000;
       };
       "hyperion" = {
         hostname = "192.168.178.55";
