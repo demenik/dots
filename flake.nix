@@ -173,11 +173,25 @@
         modules ? [],
       }:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [nur.overlays.default];
+          };
           inherit modules;
           extraSpecialArgs = {inherit inputs stateVersion user dotsDir;};
         };
     in {
+      "demenik@desktop" = mkHomeConfig {
+        stateVersion = "25.11";
+        user = "demenik";
+        modules = [
+          (import ./home/demenik.nix).full
+          ./home/hosts/desktop.nix
+
+          agenix.homeManagerModules.default
+          ./secrets
+        ];
+      };
       "nix@homelab" = mkHomeConfig {
         stateVersion = "25.05";
         user = "nix";
