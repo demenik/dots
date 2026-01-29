@@ -35,4 +35,7 @@
   termguicolors = true;
   splitkeep = "screen";
   fileencoding = "utf-8";
+
+  # Local config
+  exrc = true;
 }
