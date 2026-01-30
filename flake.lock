@@ -702,11 +702,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769777070,
-        "narHash": "sha256-Rhqi5pmBTTEVnK8Lo9LO0HDhWtqI079W6ix73OCBkVc=",
+        "lastModified": 1769777534,
+        "narHash": "sha256-HUTmAUU4PE9tI7MGtf4DfLVrqnv5jYVQ0tPOKTkG4rs=",
         "owner": "demenik",
         "repo": "statusbar",
-        "rev": "46b46987ac441847f309ac2b70cfff626028d8de",
+        "rev": "4ff1739bd1944e2666aac351de7d6156d24fbb8f",
         "type": "github"
       },
       "original": {
