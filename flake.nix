@@ -113,7 +113,7 @@
         hostName = "thinkpad";
         stateVersion = "25.05";
         nixOsModules = [
-          ./hosts/thinkpad.nix
+          ./hosts/thinkpad
           ./nixos/full.nix
 
           statusbar.nixosModules.default
