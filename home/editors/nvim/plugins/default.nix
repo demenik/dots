@@ -2,6 +2,7 @@
   imports = [
     ./lsp
     ./decoration
+    ./editing
     ./utils
   ];
 
@@ -9,7 +10,6 @@
     # TODO: make these hm level
     imports = [
       ./cmp
-      ./editing
       ./formatting
       ./git
       ./lang

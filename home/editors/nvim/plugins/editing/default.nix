@@ -1,51 +1,33 @@
 {
-  plugins = {
-    nvim-autopairs = {
-      enable = true;
-      settings = {
-        mapBs = false;
-        checkTs = true;
-        tsConfig = {
-          lua = ["string" "source"];
-          javascript = ["string" "template_string"];
-        };
-        disabledFiletypes = ["minifiles"];
-      };
-    };
+  imports = [
+    ./nvim-tree.nix
+  ];
 
-    mini = {
-      modules = {
-        move = {};
-        splitjoin = {};
-        # surround = {};
-        trailspace = {};
-      };
-    };
-
-    rainbow-delimiters.enable = true;
-
-    nvim-tree = {
-      enable = true;
-      settings = {
-        hijack_cursor = true;
-        view.width = {
-          min = 30;
-          max = -1;
-        };
-        renderer = {
-          group_empty = true;
-          icons = {
-            show.modified = true;
-            glyphs.modified = "";
+  programs.nixvim = {
+    plugins = {
+      nvim-autopairs = {
+        enable = true;
+        settings = {
+          mapBs = false;
+          checkTs = true;
+          tsConfig = {
+            lua = ["string" "source"];
+            javascript = ["string" "template_string"];
           };
-          indent_markers.enable = true;
+          disabledFiletypes = ["minifiles"];
         };
-        modified = {
-          enable = true;
-          show_on_dirs = false;
-        };
-        update_focused_file.enable = true;
       };
+
+      mini = {
+        modules = {
+          move = {};
+          splitjoin = {};
+          # surround = {};
+          trailspace = {};
+        };
+      };
+
+      rainbow-delimiters.enable = true;
     };
   };
 }
