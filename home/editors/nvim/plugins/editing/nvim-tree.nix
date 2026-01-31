@@ -16,14 +16,26 @@
               glyphs.modified = "";
             };
             indent_markers.enable = true;
+            highlight_git = "name";
           };
           modified = {
             enable = true;
             show_on_dirs = false;
           };
           update_focused_file.enable = true;
+          filters.git_ignored = false;
         };
       };
+    };
+
+    highlight = rec {
+      # Gitignore highlights
+      NvimTreeGitFileIgnoredHL = {
+        fg = "#585b70";
+        italic = true;
+      };
+      NvimTreeGitFolderIgnoredHL = NvimTreeGitFileIgnoredHL;
+      NvimTreeGitIgnoredIcon = {inherit (NvimTreeGitFileIgnoredHL) fg;};
     };
   };
 }
