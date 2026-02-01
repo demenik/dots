@@ -14,6 +14,23 @@
       image.enabled = true;
       quickfile.enabled = true;
       rename.enabled = true;
+      gitbrowse = {
+        enabled = true;
+        url_patterns = {
+          "gitlab%.uni-ulm%.de" = {
+            branch = "/-/tree/{branch}";
+            file = "/-/blob/{branch}/{file}#L{line_start}-{line_end}";
+            permalink = "/-/blob/{commit}/{file}#L{line_start}-{line_end}";
+            commit = "/-/commit/{commit}";
+          };
+          "gitea%.demenik%.dev" = {
+            branch = "/src/branch/{branch}";
+            file = "/src/branch/{branch}/{file}#L{line_start}-L{line_end}";
+            permalink = "/src/commit/{commit}/{file}#L{line_start}-L{line_end}";
+            commit = "/commit/{commit}";
+          };
+        };
+      };
     };
   };
 
@@ -28,4 +45,20 @@
         }
       end
     '';
+
+  keymaps = [
+    {
+      mode = ["n" "v"];
+      key = "<leader>gb";
+      action.__raw = ''
+        function()
+          Snacks.gitbrowse()
+        end
+      '';
+      options = {
+        desc = "Git Browse (Open File)";
+        silent = true;
+      };
+    }
+  ];
 }
