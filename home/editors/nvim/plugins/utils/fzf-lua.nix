@@ -14,17 +14,26 @@
     {
       __unkeyed-1 = "<leader>f";
       group = "FZF";
-      icon = "󰍉 ";
+      icon = {
+        icon = "󰍉 ";
+        color = "purple";
+      };
     }
     {
       __unkeyed-1 = "<leader>fg";
       group = "Git";
-      icon = "󰊢 ";
+      icon = {
+        icon = "󰊢 ";
+        color = "orange";
+      };
     }
     {
       __unkeyed-1 = "<leader>fL";
       group = "LSP";
-      icon = " ";
+      icon = {
+        icon = " ";
+        color = "orange";
+      };
     }
   ];
   keymaps = let

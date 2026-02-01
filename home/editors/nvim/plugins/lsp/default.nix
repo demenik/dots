@@ -21,12 +21,18 @@
       {
         __unkeyed-1 = "<leader>l";
         group = "Lsp";
-        icon = " ";
+        icon = {
+          icon = " ";
+          color = "orange";
+        };
       }
       {
         __unkeyed-1 = "<leader>x";
         group = "Trouble";
-        icon = "󱖫 ";
+        icon = {
+          icon = "󱖫 ";
+          color = "green";
+        };
       }
     ];
     keymaps = let

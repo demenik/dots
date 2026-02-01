@@ -20,7 +20,10 @@
     {
       __unkeyed-1 = "<leader>m";
       group = "Markdown";
-      icon = " ";
+      icon = {
+        icon = " ";
+        color = "blue";
+      };
     }
   ];
   keymaps = [

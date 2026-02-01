@@ -25,7 +25,10 @@
     {
       __unkeyed-1 = "<leader>L";
       group = "Latex";
-      icon = " ";
+      icon = {
+        icon = " ";
+        color = "grey";
+      };
     }
   ];
   keymaps = let
