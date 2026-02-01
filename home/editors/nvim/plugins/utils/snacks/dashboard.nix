@@ -1,7 +1,7 @@
 {
   plugins.snacks.settings.dashboard = let
     themes = import ./themes.nix;
-    theme = themes.dg_baby;
+    theme = themes.comfy;
   in {
     enabled = true;
     preset = {
