@@ -1,5 +1,20 @@
 {
-  extraConfigLua = builtins.readFile ./hide_statusbar.lua;
+  # Hide bottom bar
+  opts = {
+    laststatus = 0;
+    cmdheight = 0;
+    showtabline = 2;
+  };
+  autoCmd = [
+    {
+      event = ["BufEnter"];
+      callback.__raw = ''
+        function()
+          vim.opt.laststatus = 0
+        end
+      '';
+    }
+  ];
 
   plugins.lualine = let
     colors = import ./colors.nix;
