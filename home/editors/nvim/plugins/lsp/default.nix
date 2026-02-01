@@ -21,10 +21,12 @@
       {
         __unkeyed-1 = "<leader>l";
         group = "Lsp";
+        icon = " ";
       }
       {
         __unkeyed-1 = "<leader>x";
         group = "Trouble";
+        icon = "󱖫 ";
       }
     ];
     keymaps = let
@@ -100,13 +102,13 @@
       }
 
       (trouble "l" "lsp" "LSP")
-      (trouble "D" "lsp_declarations" "declarations")
-      (trouble "d" "lsp_definitions" "definitions")
+      (trouble "D" "lsp_declarations" "Declarations")
+      (trouble "d" "lsp_definitions" "Definitions")
       (trouble "s" "symbols" "Symbols")
-      (trouble "i" "lsp_implementations" "implementations")
+      (trouble "i" "lsp_implementations" "Implementations")
       (trouble "I" "lsp_incoming_calls" "Incoming calls")
       (trouble "O" "lsp_outgoing_calls" "Outgoing calls")
-      (trouble "r" "lsp_references" "references")
+      (trouble "r" "lsp_references" "References")
       (trouble "T" "lsp_type_definitions" "type definitions")
     ];
   };
