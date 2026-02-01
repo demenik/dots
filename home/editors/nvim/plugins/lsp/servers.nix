@@ -93,6 +93,7 @@
         };
       };
       clangd.enable = true;
+      csharp_ls.enable = true;
       cmake.enable = true;
 
       glslls.enable = false;

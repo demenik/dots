@@ -21,6 +21,7 @@
 
     rustfmt
     clang-tools
+    csharpier
     cmake-format
 
     kdePackages.qtdeclarative # qmlformat
@@ -67,6 +68,7 @@
         c = ["clang_format"];
         cmake = ["cmake_format"];
         cpp = ["clang_format"];
+        cs = ["csharpier"];
 
         qml = ["qmlformat"];
         qmljs = ["qmlformat"];
