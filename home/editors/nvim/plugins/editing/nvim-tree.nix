@@ -38,5 +38,13 @@
       NvimTreeGitFolderIgnoredHL = NvimTreeGitFileIgnoredHL;
       NvimTreeGitIgnoredIcon = {inherit (NvimTreeGitFileIgnoredHL) fg;};
     };
+
+    keymaps = [
+      {
+        key = "<leader>e";
+        action = "<cmd>NvimTreeToggle<cr>";
+        options.desc = "Files";
+      }
+    ];
   };
 }

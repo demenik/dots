@@ -16,4 +16,23 @@
       };
     };
   };
+
+  plugins.which-key.settings.spec = [
+    {
+      __unkeyed-1 = "<leader>m";
+      group = "Markdown";
+    }
+  ];
+  keymaps = [
+    {
+      key = "<leader>mr";
+      action = "<cmd>RenderMarkdown toggle<cr>";
+      options.desc = "Toggle render";
+    }
+    {
+      key = "<leader>mv";
+      action = "<cmd>MarkdownPreviewToggle<cr>";
+      options.desc = "Browser preview";
+    }
+  ];
 }

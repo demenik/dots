@@ -12,6 +12,4 @@
       icon.mappings = false;
     };
   };
-
-  extraConfigLua = builtins.readFile ./config.lua;
 }

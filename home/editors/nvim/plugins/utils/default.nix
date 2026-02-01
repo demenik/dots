@@ -7,7 +7,7 @@
     imports = [
       ./lualine
       ./toggleterm.nix
-      ./which-key
+      ./which-key.nix
       ./fzf-lua.nix
       ./grug-far.nix
       ./presence.nix

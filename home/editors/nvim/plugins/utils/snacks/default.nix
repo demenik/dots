@@ -60,5 +60,32 @@
         silent = true;
       };
     }
+    {
+      key = "<leader>d";
+      action.__raw = ''
+        function()
+          Snacks.bufdelete()
+        end
+      '';
+      options.desc = "Delete buffer";
+    }
+    {
+      key = "<leader>D";
+      action.__raw = ''
+        function()
+          Snacks.bufdelete.all()
+        end
+      '';
+      options.desc = "Delete all buffers";
+    }
+    {
+      key = "<leader>z";
+      action.__raw = ''
+        function()
+          Snacks.zen()
+        end
+      '';
+      options.desc = "Zen Mode";
+    }
   ];
 }
