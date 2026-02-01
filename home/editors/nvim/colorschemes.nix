@@ -11,10 +11,7 @@
         integrations = {
           cmp = true;
           gitsigns = true;
-          mini = {
-            enable = true;
-            indentscope_color = "lavender";
-          };
+          mini.enable = true;
           nvimtree = true;
           treesitter = true;
           alpha = true;

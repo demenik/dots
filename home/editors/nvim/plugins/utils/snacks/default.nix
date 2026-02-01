@@ -31,6 +31,16 @@
           };
         };
       };
+      indent.enabled = true;
+    };
+  };
+
+  highlight = {
+    SnacksIndent = {
+      fg = "#313244";
+    };
+    SnacksIndentScope = {
+      fg = "#6c7086";
     };
   };
 

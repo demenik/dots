@@ -75,7 +75,6 @@
         callback = function()
           if vim.bo.filetype == "snacks_dashboard" then
             vim.b.minitrailspace_disable = true
-            vim.b.miniindentscope_disable = true
           end
         end,
       })
