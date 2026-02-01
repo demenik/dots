@@ -8,6 +8,7 @@
       notifier = {
         enabled = true;
         timeout = 3000;
+        top_down = false;
       };
       bufdelete.enabled = true;
       image.enabled = true;
