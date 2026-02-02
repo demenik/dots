@@ -1,23 +1,20 @@
 {
   imports = [
+    ./lualine
+    ./snacks
+    ./debugging.nix
+    ./fzf-lua.nix
+    ./grug-far.nix
+    ./leetcode.nix
+    ./presence.nix
     ./scrollback.nix
+    # ./silicon.nix
+    ./todo-comments.nix
+    ./toggleterm.nix
+    ./which-key.nix
   ];
 
   programs.nixvim = {
-    imports = [
-      ./lualine
-      ./toggleterm.nix
-      ./which-key.nix
-      ./fzf-lua.nix
-      ./grug-far.nix
-      ./presence.nix
-      # ./silicon.nix
-      ./todo-comments.nix
-      ./debugging.nix
-      ./snacks
-      ./leetcode.nix
-    ];
-
     plugins = {
       nix-develop = {
         enable = true;

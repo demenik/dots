@@ -19,24 +19,26 @@
     + "/Mocha.tmTheme";
   font = "JetBrainsMono Nerd Font=16;Noto Color Emoji=16";
 in {
-  extraPackages = with pkgs; [
-    silicon
-    jetbrains-mono
-    noto-fonts-color-emoji
-  ];
+  programs.nixvim = {
+    extraPackages = with pkgs; [
+      silicon
+      jetbrains-mono
+      noto-fonts-color-emoji
+    ];
 
-  extraPlugins = [silicon-nvim];
+    extraPlugins = [silicon-nvim];
 
-  extraConfigLua =
-    # lua
-    ''
-      require("silicon").setup {
-        font = "${font}",
-        theme = "${theme}",
-        window_controls = false,
-        output = {
-          path = "~/Downloads",
-        },
-      }
-    '';
+    extraConfigLua =
+      # lua
+      ''
+        require("silicon").setup {
+          font = "${font}",
+          theme = "${theme}",
+          window_controls = false,
+          output = {
+            path = "~/Downloads",
+          },
+        }
+      '';
+  };
 }
