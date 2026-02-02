@@ -29,14 +29,11 @@
       };
     };
 
-    highlight = rec {
+    highlight = {
       # Gitignore highlights
-      NvimTreeGitFileIgnoredHL = {
-        fg = "#585b70";
-        italic = true;
-      };
-      NvimTreeGitFolderIgnoredHL = NvimTreeGitFileIgnoredHL;
-      NvimTreeGitIgnoredIcon = {inherit (NvimTreeGitFileIgnoredHL) fg;};
+      NvimTreeGitFileIgnoredHL.link = "Comment";
+      NvimTreeGitFolderIgnoredHL.link = "Comment";
+      NvimTreeGitIgnoredIcon.link = "Comment";
     };
 
     keymaps = [
