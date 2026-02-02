@@ -1,3 +1,5 @@
 {
-  plugins.flutter-tools.enable = true;
+  programs.nixvim = {
+    plugins.flutter-tools.enable = true;
+  };
 }

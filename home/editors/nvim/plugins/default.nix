@@ -1,22 +1,18 @@
 {pkgs, ...}: {
   imports = [
-    ./lsp
+    ./cmp
     ./decoration
     ./editing
+    ./formatting
+    ./git
+    ./lang
+    ./lsp
+    ./snippet
+    ./treesitter
     ./utils
   ];
 
   programs.nixvim = {
-    # TODO: make these hm level
-    imports = [
-      ./cmp
-      ./formatting
-      ./git
-      ./lang
-      ./snippet
-      ./treesitter
-    ];
-
     plugins.mini.enable = true;
     plugins.web-devicons.enable = true;
 

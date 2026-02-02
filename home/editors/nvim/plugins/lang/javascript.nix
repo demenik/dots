@@ -1,17 +1,19 @@
 {pkgs, ...}: {
-  extraPlugins = with pkgs.vimPlugins; [
-    template-string-nvim
-  ];
+  programs.nixvim = {
+    extraPlugins = with pkgs.vimPlugins; [
+      template-string-nvim
+    ];
 
-  extraConfigLua =
-    # lua
-    ''
-      require("template-string").setup {
-        remove_template_string = true,
-        restore_quotes = {
-          normal = [["]],
-          jsx = [["]],
-        },
-      }
-    '';
+    extraConfigLua =
+      # lua
+      ''
+        require("template-string").setup {
+          remove_template_string = true,
+          restore_quotes = {
+            normal = [["]],
+            jsx = [["]],
+          },
+        }
+      '';
+  };
 }

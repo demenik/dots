@@ -1,122 +1,124 @@
 {pkgs, ...}: {
-  extraPackages = with pkgs; [
-    shfmt
-    shellcheck
-    stylua
-    alejandra
+  programs.nixvim = {
+    extraPackages = with pkgs; [
+      shfmt
+      shellcheck
+      stylua
+      alejandra
 
-    prettier
-    prettierd
+      prettier
+      prettierd
 
-    sqruff
+      sqruff
 
-    yamlfmt
+      yamlfmt
 
-    black
+      black
 
-    go
-    gotools
-    ktlint
-    gdtoolkit_4
+      go
+      gotools
+      ktlint
+      gdtoolkit_4
 
-    rustfmt
-    clang-tools
-    csharpier
-    cmake-format
+      rustfmt
+      clang-tools
+      csharpier
+      cmake-format
 
-    kdePackages.qtdeclarative # qmlformat
-  ];
+      kdePackages.qtdeclarative # qmlformat
+    ];
 
-  plugins.conform-nvim = {
-    enable = true;
+    plugins.conform-nvim = {
+      enable = true;
 
-    settings = {
-      notifyOnError = true;
+      settings = {
+        notifyOnError = true;
 
-      formatters_by_ft = let
-        prettier = {
-          __unkeyed-1 = "prettierd";
-          __unkeyed-2 = "prettier";
-          timeout_ms = 2000;
-          stop_after_first = true;
+        formatters_by_ft = let
+          prettier = {
+            __unkeyed-1 = "prettierd";
+            __unkeyed-2 = "prettier";
+            timeout_ms = 2000;
+            stop_after_first = true;
+          };
+        in {
+          sh = ["shellcheck" "shfmt"];
+          lua = ["stylua"];
+          nix = ["alejandra" "injected"];
+
+          html = prettier;
+          css = prettier;
+          javascript = prettier;
+          typescript = prettier;
+          javascriptreact = prettier;
+          typescriptreact = prettier;
+
+          sql = ["sqruff"];
+
+          json = prettier;
+          yaml = ["yamlfmt"];
+
+          python = ["black"];
+
+          go = ["goimports" "gofmt"];
+          java = []; # use jdtls
+          kotlin = ["ktlint"];
+          gdscript = ["gdformat"];
+
+          rust = ["rustfmt"];
+          c = ["clang_format"];
+          cmake = ["cmake_format"];
+          cpp = ["clang_format"];
+          cs = ["csharpier"];
+
+          qml = ["qmlformat"];
+          qmljs = ["qmlformat"];
+
+          # "_" = ["trim_whitespace" "trim_newlines"];
         };
-      in {
-        sh = ["shellcheck" "shfmt"];
-        lua = ["stylua"];
-        nix = ["alejandra" "injected"];
 
-        html = prettier;
-        css = prettier;
-        javascript = prettier;
-        typescript = prettier;
-        javascriptreact = prettier;
-        typescriptreact = prettier;
-
-        sql = ["sqruff"];
-
-        json = prettier;
-        yaml = ["yamlfmt"];
-
-        python = ["black"];
-
-        go = ["goimports" "gofmt"];
-        java = []; # use jdtls
-        kotlin = ["ktlint"];
-        gdscript = ["gdformat"];
-
-        rust = ["rustfmt"];
-        c = ["clang_format"];
-        cmake = ["cmake_format"];
-        cpp = ["clang_format"];
-        cs = ["csharpier"];
-
-        qml = ["qmlformat"];
-        qmljs = ["qmlformat"];
-
-        # "_" = ["trim_whitespace" "trim_newlines"];
-      };
-
-      format_on_save =
-        # lua
-        ''
-          function(bufnr)
-            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-              return
-            end
-
-            if vim.g.slow_format_filetypes[vim.bo[bufnr].filetype] then
-              return
-            end
-
-            local function on_format(err)
-              if err and err:match("timeout$") then
-                slow_format_filetypes[vim.bo[bufnr].filetype] = true
+        format_on_save =
+          # lua
+          ''
+            function(bufnr)
+              if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                return
               end
+
+              if vim.g.slow_format_filetypes[vim.bo[bufnr].filetype] then
+                return
+              end
+
+              local function on_format(err)
+                if err and err:match("timeout$") then
+                  slow_format_filetypes[vim.bo[bufnr].filetype] = true
+                end
+              end
+
+              return { timeout_ms = 200, lsp_fallback = true }, on_format
             end
+          '';
 
-            return { timeout_ms = 200, lsp_fallback = true }, on_format
-          end
-        '';
+        format_after_save =
+          # lua
+          ''
+            function(bufnr)
+              if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                return
+              end
 
-      format_after_save =
-        # lua
-        ''
-          function(bufnr)
-            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-              return
+              if not vim.g.slow_format_filetypes[vim.bo[bufnr].filetype] then
+                return
+              end
+
+              return { lsp_fallback = true }
             end
-
-            if not vim.g.slow_format_filetypes[vim.bo[bufnr].filetype] then
-              return
-            end
-
-            return { lsp_fallback = true }
-          end
-        '';
+          '';
+      };
     };
-  };
 
-  extraConfigLua = ''
-    vim.g.slow_format_filetypes = {}
-  '';
+    extraConfigLua = ''
+      vim.g.slow_format_filetypes = {}
+    '';
+  };
 }

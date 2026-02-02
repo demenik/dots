@@ -1,7 +1,9 @@
 {
   imports = [./conform.nix];
 
-  plugins.mini = {
-    modules.align = {};
+  programs.nixvim = {
+    plugins.mini = {
+      modules.align = {};
+    };
   };
 }
