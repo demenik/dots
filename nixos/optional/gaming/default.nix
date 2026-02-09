@@ -9,4 +9,9 @@
   environment.systemPackages = with pkgs; [
     lutris
   ];
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 }

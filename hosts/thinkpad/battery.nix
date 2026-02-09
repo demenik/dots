@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   services = {
     power-profiles-daemon.enable = false;
     tlp.enable = lib.mkForce false;
@@ -20,13 +16,6 @@
         };
       };
     };
-  };
-
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      rocmPackages.clr.icd
-    ];
   };
 
   powerManagement.powertop.enable = true;
