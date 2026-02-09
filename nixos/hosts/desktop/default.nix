@@ -2,7 +2,7 @@
   imports = [
     ./hardware.nix
     ./fans.nix
-    ../../nixos/optional/gaming
+    ../../optional/gaming
   ];
 
   hardware.graphics.extraPackages = with pkgs; [

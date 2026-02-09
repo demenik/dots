@@ -113,7 +113,7 @@
         hostName = "thinkpad";
         stateVersion = "25.05";
         nixOsModules = [
-          ./hosts/thinkpad
+          ./nixos/hosts/thinkpad
           ./nixos/full.nix
 
           statusbar.nixosModules.default
@@ -131,7 +131,7 @@
         hostName = "desktop";
         stateVersion = "25.11";
         nixOsModules = [
-          ./hosts/desktop
+          ./nixos/hosts/desktop
           ./nixos/full.nix
 
           statusbar.nixosModules.default
@@ -152,7 +152,7 @@
         hostName = "wsl";
         stateVersion = "25.05";
         nixOsModules = [
-          ./hosts/wsl.nix
+          ./nixos/hosts/wsl.nix
           ./nixos/headless.nix
 
           nixos-wsl.nixosModules.default
