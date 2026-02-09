@@ -1,6 +1,6 @@
 {
   pkgs ?
-    import <nixpkgs> {
+    import <<nixpkgs>> {
       config = {
         allowUnfree = true;
         android_sdk.accept_license = true;
@@ -19,6 +19,7 @@ in
       gradle
       pinnedJdk
       androidComposition.androidsdk
+      <0>
     ];
 
     JAVA_HOME = pinnedJdk.home;
