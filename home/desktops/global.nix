@@ -1,8 +1,4 @@
 {
-  pkgs,
-  inputs,
-  ...
-}: {
   home = {
     sessionVariables = {
       GTK_USE_PORTAL = "1";
