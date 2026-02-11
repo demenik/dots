@@ -5,6 +5,7 @@
       shellcheck
       stylua
       alejandra
+      nixfmt
 
       prettier
       prettierd
