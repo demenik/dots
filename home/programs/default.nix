@@ -27,6 +27,7 @@
     ./figma.nix
 
     ./vesktop.nix
+    ./element.nix
 
     ./wallpaper-engine.nix
   ];
