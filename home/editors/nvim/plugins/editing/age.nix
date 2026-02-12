@@ -32,7 +32,7 @@ in {
     attributes = [
       "*.age diff=age"
     ];
-    extraConfig = {
+    settings = {
       diff.age.textconv = "${pkgs.lib.getExe pkgs.rage} -d -i /home/${user}/.ssh/id_agenix";
     };
   };
