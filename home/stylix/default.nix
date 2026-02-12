@@ -22,6 +22,8 @@
       package = pkgs.papirus-icon-theme;
     };
 
+    overlays.enable = false;
+
     opacity = {
       terminal = 0.9;
       applications = 0.9;
