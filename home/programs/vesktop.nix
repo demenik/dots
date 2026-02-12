@@ -5,6 +5,7 @@ in {
 
   wayland.windowManager.hyprland.settings.windowrule = [
     "no_initial_focus on, match:class ^(vesktop)$, match:title ^(vesktop)$"
+    "workspace 3, match:class ^(vesktop)$"
     {
       name = "vesktop-pip";
       "match:class" = "^(vesktop)$";
