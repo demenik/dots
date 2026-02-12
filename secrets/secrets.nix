@@ -6,6 +6,7 @@ let
     "obsidian-uni-notes"
     "nextcloud"
     "anki"
+    "eduroam"
   ];
 in
   builtins.listToAttrs (map (file: {
