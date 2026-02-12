@@ -16,6 +16,7 @@
     ./emulator.nix
     ./vpn.nix
     ./capture.nix
+    ./librepods.nix
 
     ./spicetify.nix
 
