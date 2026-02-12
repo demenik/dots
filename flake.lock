@@ -501,6 +501,22 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1770882871,
+        "narHash": "sha256-nw5g+xl3veea+maxJ2/81tMEA/rPq9aF1H5XF35X+OE=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "af04cb78aa85b2a4d1c15fc7270347e0d0eda97b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixos-wsl": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -640,6 +656,7 @@
         "home-manager": "home-manager_2",
         "lanzaboote": "lanzaboote",
         "mcmojave-cursors": "mcmojave-cursors",
+        "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
