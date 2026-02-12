@@ -17,12 +17,11 @@
 in {
   home.packages = with pkgs; [
     nautilus-wrapped
-    nautilus-python
     nautilus-open-any-terminal
   ];
 
-  dconf.settings."com/github/stunkymonkey/nautilus-open-any-terminal" = lib.mkIf (config.home.sessionVariables ? TERMINAL) {
-    terminal = config.home.sessionVariables.TERMINAL;
+  dconf.settings."com/github/stunkymonkey/nautilus-open-any-terminal" = lib.mkIf (config.home.sessionVariables ? TERMINAL_CLASS) {
+    terminal = config.home.sessionVariables.TERMINAL_CLASS;
     lockAll = true;
   };
 
