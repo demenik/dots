@@ -1,6 +1,7 @@
 {
   imports = [
     ./nvim-tree.nix
+    ./age.nix
   ];
 
   programs.nixvim = {
