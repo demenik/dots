@@ -2,15 +2,22 @@
   config,
   lib,
   modulesPath,
+  inputs,
   ...
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen5
   ];
 
   boot = {
     initrd.availableKernelModules = ["nvme" "xhci_pci" "thunderbolt" "usb_storage" "usbhid" "sd_mod"];
     kernelModules = ["kvm-amd"];
+    kernelParams = [
+      "amd_pstate=active"
+      "amdgpu.sg_display=0"
+      "amdgpu.abmlevel=3"
+    ];
   };
 
   fileSystems = {

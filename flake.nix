@@ -59,6 +59,7 @@
       url = "github:MikiDevLog/wallpaperengine-gui";
       flake = false;
     };
+    nixos-hardware.url = "github:nixos/nixos-hardware/master";
   };
 
   outputs = {
