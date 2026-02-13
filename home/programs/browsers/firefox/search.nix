@@ -14,6 +14,7 @@
       "nv"
       "lsp"
       "crates"
+      "cat"
 
       "proton"
     ];
@@ -94,6 +95,12 @@
         icon = "https://crates.io/assets/cargo.png";
         definedAliases = ["@crates"];
         template = "https://crates.io/search";
+        params.q = "{searchTerms}";
+      };
+      cat = mkEngine {
+        icon = "https://catppuccin.com/favicon.png";
+        definedAliases = ["@cat"];
+        template = "https://catppuccin.com/ports";
         params.q = "{searchTerms}";
       };
 
