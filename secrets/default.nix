@@ -27,7 +27,7 @@ in {
     secrets = builtins.listToAttrs [
       (mkSecret "obsidian-personal" {})
       (mkSecret "obsidian-uni-notes" {})
-      (mkSecret "nextcloud" {})
+      (mkSecret "nextcloud-music" {})
       (mkSecret "anki" {
         path = "/run/user/1000/agenix/anki";
       })

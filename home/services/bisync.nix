@@ -54,7 +54,7 @@
     combine [
       (mkBiSync {
         name = "music";
-        ageName = "nextcloud";
+        ageName = "nextcloud-music";
         localDir = "${config.home.homeDirectory}/Music/";
         remoteDir = "Musik";
       })

@@ -4,7 +4,7 @@ let
   ageFiles = [
     "obsidian-personal"
     "obsidian-uni-notes"
-    "nextcloud"
+    "nextcloud-music"
     "anki"
     "eduroam"
   ];
