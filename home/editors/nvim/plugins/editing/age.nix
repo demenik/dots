@@ -1,8 +1,4 @@
-{
-  pkgs,
-  user,
-  ...
-}: let
+{pkgs, ...}: let
   age-secret-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "age-secret";
     src = pkgs.fetchFromGitHub {
@@ -33,7 +29,7 @@ in {
       "*.age diff=age"
     ];
     settings = {
-      diff.age.textconv = "${pkgs.lib.getExe pkgs.rage} -d -i /home/${user}/.ssh/id_agenix";
+      diff.age.textconv = "agenix -d";
     };
   };
 }
