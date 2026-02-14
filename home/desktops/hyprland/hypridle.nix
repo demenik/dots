@@ -9,23 +9,27 @@
 
     listener = [
       {
-        timeout = 300; # 5min
+        timeout = 5 * 60;
         on-timeout = "light -S 10";
         on-resume = "brightnessctl -r";
       }
       {
-        timeout = 150; # 2.5min
+        timeout = 2.5 * 60;
         on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
         on-resume = "brightnessctl -rd rgb:kbd_backlight";
       }
       {
-        timeout = 600; # 10min
+        timeout = 10 * 60;
         on-timeout = "hyprlock";
       }
       {
-        timeout = 900; # 15min
+        timeout = 15 * 60;
         on-timeout = "hyprctl dispatch dpms off";
         on-resume = "hyprctl dispatch dpms on";
+      }
+      {
+        timeout = 30 * 60;
+        on-timeout = "systemctl suspend";
       }
     ];
   };
