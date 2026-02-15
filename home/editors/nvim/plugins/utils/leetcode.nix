@@ -16,7 +16,7 @@
           rust.before = [
             "#![allow(dead_code)]"
             ""
-            "fn main(){}"
+            "fn main() {}"
             "struct Solution;"
           ];
         };
