@@ -29,6 +29,8 @@
       };
 
       rainbow-delimiters.enable = true;
+
+      mini-ai.enable = true;
     };
   };
 }
