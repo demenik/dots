@@ -15,6 +15,7 @@
     lsp.servers = {
       lua_ls.config = {
         workspace.library.__raw = ''vim.api.nvim_get_runtime_file("", true)'';
+        diagnostics.disable = ["no-name"];
       };
     };
   };
