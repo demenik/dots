@@ -17,7 +17,7 @@
   programs.nixvim = {
     plugins = {
       nix-develop = {
-        enable = true;
+        enable = false;
         ignoredVariables = {
           SHELL = false;
         };
@@ -29,17 +29,17 @@
       };
     };
 
-    extraConfigLua =
-      #lua
-      ''
-        vim.api.nvim_create_autocmd("VimEnter", {
-          desc = "Automatically enter Nix devshell",
-          callback = function()
-            if vim.fn.filereadable "flake.nix" == 1 then
-              vim.cmd "NixDevelop"
-            end
-          end,
-        })
-      '';
+    # extraConfigLua =
+    #   #lua
+    #   ''
+    #     vim.api.nvim_create_autocmd("VimEnter", {
+    #       desc = "Automatically enter Nix devshell",
+    #       callback = function()
+    #         if vim.fn.filereadable "flake.nix" == 1 then
+    #           vim.cmd "NixDevelop"
+    #         end
+    #       end,
+    #     })
+    #   '';
   };
 }
