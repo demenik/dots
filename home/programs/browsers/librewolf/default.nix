@@ -20,7 +20,7 @@
         "match:class" = "^(librewolf)$";
 
         workspace = 2;
-        fullscreen_state = "-1 2";
+        fullscreen_state = "-1 1";
         suppress_event = "maximize";
       }
       "float on, match:class ^(librewolf)$, match:title ^(LibreWolf - Sharing Indicator)$"
