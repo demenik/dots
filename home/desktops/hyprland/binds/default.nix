@@ -49,7 +49,7 @@
       ];
     };
 
-    extraConfig = import ./vim-binds.nix + import ./app-binds.nix;
+    extraConfig = import ./vim-binds.nix;
   };
 
   services.playerctld.enable = true;

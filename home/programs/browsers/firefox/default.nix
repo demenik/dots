@@ -10,6 +10,8 @@
 
   home.sessionVariables."BROWSER" = lib.getExe pkgs.librewolf;
   wayland.windowManager.hyprland.settings = {
+    bind = ["SUPER, b, exec, librewolf"];
+
     env = ["BROWSER,librewolf"];
 
     windowrule = [
