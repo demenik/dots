@@ -29,6 +29,7 @@ in {
       (mkSecret "anki" {path = "/run/user/1000/agenix/anki";})
       (mkSecret "eduroam" {})
       (mkSecret "nextcloud" {})
+      (mkSecret "mcp-context7" {})
     ];
   };
 }

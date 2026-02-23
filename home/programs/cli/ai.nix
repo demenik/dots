@@ -1,4 +1,20 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  context7_api_key = config.age.secrets.mcp-context7.path;
+  opencode-wrapped = pkgs.symlinkJoin {
+    name = "opencode-wrapped";
+    paths = [pkgs.opencode];
+    buildInputs = [pkgs.makeWrapper];
+    postBuild = ''
+      wrapProgram "$out"/bin/opencode \
+        --run 'export CONTEXT7_API_KEY=$(cat "${context7_api_key}")'
+    '';
+  };
+in {
   home.packages = with pkgs; [
     gemini-cli
   ];
@@ -29,6 +45,62 @@
       privacy.usageStatisticsEnabled = false;
       telemetry.enabled = false;
       tools.shell.showColor = true;
+    };
+  };
+
+  programs.opencode = {
+    enable = true;
+    package = opencode-wrapped;
+
+    settings = {
+      theme = lib.mkForce "catppuccin";
+      plugin = ["opencode-gemini-auth@latest"];
+
+      permission = {
+        "*" = "ask";
+        read = {
+          "*" = "allow";
+          "*.env" = "deny";
+          "*.env.*" = "deny";
+          "*.env.example" = "allow";
+        };
+        list = "allow";
+        glob = "allow";
+        grep = "allow";
+
+        todoread = "allow";
+        todowrite = "allow";
+
+        webfetch = "allow";
+        websearch = "allow";
+        codesearch = "allow";
+        context7_resolve-library-id = "allow";
+        context7_query-docs = "allow";
+        gitmcp_match_common_libs_owner_repo_mapping = "allow";
+        gitmcp_fetch_generic_documentation = "allow";
+        gitmcp_search_generic_documentation = "allow";
+        gitmcp_search_generic_code = "allow";
+        gitmcp_fetch_generic_url_content = "allow";
+
+        bash = {
+          "*" = "ask";
+          "find *" = "allow";
+          "ls *" = "allow";
+          "nix eval *" = "allow";
+        };
+      };
+
+      mcp = {
+        context7 = {
+          type = "remote";
+          url = "https://mcp.context7.com/mcp";
+          headers.CONTEXT7_API_KEY = "{env:CONTEXT7_API_KEY}";
+        };
+        gitmcp = {
+          type = "remote";
+          url = "https://gitmcp.io/docs";
+        };
+      };
     };
   };
 }
