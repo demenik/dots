@@ -59,7 +59,6 @@
       settings = {
         "extensions.pocket.enabled" = false;
 
-        "browser.uidensity" = 0;
         "browser.urlbar.suggest.engines" = false;
         "browser.urlbar.suggest.openpage" = false;
         "browser.urlbar.suggest.bookmark" = true;
