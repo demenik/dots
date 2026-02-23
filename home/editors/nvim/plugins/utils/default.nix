@@ -6,6 +6,7 @@
     ./fzf-lua.nix
     ./grug-far.nix
     ./leetcode.nix
+    ./opencode.nix
     ./presence.nix
     ./scrollback.nix
     # ./silicon.nix
