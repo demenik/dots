@@ -3,7 +3,7 @@
     neovim.enable = false;
     nixvim.enable = false;
 
-    firefox = {
+    librewolf = {
       enable = false;
       profileNames = ["Default"];
     };
