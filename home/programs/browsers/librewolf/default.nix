@@ -71,6 +71,8 @@
         "browser.formfill.enable" = false;
         "extensions.formautofill.addresses.enabled" = false;
       };
+
+      userChrome = builtins.readFile ./userChrome.css;
     };
   };
 }
