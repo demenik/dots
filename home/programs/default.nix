@@ -6,7 +6,7 @@
   imports = [
     ./cli
 
-    ./browsers/firefox
+    ./browsers/librewolf
     ./qbittorrent.nix
     ./nautilus.nix
 
