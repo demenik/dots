@@ -62,7 +62,7 @@
         "browser.urlbar.suggest.engines" = false;
         "browser.urlbar.suggest.openpage" = false;
         "browser.urlbar.suggest.bookmark" = true;
-        "browser.toolbars.bookmarks.visibility" = "only show on new tab";
+        "browser.toolbars.bookmarks.visibility" = "never";
         "browser.urlbar.suggest.addons" = false;
         "browser.urlbar.suggest.pocket" = false;
 
