@@ -5,26 +5,26 @@
 }: {
   imports = [
     ./search.nix
-    ./extensions.nix
+    # ./extensions.nix
   ];
 
-  home.sessionVariables."BROWSER" = lib.getExe pkgs.firefox;
+  home.sessionVariables."BROWSER" = lib.getExe pkgs.librewolf;
   wayland.windowManager.hyprland.settings = {
-    env = ["BROWSER,firefox"];
+    env = ["BROWSER,librewolf"];
 
     windowrule = [
       {
-        name = "firefox";
-        "match:class" = "^(firefox)$";
+        name = "librewolf";
+        "match:class" = "^(librewolf)$";
 
         workspace = 2;
         fullscreen_state = "-1 2";
         suppress_event = "maximize";
       }
-      "float on, match:class ^(firefox)$, match:title ^(Firefox - Sharing Indicator)$"
+      "float on, match:class ^(librewolf)$, match:title ^(LibreWolf - Sharing Indicator)$"
       {
-        name = "firefox-pip";
-        "match:class" = "^(firefox)$";
+        name = "librewolf-pip";
+        "match:class" = "^(librewolf)$";
         "match:title" = "^(Picture-in-Picture)$";
 
         float = true;
@@ -38,7 +38,7 @@
   xdg = {
     mimeApps.defaultApplications = builtins.listToAttrs (map (key: {
         name = key;
-        value = ["firefox.desktop"];
+        value = ["librewolf.desktop"];
       }) [
         "x-scheme-handler/http"
         "x-scheme-handler/https"
@@ -49,7 +49,7 @@
       ]);
   };
 
-  programs.firefox = {
+  programs.librewolf = {
     enable = true;
     profiles.default = {
       name = "Default";

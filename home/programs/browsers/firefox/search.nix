@@ -1,5 +1,5 @@
 {lib, ...}: {
-  programs.firefox.profiles.default.search = {
+  programs.librewolf.profiles.default.search = {
     force = true;
 
     default = "ud";

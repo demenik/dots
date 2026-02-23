@@ -8,7 +8,7 @@
     };
   };
 
-  programs.firefox.policies.Handlers = {
+  programs.librewolf.policies.Handlers = {
     schemes.magnet = {
       action = "useHelperApp";
       handlers = [
