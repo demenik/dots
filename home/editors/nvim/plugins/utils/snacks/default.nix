@@ -33,6 +33,8 @@
           };
         };
         indent.enabled = true;
+        input.enabled = true;
+        picker.enabled = true;
       };
     };
 
@@ -49,11 +51,11 @@
       # lua
       ''
         if vim.env.PROF then
-          require("snacks.profiler").startup {
+          require("snacks.profiler").startup({
             startup = {
               event = "VimEnter",
             },
-          }
+          })
         end
       '';
 
