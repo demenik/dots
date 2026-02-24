@@ -72,7 +72,7 @@
         "extensions.formautofill.addresses.enabled" = false;
       };
 
-      userChrome = builtins.readFile ./userChrome.css;
+      userChrome = import ./userChrome;
     };
   };
 }
