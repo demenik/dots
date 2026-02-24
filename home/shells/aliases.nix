@@ -4,7 +4,6 @@
     c = "clear";
     cp = "cp -riv";
     zip = "zip -r";
-    ssh = "kitten ssh";
     hm = "home-manager";
 
     "nix-shell" = "nix-shell --command zsh";
