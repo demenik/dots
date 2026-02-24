@@ -56,7 +56,6 @@
         definedAliases = ["@np"];
         template = "https://search.nixos.org/packages";
         params = {
-          type = "packages";
           channel = "unstable";
           query = "{searchTerms}";
         };
