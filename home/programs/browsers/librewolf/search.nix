@@ -2,8 +2,9 @@
   programs.librewolf.profiles.default.search = {
     force = true;
 
-    default = "ud";
+    default = "xng";
     order = [
+      "xng"
       "ud"
 
       "np"
@@ -39,6 +40,11 @@
         ];
       };
     in {
+      xng = mkEngine {
+        icon = "https://search.demenik.dev/static/themes/simple/img/favicon.svg";
+        template = "https://search.demenik.dev";
+        params.q = "{searchTerms}";
+      };
       ud = mkEngine {
         icon = "https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico";
         template = "https://unduck.demenik.dev";
