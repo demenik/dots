@@ -13,6 +13,7 @@
     ./nh.nix
     ./rg.nix
     ./fd.nix
+    ./gh.nix
   ];
 
   home.packages = with pkgs; [
