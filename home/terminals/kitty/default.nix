@@ -22,4 +22,8 @@
     TERMINAL = lib.getExe pkgs.kitty;
     TERMINAL_CLASS = "kitty";
   };
+
+  home.shellAliases = {
+    ssh = "kitten ssh";
+  };
 }
