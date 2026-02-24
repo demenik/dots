@@ -1,5 +1,6 @@
 let
   files = [
+    ./hide-nav.css
     ./hide-tabs.css
   ];
 
