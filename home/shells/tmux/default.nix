@@ -7,7 +7,11 @@
     # zsh
     ''
       if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-        exec tmux new-session -A -s main
+        if tmux has-session -t main 2>/dev/null; then
+          exec tmux new-session -t main -s "main-$$"
+        else
+          exec tmux new-session -s main
+        fi
       fi
     '';
 
