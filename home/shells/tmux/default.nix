@@ -6,7 +6,7 @@
   programs.zsh.initContent =
     # zsh
     ''
-      if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+      if [ -n "$PS1" ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
         if tmux has-session -t main 2>/dev/null; then
           exec tmux new-session -t main -s "main-$$"
         else
