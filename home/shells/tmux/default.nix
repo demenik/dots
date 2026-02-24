@@ -34,6 +34,9 @@
         bind -n M-Right select-pane -R
         bind -n M-Up select-pane -U
         bind -n M-Down select-pane -D
+
+        unbind [
+        bind v copy-mode
       '';
   };
 }
