@@ -11,6 +11,8 @@
     ./debugging.nix
     ./ncdu.nix
     ./nh.nix
+    ./rg.nix
+    ./fd.nix
   ];
 
   home.packages = with pkgs; [
