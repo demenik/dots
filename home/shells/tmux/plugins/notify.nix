@@ -22,7 +22,7 @@ in {
         # tmux
         ''
           set -g @tnotify-verbose 'on'
-          set -g @tnotify-prompt-suffixes ''
+          set -g @tnotify-prompt-suffixes '$,#,%,>,'
         '';
     }
   ];
