@@ -21,6 +21,7 @@
     ./optional/ntfs.nix
     ./optional/wine.nix
     ./optional/blueman.nix
+    ./optional/dvd.nix
   ];
 
   programs.zsh.enable = true;
