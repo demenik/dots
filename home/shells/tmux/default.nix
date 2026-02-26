@@ -3,7 +3,7 @@
     ./plugins
   ];
 
-  programs.zsh.initContent =
+  programs.zsh.initExtraFirst =
     # zsh
     ''
       if [ -n "$TMUX" ]; then
