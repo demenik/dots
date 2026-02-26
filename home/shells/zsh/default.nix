@@ -27,6 +27,12 @@
       }
     ];
 
+    initExtraFirst =
+      # zsh
+      ''
+        zmodload zsh/zprof
+      '';
+
     initContent =
       # zsh
       ''
