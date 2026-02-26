@@ -17,7 +17,7 @@
 
       if [ -n "$PS1" ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
         if tmux has-session -t main 2>/dev/null; then
-          exec tmux new-session -t main -s "main-$$"
+          exec tmux new-session -t main -s "main-$$" \; new-window
         else
           exec tmux new-session -s main
         fi
