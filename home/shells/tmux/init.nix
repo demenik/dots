@@ -1,5 +1,6 @@
-{
-  programs.zsh.initExtraFirst =
+{lib, ...}: {
+  programs.zsh.initContent =
+    lib.mkBefore
     # zsh
     ''
       if [ -n "$TMUX" ]; then
