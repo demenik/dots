@@ -3,7 +3,7 @@
     lib.mkBefore
     # zsh
     ''
-      if [ -n "$TMUX" ]; then
+      if [ -n "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
         function refresh_kitty_env() {
           eval $(tmux show-environment -s KITTY_WINDOW_ID 2>/dev/null)
           eval $(tmux show-environment -s KITTY_PID 2>/dev/null)
