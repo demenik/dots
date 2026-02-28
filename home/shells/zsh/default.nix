@@ -27,15 +27,12 @@
       }
     ];
 
-    initExtraFirst =
+    initContent =
+      lib.mkBefore
       # zsh
       ''
         zmodload zsh/zprof
-      '';
 
-    initContent =
-      # zsh
-      ''
         bindkey -e
 
         # workaround for nix-shell
