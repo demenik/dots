@@ -31,13 +31,9 @@
         unbind [
         unbind ]
 
-        bind v copy-mode \; send-keys -X begin-selection
-        bind C-v copy-mode \; send-keys -X begin-selection \; send-keys -X rectangle-toggle
-        bind V copy-mode \; send-keys -X select-line
-
-        unbind -T copy-mode-vi v
-        unbind -T copy-mode-vi C-v
-        unbind -T copy-mode-vi V
+        bind v copy-mode;
+        bind -T copy-mode-vi C-v send-keys -X begin-selection \; send-keys -X rectangle-toggle
+        bind -T copy-mode-vi V send-keys -X select-line
 
         bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
