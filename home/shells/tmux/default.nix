@@ -29,12 +29,18 @@
         bind -n S-Right next-window
 
         unbind [
-        bind v copy-mode
-        bind-key -T copy-mode-vi v send-keys -X begin-selection
-        bind-key -T copy-mode-vi C-v send-keys -X begin-selection \; send-keys -X rectangle-toggle
-        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-
         unbind ]
+
+        bind v copy-mode \; send-keys -X begin-selection
+        bind C-v copy-mode \; send-keys -X begin-selection \; send-keys -X rectangle-toggle
+        bind V copy-mode \; send-keys -X select-line
+
+        unbind -T copy-mode-vi v
+        unbind -T copy-mode-vi C-v
+        unbind -T copy-mode-vi V
+
+        bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
         unbind p
         bind p paste-buffer -p
       '';
