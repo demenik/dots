@@ -14,6 +14,7 @@
     ./rg.nix
     ./fd.nix
     ./gh.nix
+    ./spotify-player.nix
   ];
 
   home.packages = with pkgs; [
