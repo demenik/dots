@@ -18,7 +18,6 @@
 
           immediate = true;
           idle_inhibit = "focus";
-          fullscreen = true;
           workspace = 1;
           center = true;
         }
