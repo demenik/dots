@@ -22,6 +22,7 @@
     ./optional/wine.nix
     ./optional/blueman.nix
     ./optional/dvd.nix
+    ./optional/tor.nix
   ];
 
   programs.zsh.enable = true;
