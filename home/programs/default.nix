@@ -41,7 +41,6 @@
     aseprite
 
     rquickshare
-    flameshot
 
     openvpn3
 
