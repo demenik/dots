@@ -4,10 +4,29 @@
   ];
 
   wayland.windowManager.hyprland.settings = {
-    monitor = [
-      "HDMI-A-1, 1920x1080@143.98, 0x0, 1"
-      "DP-1, 1920x1080@60, 1920x0, 1, transform, 1"
-      "HDMI-A-2, 4096x2160@120, -4096x0, 2, bitdepth, 10, cm, hdr, vrr, 1"
+    monitorv2 = [
+      {
+        output = "HDMI-A-1";
+        mode = "1920x1080@143.98";
+        position = "0x0";
+        scale = 1;
+      }
+      {
+        output = "DP-1";
+        mode = "1920x1080@60";
+        position = "1920x0";
+        scale = 1;
+        transform = 1;
+      }
+      {
+        output = "HDMI-A-2";
+        mode = "4096x2160@120";
+        position = "-4096x0";
+        scale = 2;
+        bitdepth = 10;
+        cm = "hdr";
+        vrr = 1;
+      }
     ];
     workspace =
       [
