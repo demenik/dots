@@ -25,6 +25,7 @@
     ./office.nix
     ./anki.nix
     ./figma.nix
+    ./vlc.nix
 
     ./vesktop.nix
     ./element.nix
