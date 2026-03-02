@@ -2,7 +2,6 @@
   pkgs,
   inputs,
   lib,
-  config,
   ...
 }: {
   home.packages = let
@@ -49,6 +48,8 @@
       }) [
         "HDMI-A-1"
         "DP-1"
+        "HDMI-A-2"
+
         "eDP-1"
       ];
   };
