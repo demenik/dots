@@ -29,6 +29,7 @@
 
     ./vesktop.nix
     ./element.nix
+    ./crypto.nix
 
     ./wallpaper-engine.nix
   ];
