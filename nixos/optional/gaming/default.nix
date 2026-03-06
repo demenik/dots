@@ -14,4 +14,9 @@
     enable = true;
     enable32Bit = true;
   };
+
+  hardware.opentabletdriver = {
+    enable = true;
+    daemon.enable = false;
+  };
 }
