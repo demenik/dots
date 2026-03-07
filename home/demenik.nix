@@ -38,7 +38,6 @@ rec {
 
       ./desktops/hyprland
       ./services/kanshi.nix
-      ./services/bisync.nix
       ./services/nextcloud.nix
 
       ./terminals/kitty
