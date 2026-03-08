@@ -18,7 +18,7 @@
 
       go
       gotools
-      ktlint
+      ktfmt
       gdtoolkit_4
 
       rustfmt
@@ -63,7 +63,7 @@
 
           go = ["goimports" "gofmt"];
           java = []; # use jdtls
-          kotlin = ["ktlint"];
+          kotlin = ["ktfmt"];
           gdscript = ["gdformat"];
 
           rust = ["rustfmt"];
@@ -76,6 +76,12 @@
           qmljs = ["qmlformat"];
 
           # "_" = ["trim_whitespace" "trim_newlines"];
+        };
+
+        formatters = {
+          ktfmt = {
+            prepend_args = ["--kotlinlang-style"];
+          };
         };
 
         format_after_save = {
