@@ -25,7 +25,7 @@
       lua_ls.enable = true;
 
       ltex_plus = {
-        enable = true;
+        enable = false;
         config = let
           inherit (import ./ltex.nix) filetypes enabled dictionary;
         in {
