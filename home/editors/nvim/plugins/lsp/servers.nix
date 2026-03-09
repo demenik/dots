@@ -13,13 +13,6 @@
     };
 
     lsp.servers = {
-      "*".config = {
-        root_markers = [
-          ".git"
-          "flake.nix"
-        ];
-      };
-
       bashls.enable = true;
       nixd.enable = true;
       lua_ls.enable = true;
