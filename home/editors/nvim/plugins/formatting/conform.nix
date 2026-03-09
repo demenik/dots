@@ -18,7 +18,6 @@
 
       go
       gotools
-      ktfmt
       gdtoolkit_4
 
       rustfmt
@@ -27,6 +26,8 @@
       cmake-format
 
       kdePackages.qtdeclarative # qmlformat
+
+      ktlint
     ];
 
     plugins.conform-nvim = {
@@ -63,7 +64,7 @@
 
           go = ["goimports" "gofmt"];
           java = []; # use jdtls
-          kotlin = ["ktfmt"];
+          kotlin = ["ktlint"];
           gdscript = ["gdformat"];
 
           rust = ["rustfmt"];
@@ -76,12 +77,6 @@
           qmljs = ["qmlformat"];
 
           # "_" = ["trim_whitespace" "trim_newlines"];
-        };
-
-        formatters = {
-          ktfmt = {
-            prepend_args = ["--kotlinlang-style"];
-          };
         };
 
         format_after_save = {
