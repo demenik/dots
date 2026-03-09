@@ -4,15 +4,15 @@
   fetchzip,
   makeWrapper,
   unzip,
-  jdk17_headless,
+  jdk21_headless,
 }:
 stdenv.mkDerivation rec {
   pname = "kotlin-lsp";
-  version = "0.253.10629";
+  version = "261.13587.0";
 
   src = fetchzip {
-    url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-${version}.zip";
-    hash = "sha256-LCLGo3Q8/4TYI7z50UdXAbtPNgzFYtmUY/kzo2JCln0=";
+    url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-lsp-${version}-linux-x64.zip";
+    hash = "sha256-EweSqy30NJuxvlJup78O+e+JOkzvUdb6DshqAy1j9jE=";
     stripRoot = false;
   };
 
@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/libexec/kotlin-lsp
-    cp -r $src/* $out/libexec/kotlin-lsp/
+    mkdir -p "$out"/bin "$out"/libexec/kotlin-lsp
+    cp -r "$src"/* "$out"/libexec/kotlin-lsp/
 
-    makeWrapper ${jdk17_headless}/bin/java $out/bin/kotlin-lsp \
+    makeWrapper "${jdk21_headless}"/bin/java "$out"/bin/kotlin-lsp \
       --add-flags "--add-opens java.base/java.io=ALL-UNNAMED" \
       --add-flags "--add-opens java.base/java.lang=ALL-UNNAMED" \
       --add-flags "--add-opens java.base/java.lang.ref=ALL-UNNAMED" \
