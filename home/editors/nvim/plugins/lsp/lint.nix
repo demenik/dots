@@ -21,6 +21,8 @@
       clippy
       cppcheck
       cmake-lint
+
+      ktlint
     ];
 
     plugins.lint = {
@@ -46,6 +48,7 @@
         ruby = ["rubocop"];
         go = ["golangcilint"];
         java = ["checkstyle"];
+        kotlin = ["ktlint"];
 
         rust = ["clippy"];
         cpp = ["cppcheck"];
