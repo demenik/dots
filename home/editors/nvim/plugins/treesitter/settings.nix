@@ -55,6 +55,7 @@ pkgs: {
 
     dart
     java
+    kotlin
 
     hyprlang
   ];
