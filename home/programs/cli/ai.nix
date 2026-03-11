@@ -87,6 +87,10 @@ in {
           "find *" = "allow";
           "ls *" = "allow";
           "nix eval *" = "allow";
+
+          "git log *" = "allow";
+          "git diff *" = "allow";
+          "git status *" = "allow";
         };
       };
 
