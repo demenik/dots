@@ -4,7 +4,7 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
-    wineWowPackages.full
+    wineWow64Packages.base
     winetricks
   ];
 
@@ -17,6 +17,6 @@
   boot.binfmt.registrations.wine = {
     recognitionType = "magic";
     magicOrExtension = "MZ";
-    interpreter = lib.getExe pkgs.wineWowPackages.full;
+    interpreter = lib.getExe pkgs.wineWow64Packages.base;
   };
 }
