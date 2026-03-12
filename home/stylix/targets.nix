@@ -7,7 +7,8 @@
       enable = false;
       profileNames = ["Default"];
     };
-
     spicetify.enable = false;
+
+    dunst.enable = false;
   };
 }

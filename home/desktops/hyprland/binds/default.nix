@@ -32,8 +32,8 @@
         brightness-value = 5;
         volume-cmd = "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ ${toString volume-value}%";
       in [
-        ",XF86MonBrightnessUp, exec, light -A ${toString brightness-value}"
-        ",XF86MonBrightnessDown, exec, light -U ${toString brightness-value}"
+        ",XF86MonBrightnessUp, exec, brightnessctl set ${toString brightness-value}%+"
+        ",XF86MonBrightnessDown, exec, brightnessctl set ${toString brightness-value}%-"
         # TODO: these dont work on the ThinkPad
 
         ",XF86AudioRaiseVolume, exec, ${volume-cmd}+"
@@ -53,5 +53,5 @@
   };
 
   services.playerctld.enable = true;
-  home.packages = with pkgs; [light];
+  home.packages = with pkgs; [brightnessctl];
 }
