@@ -31,6 +31,7 @@
       "lg" = {
         hostname = "192.168.178.160";
         user = "root";
+        identitiesOnly = true;
       };
     };
   };
