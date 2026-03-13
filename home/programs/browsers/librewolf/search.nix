@@ -2,7 +2,7 @@
   programs.librewolf.profiles.default.search = {
     force = true;
 
-    default = "xng";
+    default = "ud";
     order = [
       "xng"
       "ud"
