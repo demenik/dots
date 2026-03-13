@@ -7,15 +7,15 @@
         settings = {
           experimental.ghost_text = true;
           mapping.__raw = ''
-            cmp.mapping.preset.insert {
+            cmp.mapping.preset.insert({
               ["<C-j>"] = cmp.mapping.scroll_docs(4),
               ["<C-k>"] = cmp.mapping.scroll_docs(-4),
-              ["<CR>"] = cmp.mapping.confirm {
-                behavior = cmp.ConfirmBehavior.Replace,
+              ["<CR>"] = cmp.mapping.confirm({
+                behavior = cmp.ConfirmBehavior.Insert,
                 select = true,
-              },
+              }),
               ["<Tab>"] = cmp.mapping(function(fallback)
-                local luasnip = require "luasnip"
+                local luasnip = require("luasnip")
 
                 if cmp.visible() then
                   cmp.select_next_item()
@@ -26,7 +26,7 @@
                 end
               end, { "i", "s" }),
               ["<S-Tab>"] = cmp.mapping(function(fallback)
-                local luasnip = require "luasnip"
+                local luasnip = require("luasnip")
 
                 if cmp.visible() then
                   cmp.select_prev_item()
@@ -36,7 +36,7 @@
                   fallback()
                 end
               end, { "i", "s" }),
-            }
+            })
           '';
 
           window = {
