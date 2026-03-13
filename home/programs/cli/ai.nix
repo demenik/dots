@@ -87,6 +87,7 @@ in {
           "find *" = "allow";
           "ls *" = "allow";
           "nix eval *" = "allow";
+          "cat *" = "allow";
 
           "git log *" = "allow";
           "git diff *" = "allow";
