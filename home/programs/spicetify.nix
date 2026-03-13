@@ -137,6 +137,6 @@ in {
   };
 
   wayland.windowManager.hyprland.settings.windowrule = [
-    "workspace 3, match:class ^(Spotify)$"
+    "workspace 3, match:class ^(spotify)$"
   ];
 }
