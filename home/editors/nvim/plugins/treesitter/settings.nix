@@ -8,6 +8,7 @@ pkgs: {
     nix
 
     c
+    c-sharp
     cpp
     make
     cmake
