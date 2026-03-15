@@ -15,10 +15,9 @@
       # This script requires $TERMINAL to be set to your default terminal
       godotNvimWrapper = pkgs.writeShellApplication {
         name = "godot-nvim-wrapper";
-        runtimeInputs = with pkgs; [
-          neovim
-        ];
-        text =
+        text = let
+          inherit (config.home.sessionVariables) TERMINAL;
+        in
           # bash
           ''
             FILE="$1"
@@ -29,7 +28,7 @@
             if [ -S "$SERVER" ]; then
               nvim --server "$SERVER" --remote-send ":e $FILE | call cursor($LINE,$COL)<CR>"
             else
-              nohup "$(which "$TERMINAL")" -e nvim --listen "$SERVER" "$FILE" "+call cursor($LINE,$COL)" >/dev/null 2>&1 &
+              nohup "${TERMINAL}" -e nvim --listen "$SERVER" "$FILE" "+call cursor($LINE,$COL)" >/dev/null 2>&1 &
               exit 0
             fi
           '';
@@ -65,7 +64,7 @@
 
         # External editor (nvim)
         update_setting "text_editor/external/use_external_editor" "true"
-        update_setting "text_editor/external/exec_path" "\"${godotNvimWrapper}\""
+        update_setting "text_editor/external/exec_path" "\"${lib.getExe godotNvimWrapper}\""
         update_setting "text_editor/external/exec_flags" "\"{file} {line} {col}\""
 
         # Catppuccin Mocha interface theme
