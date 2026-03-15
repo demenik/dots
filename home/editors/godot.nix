@@ -7,6 +7,7 @@
   home = {
     packages = with pkgs; [
       godot
+      dotnet-sdk_8
     ];
 
     activation.configureGodot = let
