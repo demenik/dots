@@ -6,6 +6,10 @@
       with pkgs; [
         kotlin-lsp
         ltex-ls-plus
+        (pkgs.dotnetCorePackages.combinePackages [
+          pkgs.dotnetCorePackages.sdk_8_0
+          pkgs.dotnetCorePackages.sdk_10_0
+        ])
       ];
 
     plugins = {
