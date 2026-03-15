@@ -14,7 +14,7 @@ in {
         # tmux
         ''
           set -g @tokyo-night-tmux_theme "catppuccin-mocha"
-          set -g @tokyo-night-tmux_theme_transparent 1
+          set -g @tokyo-night-tmux_transparent 1
 
           set -g @tokyo-night-tmux_window_id_style dsquare
           set -g @tokyo-night-tmux_pane_id_style hsquare
