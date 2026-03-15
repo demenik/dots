@@ -9,7 +9,7 @@
 
     ./binds
     ./hyprlock.nix
-    ./dunst.nix
+    ../dunst.nix
     ./rules.nix
   ];
 
