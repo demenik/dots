@@ -8,7 +8,7 @@ in {
   programs.anki = {
     enable = true;
     style = "native";
-    sync = {
+    profiles."demenik".sync = {
       url = "https://anki.demenik.dev/";
       username = "demenik";
       autoSync = true;
