@@ -1,0 +1,6 @@
+{
+  username = "demenik";
+
+  modules = [];
+  moduleConfig = {};
+}
