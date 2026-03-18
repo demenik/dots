@@ -1,4 +1,6 @@
 {
+  name = "lanzaboote";
+
   nixos = {
     pkgs,
     lib,
