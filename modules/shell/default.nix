@@ -16,6 +16,11 @@
   };
 
   home = {config, ...}: {
+    imports = [
+      ./aliases.nix
+      ./.scripts
+    ];
+
     home.sessionVariables = {
       SHELL = config.shell.command;
     };
