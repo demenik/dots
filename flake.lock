@@ -38,14 +38,15 @@
         ],
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1773685104,
-        "narHash": "sha256-56PAYGfRwuJMVz6vUOW/anhK0+D5pX4UZiuO848v9hE=",
+        "lastModified": 1773942761,
+        "narHash": "sha256-BnFXkOoTlGWeyR30nZtFtn+uNaDuocx4q7KBdYIMQi8=",
         "owner": "demenik",
         "repo": "flake-modules",
-        "rev": "8edf6db8d8399b596a5acfce0112a4c2ecdc311d",
+        "rev": "8522be1746f6ba899ad68d9884834920edb1a840",
         "type": "github"
       },
       "original": {
@@ -185,6 +186,27 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "flake-modules",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773698643,
+        "narHash": "sha256-VCiDjE8kNs8uCAK73Ezk1r3fFuc4JepvW07YFqaN968=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "8237de83e8200d16fe0c4467b02a1c608ff28044",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     }
