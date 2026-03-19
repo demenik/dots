@@ -1,5 +1,5 @@
 {
   modules = [
-    ../modules/wine.nix
+    ../modules/system/wine.nix
   ];
 }

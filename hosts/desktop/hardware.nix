@@ -1,5 +1,5 @@
 {
-  modules = [../../modules/ntfs.nix];
+  modules = [../../modules/system/ntfs.nix];
   moduleConfig = {
     wm.monitors = [
       {
