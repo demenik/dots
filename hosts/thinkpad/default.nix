@@ -12,6 +12,7 @@
     ../default.nix
     ../../modules/system/boot/systemd-boot.nix
     ../../modules/greeter/greetd.nix
+    ../../modules/system/fprint.nix
 
     ../../modules/system/eduroam.nix
   ];
