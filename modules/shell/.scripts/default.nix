@@ -22,17 +22,17 @@
     })
     (writeShellApplication {
       name = "git-changes";
-      inputs = with pkgs; [git];
+      runtimeInputs = with pkgs; [git];
       text = builtins.readFile ./git-changes.sh;
     })
     (writeShellApplication {
       name = "copy";
-      inputs = with pkgs; [wl-clipboard];
+      runtimeInputs = with pkgs; [wl-clipboard];
       text = builtins.readFile ./copy.sh;
     })
     (writeShellApplication {
       name = "boot-next";
-      inputs = with pkgs; [efibootmgr];
+      runtimeInputs = with pkgs; [efibootmgr];
       text = builtins.readFile ./boot-next.sh;
     })
   ];
