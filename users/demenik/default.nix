@@ -31,4 +31,10 @@
       base0F = "f2cdcd";
     };
   };
+
+  nixosConfig = {
+    imports = [
+      ./i18n.nix
+    ];
+  };
 }
