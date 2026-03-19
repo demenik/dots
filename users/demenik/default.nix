@@ -8,6 +8,7 @@
     ../../modules/shell/zsh
     ../../modules/shell/.tmux
     ../../modules/editors/godot.nix
+    ../../modules/cli/sudo-rs.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
