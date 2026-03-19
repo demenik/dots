@@ -10,6 +10,7 @@
   users = [../../users/demenik];
   modules = [
     ../../modules/lanzaboote.nix
+    ../../modules/greeter/greetd.nix
   ];
 
   nixosConfig = {
