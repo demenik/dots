@@ -8,8 +8,8 @@
     ...
   }: let
     fallbackCmd =
-      if (builtins.length config.dots.sessions > 0)
-      then builtins.head config.dots.sessions
+      if (builtins.length config.greeter.sessions > 0)
+      then builtins.head config.greeter.sessions
       else "${lib.getExe pkgs.bash}";
   in {
     services.greetd = {

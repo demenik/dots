@@ -6,7 +6,7 @@
     ../wayland.nix
   ];
   moduleConfig = {
-    dots.sessions = ["start-hyprland"];
+    greeter.sessions = ["start-hyprland"];
   };
 
   nixos = {
