@@ -56,6 +56,27 @@ in {
             type = types.str;
             readOnly = true;
           });
+
+        rgbFloat = genAttrs colorNames (name:
+          mkOption {
+            type = types.str;
+            readOnly = true;
+          });
+        rFloat = genAttrs colorNames (name:
+          mkOption {
+            type = types.float;
+            readOnly = true;
+          });
+        gFloat = genAttrs colorNames (name:
+          mkOption {
+            type = types.float;
+            readOnly = true;
+          });
+        bFloat = genAttrs colorNames (name:
+          mkOption {
+            type = types.float;
+            readOnly = true;
+          });
       };
   };
 
@@ -71,8 +92,12 @@ in {
         r = genAttrs colorNames (name: toString (hexToDec (builtins.substring 0 2 config.colros.${name})));
         g = genAttrs colorNames (name: toString (hexToDec (builtins.substring 2 2 config.colros.${name})));
         b = genAttrs colorNames (name: toString (hexToDec (builtins.substring 4 2 config.colros.${name})));
-
         rgb = genAttrs colorNames (name: "${config.colors.r.${name}}, ${config.colors.g.${name}}, ${config.colors.b.${name}}");
+
+        rFloat = genAttrs colorNames (name: (hexToDec (builtins.substring 0 2 config.colors.${name})) / 255.0);
+        gFloat = genAttrs colorNames (name: (hexToDec (builtins.substring 2 2 config.colors.${name})) / 255.0);
+        bFloat = genAttrs colorNames (name: (hexToDec (builtins.substring 4 2 config.colors.${name})) / 255.0);
+        rgbFloat = genAttrs colorNames (name: "${toString config.colors.rFloat.${name}}, ${toString config.colors.gFloat.${name}}, ${toString config.colors.bFloat.${name}}");
       };
     };
 }
