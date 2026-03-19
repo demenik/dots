@@ -5,6 +5,7 @@
     ../../modules/wm/hyprland
     ../../modules/colors.nix
     ../../modules/shell/zsh
+    ../../modules/shell/.tmux
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
