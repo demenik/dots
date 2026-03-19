@@ -127,7 +127,7 @@ while IFS="|" read -r hash subject; do
     docs) docs="${docs}\n${line}" ;;
     chore) chores="${chores}\n${line}" ;;
     merge) merges="${merges}\n${line}" ;;
-    *) others="${others}\n${line} (Type: $type)" ;;
+    *) others="${others}\n${line} ($H_TYPE: $type)" ;;
     esac
   else
     line="  - [\`${hash:0:7}\`]${link}: ${subject}"
