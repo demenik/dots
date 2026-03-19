@@ -1,6 +1,10 @@
 {
   username = "demenik";
 
-  modules = [];
-  moduleConfig = {};
+  modules = [
+    ../../modules/wm/hyprland
+  ];
+  moduleConfig = {
+    wm.input.keyboard.layout = "de";
+  };
 }
