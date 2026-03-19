@@ -7,6 +7,7 @@
     ../../modules/terminal/kitty.nix
     ../../modules/shell/zsh
     ../../modules/shell/.tmux
+    ../../modules/editors/godot.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
