@@ -1,5 +1,7 @@
 {
   imports = [
+    ../full.nix
+
     ./hardware.nix
     ./audio.nix
   ];

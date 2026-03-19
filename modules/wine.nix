@@ -1,0 +1,26 @@
+{
+  name = "wine";
+
+  nixos = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    environment.systemPackages = with pkgs; [
+      wineWow64Packages.base
+      winetricks
+    ];
+
+    xdg.mime.defaultApplications = {
+      "application/x-ms-dos-executable" = "wine.desktop";
+      "application/x-msdownload" = "wine.desktop";
+      "application/exe" = "wine.desktop";
+    };
+
+    boot.binfmt.registrations.wine = {
+      recognitionType = "magic";
+      magicOrExtension = "MZ";
+      interpreter = lib.getExe pkgs.wineWow64Packages.base;
+    };
+  };
+}
