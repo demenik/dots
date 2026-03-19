@@ -13,7 +13,7 @@
   users = [../../users/demenik];
   modules = [
     ../default.nix
-    ../../modules/system/lanzaboote.nix
+    ../../modules/system/boot/lanzaboote.nix
     ../../modules/greeter/greetd.nix
   ];
 
