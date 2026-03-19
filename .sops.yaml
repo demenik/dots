@@ -1,0 +1,16 @@
+keys:
+  - &desktop ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6pUcq15PVUphYuQpOG6O4drrq6sHVjVGF+ckZ6WR+G root@desktop
+  - &demenik ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAvLK5Of4imQHlPAd+2wQaKf7bTMv34RmEG2TuLvZ966 demenik@desktop
+creation_rules:
+  - path_regex: hosts/.*\.sops$
+    key_groups:
+      - age:
+          - *desktop
+  - path_regex: users/.*\.sops$
+    key_groups:
+      - age:
+          - *demenik
+  - path_regex: secrets/.*\.sops$
+    key_groups:
+      - age:
+          - *desktop
