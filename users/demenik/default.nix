@@ -4,6 +4,7 @@
   modules = [
     ../../modules/wm/hyprland
     ../../modules/colors.nix
+    ../../modules/shell/zsh
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
