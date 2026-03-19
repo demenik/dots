@@ -43,5 +43,10 @@
     imports = [
       ./i18n.nix
     ];
+
+    users.users.demenik = {
+      description = "Dominik";
+      extraGroups = ["wheel"];
+    };
   };
 }
