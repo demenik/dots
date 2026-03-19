@@ -4,6 +4,7 @@
   modules = [
     ../../modules/wm/hyprland
     ../../modules/colors.nix
+    ../../modules/terminal/kitty.nix
     ../../modules/shell/zsh
     ../../modules/shell/.tmux
   ];
