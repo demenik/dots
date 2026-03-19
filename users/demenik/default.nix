@@ -10,6 +10,7 @@
     ../../modules/editors/godot.nix
     ../../modules/cli/sudo-rs.nix
     ../../modules/cli/uutils.nix
+    ../../modules/cli/direnv.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
