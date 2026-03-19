@@ -1,6 +1,7 @@
 {
   imports = [
     ./hardware.nix
+    ./audio.nix
   ];
 
   system = "x86_64-linux";
