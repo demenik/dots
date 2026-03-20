@@ -1,11 +1,10 @@
 {
   pkgs,
   lib,
-  config,
   options,
   ...
 }: let
-  nixvimInstalled = options.programs ? nixvim && config.programs.nixvim.enable;
+  nixvimInstalled = options.programs ? nixvim;
 in {
   programs = lib.mkMerge [
     {
