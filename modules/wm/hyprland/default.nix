@@ -26,6 +26,7 @@
     ...
   }: {
     imports = [
+      ./binds.nix
       ./rules.nix
       ./wmRules.nix
 
