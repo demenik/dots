@@ -28,6 +28,7 @@
     ../../modules/programs/spotify.nix
     ../../modules/programs/rofi.nix
     ../../modules/programs/qbittorrent.nix
+    ../../modules/programs/libreoffice.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
