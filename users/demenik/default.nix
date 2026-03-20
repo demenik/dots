@@ -48,6 +48,7 @@
     ../../modules/cli/btop.nix
     ../../modules/cli/zip.nix
     ../../modules/cli/eza.nix
+    ../../modules/cli/fd.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
