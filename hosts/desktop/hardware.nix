@@ -13,6 +13,7 @@
         mode = "1920x1080@60";
         position = "1920x0";
         scale = 1;
+        transform = 1;
       }
       {
         output = "HDMI-A-2";
