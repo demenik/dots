@@ -89,9 +89,9 @@ in {
       colors = {
         withHashtag = genAttrs colorNames (name: "#${config.colors.${name}}");
 
-        r = genAttrs colorNames (name: toString (hexToDec (builtins.substring 0 2 config.colros.${name})));
-        g = genAttrs colorNames (name: toString (hexToDec (builtins.substring 2 2 config.colros.${name})));
-        b = genAttrs colorNames (name: toString (hexToDec (builtins.substring 4 2 config.colros.${name})));
+        r = genAttrs colorNames (name: toString (hexToDec (builtins.substring 0 2 config.colors.${name})));
+        g = genAttrs colorNames (name: toString (hexToDec (builtins.substring 2 2 config.colors.${name})));
+        b = genAttrs colorNames (name: toString (hexToDec (builtins.substring 4 2 config.colors.${name})));
         rgb = genAttrs colorNames (name: "${config.colors.r.${name}}, ${config.colors.g.${name}}, ${config.colors.b.${name}}");
 
         rFloat = genAttrs colorNames (name: (hexToDec (builtins.substring 0 2 config.colors.${name})) / 255.0);
