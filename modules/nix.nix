@@ -12,6 +12,8 @@
         download-buffer-size = 512 * 1024 * 1024; # 512 MiB
       };
     };
+
+    nixpkgs.config.allowUnfree = true;
   };
 
   home = {

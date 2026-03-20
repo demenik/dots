@@ -23,19 +23,9 @@
     ];
   };
 
-  nixos = {
-    pkgs,
-    lib,
-    ...
-  }: let
+  nixos = {pkgs, ...}: let
     protonBuilds = import ./proton pkgs;
   in {
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "steam"
-        "steam-unwrapped"
-      ];
-
     programs.steam = {
       enable = true;
       package = pkgs.steam.override {
