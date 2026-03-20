@@ -15,6 +15,8 @@
     ../default.nix
     ../../modules/system/boot/lanzaboote.nix
     ../../modules/greeter/greetd.nix
+
+    ../../modules/programs/gaming/steam.nix
   ];
 
   nixosConfig = {
