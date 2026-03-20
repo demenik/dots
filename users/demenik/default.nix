@@ -24,6 +24,7 @@
     ../../modules/editors/godot.nix
 
     ../../modules/programs/vesktop.nix
+    ../../modules/programs/thunderbird.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
