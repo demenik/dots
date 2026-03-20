@@ -34,6 +34,7 @@
     ../../modules/programs/element.nix
     ../../modules/programs/gimp.nix
     ../../modules/programs/aseprite.nix
+    ../../modules/programs/screenshot.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
