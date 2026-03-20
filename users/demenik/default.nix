@@ -50,4 +50,10 @@
       extraGroups = ["wheel"];
     };
   };
+
+  homeConfig = {
+    imports = [
+      ./theme
+    ];
+  };
 }
