@@ -20,7 +20,7 @@
         "SUPER SHIFT, f, fullscreenstate, -1 2" # fake fullscreen to window
       ]
       ++ map move-to-workspace numbers
-      ++ map workspace numbers #
+      ++ map workspace numbers
       ++ import ./vim-binds.nix;
 
     bindm = [
@@ -32,7 +32,7 @@
       volume-step = 5;
       brightness-step = 5;
 
-      volume-cmd = "${lib.getExe pkgs.wpctl} set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ ${toString volume-step}%";
+      volume-cmd = "${lib.getExe' pkgs.wireplumber "wpctl"} set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ ${toString volume-step}%";
       brightness-cmd = "${lib.getExe pkgs.brightnessctl} set ${toString brightness-step}%";
     in [
       ",XF86MonBrightnessUp, exec, ${brightness-cmd}+"
