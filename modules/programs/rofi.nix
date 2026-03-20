@@ -52,7 +52,7 @@
 
       theme = let
         inherit (config.lib.formats.rasi) mkLiteral;
-        inherit (config) colors;
+        colors = config.colors.withHashtag;
       in {
         "*" = {
           bg0 = mkLiteral "${colors.base00}F2";
