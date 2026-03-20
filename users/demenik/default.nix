@@ -41,6 +41,9 @@
 
     ../../modules/programs/gaming/games/osu.nix
     ../../modules/programs/gaming/games/minecraft.nix
+
+    ../../modules/cli/ai/opencode.nix
+    ../../modules/cli/ai/gemini-cli.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
