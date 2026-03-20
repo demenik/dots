@@ -36,6 +36,9 @@
     ../../modules/programs/aseprite.nix
     ../../modules/programs/screenshot.nix
     ../../modules/programs/anki.nix
+
+    ../../modules/programs/gaming/games/osu.nix
+    ../../modules/programs/gaming/games/minecraft.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
