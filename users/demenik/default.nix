@@ -32,6 +32,8 @@
     ../../modules/programs/obsidian.nix
     ../../modules/programs/nautilus.nix
     ../../modules/programs/element.nix
+    ../../modules/programs/gimp.nix
+    ../../modules/programs/aseprite.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
