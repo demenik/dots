@@ -159,6 +159,39 @@
           };
         });
       };
+
+      binds = mkOption {
+        description = "Universal window manager binds";
+        default = [];
+        type = types.listOf (types.submodule {
+          options = {
+            modifiers = mkOption {
+              type = types.listOf (types.enum [
+                "SUPER"
+                "SHIFT"
+                "ALT"
+                "CTRL"
+                "MOD4" # Super
+                "MOD1" # Alt
+              ]);
+              default = ["SUPER"];
+              example = ["SUPER" "SHIFT"];
+              description = "List of modifiers";
+            };
+            key = mkOption {
+              type = types.str;
+              example = "Return";
+              description = "The key e.g. 'A' or 'Return'";
+            };
+
+            exec = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "Executes a shell command";
+            };
+          };
+        });
+      };
     };
   };
 }
