@@ -26,6 +26,7 @@
     ../../modules/programs/vesktop.nix
     ../../modules/programs/thunderbird.nix
     ../../modules/programs/spotify.nix
+    ../../modules/programs/rofi.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
