@@ -86,11 +86,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1774014479,
-        "narHash": "sha256-F4stEVqIeG3CpNs8B17iMaU9wnQKPcYi2DsoEfLhxuE=",
+        "lastModified": 1774038006,
+        "narHash": "sha256-TbtRQt2wtPhz/0CVRdN9nJwVR8Rgzv61ReAkTqAVbF8=",
         "owner": "demenik",
         "repo": "flake-modules",
-        "rev": "7ec299eb4f2ead375fd9ded8cb8918dac573cc9d",
+        "rev": "041d41b8317de83617ff205c9ddf4b2247689c8e",
         "type": "github"
       },
       "original": {
@@ -365,11 +365,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774034989,
-        "narHash": "sha256-wxPCFhFoUNkmYnUgEJ0w5eQJVDxK/4oyCXBNKgtmQA0=",
+        "lastModified": 1774035908,
+        "narHash": "sha256-LCle9B3ny2hIT/9PjZwyClVmEqlxrGkAGdwoPsbMREU=",
         "owner": "demenik",
         "repo": "statusbar",
-        "rev": "98bb49ac7a7950557473596b177fb1b9f1cd35af",
+        "rev": "d1d8570dd6650dffb26dcfb7515693d01538a32f",
         "type": "github"
       },
       "original": {
