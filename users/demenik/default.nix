@@ -79,8 +79,8 @@
   };
 
   secrets = {
-    nextcloudMount.path = ./secrets/nextcloud-mount.sops;
-    anki.path = ./secrets/anki.sops;
+    nextcloudMount.path = ./secrets/nextcloud-mount.sops.yaml;
+    anki.path = ./secrets/anki.sops.yaml;
   };
 
   nixosConfig = {

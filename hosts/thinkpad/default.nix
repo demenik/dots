@@ -27,7 +27,7 @@
   };
 
   secrets = {
-    eduroam.path = ../../secrets/eduroam.sops;
+    eduroam.path = ../../secrets/eduroam.sops.yaml;
   };
 
   nixosConfig = {
