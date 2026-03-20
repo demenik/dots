@@ -51,6 +51,7 @@
     ../../modules/cli/fd.nix
     ../../modules/cli/utils.nix
     ../../modules/cli/ripgrep.nix
+    ../../modules/cli/zoxide.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
