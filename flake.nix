@@ -31,6 +31,10 @@
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    statusbar = {
+      url = "github:demenik/statusbar";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {flake-modules, ...} @ inputs: let

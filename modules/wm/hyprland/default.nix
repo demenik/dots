@@ -9,11 +9,15 @@
     greeter.sessions = ["start-hyprland"];
   };
 
-  nixos = {
+  nixos = {inputs, ...}: {
+    imports = [
+      inputs.statusbar.nixosModules.statusbar
+    ];
+
     programs.hyprland.enable = true;
   };
   hostInstructions = ''
-    Install hyprland on host system
+    Install hyprland and demenik/statusbar on host system
   '';
 
   home = {
