@@ -3,7 +3,7 @@
 
   secrets = {
     mcp-context7 = {
-      required = false;
+      requiredBy = "none";
       description = "Context7 API Key";
     };
   };

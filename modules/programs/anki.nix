@@ -2,6 +2,7 @@
   name = "anki";
 
   secrets.anki = {
+    requiredBy = "home";
     description = "Anki sync key";
   };
 

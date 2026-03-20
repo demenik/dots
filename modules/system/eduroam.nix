@@ -44,6 +44,7 @@
     };
   };
   secrets.eduroam = {
+    requiredBy = "nixos";
     description = "Networking config for eduroam";
   };
 
