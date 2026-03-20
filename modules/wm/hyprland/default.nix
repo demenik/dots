@@ -23,6 +23,7 @@
   }: {
     imports = [
       ./rules.nix
+      ./wmRules.nix
     ];
 
     home.packages = with pkgs; [

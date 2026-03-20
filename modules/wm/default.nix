@@ -82,6 +82,67 @@
           };
         };
       };
+
+      windowrules = mkOption {
+        description = "Universal window manager rules";
+        default = [];
+        type = types.listOf (types.submodule {
+          options = {
+            matchClass = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "Regex or exact string of the window class";
+            };
+            matchTitle = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "Regex or exact string of the window title";
+            };
+
+            workspace = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "Target workspace (e.g. '1', 'name:web' or 'special')";
+            };
+            monitor = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "Target monitor (e.g. 'DP-1')";
+            };
+
+            floating = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              description = "Wether the window should be floating";
+            };
+            center = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              description = "Wether the window should be centered (to be used with floating)";
+            };
+            size = mkOption {
+              type = types.nullOr (types.listOf types.int);
+              default = null;
+              description = "Size of the window: [width height]";
+            };
+            opacity = mkOption {
+              type = types.nullOr (types.either types.float types.int);
+              default = null;
+              description = "Opacity of the window (0.0 to 1.0).";
+            };
+            fullscreen = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              description = "Wether the window should be fullscreen";
+            };
+            noInitialFocus = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              description = "Wether the window should take focus when opened";
+            };
+          };
+        });
+      };
     };
   };
 }
