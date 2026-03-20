@@ -32,11 +32,17 @@
         if rule.size != null
         then "${toString (builtins.elemAt rule.size 0)} ${toString (builtins.elemAt rule.size 1)}"
         else null;
+      move =
+        if rule.position != null
+        then "${builtins.elemAt rule.position 0} ${builtins.elemAt rule.position 1}"
+        else null;
       opacity =
         if rule.opacity != null
         then toString rule.opacity
         else null;
       no_initial_focus = rule.noInitialFocus;
+      keep_aspect_ratio = rule.keepAspectRatio;
+      pin = rule.pinned;
     })
   config.wm.windowrules;
 }

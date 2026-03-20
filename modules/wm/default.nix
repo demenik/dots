@@ -125,6 +125,12 @@
               default = null;
               description = "Size of the window: [width height]";
             };
+            position = mkOption {
+              type = types.nullOr (types.listOf types.str);
+              default = null;
+              example = ["100%-w-5" "100%-h-5"];
+              description = "Position of the window.";
+            };
             opacity = mkOption {
               type = types.nullOr (types.either types.float types.int);
               default = null;
@@ -139,6 +145,16 @@
               type = types.nullOr types.bool;
               default = null;
               description = "Wether the window should take focus when opened";
+            };
+            keepAspectRatio = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              description = "Wether the window should maintain its aspect ratio";
+            };
+            pinned = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              description = "Wether this window should be pinned (to be used with floating)";
             };
           };
         });
