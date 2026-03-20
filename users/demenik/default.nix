@@ -45,6 +45,7 @@
     ../../modules/cli/ai/opencode.nix
     ../../modules/cli/ai/gemini-cli.nix
     ../../modules/cli/bat.nix
+    ../../modules/cli/btop.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
