@@ -6,6 +6,8 @@
 
     ../../modules/wm/hyprland
 
+    ../../modules/services/nextcloud-mount.nix
+
     ../../modules/terminal/kitty.nix
     ../../modules/shell/zsh
     ../../modules/shell/.tmux
@@ -38,6 +40,10 @@
       base0E = "cba6f7";
       base0F = "f2cdcd";
     };
+  };
+
+  secrets = {
+    nextcloudMount.path = ./secrets/nextcloud-mount.sops;
   };
 
   nixosConfig = {
