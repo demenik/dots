@@ -35,6 +35,7 @@
     ../../modules/programs/gimp.nix
     ../../modules/programs/aseprite.nix
     ../../modules/programs/screenshot.nix
+    ../../modules/programs/anki.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
@@ -61,6 +62,7 @@
 
   secrets = {
     nextcloudMount.path = ./secrets/nextcloud-mount.sops;
+    anki.path = ./secrets/anki.sops;
   };
 
   nixosConfig = {
