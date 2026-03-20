@@ -1,4 +1,8 @@
 {
+  imports = [
+    ./wallpaper.nix
+  ];
+
   username = "demenik";
 
   modules = [
