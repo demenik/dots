@@ -22,6 +22,8 @@
 
     ../../modules/editors/nvim
     ../../modules/editors/godot.nix
+
+    ../../modules/programs/vesktop.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
