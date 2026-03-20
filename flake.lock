@@ -42,11 +42,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1773957992,
-        "narHash": "sha256-tcpTNZHzs9LDvJipJNiCbFuc79cLgWmJWpXIg57jUKM=",
+        "lastModified": 1774014479,
+        "narHash": "sha256-F4stEVqIeG3CpNs8B17iMaU9wnQKPcYi2DsoEfLhxuE=",
         "owner": "demenik",
         "repo": "flake-modules",
-        "rev": "7cdf2880b25d4d36a057e0235865adf2caa5a58a",
+        "rev": "7ec299eb4f2ead375fd9ded8cb8918dac573cc9d",
         "type": "github"
       },
       "original": {
