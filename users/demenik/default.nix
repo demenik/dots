@@ -50,6 +50,7 @@
     ../../modules/cli/eza.nix
     ../../modules/cli/fd.nix
     ../../modules/cli/utils.nix
+    ../../modules/cli/ssh.nix
     ../../modules/cli/ripgrep.nix
     ../../modules/cli/zoxide.nix
   ];
