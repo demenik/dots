@@ -26,6 +26,20 @@
     ];
   };
 
+  homeConfig = {
+    wayland.windowManager.hyprland.settings.workspace =
+      [
+        "1, monitor:HDMI-A-1, default:true, persistent:true"
+
+        "2, monitor:DP-1, default:true, persistent:true"
+        "3, monitor:DP-1"
+        "m[DP-1], layoutopt:orientation:top"
+
+        "10, monitor:HDMI-A-2, default:true, persistent:true"
+      ]
+      ++ map (i: "${toString i}, monitor:HDMI-A-1") [4 5 6 7 8 9];
+  };
+
   nixosConfig = {
     config,
     lib,
