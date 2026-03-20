@@ -30,6 +30,7 @@
     ../../modules/programs/qbittorrent.nix
     ../../modules/programs/libreoffice.nix
     ../../modules/programs/obsidian.nix
+    ../../modules/programs/nautilus.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
