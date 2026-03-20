@@ -29,6 +29,7 @@
     ../../modules/programs/rofi.nix
     ../../modules/programs/qbittorrent.nix
     ../../modules/programs/libreoffice.nix
+    ../../modules/programs/obsidian.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
