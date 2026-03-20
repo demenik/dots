@@ -31,6 +31,7 @@
     ../../modules/programs/libreoffice.nix
     ../../modules/programs/obsidian.nix
     ../../modules/programs/nautilus.nix
+    ../../modules/programs/element.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
