@@ -50,6 +50,7 @@
     ../../modules/cli/eza.nix
     ../../modules/cli/fd.nix
     ../../modules/cli/utils.nix
+    ../../modules/cli/ripgrep.nix
   ];
   moduleConfig = {
     wm.input.keyboard.layout = "de";
