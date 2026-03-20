@@ -1,0 +1,17 @@
+{pkgs, ...}: {
+  programs.nixvim = {
+    extraPackages = with pkgs; [lazygit];
+
+    plugins.which-key = {
+      enable = true;
+      settings = {
+        preset = "helix"; # "classic" | "modern" | "helix"
+        sort = ["manual"];
+        win = {
+          border = "rounded";
+        };
+        icon.mappings = false;
+      };
+    };
+  };
+}

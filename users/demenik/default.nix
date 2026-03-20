@@ -14,6 +14,7 @@
     ../../modules/cli/uutils.nix
     ../../modules/cli/direnv.nix
 
+    ../../modules/editors/nvim
     ../../modules/editors/godot.nix
   ];
   moduleConfig = {
