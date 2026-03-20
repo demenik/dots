@@ -4,6 +4,13 @@
   ...
 }: {
   wayland.windowManager.hyprland.settings = {
+    monitorv2 =
+      map (m: {
+        inherit (m) output mode position scale transform bitdepth vrr;
+        cm = m.colorMode;
+      })
+      config.wm.monitors;
+
     windowrule = map (rule: let
       ruleName = "rule-${
         if rule.matchClass != null

@@ -44,13 +44,6 @@
       xwayland.enable = true;
 
       settings = {
-        monitorv2 =
-          map (m: {
-            inherit (m) output mode position scale transform bitdepth vrr;
-            cm = m.colorMode;
-          })
-          config.wm.monitors;
-
         misc = {
           disable_hyprland_logo = true;
           focus_on_activate = false;
