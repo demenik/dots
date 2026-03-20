@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://dawn.wine/dawn-winery/dwproton/releases/download/${version}/${version}-x86_64.tar.xz";
-    hash = "";
+    hash = "sha256-s5/i/YVyewgYq1lijhRmwNuLqMMSdn4V57wGmcSilVg=";
   };
 
   phases = ["installPhase"];

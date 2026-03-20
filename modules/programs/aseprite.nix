@@ -4,7 +4,7 @@
   home = {pkgs, ...}: let
     catppuccinThemeArchive = pkgs.fetchurl {
       url = "https://github.com/catppuccin/aseprite/releases/download/v1.2.1/catppuccin-theme-mocha.aseprite-extension";
-      hash = "";
+      hash = "sha256-embvGNZaGGim9JpWaigbIkt5NxHXpSI+2AaNkgKwMK4=";
     };
     catppuccinTheme =
       pkgs.runCommand "extract-catppuccin-theme" {
