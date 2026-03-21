@@ -55,6 +55,7 @@
         input = {
           kb_layout = config.wm.input.keyboard.layout;
           kb_variant = config.wm.input.keyboard.variant;
+          repeat_delay = 300;
 
           touchpad = {
             clickfinger_behavior = config.wm.input.touchpad.tapToClick;
