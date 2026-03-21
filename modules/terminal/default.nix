@@ -22,7 +22,7 @@
     wm.binds = lib.mkIf (config.terminal.command != null) [
       {
         modifiers = ["SUPER"];
-        key = "Enter";
+        key = "Return";
         exec = config.terminal.command;
       }
     ];
