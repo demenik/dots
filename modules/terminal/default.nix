@@ -1,6 +1,5 @@
 {lib, ...}: {
   name = "terminal";
-
   moduleOptions = with lib; {
     terminal = {
       command = mkOption {
@@ -17,6 +16,16 @@
         description = "Window class of the terminal";
       };
     };
+  };
+
+  moduleConfig = {config, ...}: {
+    wm.binds = lib.mkIf (config.terminal.command != null) [
+      {
+        modifiers = ["SUPER"];
+        key = "Enter";
+        exec = config.terminal.command;
+      }
+    ];
   };
 
   home = {config, ...}: {
