@@ -21,6 +21,8 @@
     programs.kitty = {
       enable = true;
       settings = {
+        shell = config.shell.command;
+
         confirm_os_window_close = 0;
         dynamic_background_opacity = true;
         disable_ligatures = "always";
