@@ -17,7 +17,7 @@ in {
       rounding = 8;
 
       blur = {
-        size = 8;
+        size = 4;
         passes = 3;
       };
     };
