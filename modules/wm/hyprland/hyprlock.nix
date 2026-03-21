@@ -22,6 +22,7 @@
       settings = let
         profilePhoto = "/var/lib/greeter-assets/user.png";
         font_family = builtins.elemAt config.fonts.fontconfig.defaultFonts.sansSerif 0;
+        boldFont = "${builtins.elemAt config.fonts.fontconfig.defaultFonts.sansSerif 0} Bold";
 
         inherit (config) colors;
         background = colors.base00;
@@ -106,7 +107,7 @@
             position = "0, 240";
 
             color = "rgb(${text})";
-            inherit font_family;
+            font_family = boldFont;
           }
           # Day-Month
           {
