@@ -64,17 +64,12 @@
         placeholder_text =
           # html
           ''
-            <i>
-              <span foreground="##${text}99"> 󰌾 Enter Password... </span>
-            </i>
+            <i><span foreground="##${text}99"> 󰌾 Enter Password... </span></i>
           '';
         fail_text =
           # html
           ''
-            <i>
-              $FAIL
-              <b>($ATTEMPTS)</b>
-            </i>
+            <i>$FAIL <b>($ATTEMPTS)</b></i>
           '';
       }) ["HDMI-A-1" "eDP-1"]);
 
