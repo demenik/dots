@@ -6,7 +6,13 @@
     ../wayland.nix
   ];
   moduleConfig = {
-    greeter.sessions = ["start-hyprland"];
+    pkgs,
+    lib,
+    ...
+  }: {
+    greeter.sessions = [
+      (lib.getExe' pkgs.hyprland "start-hyprland")
+    ];
   };
 
   nixos = {inputs, ...}: {
