@@ -1,5 +1,12 @@
-{
+{lib, ...}: {
   name = "nix";
+  moduleOptions = with lib; {
+    dots.path = mkOption {
+      type = types.str;
+      default = "$HOME/dots";
+      description = "Path to these dotfiles. Default: ~/dots";
+    };
+  };
 
   nixos = {pkgs, ...}: {
     nix = {
@@ -18,15 +25,15 @@
 
   home = {
     pkgs,
-    inputs,
     lib,
+    config,
     ...
   }: let
     nh-wrapped = pkgs.writeShellApplication {
       name = "nh";
       runtimeInputs = with pkgs; [git nh];
       text = ''
-        export NH_FLAKE="${inputs.self}"
+        export NH_FLAKE="${config.dots.path}"
 
         if git -C "$NH_FLAKE" rev-parse -is-inside-work-tree >/dev/null 2>&1; then
           git -C "$NH_FLAKE" add --intent-to-add .
