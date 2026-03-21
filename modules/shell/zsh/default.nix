@@ -3,7 +3,11 @@
 
   modules = [../default.nix];
   moduleConfig = {
-    shell.command = "zsh";
+    pkgs,
+    lib,
+    ...
+  }: {
+    shell.command = lib.getExe pkgs.zsh;
   };
 
   home = {
@@ -19,6 +23,7 @@
 
     programs.zsh = {
       enable = true;
+      package = pkgs.zsh;
       dotDir = "${config.xdg.configHome}/zsh";
 
       autosuggestion.enable = true;
