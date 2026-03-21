@@ -35,7 +35,7 @@
         cursor = c.base05;
         cursor_text_color = c.base00;
 
-        url_color = c.base0D;
+        url_color = c.base0E;
 
         color0 = c.base00;
         color8 = c.base03;
@@ -56,7 +56,7 @@
 
         background_opacity = "0.825";
         window_padding_width = 0;
-        active_border_color = c.base0E;
+        active_border_color = c.base0D;
         inactive_border_color = c.base01;
       };
 

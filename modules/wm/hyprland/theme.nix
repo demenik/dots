@@ -9,7 +9,7 @@ in {
       gaps_in = 5;
       gaps_out = 5;
 
-      "col.active_border" = "rgb(${c.base0E})";
+      "col.active_border" = "rgb(${c.base0D})";
       "col.inactive_border" = "rgb(${c.base03})";
     };
 
