@@ -18,5 +18,10 @@
         createHome = false;
       };
     };
+
+    environment.pathsToLink = [
+      "/share/wayland-sessions"
+      "/share/xsessions"
+    ];
   };
 }
