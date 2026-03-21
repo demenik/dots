@@ -4,6 +4,7 @@
   modules = [
     ../../greeter
     ../wayland.nix
+    ./hyprlock.nix
   ];
   moduleConfig = {
     pkgs,
@@ -37,7 +38,6 @@
       ./wmRules.nix
       ./theme.nix
 
-      ./hyprlock.nix
       ./hypridle.nix
     ];
 
