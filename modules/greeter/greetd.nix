@@ -14,13 +14,13 @@
   in {
     services.greetd = {
       enable = true;
-      settings = {
-        user = "greetd";
+      settings.default_session = {
+        user = "greeter";
         command = ''
           ${lib.getExe pkgs.tuigreet} \
             --time \
             --remember \
-            --remmeber-session \
+            --remember-session \
             --asterisks \
             --sessions "/run/current-system/sw/share/wayland-sessions:/run/current-system/sw/share/xsessions" \
             --cmd "${fallbackCmd}"
