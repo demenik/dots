@@ -29,6 +29,7 @@
       ./binds.nix
       ./rules.nix
       ./wmRules.nix
+      ./theme.nix
 
       ./hyprlock.nix
       ./hypridle.nix
@@ -60,14 +61,6 @@
             natural_scroll = config.wm.input.touchpad.naturalScroll;
             disable_while_typing = false;
           };
-        };
-
-        general = {
-          layout = "master";
-
-          gaps_in = 5;
-          gaps_out = 5;
-          border_size = 2;
         };
       };
     };
