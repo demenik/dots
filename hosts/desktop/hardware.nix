@@ -18,7 +18,7 @@
       {
         output = "HDMI-A-2";
         mode = "4096x2160@120";
-        position = "-4096x0";
+        position = "-2048x0";
         scale = 2;
         bitdepth = 10;
         colorMode = "hdr";
