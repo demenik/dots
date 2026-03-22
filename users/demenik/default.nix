@@ -55,6 +55,7 @@
     ../../modules/cli/ripgrep.nix
     ../../modules/cli/zoxide.nix
     ../../modules/cli/docker.nix
+    ../../modules/cli/adb.nix
   ];
   moduleConfig = {config, ...}: {
     wm.input.keyboard.layout = "de";
