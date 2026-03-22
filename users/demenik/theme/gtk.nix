@@ -8,8 +8,8 @@
     gtkCss =
       # css
       ''
-        @define-color accent_color ${colors.withHashtag.base0D};
-        @define-color accent_bg_color ${colors.withHashtag.base0D};
+        @define-color accent_color ${colors.withHashtag.base0E};
+        @define-color accent_bg_color ${colors.withHashtag.base0E};
         @define-color accent_fg_color ${colors.withHashtag.base00};
 
         @define-color destructive_color ${colors.withHashtag.base08};
@@ -20,8 +20,8 @@
         @define-color success_bg_color ${colors.withHashtag.base0B};
         @define-color success_fg_color ${colors.withHashtag.base00};
 
-        @define-color warning_color ${colors.withHashtag.base0E};
-        @define-color warning_bg_color ${colors.withHashtag.base0E};
+        @define-color warning_color ${colors.withHashtag.base0A};
+        @define-color warning_bg_color ${colors.withHashtag.base0A};
         @define-color warning_fg_color ${colors.withHashtag.base00};
 
         @define-color error_color ${colors.withHashtag.base08};

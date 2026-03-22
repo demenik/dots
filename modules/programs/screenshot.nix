@@ -16,7 +16,7 @@
     config,
     ...
   }: let
-    accent = config.colors.withHashtag.base0D;
+    accent = config.colors.withHashtag.base0E;
 
     screenshot = pkgs.writeShellApplication {
       name = "screenshot";

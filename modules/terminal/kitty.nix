@@ -56,7 +56,7 @@
 
         background_opacity = "0.825";
         window_padding_width = 0;
-        active_border_color = c.base0D;
+        active_border_color = c.base0E;
         inactive_border_color = c.base01;
       };
 
