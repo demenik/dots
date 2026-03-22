@@ -24,17 +24,21 @@
       postBuild = ''
         wrapProgram $out/bin/nautilus \
           --prefix PYTHONPATH : "${pkgs.python3.pkgs.pygobject3}/${pkgs.python3.sitePackages}" \
+          --prefix XDG_DATA_DIRS : "${pkgs.nautilus-open-any-terminal}/share" \
           --set NAUTILUS_4_EXTENSION_DIR "${pkgs.nautilus-python}/lib/nautilus/extensions-4"
       '';
     };
   in {
     home.packages = with pkgs; [
+      gvfs
+      tinysparql
+      localsearch
+
       nautilus-wrapped
-      nautilus-open-any-terminal
     ];
 
-    dconf.settings."com/github/stunkymonkey/nautilus-open-any-terminal" = lib.mkIf (config.terminal.command != null) {
-      terminal = config.terminal.command;
+    dconf.settings."com/github/stunkymonkey/nautilus-open-any-terminal" = lib.mkIf (config.terminal.windowClass != null) {
+      terminal = config.terminal.windowClass;
       lockAll = true;
     };
 
