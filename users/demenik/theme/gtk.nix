@@ -8,8 +8,8 @@
     gtkCss =
       # css
       ''
-        @define-color accent_color ${colors.withHashtag.base0E};
-        @define-color accent_bg_color ${colors.withHashtag.base0E};
+        @define-color accent_color ${colors.withHashtag.accent};
+        @define-color accent_bg_color ${colors.withHashtag.accent};
         @define-color accent_fg_color ${colors.withHashtag.base00};
 
         @define-color destructive_color ${colors.withHashtag.base08};

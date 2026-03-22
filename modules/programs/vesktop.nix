@@ -37,7 +37,7 @@
         tray = false;
         minimizeToTray = false;
         arRPC = true;
-        splashColor = colors.withHashtag.base0E;
+        splashColor = colors.withHashtag.accent;
         splashBackground = colors.withHashtag.base00;
       };
 

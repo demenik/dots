@@ -58,7 +58,7 @@
           bg0 = mkLiteral "${colors.base00}F2";
           bg1 = mkLiteral colors.base01;
           bg2 = mkLiteral colors.base02;
-          bg3 = mkLiteral colors.base0E;
+          bg3 = mkLiteral colors.accent;
           fg0 = mkLiteral colors.base05;
           fg1 = mkLiteral colors.base04;
           fg2 = mkLiteral colors.base03;

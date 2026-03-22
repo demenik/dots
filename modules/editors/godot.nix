@@ -72,7 +72,7 @@
           # Interface theme
           update_setting "interface/theme/preset" "\"Custom\""
           update_setting "interface/theme/base_color" "Color(${colors.base00}, 1)"
-          update_setting "interface/theme/accent_color" "Color(${colors.base0E}, 1)"
+          update_setting "interface/theme/accent_color" "Color(${colors.accent}, 1)"
           update_setting "interface/theme/contrast" "0.2"
           update_setting "interface/theme/icon_saturation" "0.6"
         '';
