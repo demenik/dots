@@ -1,6 +1,18 @@
 {
   name = "libreoffice";
 
+  moduleConfig = {
+    wm.windowrules = [
+      {
+        matchTitle = "LibreOffice";
+
+        floating = true;
+        center = true;
+        pinned = true;
+      }
+    ];
+  };
+
   home = {
     pkgs,
     lib,
