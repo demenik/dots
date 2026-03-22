@@ -56,6 +56,14 @@
       enable = true;
       defaultApplications = {
         "inode/directory" = ["org.gnome.Nautilus.desktop"];
+
+        "application/zip" = ["org.gnome.Nautilus.desktop"];
+        "application/x-tar" = ["org.gnome.Nautilus.desktop"];
+        "application/x-7z-compressed" = ["org.gnome.Nautilus.desktop"];
+        "application/x-rar" = ["org.gnome.Nautilus.desktop"];
+        "application/x-gzip" = ["org.gnome.Nautilus.desktop"];
+        "application/x-bzip2" = ["org.gnome.Nautilus.desktop"];
+        "application/x-xz" = ["org.gnome.Nautilus.desktop"];
       };
     };
   };
