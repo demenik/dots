@@ -54,6 +54,11 @@
           };
         });
       };
+      primaryMonitor = mkOption {
+        type = types.attrs;
+        readOnly = true;
+        description = "The config of the primary monitor (or null if it isn't configured)";
+      };
 
       input = {
         keyboard = {
@@ -192,6 +197,16 @@
           };
         });
       };
+    };
+  };
+
+  moduleConfig = {
+    lib,
+    config,
+    ...
+  }: {
+    wm = {
+      primaryMonitor = lib.findFirst (m: m.primary) null config.wm.monitors;
     };
   };
 }
