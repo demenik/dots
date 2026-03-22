@@ -1,5 +1,18 @@
-{
+{config, ...}: {
   programs.nixvim = {
+    highlight = let
+      c = config.colors.withHashtag;
+    in {
+      SnacksDashboardHeader.fg = c.base04;
+      SnacksDashboardKey.fg = c.accent;
+      SnacksDashboardDesc.fg = c.base05;
+      SnacksDashboardIcon.fg = c.accent;
+      SnacksDashboardTitle = {
+        fg = c.base04;
+        italic = true;
+      };
+    };
+
     plugins.snacks.settings.dashboard = let
       themes = import ./themes.nix;
       theme = themes.comfy;
