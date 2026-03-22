@@ -60,7 +60,6 @@
   };
 
   home = {
-    pkgs,
     lib,
     config,
     ...
@@ -129,7 +128,6 @@
 
     systemd.user.services.linux-wallpaperengine.Service = {
       Environment = ["XDG_SESSION_TYPE=wayland"];
-      ExecStartPre = "${lib.getExe' pkgs.uutils-coreutils-noprefix "sleep"} 1";
       Restart = "on-failure";
       RestartSec = "1";
     };
