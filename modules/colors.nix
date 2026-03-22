@@ -1,5 +1,5 @@
 {lib, ...}: let
-  colorNames = [
+  base16Names = [
     "base00"
     "base01"
     "base02"
@@ -17,19 +17,30 @@
     "base0E"
     "base0F"
   ];
+  colorNames =
+    base16Names
+    ++ [
+      "accent"
+    ];
 
   hexToDec = hex: (fromTOML "val=0x${hex}").val;
 in {
   name = "colors";
   moduleOptions = with lib; {
     colors =
-      genAttrs colorNames (name:
+      genAttrs base16Names (name:
         mkOption {
           type = types.strMatching "[0-9a-fA-F]{6}";
           description = "Base16 ${name} color";
           example = "1a1b26";
         })
       // {
+        accent = mkOption {
+          type = types.strMatching "[0-9a-fA-f]{6}";
+          description = "Accent color (defaults to base0D)";
+          example = "7aa2f7";
+        };
+
         withHashtag = genAttrs colorNames (name:
           mkOption {
             type = types.str;
@@ -87,6 +98,8 @@ in {
   }:
     with lib; {
       colors = {
+        accent = mkOptionDefault config.colors.base0D;
+
         withHashtag = genAttrs colorNames (name: "#${config.colors.${name}}");
 
         r = genAttrs colorNames (name: toString (hexToDec (builtins.substring 0 2 config.colors.${name})));

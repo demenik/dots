@@ -55,10 +55,12 @@
     ../../modules/cli/ripgrep.nix
     ../../modules/cli/zoxide.nix
   ];
-  moduleConfig = {
+  moduleConfig = {config, ...}: {
     wm.input.keyboard.layout = "de";
 
     colors = {
+      accent = config.colors.base0E;
+
       base00 = "1e1e2e";
       base01 = "181825";
       base02 = "313244";
