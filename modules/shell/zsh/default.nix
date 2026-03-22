@@ -42,6 +42,9 @@
         ''
           zmodload zsh/zprof
           bindkey -e
+
+          # workaround for nix-shell
+          export SHELL="${lib.getExe pkgs.zsh}"
         '';
     };
   };
