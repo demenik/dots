@@ -49,6 +49,7 @@
   }: {
     imports = [
       (modulesPath + "/installer/scan/not-detected.nix")
+      ./fans.nix
     ];
 
     boot = {
