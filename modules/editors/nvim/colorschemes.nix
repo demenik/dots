@@ -8,6 +8,7 @@
         flavour = "mocha";
         transparent_background = true;
         show_end_of_buffer = true;
+
         integrations = {
           cmp = true;
           gitsigns = true;
@@ -27,6 +28,7 @@
           dap = true;
           snacks.enable = true;
         };
+
         custom_highlights =
           # lua
           ''
