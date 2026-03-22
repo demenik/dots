@@ -13,6 +13,8 @@
         inherit (config) colors;
       in {
         global = {
+          follow = "keyboard";
+
           width = 400;
           offset = "5x5";
           corner_radius = 8;
