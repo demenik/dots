@@ -1,4 +1,4 @@
-colors: get-mode-color: [
+c: get-mode-color: [
   {
     __unkeyed-1 = "mode";
     color.__raw = get-mode-color;
@@ -16,7 +16,7 @@ colors: get-mode-color: [
       end
     '';
     color = {
-      fg = colors.red;
+      fg = c.base08;
       gui = "bold";
     };
   }
@@ -25,7 +25,7 @@ colors: get-mode-color: [
     icon = "";
     __unkeyed-1 = "branch";
     color = {
-      fg = colors.violet;
+      fg = c.base0E;
       gui = "bold";
     };
   }
@@ -38,9 +38,9 @@ colors: get-mode-color: [
       alternate_file = "";
     };
     buffers_color = {
-      inactive.fg = colors.grey;
+      inactive.fg = c.base04;
       active = {
-        fg = colors.magenta;
+        fg = c.base0E;
         gui = "bold";
       };
     };

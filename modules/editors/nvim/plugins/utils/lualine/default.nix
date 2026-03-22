@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   programs.nixvim = {
     # Hide bottom bar
     opts = {
@@ -18,7 +18,7 @@
     ];
 
     plugins.lualine = let
-      colors = import ./colors.nix;
+      c = config.colors.withHashtag;
     in {
       enable = true;
       settings = {
@@ -28,11 +28,11 @@
           theme = {
             normal.c = {
               bg = "";
-              inherit (colors) fg;
+              fg = c.base05;
             };
             inactive.c = {
               bg = "";
-              inherit (colors) fg;
+              fg = c.base05;
             };
           };
 
@@ -73,7 +73,7 @@
           lualine_z = [{}];
         };
 
-        tabline = import ./tabline.nix;
+        tabline = import ./tabline.nix c;
       };
     };
 

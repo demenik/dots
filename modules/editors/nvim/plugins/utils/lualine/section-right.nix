@@ -1,8 +1,8 @@
-colors: get-mode-color: [
+c: get-mode-color: [
   {
     path = 1;
     shorting_target = 150;
-    color.fg = colors.grey;
+    color.fg = c.base04;
     __unkeyed-1 = "filename";
     disabled_buftypes = ["terminal"];
   }
@@ -11,10 +11,10 @@ colors: get-mode-color: [
     sources = ["nvim_lsp"];
     __unkeyed-1 = "diagnostics";
     diagnostics_color = {
-      color_error.fg = colors.red;
-      color_warn.fg = colors.yellow;
-      color_info.fg = colors.blue;
-      color_hint.fg = colors.cyan;
+      color_error.fg = c.base08;
+      color_warn.fg = c.base0A;
+      color_info.fg = c.base0D;
+      color_hint.fg = c.base0C;
     };
     symbols = {
       error = " ";
@@ -27,7 +27,7 @@ colors: get-mode-color: [
     icon = "lsp:";
     disabled_buftypes = ["terminal"];
     color = {
-      fg = colors.magenta;
+      fg = c.base0E;
       gui = "bold";
     };
     ignore_lsp = [
@@ -43,9 +43,9 @@ colors: get-mode-color: [
       removed = " ";
     };
     diff_color = {
-      added.fg = colors.green;
-      removed.fg = colors.red;
-      modified.fg = colors.orange;
+      added.fg = c.base0B;
+      removed.fg = c.base08;
+      modified.fg = c.base09;
     };
   }
 
@@ -53,12 +53,12 @@ colors: get-mode-color: [
     # icon = ""; # NOTE: IDK why it shows twice
     icon = "";
     padding.right = 1;
-    color.fg = colors.violet;
+    color.fg = c.base0E;
     __unkeyed-1 = "gh-actions";
   }
 
   {
-    color.fg = colors.pink;
+    color.fg = c.base0F;
     __unkeyed-1 = "progress";
   }
 ]

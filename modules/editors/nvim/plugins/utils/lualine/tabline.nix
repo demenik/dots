@@ -1,39 +1,38 @@
-let
-  colors = import ./colors.nix;
+c: let
   get-mode-color =
     # lua
     "
     function()
       local mode_color = {
-        n = '${colors.blue}',
-        i = '${colors.green}',
+        n = '${c.base0D}',
+        i = '${c.base0B}',
 
-        v = '${colors.violet}',
-        [''] = '${colors.violet}',
-        V = '${colors.violet}',
+        v = '${c.base0E}',
+        [''] = '${c.base0E}',
+        V = '${c.base0E}',
 
-        c = '${colors.magenta}',
-        no = '${colors.red}',
+        c = '${c.base0E}',
+        no = '${c.base08}',
 
-        s = '${colors.orange}',
-        S = '${colors.orange}',
-        [''] = '${colors.orange}',
+        s = '${c.base09}',
+        S = '${c.base09}',
+        [''] = '${c.base09}',
 
-        ic = '${colors.yellow}',
-        R = '${colors.magenta}',
-        Rv = '${colors.magenta}',
-        cv = '${colors.red}',
-        ce = '${colors.red}',
-        r = '${colors.cyan}',
-        rm = '${colors.cyan}',
-        ['r?'] = '${colors.cyan}',
-        ['!'] = '${colors.red}',
-        t = '${colors.pink}',
+        ic = '${c.base0A}',
+        R = '${c.base0E}',
+        Rv = '${c.base0E}',
+        cv = '${c.base08}',
+        ce = '${c.base08}',
+        r = '${c.base0C}',
+        rm = '${c.base0C}',
+        ['r?'] = '${c.base0C}',
+        ['!'] = '${c.base08}',
+        t = '${c.base0F}',
       }
       return { fg = mode_color[vim.fn.mode()] }
     end
   ";
 in {
-  lualine_c = import ./section-left.nix colors get-mode-color;
-  lualine_x = import ./section-right.nix colors get-mode-color;
+  lualine_c = import ./section-left.nix c get-mode-color;
+  lualine_x = import ./section-right.nix c get-mode-color;
 }
