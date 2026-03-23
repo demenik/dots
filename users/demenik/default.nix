@@ -56,6 +56,7 @@
     ../../modules/cli/zoxide.nix
     ../../modules/cli/docker.nix
     ../../modules/cli/adb.nix
+    ../../modules/cli/just.nix
   ];
   moduleConfig = {config, ...}: {
     wm.input.keyboard.layout = "de";
