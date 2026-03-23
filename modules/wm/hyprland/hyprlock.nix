@@ -29,7 +29,7 @@
         text = colors.base05;
         yellow = colors.base0A;
         red = colors.base08;
-        accent = colors.base0D;
+        accent = colors.accent;
       in {
         authentication.fingerprint.enabled = true;
 
