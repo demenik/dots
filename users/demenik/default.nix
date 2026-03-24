@@ -38,6 +38,7 @@
     ../../modules/programs/gimp.nix
     ../../modules/programs/aseprite.nix
     ../../modules/programs/anki.nix
+    ../../modules/programs/inkscape.nix
 
     ../../modules/programs/gaming/games/osu.nix
     ../../modules/programs/gaming/games/minecraft.nix
