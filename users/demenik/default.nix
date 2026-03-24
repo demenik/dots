@@ -37,7 +37,6 @@
     ../../modules/programs/element.nix
     ../../modules/programs/gimp.nix
     ../../modules/programs/aseprite.nix
-    ../../modules/programs/screenshot.nix
     ../../modules/programs/anki.nix
 
     ../../modules/programs/gaming/games/osu.nix

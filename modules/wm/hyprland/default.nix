@@ -5,6 +5,8 @@
     ../../greeter
     ../wayland.nix
     ./hyprlock.nix
+
+    ../../programs/screenshot.nix
   ];
   moduleConfig = {
     pkgs,
