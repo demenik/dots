@@ -17,6 +17,7 @@
     extraConfigLua = let
       snippets = {
         nix = import ./nix;
+        text = import ./text;
       };
 
       escape = text: pkgs.lib.generators.toLua {} text;
