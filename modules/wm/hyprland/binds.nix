@@ -18,6 +18,9 @@
         "SUPER, f, fullscreen, 0"
         "SUPER, m, fullscreen, 1"
         "SUPER SHIFT, f, fullscreenstate, -1 2" # fake fullscreen to window
+
+        "SUPER, 0, workspace, 10"
+        "SUPER SHIFT, 0, movetoworkspace, 10"
       ]
       ++ map move-to-workspace numbers
       ++ map workspace numbers
