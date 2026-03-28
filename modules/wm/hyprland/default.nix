@@ -5,6 +5,7 @@
     ../../greeter
     ../wayland.nix
     ./hyprlock.nix
+    ../.shells/statusbar.nix
 
     ../../programs/screenshot.nix
   ];
@@ -18,15 +19,11 @@
     ];
   };
 
-  nixos = {inputs, ...}: {
-    imports = [
-      inputs.statusbar.nixosModules.statusbar
-    ];
-
+  nixos = {
     programs.hyprland.enable = true;
   };
   hostInstructions = ''
-    Install hyprland and demenik/statusbar on host system
+    Install hyprland on host system
   '';
 
   home = {
