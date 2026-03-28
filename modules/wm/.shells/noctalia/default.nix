@@ -17,6 +17,7 @@
       ./locker.nix
       ./panels.nix
       ./plugins
+      ./wm.nix
     ];
 
     systemd.user.services.noctalia = {
