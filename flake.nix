@@ -35,6 +35,10 @@
       url = "github:demenik/statusbar";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {flake-modules, ...} @ inputs: let

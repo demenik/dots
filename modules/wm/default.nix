@@ -55,7 +55,7 @@
         });
       };
       primaryMonitor = mkOption {
-        type = types.attrs;
+        type = types.nullOr types.attrs;
         readOnly = true;
         description = "The config of the primary monitor (or null if it isn't configured)";
       };
