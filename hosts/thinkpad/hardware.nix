@@ -3,6 +3,7 @@
     wm.monitors = [
       {
         output = "eDP-1";
+        primary = true;
         mode = "auto";
         position = "0x0";
         scale = 1;
