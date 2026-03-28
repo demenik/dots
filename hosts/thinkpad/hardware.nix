@@ -4,9 +4,10 @@
       {
         output = "eDP-1";
         primary = true;
-        mode = "auto";
-        position = "0x0";
-        scale = 1;
+        position = {
+          x = 0;
+          y = 0;
+        };
       }
     ];
   };

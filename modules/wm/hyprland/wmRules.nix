@@ -4,12 +4,52 @@
   ...
 }: {
   wayland.windowManager.hyprland.settings = {
-    monitorv2 =
-      map (m: {
-        inherit (m) output mode position scale transform bitdepth vrr;
+    monitorv2 = map (m: let
+      transformVal =
+        if m.transform != null
+        then let
+          rot =
+            {
+              "0" = 0;
+              "90" = 1;
+              "180" = 2;
+              "270" = 3;
+            }.${
+              toString m.transform.rotation
+            };
+        in
+          if m.transform.flipped
+          then rot + 4
+          else rot
+        else null;
+
+      vrrVal =
+        if m.vrr == true
+        then 1
+        else if m.vrr == "on-demand"
+        then 2
+        else if m.vrr == false
+        then 0
+        else null;
+    in
+      lib.filterAttrs (n: v: v != null) {
+        inherit (m) output scale bitdepth;
+
+        mode =
+          if m.mode != null
+          then "${toString m.mode.width}x${toString m.mode.height}@${toString m.mode.refresh}"
+          else null;
+
+        position =
+          if m.position != null
+          then "${toString m.position.x}x${toString m.position.y}"
+          else null;
+
+        transform = transformVal;
+        vrr = vrrVal;
         cm = m.colorMode;
       })
-      config.wm.monitors;
+    config.wm.monitors;
 
     windowrule = map (rule: let
       ruleName = "rule-${

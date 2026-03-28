@@ -18,37 +18,57 @@
               description = "Wether this should be the primary monitor";
             };
             mode = mkOption {
-              type = types.str;
-              example = "1920x1080@60";
-              description = "Resolution and refresh rate";
+              default = null;
+              type = types.nullOr (types.submodule {
+                options = {
+                  width = mkOption {type = types.int;};
+                  height = mkOption {type = types.int;};
+                  refresh = mkOption {type = types.nullOr types.float;};
+                };
+              });
             };
             position = mkOption {
-              type = types.str;
-              default = "0x0";
-              description = "Position of the monitor";
+              default = null;
+              type = types.nullOr (types.submodule {
+                options = {
+                  x = mkOption {type = types.int;};
+                  y = mkOption {type = types.int;};
+                };
+              });
             };
             scale = mkOption {
-              type = types.either types.int types.float;
-              default = 1.0;
+              type = types.nullOr (types.either types.int types.float);
+              default = null;
               description = "Monitor scaling";
             };
             transform = mkOption {
-              type = types.enum [0 1 2 3];
-              default = 0;
-              description = "Rotation: 0=normal, 1=90, 2=180, 3=270 degrees";
+              default = null;
+              type = types.nullOr (types.submodule {
+                options = {
+                  rotation = mkOption {
+                    type = types.enum [0 90 180 270];
+                    default = 0;
+                    description = "Rotation counter-clockwise in degrees";
+                  };
+                  flipped = mkOption {
+                    type = types.bool;
+                    default = false;
+                  };
+                };
+              });
             };
             bitdepth = mkOption {
-              type = types.enum [8 10];
+              type = types.nullOr (types.enum [8 10]);
               default = 8;
               description = "Colordepth per channel";
             };
             vrr = mkOption {
-              type = types.enum [0 1 2];
-              default = 0;
-              description = "Variable refresh rate: 0 (off), 1 (on), 2 (fullscreen only)";
+              type = types.nullOr (types.enum [false true "on-demand"]);
+              default = false;
+              description = "Variable refresh rate";
             };
             colorMode = mkOption {
-              type = types.enum ["auto" "srgb" "hdr"];
+              type = types.nullOr (types.enum ["auto" "srgb" "hdr"]);
               default = "auto";
             };
           };

@@ -5,25 +5,46 @@
       {
         output = "HDMI-A-1";
         primary = true;
-        mode = "1920x1080@143.98";
-        position = "0x0";
+        mode = {
+          width = 1920;
+          height = 1080;
+          refresh = 143.98;
+        };
+        position = {
+          x = 0;
+          y = 0;
+        };
         scale = 1;
       }
       {
         output = "DP-1";
-        mode = "1920x1080@60";
-        position = "1920x0";
+        mode = {
+          width = 1920;
+          height = 1080;
+          refresh = 60.0;
+        };
+        position = {
+          x = 1920;
+          y = 0;
+        };
         scale = 1;
-        transform = 1;
+        transform.rotation = 90;
       }
       {
         output = "HDMI-A-2";
-        mode = "4096x2160@120";
-        position = "-4096x0";
+        mode = {
+          width = 4096;
+          height = 2160;
+          refresh = 120.0;
+        };
+        position = {
+          x = -4096;
+          y = 0;
+        };
         scale = 2;
         bitdepth = 10;
         colorMode = "hdr";
-        vrr = 1;
+        vrr = true;
       }
     ];
   };
