@@ -10,7 +10,7 @@
 
     ../../modules/wm/hyprland
 
-    ../../modules/services/dunst.nix
+    # ../../modules/services/dunst.nix
     ../../modules/services/nextcloud-mount.nix
 
     ../../modules/terminal/kitty.nix

@@ -4,8 +4,9 @@
   modules = [
     ../../greeter
     ../wayland.nix
-    ./hyprlock.nix
-    ../.shells/statusbar.nix
+    # ./hyprlock.nix
+    # ../.shells/statusbar.nix
+    ../.shells/noctalia
 
     ../../programs/screenshot.nix
   ];
@@ -37,7 +38,7 @@
       ./wmRules.nix
       ./theme.nix
 
-      ./hypridle.nix
+      # ./hypridle.nix
     ];
 
     home.packages = with pkgs; [
@@ -71,6 +72,6 @@
       };
     };
 
-    services.hyprpolkitagent.enable = true;
+    # services.hyprpolkitagent.enable = true;
   };
 }
