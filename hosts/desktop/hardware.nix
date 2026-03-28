@@ -4,6 +4,7 @@
     wm.monitors = [
       {
         output = "HDMI-A-1";
+        primary = true;
         mode = "1920x1080@143.98";
         position = "0x0";
         scale = 1;
