@@ -107,6 +107,17 @@ in {
             groupedBorderOpacity = 1;
             colorizeIcons = false;
           }
+        ];
+
+        right = [
+          {
+            id = "Tray";
+            drawerEnabled = false;
+            hidePassive = false;
+            colorizeIcons = true;
+            pinned = [];
+            blacklist = [];
+          }
           {
             id = "MediaMini";
             hideMode = "hidden";
@@ -121,17 +132,6 @@ in {
             showVisualizer = true;
             visualizerType = "linear";
             showProgressRing = false;
-          }
-        ];
-
-        right = [
-          {
-            id = "Tray";
-            drawerEnabled = false;
-            hidePassive = false;
-            colorizeIcons = true;
-            pinned = [];
-            blacklist = [];
           }
           {
             id = "Clock";
