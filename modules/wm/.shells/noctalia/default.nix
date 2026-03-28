@@ -25,6 +25,9 @@
         Description = "Noctalia Shell";
         After = ["graphical-session-pre.target"];
         PartOf = ["graphical-session.target"];
+        X-Restart-Triggers = [
+          (builtins.toJSON config.programs.noctalia-shell.settings)
+        ];
       };
       Service = {
         ExecStart = lib.getExe config.programs.noctalia-shell.package;
