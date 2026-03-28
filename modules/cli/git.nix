@@ -94,6 +94,10 @@
       };
     };
 
-    home.packages = [pkgs.glab];
+    home.packages = with pkgs; [
+      glab
+
+      cocogitto
+    ];
   };
 }
