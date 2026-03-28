@@ -60,6 +60,7 @@
   };
 
   home = {
+    pkgs,
     lib,
     config,
     ...
@@ -131,19 +132,5 @@
       Restart = "on-failure";
       RestartSec = "1";
     };
-  };
-
-  nixos = {
-    pkgs,
-    lib,
-    users,
-    ...
-  }: let
-    resumeScripts =
-      map
-      (u: "${lib.getExe' pkgs.systemd "systemctl"} --user -M ${u.username}@ restart linux-wallpaperengine.service")
-      users;
-  in {
-    powerManagement.resumeCommands = lib.concatStringsSep "\n" resumeScripts;
   };
 }
