@@ -88,7 +88,10 @@
       package = pkgs.adw-gtk3;
     };
     gtk3.extraCss = gtkCss;
-    gtk4.extraCss = gtkCss;
+    gtk4 = {
+      inherit  (config.gtk) theme;
+      extraCss = gtkCss;
+    };
   };
 
   dconf.settings = {
