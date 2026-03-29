@@ -8,7 +8,7 @@
           git_icons = true;
           file_icons = true;
         };
-        grep.rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden -e";
+        grep.rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden --glob='!.git/*' --glob='!.direnv/*' -e";
       };
     };
 
