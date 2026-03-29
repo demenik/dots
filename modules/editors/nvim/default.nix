@@ -74,7 +74,7 @@
         '';
     };
 
-    xdg.desktopEntries.nvim = lib.mkIf (config.terminal.command != null) {
+    xdg.desktopEntries.nvim = lib.mkIf (lib.hasAttr "terminal" config && config.terminal.command != null) {
       name = "Neovim";
       genericName = "Text Editor";
       exec = "${config.terminal.command} -e nvim %F";
