@@ -3,7 +3,7 @@
     ./vpn.nix
   ];
 
-  programs.noctalia-shell.settings = {
+  programs.noctalia-shell = {
     plugins = {
       autoUpdate = false;
       notifyUpdates = true;

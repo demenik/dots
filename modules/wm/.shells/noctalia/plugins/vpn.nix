@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  programs.noctalia-shell.settings = {
+  programs.noctalia-shell = {
     plugins = {
       states.network-manager-vpn = {
         enabled = true;
