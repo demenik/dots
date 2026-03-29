@@ -99,6 +99,8 @@
       description = "Dominik";
       extraGroups = ["wheel"];
     };
+
+    home-manager.backupFileExtension = "backup";
   };
 
   homeConfig = {pkgs, ...}: {
