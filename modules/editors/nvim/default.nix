@@ -1,6 +1,13 @@
 {
   name = "nvim";
 
+  secrets = {
+    wakatime = {
+      description = "Content of .wakatime.cfg";
+      requiredBy = "none";
+    };
+  };
+
   home = {
     inputs,
     config,

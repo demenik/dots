@@ -88,6 +88,7 @@
     nextcloudMount.path = ./secrets/nextcloud-mount.sops.yaml;
     anki.path = ./secrets/anki.sops.yaml;
     openvpn.path = ./secrets/openvpn.sops.yaml;
+    wakatime.path = ./secrets/wakatime.sops.yaml;
   };
 
   nixosConfig = {

@@ -1,4 +1,8 @@
 {
+  lib,
+  config,
+  ...
+}: {
   imports = [
     ./lualine
     ./snacks
@@ -42,5 +46,9 @@
     #       end,
     #     })
     #   '';
+  };
+
+  home.file.".wakatime.cfg" = lib.mkIf (lib.hasAttr "wakatime" config.sops.secrets) {
+    source = config.lib.file.mkOutOfStoreSymlink config.sops.secrets.wakatime.path;
   };
 }
