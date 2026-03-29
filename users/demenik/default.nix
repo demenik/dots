@@ -12,6 +12,7 @@
 
     # ../../modules/services/dunst.nix
     ../../modules/services/nextcloud-mount.nix
+    ../../modules/services/vpn/openvpn.nix
 
     ../../modules/terminal/kitty.nix
     ../../modules/shell/zsh
@@ -86,6 +87,7 @@
   secrets = {
     nextcloudMount.path = ./secrets/nextcloud-mount.sops.yaml;
     anki.path = ./secrets/anki.sops.yaml;
+    openvpn.path = ./secrets/openvpn.sops.yaml;
   };
 
   nixosConfig = {
