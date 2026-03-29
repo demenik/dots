@@ -1,44 +1,50 @@
 {
   imports = [
-    ./vpn.nix
+    ./screenshot.nix
   ];
 
-  programs.noctalia-shell = {
-    plugins = {
-      autoUpdate = false;
-      notifyUpdates = true;
+  home = {
+    imports = [
+      ./vpn.nix
+    ];
 
-      sources = [
-        {
-          enabled = true;
-          name = "Official Noctalia Plugins";
-          url = "https://github.com/noctalia-dev/noctalia-plugins";
-        }
-      ];
+    programs.noctalia-shell = {
+      plugins = {
+        autoUpdate = false;
+        notifyUpdates = true;
 
-      states = {
-        privacy-indicator = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        sources = [
+          {
+            enabled = true;
+            name = "Official Noctalia Plugins";
+            url = "https://github.com/noctalia-dev/noctalia-plugins";
+          }
+        ];
+
+        states = {
+          privacy-indicator = {
+            enabled = true;
+            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          };
+          polkit-agent = {
+            enabled = true;
+            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          };
         };
-        polkit-agent = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
-      };
 
-      pluginSettings = {
-        privacy-indicator = {
-          hideInactive = true;
-          enableToast = false;
+        pluginSettings = {
+          privacy-indicator = {
+            hideInactive = true;
+            enableToast = false;
 
-          activeColor = "primary";
-          inactiveColor = "none";
+            activeColor = "primary";
+            inactiveColor = "none";
 
-          iconSpacing = 2;
-          removeMargins = false;
+            iconSpacing = 2;
+            removeMargins = false;
 
-          micFilterRegex = "";
+            micFilterRegex = "";
+          };
         };
       };
     };

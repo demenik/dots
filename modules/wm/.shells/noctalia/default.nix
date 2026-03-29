@@ -1,7 +1,10 @@
 {
   name = "noctalia";
 
-  modules = [../../default.nix];
+  modules = [
+    ../../default.nix
+    ./plugins
+  ];
 
   home = {
     inputs,
@@ -16,7 +19,6 @@
       ./hardware.nix
       ./locker.nix
       ./panels.nix
-      ./plugins
       ./wm.nix
     ];
 

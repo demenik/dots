@@ -8,7 +8,7 @@
     # ../.shells/statusbar.nix
     ../.shells/noctalia
 
-    ../../programs/screenshot.nix
+    # ../../programs/screenshot.nix
   ];
   moduleConfig = {
     pkgs,

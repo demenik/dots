@@ -86,6 +86,9 @@ in {
             showNoctaliaPerformance = true;
             showPowerProfiles = true;
           }
+          {
+            id = "plugin:screen-shot-and-record";
+          }
         ];
 
         center = [
