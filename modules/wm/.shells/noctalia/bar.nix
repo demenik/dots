@@ -64,10 +64,12 @@ in {
             # textColor = "none";
           }
           {
-            id = "VPN";
-            displayMode = "onhover";
-            iconColor = "none";
-            textColor = "none";
+            id = "plugin:network-manager-vpn";
+            defaultSettings = {
+              connectedColor = "primary";
+              disconnectedColor = "none";
+              displayMode = "onhover";
+            };
           }
           {
             id = "Bluetooth";
@@ -178,9 +180,12 @@ in {
 
       enableBatteryToast = true;
       enableKeyboardLayoutToast = true;
-      enableMediaToast = false;
+      enableMediaToast = true;
 
-      sounds.enabled = false;
+      sounds = {
+        enabled = true;
+        volume = 0.5;
+      };
     };
   };
 }
