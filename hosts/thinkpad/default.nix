@@ -22,7 +22,7 @@
   moduleConfig = {
     git.signing = {
       pubKeyPath = "~/.ssh/id_ed25519.pub";
-      pubKey = null;
+      pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE+jwmNk9ciSlN/hEKXYGPLBE7lma1tqevXje0EKqqlp demenik@thinkpad";
     };
   };
 
