@@ -4,6 +4,11 @@
       {
         output = "eDP-1";
         primary = true;
+        mode = {
+          width = 1920;
+          height = 1200;
+          refresh = 60.0;
+        };
         position = {
           x = 0;
           y = 0;
