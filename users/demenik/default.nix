@@ -10,7 +10,6 @@
 
     ../../modules/wm/hyprland
 
-    # ../../modules/services/dunst.nix
     ../../modules/services/nextcloud-mount.nix
     ../../modules/services/vpn/openvpn.nix
 

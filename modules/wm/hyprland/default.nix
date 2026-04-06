@@ -4,11 +4,7 @@
   modules = [
     ../../greeter
     ../wayland.nix
-    # ./hyprlock.nix
-    # ../.shells/statusbar.nix
     ../.shells/noctalia
-
-    # ../../programs/screenshot.nix
   ];
   moduleConfig = {
     pkgs,
@@ -37,8 +33,6 @@
       ./rules.nix
       ./wmRules.nix
       ./theme.nix
-
-      # ./hypridle.nix
     ];
 
     home.packages = with pkgs; [
