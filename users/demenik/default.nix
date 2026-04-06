@@ -30,7 +30,6 @@
     ../../modules/programs/vesktop.nix
     ../../modules/programs/thunderbird.nix
     ../../modules/programs/spotify.nix
-    ../../modules/programs/rofi.nix
     ../../modules/programs/qbittorrent.nix
     ../../modules/programs/libreoffice.nix
     ../../modules/programs/obsidian.nix

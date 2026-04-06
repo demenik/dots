@@ -9,39 +9,6 @@
     else [];
 in {
   programs.noctalia-shell.settings = {
-    appLauncher = {
-      enableClipboardHistory = false;
-      enableClipPreview = true;
-      enableClipboardChips = true;
-      enableClipboardSmartIcons = true;
-      autoPasteClipboard = false;
-      clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
-      clipboardWatchTextCommand = "wl-paste --type text --watch cliphist store";
-      clipboardWrapText = true;
-
-      showCategories = true;
-      sortByMostUsed = true;
-      enableSessionSearch = true;
-      enableSettingsSearch = true;
-      enableWindowsSearch = true;
-
-      viewMode = "list";
-      density = "default";
-      position = "center";
-      iconMode = "tabler";
-      showIconBackground = false;
-
-      customLaunchPrefixEnabled = false;
-      customLaunchPrefix = "";
-      terminalCommand = config.terminal.command;
-
-      overviewLayer = false;
-      ignoreMouseInput = false;
-
-      pinnedApps = [];
-      screenshotAnnotationTool = "";
-    };
-
     controlCenter = {
       position = "close_to_bar_button";
       diskPath = "/";

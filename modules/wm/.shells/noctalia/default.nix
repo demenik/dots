@@ -4,6 +4,7 @@
   modules = [
     ../../default.nix
     ./plugins
+    ./launcher.nix
   ];
 
   home = {
