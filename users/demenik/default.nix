@@ -108,16 +108,9 @@
     home-manager.backupFileExtension = "backup";
   };
 
-  homeConfig = {pkgs, ...}: {
+  homeConfig = {
     imports = [
       ./theme
     ];
-
-    home.file.".face" = {
-      source = pkgs.fetchurl {
-        url = "https://github.com/demenik.png";
-        hash = "sha256-+1ugmn5qeAvijj5Lm3Ye0rW9UEF9OCGxiSMfZKVjxI4=";
-      };
-    };
   };
 }
