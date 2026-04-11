@@ -88,6 +88,11 @@
     anki.path = ./secrets/anki.sops.yaml;
     openvpn.path = ./secrets/openvpn.sops.yaml;
     wakatime.path = ./secrets/wakatime.sops.yaml;
+
+    mcp-context7 = {
+      path = ./secrets/mcp.sops.yaml;
+      key = "context7";
+    };
   };
 
   nixosConfig = {
