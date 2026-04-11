@@ -1,12 +1,7 @@
 {
   name = "opencode";
 
-  secrets = {
-    mcp-context7 = {
-      requiredBy = "none";
-      description = "Context7 API Key";
-    };
-  };
+  modules = [./default.nix];
 
   home = {
     pkgs,

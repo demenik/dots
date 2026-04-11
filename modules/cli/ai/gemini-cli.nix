@@ -1,6 +1,8 @@
 {
   name = "gemini-cli";
 
+  modules = [./default.nix];
+
   home = {pkgs, ...}: {
     home.packages = [pkgs.gemini-cli];
 
