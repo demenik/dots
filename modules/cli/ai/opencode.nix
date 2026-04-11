@@ -9,25 +9,14 @@
     config,
     ...
   }: let
-    context7_api_key =
-      if config.sops.secrets ? mcp-context7
-      then config.sops.secrets.mcp-context7.path
-      else null;
-
-    mcpKeys = lib.filterAttrs (k: v: v != null) {
-      CONTEXT7_API_KEY = context7_api_key;
-    };
-    mcpLines =
-      lib.mapAttrsToList
-      (name: path: "--run 'export ${name}=$(cat \"${path}\")'")
-      mcpKeys;
+    mcp = import ./.mcp-servers.nix {inherit lib config;};
 
     opencode-wrapped = pkgs.symlinkJoin {
       name = "opencode-wrapped";
       paths = [pkgs.opencode];
       buildInputs = [pkgs.makeWrapper];
       postBuild = ''
-        wrapProgram "$out"/bin/opencode ${builtins.concatStringsSep " " mcpLines}
+        wrapProgram "$out"/bin/opencode ${builtins.concatStringsSep " " mcp.wrapperArgs}
       '';
     };
   in {
@@ -81,21 +70,15 @@
           gitmcp_fetch_generic_url_content = "allow";
         };
 
-        mcp = lib.filterAttrs (k: v: v != null) {
-          context7 =
-            if context7_api_key != null
-            then {
-              type = "remote";
-              url = "https://mcp.context7.com/mcp";
-              headers.CONTEXT7_API_KEY = "{env:CONTEXT7_API_KEY}";
-            }
-            else null;
-
-          gitmcp = {
+        mcp = lib.mapAttrs (name: server:
+          {
             type = "remote";
-            url = "https://gitmcp.io/docs";
-          };
-        };
+            inherit (server) url;
+          }
+          // lib.optionalAttrs (server ? authHeader) {
+            headers.${server.authHeader} = "{env:${server.envVar}}";
+          })
+        mcp.servers;
       };
     };
   };
