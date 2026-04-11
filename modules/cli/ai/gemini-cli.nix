@@ -3,8 +3,24 @@
 
   modules = [./default.nix];
 
-  home = {pkgs, ...}: {
-    home.packages = [pkgs.gemini-cli];
+  home = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: let
+    mcp = import ./.mcp-servers.nix {inherit lib config;};
+
+    gemini-cli-wrapped = pkgs.symlinkJoin {
+      name = "gemini-cli-wrapped";
+      paths = [pkgs.gemini-cli];
+      buildInputs = [pkgs.makeWrapper];
+      postBuild = ''
+        wrapProgram "$out"/bin/gemini ${builtins.concatStringsSep " " mcp.wrapperArgs}
+      '';
+    };
+  in {
+    home.packages = [gemini-cli-wrapped];
 
     home.file.".gemini/settings.json".text = builtins.toJSON {
       general = {
@@ -33,6 +49,16 @@
       privacy.usageStatisticsEnabled = false;
       telemetry.enabled = false;
       tools.shell.showColor = true;
+
+      mcpServers = lib.mapAttrs (name: server:
+        {
+          inherit (server) url;
+        }
+        // lib.optionalAttrs (server ? authHeader) {
+          env.${server.authHeader} = "\$${server.envVar}";
+          headers.${server.authHeader} = "\$${server.envVar}";
+        })
+      mcp.servers;
     };
   };
 }
