@@ -11,12 +11,21 @@
   }: let
     mcp = import ./.mcp-servers.nix {inherit lib config;};
 
+    setTitle =
+      pkgs.writeText "set-gemini-title.js"
+      # js
+      ''
+        process.title = "gemini";
+      '';
+
     gemini-cli-wrapped = pkgs.symlinkJoin {
       name = "gemini-cli-wrapped";
       paths = [pkgs.gemini-cli];
       buildInputs = [pkgs.makeWrapper];
       postBuild = ''
-        wrapProgram "$out"/bin/gemini ${builtins.concatStringsSep " " mcp.wrapperArgs}
+        wrapProgram "$out"/bin/gemini \
+          --run 'export NODE_OPTIONS="--require ${setTitle} $${NODE_OPTIONS:-}"' \
+          ${builtins.concatStringsSep " " mcp.wrapperArgs}
       '';
     };
   in {
