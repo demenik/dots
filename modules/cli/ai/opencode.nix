@@ -10,6 +10,7 @@
     ...
   }: let
     mcp = import ./.mcp-servers.nix {inherit lib config;};
+    skills = import ./.skills {inherit pkgs lib;};
 
     opencode-wrapped = pkgs.symlinkJoin {
       name = "opencode-wrapped";
@@ -20,6 +21,8 @@
       '';
     };
   in {
+    home.file = skills.mkSkillDirLinks ".config/opencode/skills";
+
     programs.opencode = {
       enable = true;
       package = opencode-wrapped;
