@@ -19,7 +19,6 @@
     ../../modules/cli/fd.nix
     ../../modules/cli/ripgrep.nix
     ../../modules/cli/just.nix
-    ../../modules/cli/docker.nix
     ../../modules/cli/direnv.nix
     ../../modules/cli/uutils.nix
   ];
