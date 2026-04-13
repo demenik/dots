@@ -37,7 +37,7 @@
         ".gemini/settings.json".text = builtins.toJSON {
           general = {
             vimMode = false;
-            preferredEditor = "nvim";
+            preferredEditor = "neovim";
             disableAutoUpdate = true;
             disableUpdateNag = true;
             previewFeatures = true;
