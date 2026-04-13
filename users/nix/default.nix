@@ -14,6 +14,10 @@
     ../../modules/cli/btop.nix
     ../../modules/cli/bat.nix
     ../../modules/cli/utils.nix
+    ../../modules/cli/zip.nix
+    ../../modules/cli/fd.nix
+    ../../modules/cli/ripgrep.nix
+    ../../modules/cli/just.nix
   ];
 
   moduleConfig = {config, ...}: {
