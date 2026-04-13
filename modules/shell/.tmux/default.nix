@@ -17,9 +17,15 @@
       clock24 = true;
       baseIndex = 1;
 
+      escapeTime = 0;
+      terminal = "tmux-256color";
+
       extraConfig =
         # tmux
         ''
+          set -ag terminal-overrides ",xterm-256color:RGB,alacritty:RGB,kitty:RGB"
+          setw -g xterm-keys on
+
           set -g set-clipboard on
           set -ag update-environment " KITTY_WINDOW_ID KITTY_PID"
 
