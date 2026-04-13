@@ -16,8 +16,8 @@
         };
 
         "sgi-uni-ulm" = {
-          hostname = "login.informatik.uni-ulm.de";
-          user = "db56";
+          hostname = "zeus.rz.uni-ulm.de";
+          user = "tct47";
         };
 
         "lg" = {
