@@ -112,5 +112,7 @@
     imports = [
       ./theme
     ];
+
+    programs.home-manager.enable = true;
   };
 }
