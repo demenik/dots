@@ -4,35 +4,36 @@
   secrets = {
     openvpn = {
       description = "Content of .ovpn file";
-      requiredBy = "home";
+      requiredBy = "none";
     };
   };
 
-  nixos = {pkgs, ...}: {
+  nixos = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: {
     networking.networkmanager = {
       enable = true;
       plugins = with pkgs; [
         networkmanager-openvpn
       ];
     };
-  };
-  hostInstructions = ''
-    Install networkmanager with networkmanager-openvpn plugin
-  '';
 
-  home = {
-    pkgs,
-    lib,
-    config,
-    ...
-  }: {
-    home.activation.setupOpenvpn =
-      config.lib.dag.entryAfter ["writeBoundary"]
-      # bash
-      ''
-        if ! ${lib.getExe' pkgs.networkmanager "nmcli"} connection show "openvpn" >/dev/null 2>&1; then
-          ${lib.getExe' pkgs.networkmanager "nmcli"} connection import type openvpn file ${config.sops.secrets.openvpn.path}
+    systemd.services.import-openvpn-profile = lib.mkIf (config.sops.secrets ? openvpn) {
+      description = "Import OpenVPN profile into NetworkManager";
+      wantedBy = ["multi-user.target"];
+      after = ["NetworkManager.service"];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      script = ''
+        if ! ${pkgs.networkmanager}/bin/nmcli connection show "openvpn" >/dev/null 2>&1; then
+          ${pkgs.networkmanager}/bin/nmcli connection import type openvpn file "${config.sops.secrets.openvpn.path}"
         fi
       '';
+    };
   };
 }
