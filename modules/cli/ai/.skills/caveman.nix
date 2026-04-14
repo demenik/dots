@@ -7,7 +7,7 @@
     owner = "JuliusBrussee";
     repo = "caveman";
     rev = "main";
-    hash = "sha256-gDPgQx1TIhGrJ2EVvEoDY+4MXdlI79zdcx6pL5nMEG4=";
+    hash = "sha256-pHPMQGr9/ufsUODmqHm2T6sCOaeOOJl4baX4OeeYp6k=";
   };
 
   cavemanSkillsList = [
