@@ -1,8 +1,8 @@
 keys:
-  - &desktop ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6pUcq15PVUphYuQpOG6O4drrq6sHVjVGF+ckZ6WR+G root@desktop
-  - &thinkpad ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICE9QKiONReUCPJsZrUGC2vp+iXW0uLsMOgD155XYLPf root@thinkpad
-  - &demenik_desktop ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAvLK5Of4imQHlPAd+2wQaKf7bTMv34RmEG2TuLvZ966 demenik@desktop
-  - &demenik_thinkpad ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE+jwmNk9ciSlN/hEKXYGPLBE7lma1tqevXje0EKqqlp demenik@thinkpad
+  - &desktop age1rx2kpktacmwt88l2yx65guvzkzp56y6ky5va0rce6nflx0fnkf4skusylu
+  - &thinkpad age15xtfp9s5rupc80na9nd2jmaevtk4cckzpgj439t9tul4c889u49qc06fhh
+  - &demenik_desktop age13rafcj20798yffxd9cy89v8t0lc5xxf7d3lky5pfr73gzgfrxvusdyjmfk
+  - &demenik_thinkpad age1a5t2a68zzpy9snecxh2f3ph0s9ruky4e6ywvfmjdeujy36kugptqdw4x3h
 creation_rules:
   - path_regex: hosts/.*\.sops\.yaml$
     key_groups:
