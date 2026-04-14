@@ -7,7 +7,7 @@
           hijack_cursor = true;
           view.width = {
             min = 30;
-            max = -1;
+            max = 50;
           };
           renderer = {
             group_empty = true;
