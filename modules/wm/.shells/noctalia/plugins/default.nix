@@ -31,20 +31,20 @@
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };
         };
+      };
 
-        pluginSettings = {
-          privacy-indicator = {
-            hideInactive = true;
-            enableToast = false;
+      pluginSettings = {
+        privacy-indicator = {
+          hideInactive = true;
+          enableToast = false;
 
-            activeColor = "primary";
-            inactiveColor = "none";
+          activeColor = "primary";
+          inactiveColor = "none";
 
-            iconSpacing = 2;
-            removeMargins = false;
+          iconSpacing = 2;
+          removeMargins = false;
 
-            micFilterRegex = "";
-          };
+          micFilterRegex = "";
         };
       };
     };
