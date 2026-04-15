@@ -3,6 +3,7 @@
     ./nvim-tree.nix
     ./age.nix
     ./sops.nix
+    ./ipynb.nix
   ];
 
   programs.nixvim = {
