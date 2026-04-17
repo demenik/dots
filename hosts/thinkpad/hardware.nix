@@ -15,6 +15,19 @@
         };
         scale = 1.5;
       }
+      {
+        output = "HDMI-A-1";
+        mode = {
+          width = 2560;
+          height = 1440;
+          refresh = 59.95;
+        };
+        position = {
+          x = builtins.floor (1920 / 1.5);
+          y = 0;
+        };
+        scale = 1;
+      }
     ];
   };
 
