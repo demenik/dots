@@ -26,7 +26,7 @@
           x = builtins.floor (1920 / 1.5);
           y = 0;
         };
-        scale = 1;
+        scale = 1.5;
       }
     ];
   };
