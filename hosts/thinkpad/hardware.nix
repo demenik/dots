@@ -3,7 +3,7 @@
     wm.monitors = [
       {
         output = "eDP-1";
-        primary = true;
+        primary = false;
         mode = {
           width = 1920;
           height = 1200;
@@ -28,6 +28,12 @@
         };
         scale = 1;
       }
+    ];
+  };
+
+  homeConfig = {
+    imports = [
+      ./docking.nix
     ];
   };
 
