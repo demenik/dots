@@ -19,6 +19,7 @@
       ./plugins
       ./colorschemes.nix
       ./autocmds.nix
+      ./shortcuts.nix
     ];
 
     programs.nixvim = {
