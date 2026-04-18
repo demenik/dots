@@ -74,6 +74,7 @@
           .main-entityHeader-backgroundColor {
             -webkit-mask-image: linear-gradient(to bottom, transparent 50%, black 80%);
             mask-image: linear-gradient(to bottom, transparent 50%, black 80%);
+            mask-size: 100% 200%;
             -webkit-mask-size: 100% 200%;
             -webkit-mask-position: 0% 0%;
             mask-position: 0% 0%;
@@ -83,6 +84,7 @@
           .playlist-playlist-actionBarBackground-background {
             -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 50%);
             mask-image: linear-gradient(to bottom, black 20%, transparent 50%);
+            mask-size: 100% 200%;
             -webkit-mask-size: 100% 200%;
             -webkit-mask-position: 0% 100%;
             mask-position: 0% 100%;
@@ -161,6 +163,17 @@
         ''
           .main-nowPlayingView-section:not(.main-nowPlayingView-queue) {
             order: 99;
+          }
+        ''
+
+        # Fix music video mode
+        # css
+        ''
+          .main-nowPlayingBar-nowPlayingBar .main-nowPlayingView-coverArtContainer {
+            aspect-ratio: 1;
+          }
+          .x-progressBar-fillColor {
+            visibility: visible;
           }
         ''
       ];
