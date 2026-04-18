@@ -1,22 +1,7 @@
 {lib, ...}: {
   services = {
-    power-profiles-daemon.enable = false;
+    upower.enable = true;
+    power-profiles-daemon.enable = true;
     tlp.enable = lib.mkForce false;
-
-    auto-cpufreq = {
-      enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          turbo = "never";
-        };
-        charger = {
-          governor = "schedutil";
-          turbo = "auto";
-        };
-      };
-    };
   };
-
-  powerManagement.powertop.enable = true;
 }
