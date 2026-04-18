@@ -29,7 +29,6 @@
         fullAlbumDate
         showQueueDuration
         betterGenres
-        lastfm
         playNext
         volumePercentage
         allOfArtist
