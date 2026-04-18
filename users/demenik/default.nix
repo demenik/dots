@@ -58,8 +58,35 @@
     ../../modules/cli/adb.nix
     ../../modules/cli/just.nix
   ];
-  moduleConfig = {config, ...}: {
+  moduleConfig = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: {
     wm.input.keyboard.layout = "de";
+
+    wm.binds = [
+      {
+        modifiers = ["SUPER"];
+        key = "s";
+        exec = lib.getExe (pkgs.writeShellApplication {
+          name = "start-daily-apps";
+          runtimeInputs = with pkgs; [procps];
+          text = ''
+            run_if_not_running() {
+              if ! pgrep "$1" >/dev/null; then
+                "$2" &
+              fi
+            }
+
+            run_if_not_running "${config.browser.windowClass}" "${config.browser.command}"
+            run_if_not_running "vesktop" "${lib.getExe pkgs.vesktop}"
+            run_if_not_running "spotify" "${lib.getExe config.programs.spicetify.spicedSpotify}"
+          '';
+        });
+      }
+    ];
 
     colors = {
       accent = config.colors.base0E;
