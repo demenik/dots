@@ -9,7 +9,7 @@
     config,
     ...
   }: let
-    mcp = import ./.mcp-servers.nix {inherit lib config;};
+    mcp = import ./.mcp-servers.nix {inherit pkgs lib config;};
     skills = import ./.skills {inherit pkgs lib;};
 
     opencode-wrapped = pkgs.symlinkJoin {
@@ -73,15 +73,35 @@
           gitmcp_fetch_generic_url_content = "allow";
         };
 
-        mcp = lib.mapAttrs (name: server:
-          {
-            type = "remote";
-            inherit (server) url;
-          }
-          // lib.optionalAttrs (server ? authHeader) {
-            headers.${server.authHeader} = "{env:${server.envVar}}";
-          })
-        mcp.servers;
+        mcp =
+          lib.mapAttrs (
+            name: server: let
+              isRemote = server ? url;
+
+              remoteConfig = {
+                type = "remote";
+                inherit (server) url;
+                headers =
+                  if server ? authHeader
+                  then {
+                    ${server.authHeader} = "{env:${server.envVar}}";
+                  }
+                  else null;
+              };
+
+              localConfig = {
+                type = "local";
+                command = [server.command] ++ (server.args or []);
+                environment = server.env or null;
+              };
+            in
+              lib.filterAttrs (n: v: v != null && v != {}) (
+                if isRemote
+                then remoteConfig
+                else localConfig
+              )
+          )
+          mcp.servers;
       };
     };
   };

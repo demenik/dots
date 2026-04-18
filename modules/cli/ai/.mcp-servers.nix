@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -12,6 +13,9 @@
       secretName = "mcp-context7";
       authHeader = "CONTEXT7_API_KEY";
       envVar = "CONTEXT7_API_KEY";
+    };
+    godot-mcp = {
+      command = lib.getExe pkgs.godot-mcp;
     };
   };
 

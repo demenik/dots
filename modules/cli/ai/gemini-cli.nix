@@ -9,7 +9,7 @@
     config,
     ...
   }: let
-    mcp = import ./.mcp-servers.nix {inherit lib config;};
+    mcp = import ./.mcp-servers.nix {inherit pkgs lib config;};
     skills = import ./.skills {inherit pkgs lib;};
 
     setTitle =
@@ -62,15 +62,35 @@
           telemetry.enabled = false;
           tools.shell.showColor = true;
 
-          mcpServers = lib.mapAttrs (name: server:
-            {
-              inherit (server) url;
-            }
-            // lib.optionalAttrs (server ? authHeader) {
-              env.${server.authHeader} = "\$${server.envVar}";
-              headers.${server.authHeader} = "\$${server.envVar}";
-            })
-          mcp.servers;
+          mcpServers =
+            lib.mapAttrs (
+              name: server: let
+                authData =
+                  if server ? authHeader
+                  then {
+                    ${server.authHeader} = "\$${server.envVar}";
+                  }
+                  else {};
+
+                mergedHeaders = (server.headers or {}) // authData;
+                mergedEnv = (server.env or {}) // authData;
+              in
+                lib.filterAttrs (n: v: v != null && v != {}) {
+                  command = server.command or null;
+                  url = server.url or null;
+                  httpUrl = server.httpUrl or null;
+
+                  args = server.args or null;
+                  headers = mergedHeaders;
+                  env = mergedEnv;
+                  cwd = server.cwd or null;
+                  timeout = server.timeout or null;
+                  trust = server.trust or null;
+                  includeTools = server.includeTools or null;
+                  excludeTools = server.excludeTools or null;
+                }
+            )
+            mcp.servers;
         };
       }
       // skills.mkSkillDirLinks ".gemini/skills";
