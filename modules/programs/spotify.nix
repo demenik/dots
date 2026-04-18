@@ -42,7 +42,20 @@
         # Reveals the playlist gradient header gradient with a fade in effect
         # css
         ''
-          @keyframes softMaskReveal {
+          @keyframes revealUp {
+            0% {
+              -webkit-mask-position: 0% 0%;
+              mask-position: 0% 0%;
+              opacity: 0;
+            }
+            100% {
+              -webkit-mask-position: 0% 100%;
+              mask-position: 0% 100%;
+              opacity: 1;
+            }
+          }
+
+          @keyframes revealDown {
             0% {
               -webkit-mask-position: 0% 100%;
               mask-position: 0% 100%;
@@ -59,13 +72,21 @@
           .main-entityHeader-overlay,
           .main-entityHeader-background,
           .main-entityHeader-backgroundColor {
-            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 90%);
-            mask-image: linear-gradient(to bottom, black 50%, transparent 90%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 50%, black 80%);
+            mask-image: linear-gradient(to bottom, transparent 50%, black 80%);
             -webkit-mask-size: 100% 200%;
-            mask-size: 100% 200%;
+            -webkit-mask-position: 0% 0%;
+            mask-position: 0% 0%;
+            animation: revealUp 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+          }
+
+          .playlist-playlist-actionBarBackground-background {
+            -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 50%);
+            mask-image: linear-gradient(to bottom, black 20%, transparent 50%);
+            -webkit-mask-size: 100% 200%;
             -webkit-mask-position: 0% 100%;
             mask-position: 0% 100%;
-            animation: softMaskReveal 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            animation: revealDown 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
           }
         ''
 
