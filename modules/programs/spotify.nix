@@ -186,6 +186,14 @@
             visibility: visible;
           }
         ''
+
+        # "Playing on" bar above
+        # css
+        ''
+          .main-connectBar-connectBar {
+            order: -1;
+          }
+        ''
       ];
     };
   };
