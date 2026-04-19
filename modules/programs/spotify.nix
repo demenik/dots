@@ -163,7 +163,7 @@
         # Hides the Full Screen button.
         # css
         ''
-          [data-testid=\"fullscreen-mode-button\"] {
+          [data-testid="fullscreen-mode-button"] {
             display: none;
           }
         ''
