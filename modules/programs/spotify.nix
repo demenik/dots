@@ -68,7 +68,6 @@
             }
           }
 
-          .main-actionBarBackground-background,
           .main-entityHeader-overlay,
           .main-entityHeader-background,
           .main-entityHeader-backgroundColor {
@@ -81,6 +80,17 @@
             animation: revealUp 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
           }
 
+          .main-actionBarBackground-background {
+            background-image:
+              linear-gradient(
+                in oklch to bottom,
+                rgba(var(--spice-rgb-shadow), 0.6) 0%,
+                var(--background-base) 100%
+              ),
+              var(--background-noise);
+          }
+
+          .main-actionBarBackground-background,
           .playlist-playlist-actionBarBackground-background {
             -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 50%);
             mask-image: linear-gradient(to bottom, black 20%, transparent 50%);
