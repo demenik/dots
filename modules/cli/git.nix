@@ -16,6 +16,13 @@
     };
   };
 
+  secrets = {
+    gitea-token = {
+      requiredBy = "none";
+      description = "Gitea Access Token";
+    };
+  };
+
   home = {
     pkgs,
     lib,
@@ -42,6 +49,14 @@
       condition = "hasconfig:remote.*.url:${user}@${host}:*/**";
       path = pkgs.writeText "gitconfig-${host}" (lib.generators.toGitINI config);
     };
+
+    credHelper = user: passwordPath:
+      pkgs.writeShellScript "git-cred-helper" ''
+        if [ "$1" = "get" ]; then
+          echo "username=${user}"
+          echo "password=$(tr -d '\n' <"${passwordPath}")"
+        fi
+      '';
   in {
     home.file.".ssh/allowed_signers".text =
       lib.concatMapStrings (email: "${email} ${config.git.signing.pubKey}\n") emails;
@@ -66,13 +81,17 @@
             [
               "github.com"
               "gitlab.uni-ulm.de"
-              "gitea.demenik.dev"
             ]
           );
 
         user = {
           email = "mail@demenik.dev";
           name = "demenik";
+        };
+
+        "credential \"https://gitea.demenik.dev\"" = lib.mkIf (config.sops.secrets ? gitea-token) {
+          helper = "!${credHelper "demenik" config.sops.secrets.gitea-token.path}";
+          useHttpPath = true;
         };
       };
 
