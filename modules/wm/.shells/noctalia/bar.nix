@@ -139,6 +139,9 @@ in {
             showProgressRing = false;
           }
           {
+            id = "plugin:weekly-calendar";
+          }
+          {
             id = "Clock";
             useCustomFont = false;
             formatHorizontal = "HH:mm";
