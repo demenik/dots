@@ -311,6 +311,34 @@
             keepSpotifyActivityOnIdle = false;
           };
           SpotifyShareCommands.enabled = true;
+          TextReplace = {
+            enabled = true;
+            regexRules = [
+              # === GitHub/Gitea ===
+              {
+                # Issue
+                find = ''(https?:\/\/[a-zA-Z0-9.-]+\/(?:[^\/\s]+\/)*([^\/\s]+\/[^\/\s]+)\/issues\/(\d+)(?:[?#][^\s"'<)]*)?)'';
+                replace = "[$2#$3]($1)";
+              }
+              {
+                # PR
+                find = ''(https?:\/\/[a-zA-Z0-9.-]+\/(?:[^\/\s]+\/)*([^\/\s]+\/[^\/\s]+)\/pulls?\/(\d+)(?:[?#][^\s"'<)]*)?)'';
+                replace = "[$2!$3]($1)";
+              }
+
+              # === GitLab ===
+              {
+                # Issue
+                find = ''(https?:\/\/[a-zA-Z0-9.-]+\/(?:[^\/\s]+\/)*(?:group-04\/([^\/\s]+)|([^\/\s]+\/[^\/\s]+))\/-\/(?:work_items|issues)\/(\d+)(?:[?#][^\s"'<)]*)?)'';
+                replace = "[$2$3#$4]($1)";
+              }
+              {
+                # MR
+                find = ''(https?:\/\/[a-zA-Z0-9.-]+\/(?:[^\/\s]+\/)*(?:group-04\/([^\/\s]+)|([^\/\s]+\/[^\/\s]+))\/-\/merge_requests\/(\d+)(?:[?#][^\s"'<)]*)?)'';
+                replace = "[$2$3!$4]($1)";
+              }
+            ];
+          };
           ThemeAttributes.enabled = true;
           Translate = {
             enabled = true;
