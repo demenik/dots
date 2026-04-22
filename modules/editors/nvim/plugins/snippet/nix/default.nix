@@ -72,4 +72,8 @@
       "0" = null;
     };
   };
+  flakego = {
+    template = builtins.readFile ./go.flake.nix;
+    placeholders."0" = null;
+  };
 }
