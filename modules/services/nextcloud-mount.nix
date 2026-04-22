@@ -52,7 +52,7 @@
               --volname "Nextcloud"
           '';
           ExecStartPost = ''
-            ${lib.getExe' pkgs.glib "gio"} set "${mountPoint}" metadata::custom-icon-name ${iconName}
+            -${lib.getExe' pkgs.glib "gio"} set "${mountPoint}" metadata::custom-icon-name ${iconName}
           '';
           ExecStop = "/run/wrappers/bin/fusermount -u -z ${mountPoint}";
           Restart = "always";
