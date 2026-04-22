@@ -21,6 +21,7 @@
       ./locker.nix
       ./panels.nix
       ./wm.nix
+      ./wallpaper.nix
     ];
 
     systemd.user.services.noctalia = {
@@ -144,8 +145,6 @@
           disableDesktopWidgets = true;
           disableWallpaper = true;
         };
-
-        wallpaper.enabled = false;
       };
     };
   };
