@@ -8,4 +8,8 @@
     ../modules/services/tor.nix
     ../modules/services/i2p.nix
   ];
+
+  nixosConfig = {
+    services.fwupd.enable = true;
+  };
 }

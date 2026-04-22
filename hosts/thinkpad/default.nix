@@ -1,5 +1,6 @@
 {
   imports = [
+    ../full.nix
     ./hardware.nix
   ];
 
