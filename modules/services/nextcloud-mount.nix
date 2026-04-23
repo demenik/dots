@@ -47,7 +47,10 @@
               --config "${configFile}" \
               --vfs-cache-mode full \
               --vfs-cache-max-age 24h \
-              --dir-cache-time 5m \
+              --vfs-write-back 5s \
+              --vfs-fast-fingerprint \
+              --dir-cache-time 8760h \
+              --poll-interval 15s \
               --allow-other=false \
               --volname "Nextcloud"
           '';
