@@ -115,6 +115,7 @@
 
     home.packages = with pkgs; [
       glab
+      tea
 
       cocogitto
     ];
