@@ -41,7 +41,7 @@ in {
       reverseScroll = false;
 
       middleClickAction = "command";
-      middleClickCommand = "systemctl restart --user linux-wallpaperengine";
+      middleClickCommand = "noctalia-shell ipc call wallpaper toggle";
       middleClickFollowMouse = false;
 
       rightClickAction = "controlCenter";
