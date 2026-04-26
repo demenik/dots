@@ -1,8 +1,11 @@
 {
+  imports = [
+    ./review
+  ];
+
   programs.nixvim = {
     plugins = {
       fugitive.enable = true;
-      diffview.enable = true;
       gitmessenger = {
         enable = true;
         settings = {
