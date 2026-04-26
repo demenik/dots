@@ -26,9 +26,17 @@
     ];
   };
 
-  home = {pkgs, ...}: {
+  home = {
+    pkgs,
+    config,
+    ...
+  }: {
     imports = [
       ./search.nix
+    ];
+
+    home.packages = with pkgs; [
+      nerd-fonts.symbols-only
     ];
 
     programs.librewolf = {
@@ -52,8 +60,21 @@
 
           "browser.formfill.enable" = false;
           "extensions.formautofill.addresses.enabled" = false;
+
+          "font.name.monospace.x-western" = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
+          "font.name.sans-serif.x-western" = builtins.head config.fonts.fontconfig.defaultFonts.sansSerif;
+          "font.name.serif.x-western" = builtins.head config.fonts.fontconfig.defaultFonts.serif;
         };
+
         userChrome = import ./userChrome;
+
+        userContent = let
+          inherit (config.fonts.fontconfig.defaultFonts) monospace emoji;
+        in ''
+          code, kbd, pre, samp, tt {
+            font-family: "${builtins.head monospace}", "${builtins.head emoji}", "Symbols Nerd Font", monospace !important;
+          }
+        '';
       };
     };
   };
