@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{config, ...}: {
   programs.nixvim = {
     plugins = {
       treesitter = {
@@ -6,7 +6,7 @@
         folding.enable = false;
         nixGrammars = true;
         nixvimInjections = true;
-        settings = (import ./settings.nix) pkgs;
+        settings = (import ./settings.nix) config;
       };
 
       ts-autotag.enable = true;
