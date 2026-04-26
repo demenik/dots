@@ -1,4 +1,28 @@
-{config, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  reloadWallpaper = pkgs.writeShellScript "reload-wallpaper" (lib.concatMapStringsSep "\n" (
+      monitor:
+      # bash
+      ''
+        path=$(noctalia-shell ipc call wallpaper get "${monitor.output}")
+        if [ -n "$path" ]; then
+          noctalia-shell ipc call wallpaper set null "${monitor.output}"
+          noctalia-shell ipc call wallpaper set "$path" "${monitor.output}"
+        fi
+      ''
+    )
+    config.wm.monitors);
+in {
+  systemd.user.services.nextcloud-mount = lib.mkIf (config ? nextcloudMount) {
+    Service.ExecStartPost = lib.mkAfter [
+      reloadWallpaper
+    ];
+  };
+
   programs.noctalia-shell.settings.wallpaper = {
     enabled = true;
     automationEnabled = false;
