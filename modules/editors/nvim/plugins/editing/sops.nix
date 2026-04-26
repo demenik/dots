@@ -4,7 +4,8 @@
   ...
 }: let
   sops-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "sops";
+    pname = "sops";
+    version = "2025-10-27";
     src = pkgs.fetchFromGitHub {
       owner = "trixnz";
       repo = "sops.nvim";

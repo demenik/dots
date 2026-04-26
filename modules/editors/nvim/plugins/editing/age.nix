@@ -9,7 +9,8 @@
   pubKeyFile = "${homeDirectory}/.ssh/id_agenix.pub";
 
   age-secret-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "age-secret";
+    pname = "age-secret";
+    version = "2025-04-21";
     src = pkgs.fetchFromGitHub {
       owner = "histrio";
       repo = "age-secret.nvim";
@@ -53,9 +54,9 @@ in {
     extraPackages = [rage-wrapped];
 
     extraConfigLua = ''
-      require("age_secret").setup {
+      require("age_secret").setup({
         identity = "${identityFile}",
-      }
+      })
     '';
 
     plugins.gitsigns.settings = {
