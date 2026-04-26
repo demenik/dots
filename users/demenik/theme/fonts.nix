@@ -2,8 +2,9 @@
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.ubuntu
+    noto-fonts
     noto-fonts-cjk-sans
-    twemoji-color-font
+    twitter-color-emoji
   ];
 
   fonts.fontconfig = {
@@ -11,17 +12,17 @@
     defaultFonts = rec {
       monospace = [
         "JetBrainsMono Nerd Font"
+        "Noto Sans"
         "Noto Sans Mono CJK JP"
         "Noto Sans Mono CJK SC"
         "Noto Sans Mono CJK KR"
-        "Twitter Color Emoji"
       ];
       sansSerif = [
         "Ubuntu Nerd Font"
+        "Noto Sans"
         "Noto Sans CJK JP"
         "Noto Sans CJK SC"
         "Noto Sans CJK KR"
-        "Twitter Color Emoji"
       ];
       serif = sansSerif;
       emoji = ["Twitter Color Emoji"];
