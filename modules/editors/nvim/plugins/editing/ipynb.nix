@@ -20,6 +20,14 @@
           + ''
             substituteInPlace pnglatex/pnglatex.py \
               --replace-fail "with Path(jobname + suffix) as p:" "for p in [Path(jobname + suffix)]:"
+
+            substituteInPlace pnglatex/pnglatex.py \
+              --replace-fail 'with Path(output) as o:' 'for o in [Path(output)]:'
+
+            substituteInPlace pnglatex/pnglatex.py \
+              --replace-fail \
+              'popen(pnm2png, stdin=ppm.stdout, out=f) as png:' \
+              'popen("pnminvert", stdin=ppm.stdout, out=PIPE) as inv, popen(pnm2png, "-transparent", "black", stdin=inv.stdout, out=f) as png:'
           '';
       }))
       plotly
