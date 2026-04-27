@@ -230,16 +230,22 @@ in {
         callback.__raw = ''
           function(opts)
             local buf = opts.buf
-            local tmp_md = vim.fn.tempname() .. ".md"
+            local filepath = opts.file
 
+            local tmp_md = vim.fn.tempname() .. ".md"
             local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
             vim.fn.writefile(lines, tmp_md)
 
-            local cmd = string.format(
-              "jupytext --from md --to ipynb --update --output %s %s",
-              vim.fn.shellescape(opts.file),
-              vim.fn.shellescape(tmp_md)
-            )
+            local cmd = {
+              "jupytext", "--from", "md", "--to", "ipynb"
+            }
+            if vim.fn.getfsize(filepath) > 0 then
+              table.insert(cmd, "--update")
+            end
+            table.insert(cmd, "--output")
+            table.insert(cmd, filepath)
+            table.insert(cmd, tmp_md)
+
             local err_output = {}
 
             vim.fn.jobstart(cmd, {
