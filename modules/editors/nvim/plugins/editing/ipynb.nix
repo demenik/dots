@@ -99,22 +99,22 @@ in {
         };
       };
     in [
-      (molten "i" "Init" "Initialize Molten")
-      (molten "d" "Delete" "Delete Molten output")
+      (molten "i" "Init" "Initialize")
+      (molten "d" "Delete" "Delete output")
       {
         mode = "v";
         key = "<leader>iv";
         action = ":<C-u>MoltenEvaluateVisual<CR>gv";
         options = {
           silent = true;
-          desc = "Evaluate visual selection";
+          desc = "Evaluate selection";
         };
       }
       {
         key = "<leader>ir";
         options = {
           silent = true;
-          desc = "Evaluate current markdown cell";
+          desc = "Evaluate current cell";
         };
         action.__raw = ''
           function()
