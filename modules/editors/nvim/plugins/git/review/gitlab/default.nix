@@ -59,11 +59,6 @@ in {
     '';
 
     userCommands = {
-      GitLabSuggest = {
-        range = true;
-        desc = "Interactively create a GitLab code suggestion";
-        command.__raw = builtins.readFile ./gitlab_suggest.lua;
-      };
       GitLabReview = {
         desc = "Start a GitLab MR review for the current branch";
         command.__raw = ''
