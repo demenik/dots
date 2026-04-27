@@ -22,7 +22,20 @@
 
   programs.nixvim = {
     plugins = {
-      diffview.enable = true;
+      diffview = {
+        enable = true;
+        package = pkgs.vimUtils.buildVimPlugin {
+          pname = "diffview.nvim";
+          version = "latest";
+          src = pkgs.fetchFromGitHub {
+            owner = "dlyongemallo";
+            repo = "diffview.nvim";
+            rev = "main";
+            hash = "sha256-14JZDPF/BYbdY3EWAC509AU4amw5FnV7r0u28vvxJAY=";
+          };
+          doCheck = false;
+        };
+      };
     };
   };
 }
