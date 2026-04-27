@@ -113,6 +113,7 @@
     openvpn.path = ./secrets/openvpn.sops.yaml;
     wakatime.path = ./secrets/wakatime.sops.yaml;
     gitea-token.path = ./secrets/gitea.sops.yaml;
+    gitlab.path = ./secrets/gitlab.sops.yaml;
 
     mcp-context7 = {
       path = ./secrets/mcp.sops.yaml;

@@ -6,6 +6,11 @@
       description = "Content of .wakatime.cfg";
       requiredBy = "none";
     };
+
+    gitlab = {
+      description = "Gitlab Tokens as a map: <instance url> -> <token>";
+      requiredBy = "none";
+    };
   };
 
   home = {

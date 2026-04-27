@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  imports = [
+    ./gitlab
+  ];
+
   home.packages = [
     (pkgs.writeShellApplication {
       name = "review";
