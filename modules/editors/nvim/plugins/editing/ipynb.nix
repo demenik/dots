@@ -78,6 +78,16 @@ in {
       };
     };
 
+    plugins.which-key.settings.spec = [
+      {
+        __unkeyed-1 = "<leader>i";
+        group = "Notebook";
+        icon = {
+          icon = " ";
+          color = "orange";
+        };
+      }
+    ];
     keymaps = let
       molten = key: action: desc: {
         mode = "n";
