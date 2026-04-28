@@ -43,7 +43,7 @@ in {
       showHeader = true;
       showKeybinds = true;
 
-      largeButtonsStyle = true;
+      largeButtonsStyle = false;
       largeButtonsLayout = "single-row";
 
       enableCountdown = true;
