@@ -13,7 +13,7 @@
           x = 0;
           y = 0;
         };
-        scale = 1.5;
+        scale = 1.25;
       }
       {
         output = "HDMI-A-1";
@@ -26,7 +26,7 @@
           x = builtins.floor (1920 / 1.5);
           y = 0;
         };
-        scale = 1.5;
+        scale = 1.25;
       }
     ];
   };
