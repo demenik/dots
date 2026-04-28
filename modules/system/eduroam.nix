@@ -45,15 +45,39 @@
   };
   secrets.eduroam = {
     requiredBy = "nixos";
-    description = "Networking config for eduroam";
+    description = "Environment file with EDUROAM_USER and EDUROAM_PASS";
   };
 
   nixos = {config, ...}: {
-    networking.wireless = {
+    networking.networkmanager = {
       enable = true;
-      secretsFile = config.sops.secrets.eduroam.path;
+      ensureProfiles = {
+        environmentFiles = [config.sops.secrets.eduroam.path];
+        profiles = {
+          eduroam = {
+            connection = {
+              id = "eduroam";
+              type = "wifi";
+              interface-name = "wlp2s0";
+            };
+            wifi.ssid = "eduroam";
+            wifi-security.key-mgmt = "wpa-eap";
+            "802-1x" = {
+              eap = "ttls";
+              phase2-auth = "pap";
+              identity = "$EDUROAM_USER";
+              password = "$EDUROAM_PASS";
+              anonymous-identity = "anonymous.PKIv4@uni-ulm.de";
+              domain-match = "radius.uni-ulm.de";
+              ca-cert = "/etc/ssl/certs/eduroam-ca.pem";
+            };
+            ipv4.method = "auto";
+            ipv6.method = "auto";
+          };
+        };
+      };
     };
 
-    environment.etc."certs/eduroam-ca.pem".text = config.eduroam.cert;
+    environment.etc."ssl/certs/eduroam-ca.pem".text = config.eduroam.cert;
   };
 }
