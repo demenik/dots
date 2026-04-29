@@ -14,16 +14,17 @@ in {
       diskPath = "/";
 
       cards =
-        lib.mapAttrs (id: enabled: {
-          inherit id enabled;
-        }) {
-          "profile-card" = true;
-          "shortcuts-card" = true;
-          "audio-card" = true;
-          "brightness-card" = true;
-          "weather-card" = true;
-          "media-sysmon-card" = true;
-        };
+        map (id: {
+          inherit id;
+          enabled = true;
+        }) [
+          "profile-card"
+          "media-sysmon-card"
+          "weather-card"
+          "shortcuts-card"
+          "audio-card"
+          "brightness-card"
+        ];
 
       shortcuts = {
         left = [
