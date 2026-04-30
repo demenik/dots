@@ -28,7 +28,7 @@
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
           jdk
-          androidSdk.androidsdk
+          androidComposition.androidsdk
           gradle
           <0>
         ];
