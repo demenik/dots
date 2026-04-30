@@ -23,7 +23,7 @@
         platformVersions = ["<2>"];
         abiVersions = ["<3>"];
       };
-      pinnedJdk = pkgs.jdk<4>;
+      pinnedJdk = pkgs.jdk<4>_headless;
     in {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
