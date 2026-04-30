@@ -61,6 +61,20 @@
     template = builtins.readFile ./csharp.flake.nix;
     placeholders."0" = null;
   };
+  flakego = {
+    template = builtins.readFile ./go.flake.nix;
+    placeholders."0" = null;
+  };
+  flakeandroid = {
+    template = builtins.readFile ./android.flake.nix;
+    placeholders = {
+      "1" = "32.0.0";
+      "2" = "34";
+      "3" = "armeabi-v7a";
+      "4" = "17";
+      "0" = null;
+    };
+  };
 
   shellandroid = {
     template = builtins.readFile ./android.shell.nix;
@@ -71,9 +85,5 @@
       "4" = "17";
       "0" = null;
     };
-  };
-  flakego = {
-    template = builtins.readFile ./go.flake.nix;
-    placeholders."0" = null;
   };
 }
