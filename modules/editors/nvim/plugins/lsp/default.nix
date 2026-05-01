@@ -44,7 +44,7 @@
       };
       lsp = key: action: desc: {
         key = "<leader>l${key}";
-        action = "<cmd>Lsp${action}<cr>";
+        action = "<cmd>${action}<cr>";
         options.desc = desc;
       };
       trouble = key: action: desc: {
@@ -58,10 +58,10 @@
       (trouble-lsp "gi" "implementations")
 
       # LSP
-      (lsp "i" "Info" "Info")
-      (lsp "R" "Restart" "Restart")
-      (lsp "s" "Start" "Start")
-      (lsp "x" "Stop" "Stop")
+      (lsp "i" "checkhealth vim.lsp" "Info")
+      (lsp "R" "lsp restart" "Restart")
+      (lsp "s" "lsp start" "Start")
+      (lsp "x" "lsp stop" "Stop")
       {
         mode = ["n" "v"];
         key = "<leader>lf";
