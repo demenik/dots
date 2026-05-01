@@ -63,6 +63,7 @@
       (lsp "s" "Start" "Start")
       (lsp "x" "Stop" "Stop")
       {
+        mode = ["n" "v"];
         key = "<leader>lf";
         action.__raw = ''
           function()
