@@ -54,6 +54,7 @@
           typescript = prettier;
           javascriptreact = prettier;
           typescriptreact = prettier;
+          astro = prettier;
 
           sql = ["sqruff"];
 

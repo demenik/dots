@@ -42,6 +42,7 @@
       cssls.enable = true;
       eslint.enable = true;
       tailwindcss.enable = true;
+      astro.enable = true;
 
       taplo.enable = true;
       jsonls = {
