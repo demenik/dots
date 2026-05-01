@@ -54,6 +54,7 @@
 
             footer.hideSandboxStatus = true;
             useAlternateBuffer = true;
+            inlineThinkingMode = "full";
           };
 
           output.format = "text";
