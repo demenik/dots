@@ -53,6 +53,7 @@
         enable = true;
         config.yaml.schemaStore.enable = false;
       };
+      lemminx.enable = true;
 
       texlab.enable = true;
       marksman.enable = true;
