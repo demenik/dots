@@ -36,6 +36,10 @@
       settings = {
         notifyOnError = true;
 
+        formatters = {
+          prettierd.env.NODE_PATH = "./node_modules";
+        };
+
         formatters_by_ft = let
           prettier = {
             __unkeyed-1 = "prettierd";
