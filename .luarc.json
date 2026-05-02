@@ -1,5 +1,5 @@
 {
   "diagnostics": {
-    "disable": ["miss-name"]
+    "disable": ["miss-name", "trailing-space"]
   }
 }
