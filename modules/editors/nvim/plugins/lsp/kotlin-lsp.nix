@@ -1,38 +1,46 @@
 {
-  stdenv,
   lib,
+  stdenv,
   fetchzip,
   makeWrapper,
-  unzip,
-  jdk21_headless,
+  autoPatchelfHook,
+  zlib,
 }:
 stdenv.mkDerivation rec {
   pname = "kotlin-lsp";
-  version = "261.13587.0";
+  version = "262.4739.0";
 
   src = fetchzip {
-    url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-lsp-${version}-linux-x64.zip";
-    hash = "sha256-EweSqy30NJuxvlJup78O+e+JOkzvUdb6DshqAy1j9jE=";
+    url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-server-${version}.tar.gz";
+    hash = "sha256-V4w2gnwJCrW0+iNyKrGsd+wXGBUoI/BoVYSxlHVzo64=";
     stripRoot = false;
   };
 
   nativeBuildInputs = [
     makeWrapper
-    unzip
+    autoPatchelfHook
   ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    zlib
+  ];
+
+  autoPatchelfIgnoreMissingDeps = true;
 
   installPhase = ''
     runHook preInstall
 
+    cd kotlin-server-* || cd .
+
+    rm -f bin/libgcompat-ext.so
+
     mkdir -p "$out"/bin "$out"/libexec/kotlin-lsp
-    cp -r "$src"/lib "$src"/native "$src"/kotlin-lsp.sh "$out"/libexec/kotlin-lsp/
+    cp -r * "$out"/libexec/kotlin-lsp/
 
-    sed -i '/if \[ -d "$LOCAL_JRE_PATH" \]/,/fi/c\JAVA_BIN="java"' "$out"/libexec/kotlin-lsp/kotlin-lsp.sh
-    sed -i '/chmod +x/d' "$out/libexec/kotlin-lsp/kotlin-lsp.sh"
+    TARGET_BIN="$out/libexec/kotlin-lsp/bin/intellij-server"
+    chmod +x "$TARGET_BIN"
 
-    chmod +x "$out"/libexec/kotlin-lsp/kotlin-lsp.sh
-    makeWrapper "$out"/libexec/kotlin-lsp/kotlin-lsp.sh "$out"/bin/kotlin-lsp \
-      --prefix PATH : "${jdk21_headless}/bin"
+    makeWrapper "$TARGET_BIN" "$out"/bin/kotlin-lsp
 
     runHook postInstall
   '';
@@ -41,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "Kotlin Language Server (Standalone Binary)";
     homepage = "https://github.com/Kotlin/kotlin-lsp";
     license = lib.licenses.asl20;
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    platforms = lib.platforms.linux;
   };
 }
