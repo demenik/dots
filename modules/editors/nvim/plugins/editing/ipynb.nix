@@ -58,6 +58,10 @@ in {
     plugins = {
       molten = {
         enable = true;
+        package = pkgs.vimPlugins.molten-nvim.overrideAttrs (old: {
+          dependencies = builtins.filter (dep: (lib.getName dep) != "wezterm.nvim") (old.dependencies or []);
+        });
+
         settings = {
           image_provider = "image.nvim";
           max_width = 100;
