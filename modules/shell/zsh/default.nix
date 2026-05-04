@@ -42,6 +42,9 @@
         ''
           zmodload zsh/zprof
           bindkey -e
+
+          # Set SHELL in nix shells
+          export SHELL=${config.shell.command}
         '';
     };
   };
