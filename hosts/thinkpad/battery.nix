@@ -9,6 +9,8 @@
     tlp.enable = lib.mkForce false;
   };
 
+  powerManagement.powertop.enable = true;
+
   systemd.services.power-saver-default = {
     description = "Enforce power-saver profile for power-profiles-daemon";
     wantedBy = ["multi-user.target"];
