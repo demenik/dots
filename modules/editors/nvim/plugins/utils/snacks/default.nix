@@ -1,7 +1,12 @@
-{
+{pkgs, ...}: {
   imports = [./dashboard.nix];
 
   programs.nixvim = {
+    extraPackages = with pkgs; [
+      ghostscript
+      mermaid-cli
+    ];
+
     plugins.snacks = {
       enable = true;
       settings = {
