@@ -42,6 +42,11 @@
           user = "git";
           identitiesOnly = true;
         };
+
+        "ctf-lab.lxd-vs.uni-ulm.de" = {
+          user = "ctf";
+          identitiesOnly = true;
+        };
       };
     };
   };
