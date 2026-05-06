@@ -36,4 +36,8 @@
 
     networking.hostName = "thinkpad";
   };
+
+  homeConfig = {
+    imports = [./micmute.nix];
+  };
 }
