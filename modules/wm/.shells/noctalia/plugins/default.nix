@@ -1,7 +1,6 @@
 {
   imports = [
     ./screenshot.nix
-    ./calendar.nix
   ];
 
   home = {
