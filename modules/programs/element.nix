@@ -1,6 +1,8 @@
 {
   name = "element";
 
+  modules = [../system/keyring.nix];
+
   moduleConfig = {
     wm.windowrules = [
       {
