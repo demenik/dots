@@ -43,7 +43,8 @@
           identitiesOnly = true;
         };
 
-        "ctf-lab.lxd-vs.uni-ulm.de" = {
+        "ctf-lab" = {
+          hostname = "ctf-lab.lxd-vs.uni-ulm.de";
           user = "ctf";
           identitiesOnly = true;
         };
