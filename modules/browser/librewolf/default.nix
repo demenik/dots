@@ -73,6 +73,7 @@
         in ''
           code, kbd, pre, samp, tt {
             font-family: "${builtins.head monospace}", "${builtins.head emoji}", "Symbols Nerd Font", monospace !important;
+            font-variant-ligatures: none;
           }
         '';
       };
