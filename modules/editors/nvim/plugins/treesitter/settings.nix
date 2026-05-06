@@ -42,6 +42,7 @@ config: {
     python
     requirements
 
+    awk
     regex
     comment
 
