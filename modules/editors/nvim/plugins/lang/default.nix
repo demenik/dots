@@ -1,9 +1,22 @@
 {
   imports = [
     ./docs
-    ./flutter.nix
+    ./nix.nix
+    ./lua.nix
+    ./web.nix
+    ./configs.nix
+    ./db.nix
+    ./docker.nix
+    ./go.nix
+    ./python.nix
     ./rust.nix
-    ./javascript.nix
+    ./cpp.nix
+    ./csharp.nix
+    ./kotlin.nix
     ./java.nix
+    ./godot.nix
+    ./ruby.nix
+    ./dart.nix
+    ./shell.nix
   ];
 }

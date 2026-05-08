@@ -1,5 +1,9 @@
 {pkgs, ...}: {
   programs.nixvim = {
+    extraPackages = with pkgs; [
+      rustfmt
+    ];
+
     plugins = {
       crates.enable = true;
 
@@ -27,6 +31,23 @@
           '';
         };
       };
+
+      lsp.servers.rust_analyzer = {
+        enable = true;
+        packageFallback = true;
+        config.rust-analyzer = {
+          procMacro.enable = true;
+          check = {
+            command = "clippy";
+            allTargets = false;
+          };
+          cargo.allFeatures = true;
+        };
+      };
+
+      lint.lintersByFt.rust = ["clippy"];
+
+      conform-nvim.settings.formatters_by_ft.rust = ["rustfmt"];
     };
   };
 }

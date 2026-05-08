@@ -1,15 +1,15 @@
 {
   imports = [
-    ./servers.nix
-    ./lint.nix
     ./otter.nix
-    ./lazydev.nix
   ];
 
   programs.nixvim = {
     plugins = {
-      lspkind = import ./lspkind.nix;
       lspconfig.enable = true;
+      lspkind = import ./lspkind.nix;
+
+      lint.enable = true;
+
       trouble.enable = true;
       tiny-inline-diagnostic = {
         enable = true;
