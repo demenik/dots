@@ -1,41 +1,54 @@
 {
-  # General
-  undofile = true;
-  backup = false;
-  writebackup = false;
-  mouse = "a";
+  programs.nixvim = {
+    opts = {
+      # General
+      undofile = true;
+      backup = false;
+      writebackup = false;
+      mouse = "a";
 
-  # Appearance
-  breakindent = true;
-  cursorline = false;
-  linebreak = true;
-  number = true;
-  relativenumber = true;
+      # Appearance
+      breakindent = true;
+      cursorline = false;
+      linebreak = true;
+      number = true;
+      relativenumber = true;
 
-  # Editing
-  ignorecase = true;
-  incsearch = true;
-  infercase = true;
-  smartcase = true;
-  smartindent = true;
+      # Editing
+      ignorecase = true;
+      incsearch = true;
+      infercase = true;
+      smartcase = true;
+      smartindent = true;
 
-  hidden = true;
-  title = true;
-  tabstop = 2;
-  scrolloff = 8;
-  shiftwidth = 2;
-  numberwidth = 4;
-  showcmd = true;
-  hlsearch = true;
-  swapfile = false;
-  expandtab = true;
-  updatetime = 100;
-  timeoutlen = 1000;
-  sidescrolloff = 8;
-  termguicolors = true;
-  splitkeep = "screen";
-  fileencoding = "utf-8";
+      hidden = true;
+      title = true;
+      tabstop = 2;
+      scrolloff = 8;
+      shiftwidth = 2;
+      numberwidth = 4;
+      showcmd = true;
+      hlsearch = true;
+      swapfile = false;
+      expandtab = true;
+      updatetime = 100;
+      timeoutlen = 1000;
+      sidescrolloff = 8;
+      termguicolors = true;
+      splitkeep = "screen";
+      fileencoding = "utf-8";
 
-  # Local config
-  exrc = true;
+      # Local config
+      exrc = true;
+    };
+
+    globals = {
+      mapleader = " ";
+      loaded_netrw = 1;
+      loaded_netrwPlugin = 1;
+    };
+
+    clipboard.register = "unnamedplus";
+    luaLoader.enable = true;
+  };
 }

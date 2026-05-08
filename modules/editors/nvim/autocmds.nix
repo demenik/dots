@@ -1,5 +1,6 @@
 {
   programs.nixvim.autoCmd = [
+    # Shebang filetype detection
     {
       event = ["BufReadPost" "BufNewFile" "TextChanged" "TextChangedI"];
       pattern = "*";
@@ -22,6 +23,13 @@
           end
         end
       '';
+    }
+
+    # Hide line numbers in terminal mode
+    {
+      event = ["TermOpen"];
+      pattern = "*";
+      command = "setlocal nonumber norelativenumber";
     }
   ];
 }
