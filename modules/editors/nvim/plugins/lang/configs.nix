@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  prettier = (import ../formatting/prettier.nix).prettier;
+  prettier_config = (import ../formatting/prettier.nix).prettier;
 in {
   programs.nixvim = {
     extraPackages = with pkgs; [
@@ -28,7 +28,7 @@ in {
       };
 
       conform-nvim.settings.formatters_by_ft = {
-        json = prettier;
+        json = prettier_config;
         yaml = ["yamlfmt"];
       };
     };

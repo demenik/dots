@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  prettier = (import ../formatting/prettier.nix).prettier;
+  prettier_config = (import ../formatting/prettier.nix).prettier;
 in {
   programs.nixvim = {
     extraPackages = with pkgs; [
@@ -31,13 +31,13 @@ in {
       };
 
       conform-nvim.settings.formatters_by_ft = {
-        html = prettier;
-        css = prettier;
-        javascript = prettier;
-        typescript = prettier;
-        javascriptreact = prettier;
-        typescriptreact = prettier;
-        astro = prettier;
+        html = prettier_config;
+        css = prettier_config;
+        javascript = prettier_config;
+        typescript = prettier_config;
+        javascriptreact = prettier_config;
+        typescriptreact = prettier_config;
+        astro = prettier_config;
       };
     };
 
