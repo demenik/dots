@@ -35,6 +35,8 @@
       lsp.servers.rust_analyzer = {
         enable = true;
         packageFallback = true;
+        installCargo = false;
+        installRustc = false;
         config.rust-analyzer = {
           procMacro.enable = true;
           check = {
