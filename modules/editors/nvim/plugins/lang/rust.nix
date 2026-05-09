@@ -2,6 +2,7 @@
   programs.nixvim = {
     extraPackages = with pkgs; [
       rustfmt
+      clippy
     ];
 
     lsp.servers.rust_analyzer = {

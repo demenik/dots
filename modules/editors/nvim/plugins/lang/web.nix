@@ -6,6 +6,7 @@ in {
       prettier
       prettierd
       stylelint
+      eslint_d
     ];
 
     extraPlugins = with pkgs.vimPlugins; [
