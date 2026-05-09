@@ -4,6 +4,7 @@
     ./age.nix
     ./sops.nix
     ./ipynb.nix
+    ./spellcheck.nix
   ];
 
   programs.nixvim = {
