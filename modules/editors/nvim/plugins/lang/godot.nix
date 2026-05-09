@@ -4,9 +4,9 @@
       gdtoolkit_4
     ];
 
-    plugins = {
-      lsp.servers.gdscript.enable = true;
+    lsp.servers.gdscript.enable = true;
 
+    plugins = {
       conform-nvim.settings.formatters_by_ft.gdscript = ["gdformat"];
     };
   };

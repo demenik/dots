@@ -2,6 +2,8 @@
   programs.nixvim = {
     extraPackages = with pkgs; [sioyek tectonic];
 
+    lsp.servers.texlab.enable = true;
+
     plugins.vimtex = {
       enable = true;
       settings = {

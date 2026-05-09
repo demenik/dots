@@ -4,9 +4,9 @@
       rubocop
     ];
 
-    plugins = {
-      lsp.servers.solargraph.enable = true;
+    lsp.servers.solargraph.enable = true;
 
+    plugins = {
       lint.lintersByFt.ruby = ["rubocop"];
     };
   };

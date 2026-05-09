@@ -62,9 +62,9 @@ in {
       ktlint
     ];
 
-    plugins = {
-      lsp.servers.kotlin_lsp.enable = true;
+    lsp.servers.kotlin_lsp.enable = true;
 
+    plugins = {
       lint.lintersByFt.kotlin = ["ktlint"];
 
       conform-nvim.settings.formatters_by_ft.kotlin = ["ktlint"];

@@ -8,9 +8,9 @@
       ])
     ];
 
-    plugins = {
-      lsp.servers.csharp_ls.enable = true;
+    lsp.servers.csharp_ls.enable = true;
 
+    plugins = {
       conform-nvim.settings.formatters_by_ft.cs = ["csharpier"];
     };
   };

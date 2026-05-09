@@ -5,6 +5,13 @@
       stylua
     ];
 
+    lsp.servers.lua_ls = {
+      enable = true;
+      config = {
+        workspace.library.__raw = ''vim.api.nvim_get_runtime_file("", true)'';
+      };
+    };
+
     plugins = {
       lazydev = {
         enable = true;
@@ -15,13 +22,6 @@
               words = ["Snacks"];
             }
           ];
-        };
-      };
-
-      lsp.servers.lua_ls = {
-        enable = true;
-        config = {
-          workspace.library.__raw = ''vim.api.nvim_get_runtime_file("", true)'';
         };
       };
 

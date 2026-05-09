@@ -6,9 +6,9 @@
       nixfmt
     ];
 
-    plugins = {
-      lsp.servers.nixd.enable = true;
+    lsp.servers.nixd.enable = true;
 
+    plugins = {
       lint.lintersByFt.nix = ["statix"];
 
       conform-nvim.settings.formatters_by_ft.nix = ["alejandra" "injected"];

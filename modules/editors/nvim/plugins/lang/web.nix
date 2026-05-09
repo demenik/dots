@@ -12,16 +12,16 @@ in {
       template-string-nvim
     ];
 
-    plugins = {
-      lsp.servers = {
-        html.enable = true;
-        ts_ls.enable = true;
-        cssls.enable = true;
-        eslint.enable = true;
-        tailwindcss.enable = true;
-        astro.enable = true;
-      };
+    lsp.servers = {
+      html.enable = true;
+      ts_ls.enable = true;
+      cssls.enable = true;
+      eslint.enable = true;
+      tailwindcss.enable = true;
+      astro.enable = true;
+    };
 
+    plugins = {
       lint.lintersByFt = {
         css = ["stylelint"];
         javascript = ["eslint_d"];

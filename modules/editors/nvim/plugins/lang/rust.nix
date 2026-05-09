@@ -4,6 +4,19 @@
       rustfmt
     ];
 
+    lsp.servers.rust_analyzer = {
+      enable = true;
+      packageFallback = true;
+      config.rust-analyzer = {
+        procMacro.enable = true;
+        check = {
+          command = "clippy";
+          allTargets = false;
+        };
+        cargo.allFeatures = true;
+      };
+    };
+
     plugins = {
       crates.enable = true;
 
@@ -29,21 +42,6 @@
           in ''
             require("rustaceanvim.config").get_codelldb_adapter("${codelldbPath}", "${liblldbPath}")
           '';
-        };
-      };
-
-      lsp.servers.rust_analyzer = {
-        enable = true;
-        packageFallback = true;
-        installCargo = false;
-        installRustc = false;
-        config.rust-analyzer = {
-          procMacro.enable = true;
-          check = {
-            command = "clippy";
-            allTargets = false;
-          };
-          cargo.allFeatures = true;
         };
       };
 

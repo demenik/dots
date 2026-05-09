@@ -6,9 +6,9 @@
       gotools
     ];
 
-    plugins = {
-      lsp.servers.gopls.enable = true;
+    lsp.servers.gopls.enable = true;
 
+    plugins = {
       lint.lintersByFt.go = ["golangcilint"];
 
       conform-nvim.settings.formatters_by_ft.go = ["goimports" "gofmt"];

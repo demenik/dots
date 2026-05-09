@@ -7,12 +7,12 @@
       cmake-lint
     ];
 
-    plugins = {
-      lsp.servers = {
-        clangd.enable = true;
-        cmake.enable = true;
-      };
+    lsp.servers = {
+      clangd.enable = true;
+      cmake.enable = true;
+    };
 
+    plugins = {
       lint.lintersByFt = {
         cpp = ["cppcheck"];
         cmake = ["cmakelint"];

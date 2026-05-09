@@ -7,21 +7,21 @@ in {
       yamllint
     ];
 
+    lsp.servers = {
+      taplo.enable = true;
+      jsonls = {
+        enable = true;
+        config.json.validate.enable = true;
+      };
+      yamlls = {
+        enable = true;
+        config.yaml.schemaStore.enable = false;
+      };
+      lemminx.enable = true;
+    };
+
     plugins = {
       schemastore.enable = true;
-
-      lsp.servers = {
-        taplo.enable = true;
-        jsonls = {
-          enable = true;
-          config.json.validate.enable = true;
-        };
-        yamlls = {
-          enable = true;
-          config.yaml.schemaStore.enable = false;
-        };
-        lemminx.enable = true;
-      };
 
       lint.lintersByFt = {
         yaml = ["yamllint"];

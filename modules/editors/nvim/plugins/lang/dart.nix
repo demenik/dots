@@ -1,6 +1,6 @@
 {
-  programs.nixvim.plugins = {
-    flutter-tools.enable = true;
+  programs.nixvim = {
     lsp.servers.dartls.enable = true;
+    plugins.flutter-tools.enable = true;
   };
 }
