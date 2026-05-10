@@ -44,7 +44,7 @@
     };
   };
   secrets.eduroam = {
-    requiredBy = "nixos";
+    usedBy = "nixos";
     description = "Environment file with EDUROAM_USER and EDUROAM_PASS";
   };
 

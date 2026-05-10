@@ -4,12 +4,14 @@
   secrets = {
     wakatime = {
       description = "Content of .wakatime.cfg";
-      requiredBy = "none";
+      usedBy = "hm";
+      required = false;
     };
 
     gitlab = {
       description = "Gitlab Tokens as a map: <instance url> -> <token>";
-      requiredBy = "none";
+      usedBy = "hm";
+      required = false;
     };
   };
 

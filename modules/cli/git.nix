@@ -18,7 +18,8 @@
 
   secrets = {
     gitea-token = {
-      requiredBy = "none";
+      usedBy = "hm";
+      required = false;
       description = "Gitea Access Token";
     };
   };

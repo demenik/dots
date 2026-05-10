@@ -10,6 +10,7 @@
 
   secrets.nextcloudMount = {
     description = "rclone config for nextcloud";
+    usedBy = "hm";
   };
 
   home = {

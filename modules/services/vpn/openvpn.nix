@@ -4,36 +4,41 @@
   secrets = {
     openvpn = {
       description = "Content of .ovpn file";
-      requiredBy = "none";
+      usedBy = "hm";
+      required = false;
     };
   };
 
-  nixos = {
-    pkgs,
-    lib,
-    config,
-    ...
-  }: {
+  nixos = {pkgs, ...}: {
     networking.networkmanager = {
       enable = true;
       plugins = with pkgs; [
         networkmanager-openvpn
       ];
     };
+  };
 
-    systemd.services.import-openvpn-profile = lib.mkIf (config.sops.secrets ? openvpn) {
-      description = "Import OpenVPN profile into NetworkManager";
-      wantedBy = ["multi-user.target"];
-      after = ["NetworkManager.service"];
-      serviceConfig = {
+  home = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: {
+    systemd.user.services.import-openvpn-profile = lib.mkIf (config.sops.secrets ? openvpn) {
+      Unit = {
+        Description = "Import OpenVPN profile into NetworkManager";
+        After = ["network.target"];
+      };
+      Service = {
         Type = "oneshot";
         RemainAfterExit = true;
+        ExecStart = pkgs.writeShellScript "import-openvpn" ''
+          if ! ${pkgs.networkmanager}/bin/nmcli connection show "openvpn" >/dev/null 2>&1; then
+            ${pkgs.networkmanager}/bin/nmcli connection import type openvpn file "${config.sops.secrets.openvpn.path}"
+          fi
+        '';
       };
-      script = ''
-        if ! ${pkgs.networkmanager}/bin/nmcli connection show "openvpn" >/dev/null 2>&1; then
-          ${pkgs.networkmanager}/bin/nmcli connection import type openvpn file "${config.sops.secrets.openvpn.path}"
-        fi
-      '';
+      Install.WantedBy = ["default.target"];
     };
   };
 }
