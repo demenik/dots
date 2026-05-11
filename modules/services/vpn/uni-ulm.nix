@@ -46,21 +46,17 @@
 
       dispatcherScripts = [
         {
-          source =
-            pkgs.writeText "vpn-dispatcher"
-            # sh
-            ''
-              #!/bin/sh
-              ACTION=$2
+          source = pkgs.writeShellScriptBin "vpn-dispatcher" ''
+            ACTION=$2
 
-              if [ "$CONNECTION_ID" = "Uni-Ulm" ]; then
-                if [ "$ACTION" = "up" ]; then
-                  systemctl start openconnect-uni-ulm-vpn.service
-                elif [ "$ACTION" = "down" ]; then
-                  systemctl stop openconnect-uni-ulm-vpn.service
-                fi
+            if [ "$CONNECTION_ID" = "Uni-Ulm" ]; then
+              if [ "$ACTION" = "up" ]; then
+                systemctl start openconnect-uni-ulm-vpn.service
+              elif [ "$ACTION" = "down" ]; then
+                systemctl stop openconnect-uni-ulm-vpn.service
               fi
-            '';
+            fi
+          '';
         }
       ];
     };
