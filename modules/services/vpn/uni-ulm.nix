@@ -30,7 +30,7 @@
         connection = {
           id = "Uni-Ulm";
           type = "wireguard";
-          interface-name = "vpn-uni-ulm";
+          interface-name = "uulm0";
           autoconnect = false;
         };
         wireguard = {
