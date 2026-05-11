@@ -8,6 +8,7 @@
 
     ../../modules/services/nextcloud-mount.nix
     ../../modules/services/vpn/openvpn.nix
+    ../../modules/services/vpn/uni-ulm.nix
 
     ../../modules/terminal/kitty.nix
     ../../modules/shell/zsh
@@ -114,6 +115,7 @@
     wakatime.path = ./secrets/wakatime.sops.yaml;
     gitea-token.path = ./secrets/gitea.sops.yaml;
     gitlab.path = ./secrets/gitlab.sops.yaml;
+    uni-ulm-vpn.path = ./secrets/uni-ulm-vpn.sops.yaml;
 
     mcp-context7 = {
       path = ./secrets/mcp.sops.yaml;

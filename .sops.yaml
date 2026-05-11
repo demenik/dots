@@ -4,15 +4,10 @@ keys:
   - &demenik_desktop age13rafcj20798yffxd9cy89v8t0lc5xxf7d3lky5pfr73gzgfrxvusdyjmfk
   - &demenik_thinkpad age1a5t2a68zzpy9snecxh2f3ph0s9ruky4e6ywvfmjdeujy36kugptqdw4x3h
 creation_rules:
-  - path_regex: hosts/.*\.sops\.yaml$
+  - path_regex: .*\.sops\.yaml$
     key_groups:
       - age:
           - *desktop
           - *thinkpad
-          - *demenik_desktop
-          - *demenik_thinkpad
-  - path_regex: users/.*\.sops\.yaml$
-    key_groups:
-      - age:
           - *demenik_desktop
           - *demenik_thinkpad

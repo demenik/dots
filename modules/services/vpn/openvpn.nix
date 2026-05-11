@@ -37,6 +37,9 @@
             ${pkgs.networkmanager}/bin/nmcli connection import type openvpn file "${config.sops.secrets.openvpn.path}"
           fi
         '';
+        ExecStop = pkgs.writeShellScript "delete-openvpn" ''
+          ${pkgs.networkmanager}/bin/nmcli connection delete "openvpn" || true
+        '';
       };
       Install.WantedBy = ["default.target"];
     };
