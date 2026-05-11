@@ -43,7 +43,7 @@
 
       dispatcherScripts = [
         {
-          source = pkgs.writeShellScriptBin "vpn-dispatcher" ''
+          source = pkgs.writeShellScript "uni-ulm-vpn-dispatcher" ''
             ACTION=$2
 
             if [ "$CONNECTION_ID" = "Uni-Ulm" ]; then
