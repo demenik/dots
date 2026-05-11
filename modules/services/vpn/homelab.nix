@@ -44,6 +44,7 @@
         ipv4 = {
           method = "manual";
           addresses = "10.255.255.2/32";
+          never-default = true;
         };
         ipv6.method = "disabled";
       };
