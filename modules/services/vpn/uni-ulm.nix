@@ -44,15 +44,24 @@
 
       dispatcherScripts = [
         {
+          type = "pre-up";
+          source = pkgs.writeShellScript "uni-ulm-vpn-pre-up" ''
+            ACTION=$2
+
+            if [ "$CONNECTION_ID" = "Uni-Ulm" ] && [ "$ACTION" = "pre-up" ]; then
+              if ! systemctl start openconnect-uni-ulm-vpn.service; then
+                exit 1
+              fi
+            fi
+          '';
+        }
+        {
+          type = "basic";
           source = pkgs.writeShellScript "uni-ulm-vpn-dispatcher" ''
             ACTION=$2
 
-            if [ "$CONNECTION_ID" = "Uni-Ulm" ]; then
-              if [ "$ACTION" = "up" ]; then
-                systemctl start openconnect-uni-ulm-vpn.service
-              elif [ "$ACTION" = "down" ]; then
-                systemctl stop openconnect-uni-ulm-vpn.service
-              fi
+            if [ "$CONNECTION_ID" = "Uni-Ulm" ] && [ "$ACTION" = "down" ]; then
+              systemctl stop openconnect-uni-ulm-vpn.service
             fi
           '';
         }
@@ -66,13 +75,16 @@
       path = with pkgs; [
         openconnect
         oath-toolkit
+        networkmanager
       ];
       environment = {
         SECRET_PATH = config.sops.secrets.uni-ulm-vpn.path;
       };
 
       serviceConfig = {
-        Type = "simple";
+        Type = "forking";
+        PIDFile = "/run/openconnect-uni-ulm-vpn.pid";
+
         ExecStart = lib.getExe (pkgs.writeShellApplication {
           name = "openconnect-uni-ulm-vpn-start";
           runtimeInputs = with pkgs; [
@@ -88,6 +100,8 @@
               oathtool --totp -b "$TOTP_KEY"
             ) |
               openconnect \
+                --background \
+                --pid-file=/run/openconnect-uni-ulm-vpn.pid \
                 --protocol=anyconnect \
                 --user="$USER" \
                 --passwd-on-stdin \
@@ -95,6 +109,7 @@
                 vpn.uni-ulm.de
           '';
         });
+        ExecStopPost = "-${lib.getExe' pkgs.networkmanager "nmcli"} connection down Uni-Ulm";
       };
     };
   };
