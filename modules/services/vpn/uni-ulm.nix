@@ -22,9 +22,6 @@
   }: {
     networking.networkmanager = {
       enable = true;
-      plugins = with pkgs; [
-        networkmanager-openconnect
-      ];
 
       ensureProfiles.profiles."Uni-Ulm" = {
         connection = {
