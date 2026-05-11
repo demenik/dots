@@ -23,6 +23,7 @@
       authKeyFile = authKeyPath;
 
       extraUpFlags = [
+        "--reset"
         "--accept-routes"
       ];
     };
@@ -51,15 +52,24 @@
 
       dispatcherScripts = [
         {
+          type = "pre-up";
+          source = pkgs.writeShellScript "homelab-vpn-pre-up" ''
+            ACTION=$2
+
+            if [ "$CONNECTION_ID" = "homelab" ] && [ "$ACTION" = "pre-up" ]; then
+              if ! systemctl start homelab-tailscale-exit-node.service; then
+                exit 1
+              fi
+            fi
+          '';
+        }
+        {
+          type = "basic";
           source = pkgs.writeShellScript "homelab-vpn-dispatcher" ''
             ACTION=$2
 
-            if [ "$CONNECTION_ID" = "homelab" ]; then
-              if [ "$ACTION" = "up" ]; then
-                systemctl start homelab-tailscale-exit-node.service
-              elif [ "$ACTION" = "down" ]; then
-                systemctl stop homelab-tailscale-exit-node.service
-              fi
+            if [ "$CONNECTION_ID" = "homelab" ] && [ "$ACTION" = "down" ]; then
+              systemctl stop homelab-tailscale-exit-node.service
             fi
           '';
         }
@@ -70,14 +80,16 @@
       description = "Toggle homelab tailscale exit node route";
       wantedBy = [];
       after = ["tailscaled.service"];
-      wants = ["tailscaled.service"];
+      bindsTo = ["tailscaled.service"];
 
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
 
         ExecStart = "${lib.getExe pkgs.tailscale} set --exit-node=${exitNodeAddress} --exit-node-allow-lan-access=true";
+
         ExecStop = "${lib.getExe pkgs.tailscale} set --exit-node=";
+        ExecStopPost = "-${lib.getExe' pkgs.networkmanager "nmcli"} connection down homelab";
       };
     };
   };
