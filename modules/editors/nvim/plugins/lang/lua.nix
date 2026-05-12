@@ -16,6 +16,12 @@
       lazydev = {
         enable = true;
         settings = {
+          enabled.__raw = ''
+            function(root_dir)
+              return vim.g.lazydev_enabled ~= false or vim.uv.fs_stat(root_dir .. "/.nvim.lua") ~= nil
+            end
+          '';
+
           library = [
             {
               path = "${pkgs.vimPlugins.snacks-nvim}";
