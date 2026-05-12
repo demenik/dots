@@ -3,7 +3,7 @@
     ./nvim-tree.nix
     ./age.nix
     ./sops.nix
-    ./ipynb.nix
+    ./ipynb
     ./spellcheck.nix
   ];
 
