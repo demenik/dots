@@ -12,6 +12,7 @@
       {
         matchClass = "vesktop";
         workspace = "3";
+        noInitialFocus = true;
       }
       {
         matchClass = "vesktop";
