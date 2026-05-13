@@ -1,6 +1,6 @@
 {
   imports = [
-    ./screenshot.nix
+    ./screentoolkit.nix
   ];
 
   home = {

@@ -90,7 +90,7 @@ in {
             showPowerProfiles = true;
           }
           {
-            id = "plugin:screen-shot-and-record";
+            id = "plugin:screen-toolkit";
           }
         ];
 
