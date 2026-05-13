@@ -6,6 +6,7 @@
   home = {
     imports = [
       ./vpn.nix
+      ./tailscale.nix
     ];
 
     programs.noctalia-shell = {

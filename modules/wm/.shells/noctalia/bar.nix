@@ -72,6 +72,9 @@ in {
             };
           }
           {
+            id = "plugin:tailscale";
+          }
+          {
             id = "Bluetooth";
             displayMode = "onhover";
             iconColor = "none";
