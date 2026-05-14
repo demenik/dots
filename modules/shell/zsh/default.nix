@@ -10,6 +10,10 @@
     shell.command = lib.getExe pkgs.zsh;
   };
 
+  nixos = {
+    programs.zsh.enable = true;
+  };
+
   home = {
     pkgs,
     lib,
