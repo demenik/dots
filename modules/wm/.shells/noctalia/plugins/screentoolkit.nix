@@ -48,11 +48,14 @@
           pygobject3
         ];
 
-        extraPostBuild =
+        pluginPatches =
           # bash
           ''
-            wrapProgram "$out"/bin/noctalia-shell \
-              --run 'for f in ~/.config/noctalia/plugins/screen-toolkit/scripts/*.sh; do [ -f "$f" ] && sed -i "1s|^.*$|#!/usr/bin/env bash|" "$f"; done'
+            for f in screen-toolkit/scripts/*.sh; do
+              if [ -f "$f" ]; then
+                sed -i '1s|^.*$|#!/usr/bin/env bash|' "$f"
+              fi
+            done
           '';
       };
     };
