@@ -47,6 +47,13 @@
         pythonPackages = with pkgs.python3Packages; [
           pygobject3
         ];
+
+        extraPostBuild =
+          # bash
+          ''
+            wrapProgram "$out"/bin/noctalia-shell \
+              --run 'for f in ~/.config/noctalia/plugins/screen-toolkit/scripts/*.sh; do [ -f "$f" ] && sed -i "1s|^.*$|#!/usr/bin/env bash|" "$f"; done'
+          '';
       };
     };
   };
