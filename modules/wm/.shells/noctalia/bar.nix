@@ -138,7 +138,7 @@ in {
             showAlbumArt = true;
             panelShowAlbumArt = true;
             showVisualizer = true;
-            visualizerType = "linear";
+            visualizerType = "wave";
             showProgressRing = false;
           }
           {

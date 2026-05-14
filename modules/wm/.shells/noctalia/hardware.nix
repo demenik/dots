@@ -4,7 +4,7 @@
       preferredPlayer = "spotify";
       mprisBlacklist = [];
 
-      visualizerType = "linear";
+      visualizerType = "wave";
       spectrumFrameRate = 30;
       spectrumMirrored = false;
 
