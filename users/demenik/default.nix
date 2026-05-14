@@ -111,7 +111,6 @@
   secrets = {
     nextcloudMount.path = ./secrets/nextcloud-mount.sops.yaml;
     anki.path = ./secrets/anki.sops.yaml;
-    openvpn.path = ./secrets/openvpn.sops.yaml;
     wakatime.path = ./secrets/wakatime.sops.yaml;
     gitea-token.path = ./secrets/gitea.sops.yaml;
     gitlab.path = ./secrets/gitlab.sops.yaml;
