@@ -2,8 +2,10 @@
   pkgs,
   lib,
   ...
-}: {
-  home.packages = with pkgs; [
+}: let
+  inherit (pkgs) writeShellApplication;
+in {
+  home.packages = [
     (writeShellApplication {
       name = "nix";
       text =
@@ -34,6 +36,11 @@
       name = "boot-next";
       runtimeInputs = with pkgs; [efibootmgr];
       text = builtins.readFile ./boot-next.sh;
+    })
+    (writeShellApplication {
+      name = "to-nix";
+      runtimeInputs = with pkgs; [yj nix uutils-coreutils-noprefix alejandra];
+      text = builtins.readFile ./to-nix.sh;
     })
   ];
 }
