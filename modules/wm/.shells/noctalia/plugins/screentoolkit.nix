@@ -20,28 +20,34 @@
         enabled = true;
         sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
       };
+
+      wrapper = {
+        packages = with pkgs; [
+          # core
+          grim
+          slurp
+          wl-clipboard
+          tesseract
+          imagemagick
+          zbar
+          curl
+          ffmpeg
+          jq
+          wl-screenrec
+          xdg-desktop-portal
+
+          # color picker
+          hyprpicker
+
+          # optional
+          translate-shell
+          gifski
+        ];
+
+        pythonPackages = with pkgs.python3Packages; [
+          pygobject3
+        ];
+      };
     };
-
-    home.packages = with pkgs; [
-      # core
-      grim
-      slurp
-      wl-clipboard
-      tesseract
-      imagemagick
-      zbar
-      curl
-      ffmpeg
-      jq
-      wl-screenrec
-      xdg-desktop-portal
-
-      # color picker
-      hyprpicker
-
-      # optional
-      translate-shell
-      gifski
-    ];
   };
 }

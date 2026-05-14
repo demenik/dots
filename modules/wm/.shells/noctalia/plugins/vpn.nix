@@ -13,10 +13,9 @@
       connectedColor = "primary";
       disableToastNotifications = false;
     };
-  };
 
-  home.packages = with pkgs; [
-    networkmanager
-    networkmanagerapplet
-  ];
+    wrapper.packages = with pkgs; [
+      networkmanager
+    ];
+  };
 }

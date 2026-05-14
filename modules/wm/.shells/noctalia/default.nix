@@ -9,7 +9,6 @@
 
   home = {
     inputs,
-    pkgs,
     lib,
     config,
     ...
@@ -17,6 +16,7 @@
     imports = [
       inputs.noctalia.homeModules.default
 
+      ./wrapper.nix
       ./bar.nix
       ./hardware.nix
       ./locker.nix
@@ -54,30 +54,6 @@
         else [];
     in {
       enable = true;
-      package = let
-        pythonEnv = pkgs.python3.withPackages (ps:
-          with ps; [
-            pygobject3
-            python-dateutil
-          ]);
-
-        giTypelib = pkgs.lib.makeSearchPath "lib/girepository-1.0" (with pkgs; [
-          evolution-data-server
-          libical
-          gobject-introspection
-        ]);
-      in
-        pkgs.symlinkJoin {
-          name = "noctalia-shell-wrapped";
-          paths = [pkgs.noctalia-shell];
-          buildInputs = [pkgs.makeWrapper];
-          postBuild = ''
-            wrapProgram "$out"/bin/noctalia-shell \
-              --prefix PATH : "${pythonEnv}/bin:${pkgs.khal}/bin" \
-              --prefix GI_TYPELIB_PATH : "${giTypelib}"
-          '';
-          meta.mainProgram = "noctalia-shell";
-        };
 
       settings = {
         settingsVersion = 59;
