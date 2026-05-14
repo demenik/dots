@@ -15,7 +15,7 @@
           declare -A THEME=( \
             ["background"]="${c.base00}" \
             ["foreground"]="${c.base05}" \
-            ["black"]="${c.base03}" \
+            ["black"]="${c.base01}" \
             ["blue"]="${c.base0D}" \
             ["cyan"]="${c.base0C}" \
             ["green"]="${c.base0B}" \
@@ -23,7 +23,7 @@
             ["red"]="${c.base08}" \
             ["white"]="${c.base05}" \
             ["yellow"]="${c.base0A}" \
-            ["bblack"]="${c.base04}" \
+            ["bblack"]="${c.base02}" \
             ["bblue"]="${c.base0D}" \
             ["bcyan"]="${c.base0C}" \
             ["bgreen"]="${c.base0B}" \
