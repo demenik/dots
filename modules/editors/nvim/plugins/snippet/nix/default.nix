@@ -57,6 +57,10 @@
     template = builtins.readFile ./bun.flake.nix;
     placeholders."0" = null;
   };
+  flakepnpm = {
+    template = builtins.readFile ./pnpm.flake.nix;
+    placeholders."0" = null;
+  };
   "flakec#" = {
     template = builtins.readFile ./csharp.flake.nix;
     placeholders."0" = null;
