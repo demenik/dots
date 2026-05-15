@@ -11,7 +11,7 @@
 
     programs.noctalia-shell = {
       plugins = {
-        autoUpdate = false;
+        autoUpdate = true;
         notifyUpdates = true;
 
         sources = [
