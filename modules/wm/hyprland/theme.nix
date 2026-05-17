@@ -1,7 +1,7 @@
 {config, ...}: let
   c = config.colors;
 in {
-  wayland.windowManager.hyprland.settings = {
+  wayland.windowManager.hyprland.settings.config = {
     general = {
       layout = "master";
 
@@ -9,8 +9,10 @@ in {
       gaps_in = 5;
       gaps_out = 5;
 
-      "col.active_border" = "rgb(${c.accent})";
-      "col.inactive_border" = "rgb(${c.base03})";
+      col = {
+        active_border = "rgb(${c.accent})";
+        inactive_border = "rgb(${c.base03})";
+      };
     };
 
     decoration = {

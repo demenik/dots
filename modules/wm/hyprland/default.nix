@@ -42,12 +42,12 @@
 
     wayland.windowManager.hyprland = {
       enable = true;
-      configType = "hyprlang";
+      configType = "lua";
 
       systemd.enable = true;
       xwayland.enable = true;
 
-      settings = {
+      settings.config = {
         misc = {
           disable_hyprland_logo = true;
           focus_on_activate = false;

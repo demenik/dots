@@ -1,9 +1,9 @@
 {
   wayland.windowManager.hyprland.settings = {
-    layerrule = [
+    layer_rule = [
       {
         name = "noctalia";
-        "match:namespace" = "noctalia-background-.*$";
+        match.namespace = "noctalia-background-.*$";
 
         ignore_alpha = 0.5;
         blur = true;

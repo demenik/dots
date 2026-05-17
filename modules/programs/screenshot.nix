@@ -53,8 +53,11 @@
   in {
     home.packages = [screenshot];
 
-    wayland.windowManager.hyprland.settings.layerrule = [
-      "no_anim on, match:namespace ^(selection)$"
+    wayland.windowManager.hyprland.settings.layer_rule = [
+      {
+        match.namespace = "selection";
+        no_anim = true;
+      }
     ];
   };
 }

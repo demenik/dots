@@ -48,8 +48,11 @@
       };
     };
 
-    wayland.windowManager.hyprland.settings.layerrule = [
-      "animation popin 50%, match:namespace notifications"
+    wayland.windowManager.hyprland.settings.layer_rule = [
+      {
+        match.namespace = "notifications";
+        animation = "popin 50%";
+      }
     ];
   };
 }

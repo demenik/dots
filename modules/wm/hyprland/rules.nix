@@ -1,11 +1,14 @@
 {
   wayland.windowManager.hyprland.settings = {
-    windowrule = [
-      "float on, match:class ^(hyprland-share-picker)$"
+    window_rule = [
+      {
+        match.class = "^(hyprland-share-picker)$";
+        float = true;
+      }
 
       {
         name = "xdg-desktop-portal-gtk";
-        "match:class" = "^(xdg-desktop-portal-gtk)$";
+        match.class = "^(xdg-desktop-portal-gtk)$";
 
         float = true;
         size = "1000 750";
