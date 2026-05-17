@@ -13,38 +13,56 @@
     ];
   };
 
-  home = {config, ...}: {
-    programs.noctalia-shell.settings.appLauncher = {
-      enableClipboardHistory = false;
-      enableClipPreview = true;
-      enableClipboardChips = true;
-      enableClipboardSmartIcons = true;
-      autoPasteClipboard = false;
-      clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
-      clipboardWatchTextCommand = "wl-paste --type text --watch cliphist store";
-      clipboardWrapText = true;
+  home = {
+    pkgs,
+    config,
+    ...
+  }: {
+    programs.noctalia-shell = {
+      # NOTE: This should be removed after noctalia-shell is updated to use the new lua hyprland configuration
+      wrapper.packages = [
+        (pkgs.writeShellScriptBin "hyprctl" ''
+          if [[ "$1" == "dispatch" && "$2" == "--" && "$3" == "exec" ]]; then
+            shift 3
+            exec /run/current-system/sw/bin/hyprctl eval "hl.exec_cmd('$*')"
+          else
+            exec /run/current-system/sw/bin/hyprctl "$@"
+          fi
+        '')
+      ];
 
-      showCategories = true;
-      sortByMostUsed = true;
-      enableSessionSearch = true;
-      enableSettingsSearch = true;
-      enableWindowsSearch = false;
+      settings.appLauncher = {
+        enableClipboardHistory = false;
+        enableClipPreview = true;
+        enableClipboardChips = true;
+        enableClipboardSmartIcons = true;
+        autoPasteClipboard = false;
+        clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
+        clipboardWatchTextCommand = "wl-paste --type text --watch cliphist store";
+        clipboardWrapText = true;
 
-      viewMode = "list";
-      density = "default";
-      position = "center";
-      iconMode = "tabler";
-      showIconBackground = false;
+        showCategories = true;
+        sortByMostUsed = true;
+        enableSessionSearch = true;
+        enableSettingsSearch = true;
+        enableWindowsSearch = false;
 
-      customLaunchPrefixEnabled = false;
-      customLaunchPrefix = "";
-      terminalCommand = config.terminal.command;
+        viewMode = "list";
+        density = "default";
+        position = "center";
+        iconMode = "tabler";
+        showIconBackground = false;
 
-      overviewLayer = false;
-      ignoreMouseInput = false;
+        customLaunchPrefixEnabled = false;
+        customLaunchPrefix = "";
+        terminalCommand = config.terminal.command;
 
-      pinnedApps = [];
-      screenshotAnnotationTool = "";
+        overviewLayer = false;
+        ignoreMouseInput = false;
+
+        pinnedApps = [];
+        screenshotAnnotationTool = "";
+      };
     };
   };
 }
