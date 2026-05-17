@@ -2,9 +2,14 @@
   "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
   "diagnostics": {
     "disable": ["miss-name", "trailing-space", "exp-in-action"],
-    "globals": ["hl"]
+    "globals": ["vim", "Snacks", "hl"]
   },
   "workspace": {
-    "library": ["~/.local/share/hypr/stubs"]
+    "checkThirdParty": false,
+    "library": [
+      "$VIMRUNTIME/lua",
+      "${3rd}/luv/library",
+      "~/.local/share/hypr/stubs"
+    ]
   }
 }
