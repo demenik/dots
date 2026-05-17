@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   sops-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -14,7 +15,10 @@
     };
   };
 in {
-  home.packages = with pkgs; [sops];
+  home = {
+    packages = with pkgs; [sops];
+    sessionVariables.SOPS_AGE_KEY_CMD = "${lib.getExe pkgs.ssh-to-age} -private-key -i ${config.home.homeDirectory}/.ssh/id_ed25519";
+  };
 
   programs.nixvim = {
     extraPlugins = [sops-nvim];
