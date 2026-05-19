@@ -78,9 +78,26 @@
   in {
     enable = true;
 
-    iconTheme = {
+    iconTheme = let
+      folderBaseColor = colors.accent;
+      folderDarkColor = colors.darken folderBaseColor 12;
+      folderDeepDarkColor = colors.darken folderBaseColor 65;
+    in {
       name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+      package = pkgs.papirus-icon-theme.overrideAttrs (oldAttrs: {
+        postInstall =
+          (oldAttrs.postInstall or "")
+          +
+          # bash
+          ''
+            echo "patching folder icons"
+            find "$out"/share/icons -path "*/places/*" -type f -name "*.svg" -exec sed -i \
+              -e "s/#5294e2/#${folderBaseColor}/gI" \
+              -e "s/#4877b1/#${folderDarkColor}/gI" \
+              -e "s/#1d344f/#${folderDeepDarkColor}/gI" \
+              {} +
+          '';
+      });
     };
 
     theme = {
@@ -89,7 +106,7 @@
     };
     gtk3.extraCss = gtkCss;
     gtk4 = {
-      inherit  (config.gtk) theme;
+      inherit (config.gtk) theme;
       extraCss = gtkCss;
     };
   };
