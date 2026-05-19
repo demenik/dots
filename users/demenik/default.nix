@@ -2,7 +2,7 @@
   username = "demenik";
 
   modules = [
-    ../../modules/colors.nix
+    ../../modules/colors
 
     ../../modules/wm/hyprland
 

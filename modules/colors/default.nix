@@ -17,13 +17,10 @@
     "base0E"
     "base0F"
   ];
-  colorNames =
-    base16Names
-    ++ [
-      "accent"
-    ];
+  colorNames = base16Names ++ ["accent"];
 
-  hexToDec = hex: (fromTOML "val=0x${hex}").val;
+  colorLib = import ./lib.nix;
+  inherit (colorLib) hexToDec;
 in {
   name = "colors";
   moduleOptions = with lib; {
@@ -88,6 +85,27 @@ in {
             type = types.float;
             readOnly = true;
           });
+
+        mix = mkOption {
+          type = types.unspecified;
+          readOnly = true;
+          description = "Method: Mix two hex colors";
+        };
+        lighten = mkOption {
+          type = types.unspecified;
+          readOnly = true;
+          description = "Method: Lighten a hex color by X percent";
+        };
+        darken = mkOption {
+          type = types.unspecified;
+          readOnly = true;
+          description = "Method: Darken a hex color by X percent";
+        };
+        steps = mkOption {
+          type = types.unspecified;
+          readOnly = true;
+          description = "Method: Generate Tailwind 50-950 steps from a hex code";
+        };
       };
   };
 
@@ -111,6 +129,8 @@ in {
         gFloat = genAttrs colorNames (name: (hexToDec (builtins.substring 2 2 config.colors.${name})) / 255.0);
         bFloat = genAttrs colorNames (name: (hexToDec (builtins.substring 4 2 config.colors.${name})) / 255.0);
         rgbFloat = genAttrs colorNames (name: "${toString config.colors.rFloat.${name}}, ${toString config.colors.gFloat.${name}}, ${toString config.colors.bFloat.${name}}");
+
+        inherit (colorLib) mix lighten darken steps;
       };
     };
 }
