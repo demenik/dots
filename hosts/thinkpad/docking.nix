@@ -52,9 +52,18 @@ in {
   ];
 
   wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {
-    exec-once = [
-      (lib.getExe monitorSwitch)
-      (lib.getExe monitorListener)
+    on._args = [
+      "hyprland.start"
+      (
+        lib.generators.mkLuaInline
+        # lua
+        ''
+          function()
+            hl.exec_cmd("${lib.getExe monitorSwitch}")
+            hl.exec_cmd("${lib.getExe monitorListener}")
+          end
+        ''
+      )
     ];
   };
 }
