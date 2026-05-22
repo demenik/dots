@@ -3,6 +3,8 @@
 
   modules = [
     ../../default.nix
+    ../default.nix
+
     ./plugins
     ./launcher.nix
   ];
@@ -23,6 +25,7 @@
       ./panels.nix
       ./wm.nix
       ./wallpaper.nix
+      ./theme.nix
     ];
 
     systemd.user.services.noctalia = {
@@ -111,19 +114,6 @@
 
           tooltipsEnabled = true;
           scrollbarAlwaysVisible = false;
-        };
-        colorSchemes = {
-          darkMode = true;
-          predefinedScheme = "Catppuccin";
-          useWallpaperColors = false;
-          generationMethod = "tonal-spot";
-          monitorForColors = monitor;
-
-          schedulingMode = "off";
-          manualSunrise = "06:30";
-          manualSunset = "18:30";
-
-          syncGsettings = true;
         };
 
         location = {
