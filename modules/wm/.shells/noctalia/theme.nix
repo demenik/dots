@@ -22,11 +22,19 @@
       manualSunrise = "06:30";
       manualSunset = "18:30";
     };
+
+    templates = {
+      enableUserTheming = true;
+      activeTemplates =
+        if config.theme.type == "template"
+        then lib.mapAttrsToList (name: t: { id = name; enabled = t.enable; }) config.theme.templates
+        else lib.mkForce [];
+    };
   };
 
   programs.noctalia-shell.user-templates.templates = lib.mapAttrs (name: t:
     lib.filterAttrs (n: v: v != null) {
       inherit (t) target text post_hook;
     })
-  config.theme.templates;
+  (lib.filterAttrs (name: t: t.text != null) config.theme.templates);
 }

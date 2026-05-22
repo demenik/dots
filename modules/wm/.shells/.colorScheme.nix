@@ -19,10 +19,9 @@
   ];
   colorNames = base16Names ++ ["accent"];
 
-  colorLib = import ./lib.nix;
+  colorLib = import ./.colorLib.nix;
   inherit (colorLib) hexToDec;
 in {
-  name = "colors";
   moduleOptions = with lib; {
     colors =
       genAttrs base16Names (name:

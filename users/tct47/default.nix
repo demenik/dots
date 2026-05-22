@@ -2,7 +2,7 @@
   username = "tct47";
 
   modules = [
-    ../../modules/colors
+    ../../modules/wm/.shells
 
     ../../modules/nix.nix
     ../../modules/shell/zsh

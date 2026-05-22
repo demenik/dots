@@ -2,9 +2,10 @@
   username = "demenik";
 
   modules = [
-    ../../modules/colors
+    ../../modules/wm/.shells
 
     ../../modules/wm/hyprland
+    ../../modules/wm/.shells/noctalia
 
     ../../modules/services/nextcloud-mount.nix
     ../../modules/services/vpn/homelab.nix
@@ -86,6 +87,7 @@
       }
     ];
 
+    theme.type = "template";
     colors = {
       accent = config.colors.base0E;
 
