@@ -4,7 +4,6 @@
   modules = [
     ../../greeter
     ../wayland.nix
-    ../.shells/noctalia
   ];
   moduleConfig = {
     pkgs,
