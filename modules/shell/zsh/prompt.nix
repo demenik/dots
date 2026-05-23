@@ -9,7 +9,7 @@
 
       transient_prompt = {
         template = " ";
-        foreground = "#f9e2af";
+        foreground = "yellow";
         background = "transparent";
       };
 
@@ -21,13 +21,13 @@
           segments = [
             {
               template = "{{ .UserName }}@{{ .HostName }} ";
-              foreground = "#cba6f7";
+              foreground = "magenta";
               type = "session";
               style = "plain";
             }
             {
               template = "{{ if ne .Type \"unknown\" }}󱄅 {{ end }}";
-              foreground = "#89b4fa";
+              foreground = "blue";
               type = "nix-shell";
               style = "plain";
               properties = {
@@ -36,12 +36,12 @@
             }
             {
               template = "in";
-              foreground = "#585b70";
+              foreground = "darkGray";
               type = "text";
               style = "plain";
             }
             {
-              foreground = "#89dceb";
+              foreground = "cyan";
               type = "path";
               style = "powerline";
               properties = {
@@ -51,7 +51,7 @@
             }
             {
               template = "{{if .UpstreamIcon}}{{ .UpstreamIcon }} {{end}}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}";
-              foreground = "#585b70";
+              foreground = "darkGray";
               type = "git";
               style = "plain";
               properties = {
@@ -72,7 +72,7 @@
           segments = [
             {
               template = "";
-              foreground = "#f9e2af";
+              foreground = "yellow";
               type = "text";
               style = "plain";
             }
