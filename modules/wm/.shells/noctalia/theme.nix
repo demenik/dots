@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   programs.noctalia-shell.settings = let
@@ -27,14 +28,21 @@
       enableUserTheming = true;
       activeTemplates =
         if config.theme.type == "template"
-        then lib.mapAttrsToList (name: t: { id = name; enabled = t.enable; }) config.theme.templates
+        then
+          lib.mapAttrsToList (name: t: {
+            id = name;
+            enabled = t.enable;
+          })
+          (lib.filterAttrs (name: t: t.text == null) config.theme.templates)
         else lib.mkForce [];
     };
   };
 
   programs.noctalia-shell.user-templates.templates = lib.mapAttrs (name: t:
     lib.filterAttrs (n: v: v != null) {
-      inherit (t) target text post_hook;
+      output_path = t.target;
+      input_path = pkgs.writeText "noctalia-template-${name}" t.text;
+      inherit (t) post_hook;
     })
-  (lib.filterAttrs (name: t: t.text != null) config.theme.templates);
+  (lib.filterAttrs (name: t: t.text != null && t.enable) config.theme.templates);
 }
