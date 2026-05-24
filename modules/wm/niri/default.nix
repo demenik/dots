@@ -20,6 +20,7 @@
 
   home = {
     inputs,
+    lib,
     config,
     ...
   }: let
@@ -43,11 +44,13 @@
           focus-ring = {
             enable = true;
             width = 2;
-            active.color = c.accent;
-            inactive.color = c.base03;
+            active.color = lib.mkIf (config.theme.type == "colorScheme") c.accent;
+            inactive.color = lib.mkIf (config.theme.type == "colorScheme") c.base03;
           };
         };
       };
     };
+
+    theme.templates.niri.enable = true;
   };
 }
