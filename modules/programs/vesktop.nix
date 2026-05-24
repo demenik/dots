@@ -27,9 +27,15 @@
     ];
   };
 
-  home = {config, ...}: let
+  home = {
+    lib,
+    config,
+    ...
+  }: let
     inherit (config) colors;
   in {
+    theme.templates.discord.enable = true;
+
     programs.vesktop = {
       enable = true;
 
@@ -54,7 +60,7 @@
         disableMinSize = true;
         winNativeTitleBar = false;
 
-        themeLinks = [
+        themeLinks = lib.mkIf (config.theme.type == "colorScheme") [
           "https://catppuccin.github.io/discord/dist/catppuccin-mocha-mauve.theme.css"
         ];
 
