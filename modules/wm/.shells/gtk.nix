@@ -79,82 +79,6 @@
         @define-color light_1 ${colors.withHashtag.base05}; @define-color light_2 ${colors.withHashtag.base05}; @define-color light_3 ${colors.withHashtag.base05}; @define-color light_4 ${colors.withHashtag.base05}; @define-color light_5 ${colors.withHashtag.base05};
         @define-color dark_1 ${colors.withHashtag.base05}; @define-color dark_2 ${colors.withHashtag.base05}; @define-color dark_3 ${colors.withHashtag.base05}; @define-color dark_4 ${colors.withHashtag.base05}; @define-color dark_5 ${colors.withHashtag.base05};
       '';
-
-    noctaliaCssTemplate =
-      # css
-      ''
-        @define-color accent_color {{colors.primary.default.hex}};
-        @define-color accent_bg_color {{colors.primary.default.hex}};
-        @define-color accent_fg_color {{colors.on_primary.default.hex}};
-
-        @define-color destructive_color {{colors.error.default.hex}};
-        @define-color destructive_bg_color {{colors.error.default.hex}};
-        @define-color destructive_fg_color {{colors.on_error.default.hex}};
-
-        @define-color success_color {{colors.tertiary.default.hex}};
-        @define-color success_bg_color {{colors.tertiary.default.hex}};
-        @define-color success_fg_color {{colors.on_tertiary.default.hex}};
-
-        @define-color warning_color {{colors.secondary.default.hex}};
-        @define-color warning_bg_color {{colors.secondary.default.hex}};
-        @define-color warning_fg_color {{colors.on_secondary.default.hex}};
-
-        @define-color error_color {{colors.error.default.hex}};
-        @define-color error_bg_color {{colors.error.default.hex}};
-        @define-color error_fg_color {{colors.on_error.default.hex}};
-
-        @define-color window_bg_color {{colors.surface.default.hex}};
-        @define-color window_fg_color {{colors.on_surface.default.hex}};
-        @define-color view_bg_color {{colors.surface.default.hex}};
-        @define-color view_fg_color {{colors.on_surface.default.hex}};
-
-        @define-color headerbar_bg_color {{colors.surface_container.default.hex}};
-        @define-color headerbar_fg_color {{colors.on_surface.default.hex}};
-        @define-color headerbar_border_color {{colors.outline.default.hex}};
-        @define-color headerbar_backdrop_color @window_bg_color;
-        @define-color headerbar_shade_color rgba(0, 0, 0, 0.07);
-        @define-color headerbar_darker_shade_color rgba(0, 0, 0, 0.07);
-
-        @define-color sidebar_bg_color {{colors.surface_container_low.default.hex}};
-        @define-color sidebar_fg_color {{colors.on_surface.default.hex}};
-        @define-color sidebar_backdrop_color @window_bg_color;
-        @define-color sidebar_shade_color rgba(0, 0, 0, 0.07);
-
-        @define-color secondary_sidebar_bg_color @sidebar_bg_color;
-        @define-color secondary_sidebar_fg_color @sidebar_fg_color;
-        @define-color secondary_sidebar_backdrop_color @sidebar_backdrop_color;
-        @define-color secondary_sidebar_shade_color @sidebar_shade_color;
-
-        @define-color card_bg_color {{colors.surface_container.default.hex}};
-        @define-color card_fg_color {{colors.on_surface.default.hex}};
-        @define-color card_shade_color rgba(0, 0, 0, 0.07);
-
-        @define-color dialog_bg_color {{colors.surface_container.default.hex}};
-        @define-color dialog_fg_color {{colors.on_surface.default.hex}};
-
-        @define-color popover_bg_color {{colors.surface_container.default.hex}};
-        @define-color popover_fg_color {{colors.on_surface.default.hex}};
-        @define-color popover_shade_color rgba(0, 0, 0, 0.07);
-
-        @define-color shade_color rgba(0, 0, 0, 0.07);
-        @define-color scrollbar_outline_color {{colors.outline_variant.default.hex}};
-
-        /* Palette Overrides */
-        @define-color blue_1 {{colors.primary.default.hex}}; @define-color blue_2 {{colors.primary.default.hex}}; @define-color blue_3 {{colors.primary.default.hex}}; @define-color blue_4 {{colors.primary.default.hex}}; @define-color blue_5 {{colors.primary.default.hex}};
-        @define-color green_1 {{colors.tertiary.default.hex}}; @define-color green_2 {{colors.tertiary.default.hex}}; @define-color green_3 {{colors.tertiary.default.hex}}; @define-color green_4 {{colors.tertiary.default.hex}}; @define-color green_5 {{colors.tertiary.default.hex}};
-        @define-color yellow_1 {{colors.secondary.default.hex}}; @define-color yellow_2 {{colors.secondary.default.hex}}; @define-color yellow_3 {{colors.secondary.default.hex}}; @define-color yellow_4 {{colors.secondary.default.hex}}; @define-color yellow_5 {{colors.secondary.default.hex}};
-        @define-color orange_1 {{colors.secondary.default.hex}}; @define-color orange_2 {{colors.secondary.default.hex}}; @define-color orange_3 {{colors.secondary.default.hex}}; @define-color orange_4 {{colors.secondary.default.hex}}; @define-color orange_5 {{colors.secondary.default.hex}};
-        @define-color red_1 {{colors.error.default.hex}}; @define-color red_2 {{colors.error.default.hex}}; @define-color red_3 {{colors.error.default.hex}}; @define-color red_4 {{colors.error.default.hex}}; @define-color red_5 {{colors.error.default.hex}};
-        @define-color purple_1 {{colors.primary.default.hex}}; @define-color purple_2 {{colors.primary.default.hex}}; @define-color purple_3 {{colors.primary.default.hex}}; @define-color purple_4 {{colors.primary.default.hex}}; @define-color purple_5 {{colors.primary.default.hex}};
-        @define-color brown_1 {{colors.tertiary.default.hex}}; @define-color brown_2 {{colors.tertiary.default.hex}}; @define-color brown_3 {{colors.tertiary.default.hex}}; @define-color brown_4 {{colors.tertiary.default.hex}}; @define-color brown_5 {{colors.tertiary.default.hex}};
-        @define-color light_1 {{colors.on_surface.default.hex}}; @define-color light_2 {{colors.on_surface.default.hex}}; @define-color light_3 {{colors.on_surface.default.hex}}; @define-color light_4 {{colors.on_surface.default.hex}}; @define-color light_5 {{colors.on_surface.default.hex}};
-        @define-color dark_1 {{colors.on_surface.default.hex}}; @define-color dark_2 {{colors.on_surface.default.hex}}; @define-color dark_3 {{colors.on_surface.default.hex}}; @define-color dark_4 {{colors.on_surface.default.hex}}; @define-color dark_5 {{colors.on_surface.default.hex}};
-      '';
-
-    appliedCss =
-      if config.theme.type == "template"
-      then ''@import url("noctalia.css");''
-      else gtkCss;
   in {
     gtk = {
       enable = true;
@@ -190,16 +114,11 @@
         name = "adw-gtk3-dark";
         package = pkgs.adw-gtk3;
       };
-      gtk3.extraCss = appliedCss;
-      gtk4 =
-        {
-          extraCss = appliedCss;
-        }
-        // (
-          if config.theme.type == "colorScheme"
-          then {inherit (config.gtk) theme;}
-          else {}
-        );
+      gtk3.extraCss = lib.mkIf (config.theme.type == "colorScheme") gtkCss;
+      gtk4 = lib.mkIf (config.theme.type == "colorScheme") {
+        inherit (config.gtk) theme;
+        extraCss = gtkCss;
+      };
     };
 
     dconf.settings = {
@@ -209,14 +128,8 @@
     };
 
     theme.templates = {
-      gtk3-css = {
-        target = "~/.config/gtk-3.0/noctalia.css";
-        text = noctaliaCssTemplate;
-      };
-      gtk4-css = {
-        target = "~/.config/gtk-4.0/noctalia.css";
-        text = noctaliaCssTemplate;
-      };
+      gtk.enable = true;
+
       patch-icons = {
         target = "~/.local/bin/patch-papirus-icons.sh";
         post_hook = "bash ~/.local/bin/patch-papirus-icons.sh";
