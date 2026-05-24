@@ -24,7 +24,7 @@
 
     ../../modules/browser/librewolf
 
-    ../../modules/programs/vesktop.nix
+    ../../modules/programs/vesktop
     ../../modules/programs/thunderbird.nix
     ../../modules/programs/spotify.nix
     ../../modules/programs/qbittorrent.nix

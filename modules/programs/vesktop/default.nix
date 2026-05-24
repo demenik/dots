@@ -1,7 +1,7 @@
 {
   name = "vesktop";
 
-  modules = [../wm];
+  modules = [../../wm];
   moduleConfig = {
     wm.windowrules = [
       {
@@ -35,6 +35,11 @@
     inherit (config) colors;
   in {
     theme.templates.discord.enable = true;
+    theme.templates.vesktop-catppuccin = {
+      enable = true;
+      target = "~/.config/vesktop/themes/noctalia-catppuccin.css";
+      text = builtins.readFile ./catppuccin-template.css;
+    };
 
     programs.vesktop = {
       enable = true;
@@ -62,6 +67,9 @@
 
         themeLinks = lib.mkIf (config.theme.type == "colorScheme") [
           "https://catppuccin.github.io/discord/dist/catppuccin-mocha-mauve.theme.css"
+        ];
+        enabledThemes = lib.mkIf (config.theme.type == "template") [
+          "noctalia-catppuccin.css"
         ];
 
         notifications = {
