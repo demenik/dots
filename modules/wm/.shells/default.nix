@@ -6,6 +6,7 @@
     ./.templates.nix
 
     ./gtk.nix
+    ./qt.nix
   ];
 
   moduleOptions = with lib; {
