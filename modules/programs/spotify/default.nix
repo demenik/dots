@@ -13,11 +13,17 @@
   home = {
     pkgs,
     inputs,
+    lib,
+    config,
     ...
   }: let
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   in {
-    imports = [inputs.spicetify-nix.homeManagerModules.default];
+    imports = [
+      inputs.spicetify-nix.homeManagerModules.default
+
+      ./theme.nix
+    ];
 
     programs.spicetify = {
       enable = true;
@@ -34,8 +40,8 @@
         allOfArtist
       ];
 
-      theme = spicePkgs.themes.catppuccin;
-      colorScheme = "mocha";
+      theme = lib.mkIf (config.theme.type == "colorScheme") spicePkgs.themes.catppuccin;
+      colorScheme = lib.mkIf (config.theme.type == "colorScheme") "mocha";
 
       # https://github.com/spicetify/marketplace/blob/main/resources/snippets.json
       enabledSnippets = [

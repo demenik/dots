@@ -26,7 +26,7 @@
 
     ../../modules/programs/vesktop
     ../../modules/programs/thunderbird.nix
-    ../../modules/programs/spotify.nix
+    ../../modules/programs/spotify
     ../../modules/programs/qbittorrent.nix
     ../../modules/programs/libreoffice.nix
     ../../modules/programs/obsidian.nix
