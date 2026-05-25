@@ -10,7 +10,10 @@
     programs.btop = {
       enable = true;
       settings = {
-        color_theme = lib.mkIf (config.theme.type == "colorScheme") "catppuccin-mocha";
+        color_theme =
+          if config.theme.type == "colorScheme"
+          then "catppuccin-mocha"
+          else "noctalia";
         theme_background = false;
       };
       themes = lib.mkIf (config.theme.type == "colorScheme") {
