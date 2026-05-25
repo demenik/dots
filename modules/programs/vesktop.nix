@@ -28,17 +28,103 @@
   };
 
   home = {
+    pkgs,
     lib,
     config,
     ...
   }: let
     inherit (config) colors;
+
+    catppuccinNoctalia = pkgs.stdenv.mkDerivation {
+      name = "catppuccin-noctalia-template";
+      src = pkgs.fetchurl {
+        url = "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css";
+        sha256 = "1ql5id1xr2r45ahdpayhnfdsvj9nbr6whf3wkw1n1yc8zayzsnr9";
+      };
+      nativeBuildInputs = [pkgs.python3];
+      dontUnpack = true;
+      buildPhase = ''
+        cat >replace_colors.py <<'EOF'
+        import re
+        import sys
+
+        mapping = {
+            "11111b": "surface_container_lowest",
+            "181825": "surface_container_low",
+            "1e1e2e": "surface",
+            "313244": "surface_container",
+            "45475a": "surface_container_high",
+            "585b70": "surface_container_highest",
+            "cdd6f4": "on_surface",
+            "bac2de": "on_surface_variant",
+            "a6adc8": "outline",
+            "9399b2": "outline_variant",
+            "7f849c": "surface_variant",
+            "6c7086": "surface_dim",
+            "cba6f7": "primary",
+            "89b4fa": "secondary",
+            "f5c2e7": "tertiary",
+            "f38ba8": "error",
+            "fab387": "tertiary_container",
+            "f9e2af": "secondary_container",
+            "a6e3a1": "primary_container",
+            "94e2d5": "primary_fixed",
+            "89dceb": "secondary_fixed",
+            "74c7ec": "tertiary_fixed",
+            "b4befe": "primary_fixed_variant",
+            "f2cdcd": "error_container",
+            "eba0ac": "error_container",
+            "f5e0dc": "error_container",
+        }
+
+        def hex_to_rgb(h): return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+        def color_dist(c1, c2): return sum((a - b) ** 2 for a, b in zip(c1, c2))
+
+        def get_closest_tag(hex_str):
+            if hex_str in mapping: return mapping[hex_str]
+            c1 = hex_to_rgb(hex_str)
+            best_dist, best_tag = float('inf'), None
+            for k, v in mapping.items():
+                c2 = hex_to_rgb(k)
+                d = color_dist(c1, c2)
+                if d < best_dist:
+                    best_dist, best_tag = d, v
+            return best_tag
+
+        with open(sys.argv[1], 'r') as f: content = f.read()
+
+        def hex_replacer(match):
+            hex_val = match.group(1).lower()
+            if len(hex_val) == 3: hex_val = "".join(c+c for c in hex_val)
+            tag = get_closest_tag(hex_val)
+            return f"{{{{colors.{tag}.default.hex}}}}"
+
+        content = re.sub(r'#([0-9a-fA-F]{3,6})\b', hex_replacer, content)
+
+        def rgba_replacer(match):
+            r, g, b, a = match.groups()
+            hex_val = f"{int(r):02x}{int(g):02x}{int(b):02x}"
+            tag = get_closest_tag(hex_val)
+            return f"{{{{colors.{tag}.default.hex | set_alpha {a}}}}}"
+
+        content = re.sub(r'rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9.]+)\s*\)', rgba_replacer, content)
+
+        with open('patched.css', 'w') as f:
+            f.write("/**\n * @name Catppuccin Noctalia\n * @description Dynamically patched theme\n * @author demenik\n */\n\n")
+            f.write(content)
+        EOF
+        python3 replace_colors.py "$src"
+      '';
+      installPhase = ''
+        cp patched.css "$out"
+      '';
+    };
   in {
     theme.templates.discord.enable = true;
     theme.templates.vesktop-catppuccin = {
       enable = true;
       target = "~/.config/vesktop/themes/noctalia-catppuccin.css";
-      text = builtins.readFile ./catppuccin-template.css;
+      source = catppuccinNoctalia;
     };
 
     programs.vesktop = {
