@@ -6,7 +6,7 @@
   nixos = {
     hardware.opentabletdriver = {
       enable = true;
-      daemon.enable = false;
+      daemon.enable = true;
     };
   };
   hostInstructions = ''
