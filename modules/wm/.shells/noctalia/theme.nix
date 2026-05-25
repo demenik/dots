@@ -33,7 +33,7 @@
             id = name;
             enabled = t.enable;
           })
-          (lib.filterAttrs (name: t: t.text == null) config.theme.templates)
+          (lib.filterAttrs (name: t: t.text == null && t.source == null) config.theme.templates)
         else lib.mkForce [];
     };
   };
@@ -41,8 +41,11 @@
   programs.noctalia-shell.user-templates.templates = lib.mapAttrs (name: t:
     lib.filterAttrs (n: v: v != null) {
       output_path = t.target;
-      input_path = pkgs.writeText "noctalia-template-${name}" t.text;
+      input_path =
+        if t.source != null
+        then t.source
+        else pkgs.writeText "noctalia-template-${name}" t.text;
       inherit (t) post_hook;
     })
-  (lib.filterAttrs (name: t: t.text != null && t.enable) config.theme.templates);
+  (lib.filterAttrs (name: t: (t.text != null || t.source != null) && t.enable) config.theme.templates);
 }

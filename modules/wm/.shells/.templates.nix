@@ -26,6 +26,11 @@
               default = null;
               description = "The template content";
             };
+            source = mkOption {
+              type = types.nullOr types.path;
+              default = null;
+              description = "Path to the template file. Mutually exclusive with text.";
+            };
           };
         });
       };
