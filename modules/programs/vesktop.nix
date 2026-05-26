@@ -1,7 +1,7 @@
 {
   name = "vesktop";
 
-  modules = [../../wm];
+  modules = [../wm];
   moduleConfig = {
     wm.windowrules = [
       {
