@@ -3,25 +3,6 @@
     ../../modules/system/nwg-displays.nix
   ];
 
-  moduleConfig = {
-    wm.monitors = [
-      {
-        output = "eDP-1";
-        primary = false;
-        mode = {
-          width = 1920;
-          height = 1200;
-          refresh = 60.0;
-        };
-        position = {
-          x = 0;
-          y = 0;
-        };
-        scale = 1.25;
-      }
-    ];
-  };
-
   homeConfig = {
     imports = [
       ./docking.nix
