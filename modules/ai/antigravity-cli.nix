@@ -87,7 +87,7 @@
           mcpServers =
             lib.mapAttrs (
               name: server:
-                lib.filterAttrs (n: v: v != null && v != {} && v != []) {
+                lib.filterAttrs (n: v: v != null && v != {}) {
                   command =
                     if server.type == "remote"
                     then "npx"
