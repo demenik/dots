@@ -18,7 +18,7 @@
       baseIndex = 1;
 
       escapeTime = 0;
-      terminal = "tmux-256color";
+      terminal = "xterm-256color";
 
       extraConfig =
         # tmux
