@@ -40,6 +40,7 @@
     ../../modules/programs/inkscape.nix
     ../../modules/programs/vlc.nix
     ../../modules/programs/bisq.nix
+    ../../modules/programs/wireshark.nix
 
     ../../modules/programs/gaming/games/osu.nix
     ../../modules/programs/gaming/games/minecraft.nix
