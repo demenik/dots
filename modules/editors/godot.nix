@@ -7,6 +7,11 @@
     lib,
     ...
   }: {
+    ai.mcp.godot-mcp = {
+      type = "local";
+      command = [(lib.getExe pkgs.godot-mcp)];
+    };
+
     home = {
       packages = with pkgs; [godot_4-mono];
 

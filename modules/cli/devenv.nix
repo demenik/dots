@@ -15,5 +15,10 @@
       ''
         eval "$(${lib.getExe pkgs.devenv} hook zsh)"
       '';
+
+    ai.mcp.devenv = {
+      type = "local";
+      command = [(lib.getExe pkgs.devenv) "mcp"];
+    };
   };
 }

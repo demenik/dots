@@ -8,7 +8,6 @@
   };
 
   home = {
-    pkgs,
     lib,
     config,
     ...
@@ -18,10 +17,6 @@
         gitmcp = {
           type = "remote";
           url = "https://gitmcp.io/docs";
-        };
-        godot-mcp = {
-          type = "local";
-          command = [(lib.getExe pkgs.godot-mcp)];
         };
       }
       (lib.mkIf (config.sops.secrets ? mcp-context7) {
