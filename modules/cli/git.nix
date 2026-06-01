@@ -39,7 +39,7 @@
       host,
       user ? "git",
     }: {
-      "ssh://${user}@${host}".insteadOf = "https://${host}";
+      "ssh://${user}@${host}".pushInsteadOf = "https://${host}";
     };
 
     mkRemoteConfig = {
