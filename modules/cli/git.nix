@@ -82,6 +82,7 @@
             [
               "github.com"
               "gitlab.uni-ulm.de"
+              "spgit.informatik.uni-ulm.de"
             ]
           );
 
@@ -99,6 +100,13 @@
       includes = [
         (mkRemoteConfig {
           host = "gitlab.uni-ulm.de";
+          config.user = {
+            email = "dominik.bernroider@uni-ulm.de";
+            name = "Dominik Bernroider";
+          };
+        })
+        (mkRemoteConfig {
+          host = "spgit.informatik.uni-ulm.de";
           config.user = {
             email = "dominik.bernroider@uni-ulm.de";
             name = "Dominik Bernroider";

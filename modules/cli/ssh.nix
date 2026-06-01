@@ -42,6 +42,10 @@
           user = "git";
           identitiesOnly = true;
         };
+        "spgit.informatik.uni-ulm.de" = {
+          user = "git";
+          identitiesOnly = true;
+        };
 
         "ctf-lab" = {
           hostname = "ctf-lab.lxd-vs.uni-ulm.de";
