@@ -61,6 +61,7 @@
 
           "browser.formfill.enable" = false;
           "extensions.formautofill.addresses.enabled" = false;
+          "security.warn_submit_secure_to_insecure" = false;
 
           "font.name.monospace.x-western" = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
           "font.name.sans-serif.x-western" = builtins.head config.fonts.fontconfig.defaultFonts.sansSerif;
