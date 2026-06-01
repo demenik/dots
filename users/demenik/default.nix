@@ -18,6 +18,7 @@
     ../../modules/cli/sudo-rs.nix
     ../../modules/cli/uutils.nix
     ../../modules/cli/direnv.nix
+    ../../modules/cli/devenv.nix
 
     ../../modules/editors/nvim
     ../../modules/editors/godot.nix
