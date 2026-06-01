@@ -9,15 +9,14 @@
     config,
     ...
   }: let
-    mcp = import ./.mcp-servers.nix {inherit pkgs lib config;};
-    skills = import ./.skills {inherit pkgs lib;};
-
     setTitle =
       pkgs.writeText "set-gemini-title.js"
       # js
       ''
         process.title = "gemini";
       '';
+
+    utils = import ./.utils.nix {inherit pkgs lib config;};
 
     gemini-cli-wrapped = pkgs.symlinkJoin {
       name = "gemini-cli-wrapped";
@@ -26,13 +25,13 @@
       postBuild = ''
         wrapProgram "$out"/bin/gemini \
           --run 'export NODE_OPTIONS="--require ${setTitle} $${NODE_OPTIONS:-}"' \
-          ${builtins.concatStringsSep " " mcp.wrapperArgs}
+          ${builtins.concatStringsSep " " utils.wrapperArgs}
       '';
     };
   in {
     home.packages = [gemini-cli-wrapped];
 
-    home.file =
+    home.file = lib.mkMerge [
       {
         ".gemini/settings.json".text = builtins.toJSON {
           general = {
@@ -65,35 +64,30 @@
 
           mcpServers =
             lib.mapAttrs (
-              name: server: let
-                authData =
-                  if server ? authHeader
-                  then {
-                    ${server.authHeader} = "\$${server.envVar}";
-                  }
-                  else {};
+              name: server:
+                lib.filterAttrs (n: v: v != null && v != {} && v != []) {
+                  command = utils.getCommand server;
+                  args = utils.getArgs server;
+                  inherit (server) url headers;
 
-                mergedHeaders = (server.headers or {}) // authData;
-                mergedEnv = (server.env or {}) // authData;
-              in
-                lib.filterAttrs (n: v: v != null && v != {}) {
-                  command = server.command or null;
-                  url = server.url or null;
-                  httpUrl = server.httpUrl or null;
-
-                  args = server.args or null;
-                  headers = mergedHeaders;
-                  env = mergedEnv;
-                  cwd = server.cwd or null;
-                  timeout = server.timeout or null;
-                  trust = server.trust or null;
-                  includeTools = server.includeTools or null;
-                  excludeTools = server.excludeTools or null;
+                  env = lib.filterAttrs (k: v: v != null) (
+                    lib.mapAttrs (
+                      k: v:
+                        if v.text != null
+                        then v.text
+                        else if v.path != null
+                        then "\$${k}"
+                        else null
+                    )
+                    server.env
+                  );
                 }
             )
-            mcp.servers;
+            config.ai.mcp;
         };
       }
-      // skills.mkSkillDirLinks ".gemini/skills";
+
+      (utils.mkSkillDirLinks ".gemini/skills")
+    ];
   };
 }

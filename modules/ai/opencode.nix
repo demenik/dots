@@ -9,19 +9,19 @@
     config,
     ...
   }: let
-    mcp = import ./.mcp-servers.nix {inherit pkgs lib config;};
-    skills = import ./.skills {inherit pkgs lib;};
+    utils = import ./.utils.nix {inherit pkgs lib config;};
 
     opencode-wrapped = pkgs.symlinkJoin {
       name = "opencode-wrapped";
       paths = [pkgs.opencode];
       buildInputs = [pkgs.makeWrapper];
       postBuild = ''
-        wrapProgram "$out"/bin/opencode ${builtins.concatStringsSep " " mcp.wrapperArgs}
+        wrapProgram "$out"/bin/opencode \
+          ${builtins.concatStringsSep " " utils.wrapperArgs}
       '';
     };
   in {
-    home.file = skills.mkSkillDirLinks ".config/opencode/skills";
+    home.file = utils.mkSkillDirLinks ".config/opencode/skills";
 
     programs.opencode = {
       enable = true;
@@ -76,32 +76,46 @@
         mcp =
           lib.mapAttrs (
             name: server: let
-              isRemote = server ? url;
-
               remoteConfig = {
                 type = "remote";
                 inherit (server) url;
                 headers =
-                  if server ? authHeader
-                  then {
-                    ${server.authHeader} = "{env:${server.envVar}}";
-                  }
-                  else null;
+                  lib.mapAttrs (
+                    k: v:
+                      builtins.replaceStrings
+                      (map (s: "\$${s}") (lib.attrNames server.env))
+                      (map (s: "{env:${s}}") (lib.attrNames server.env))
+                      v
+                  )
+                  server.headers;
               };
 
-              localConfig = {
+              localConfig = let
+                envFiltered = lib.filterAttrs (k: v: v != null) (
+                  lib.mapAttrs (
+                    k: v:
+                      if v.text != null
+                      then v.text
+                      else null
+                  )
+                  server.env
+                );
+              in {
                 type = "local";
-                command = [server.command] ++ (server.args or []);
-                environment = server.env or null;
+                inherit (server) command;
+                environment =
+                  if envFiltered == {}
+                  then null
+                  else envFiltered;
               };
             in
               lib.filterAttrs (n: v: v != null && v != {}) (
-                if isRemote
+                if server.type == "remote"
                 then remoteConfig
                 else localConfig
               )
           )
-          mcp.servers;
+          config.ai.mcp;
       };
     };
   };

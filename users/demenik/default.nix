@@ -44,9 +44,9 @@
     ../../modules/programs/gaming/games/osu.nix
     ../../modules/programs/gaming/games/minecraft.nix
 
-    ../../modules/cli/ai/opencode.nix
-    ../../modules/cli/ai/gemini-cli.nix
-    ../../modules/cli/ai/antigravity-cli.nix
+    ../../modules/ai/opencode.nix
+    ../../modules/ai/gemini-cli.nix
+    ../../modules/ai/antigravity-cli.nix
     ../../modules/cli/bat.nix
     ../../modules/cli/btop.nix
     ../../modules/cli/zip.nix

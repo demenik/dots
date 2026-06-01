@@ -9,6 +9,8 @@
     config,
     ...
   }: let
+    utils = import ./.utils.nix {inherit pkgs lib config;};
+
     antigravity-cli = let
       version = "1.0.0-5288553236791296";
     in
@@ -42,16 +44,14 @@
           chmod +x "$out"/bin/agy
 
           wrapProgram "$out"/bin/agy \
-            --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.nodejs]}
+            --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.nodejs]} \
+            ${builtins.concatStringsSep " " utils.wrapperArgs}
         '';
       };
-
-    mcp = import ./.mcp-servers.nix {inherit pkgs lib config;};
-    skills = import ./.skills {inherit pkgs lib;};
   in {
     home.packages = [antigravity-cli];
 
-    home.file =
+    home.file = lib.mkMerge [
       {
         ".gemini/antigravity-cli/keybindings.json".text = builtins.toJSON {
           "cli.enter" = ["enter"];
@@ -86,16 +86,14 @@
         ".gemini/config/mcp_config.json".text = builtins.toJSON {
           mcpServers =
             lib.mapAttrs (
-              name: server: let
-                isRemote = server ? url;
-              in
+              name: server:
                 lib.filterAttrs (n: v: v != null && v != {} && v != []) {
                   command =
-                    if isRemote
+                    if server.type == "remote"
                     then "npx"
-                    else server.command;
+                    else utils.getCommand server;
                   args =
-                    if isRemote
+                    if server.type == "remote"
                     then [
                       "-y"
                       "mcp-remote@0.1.38"
@@ -107,13 +105,23 @@
                         else "sse"
                       )
                     ]
-                    else server.args or [];
-                  env = server.env or {};
+                    else utils.getArgs server;
+                  env = lib.filterAttrs (k: v: v != null) (
+                    lib.mapAttrs (
+                      k: v:
+                        if v.text != null
+                        then v.text
+                        else null
+                    )
+                    server.env
+                  );
                 }
             )
-            mcp.servers;
+            config.ai.mcp;
         };
       }
-      // skills.mkSkillDirLinks ".gemini/skills";
+
+      (utils.mkSkillDirLinks ".gemini/skills")
+    ];
   };
 }
