@@ -13,7 +13,7 @@
         buildInputs = [pkgs.makeWrapper];
         postBuild = ''
           wrapProgram "$out"/bin/devenv \
-            --set DEVENV_TUI false
+            --add-flags "--quiet --no-reload"
         '';
       }).overrideAttrs (old: {
         meta = (pkgs.devenv.meta or {}) // {mainProgram = "devenv";};
