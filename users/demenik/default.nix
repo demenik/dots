@@ -119,6 +119,7 @@
     anki.path = ./secrets/anki.sops.yaml;
     wakatime.path = ./secrets/wakatime.sops.yaml;
     gitea-token.path = ./secrets/gitea.sops.yaml;
+    github-token.path = ./secrets/github-token.sops.yaml;
     gitlab.path = ./secrets/gitlab.sops.yaml;
     uni-ulm-vpn.path = ./secrets/uni-ulm-vpn.sops.yaml;
     homelab-vpn.path = ./secrets/homelab-vpn.sops.yaml;
