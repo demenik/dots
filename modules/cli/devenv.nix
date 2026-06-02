@@ -5,20 +5,33 @@
     pkgs,
     lib,
     ...
-  }: {
-    home.packages = with pkgs; [
-      devenv
+  }: let
+    devenv-wrapped =
+      (pkgs.symlinkJoin {
+        name = "devenv-wrapped";
+        paths = [pkgs.devenv];
+        buildInputs = [pkgs.makeWrapper];
+        postBuild = ''
+          wrapProgram "$out"/bin/devenv \
+            --set DEVENV_TUI false
+        '';
+      }).overrideAttrs (old: {
+        meta = (pkgs.devenv.meta or {}) // {mainProgram = "devenv";};
+      });
+  in {
+    home.packages = [
+      devenv-wrapped
     ];
 
     programs.zsh.initContent =
       # zsh
       ''
-        eval "$(${lib.getExe pkgs.devenv} hook zsh)"
+        eval "$(${lib.getExe devenv-wrapped} hook zsh)"
       '';
 
     ai.mcp.devenv = {
       type = "local";
-      command = [(lib.getExe pkgs.devenv) "mcp"];
+      command = [(lib.getExe devenv-wrapped) "mcp"];
     };
   };
 }
