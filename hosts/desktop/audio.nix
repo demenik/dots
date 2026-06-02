@@ -4,13 +4,15 @@
   ];
   moduleConfig = {
     pipewire.devices = {
+      "~.*bluez_output.~".priority = 1040;
+
       "~.*MOMENTUM_4.*analog-stereo" = {
         alias = "Momentum 4 Stereo";
         priority = 1050;
       };
       "~.*MOMENTUM_4.*mono.*" = {
         alias = "Momentum 4 Mono";
-        priority = 1040;
+        priority = 1030;
       };
       "~.*MOMENTUM_4.*input.*" = {
         alias = "Momentum 4 Input";
