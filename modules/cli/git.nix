@@ -58,10 +58,22 @@
       user ? "git",
       host,
       config,
-    }: {
-      condition = "hasconfig:remote.*.url:${user}@${host}:*/**";
+    }: let
       path = pkgs.writeText "gitconfig-${host}" (lib.generators.toGitINI config);
-    };
+    in [
+      {
+        condition = "hasconfig:remote.*.url:${user}@${host}:*/**";
+        inherit path;
+      }
+      {
+        condition = "hasconfig:remote.*.url:ssh://${user}@${host}/**";
+        inherit path;
+      }
+      {
+        condition = "hasconfig:remote.*.url:https://${host}/**";
+        inherit path;
+      }
+    ];
 
     credHelper = user: passwordPath:
       pkgs.writeShellScript "git-cred-helper" ''
@@ -117,7 +129,7 @@
         };
       };
 
-      includes = [
+      includes = lib.flatten [
         (mkRemoteConfig {
           host = "gitlab.uni-ulm.de";
           config.user = {
