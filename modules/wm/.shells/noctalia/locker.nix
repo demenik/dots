@@ -12,7 +12,7 @@
       resumeSuspendCommand = "";
       lockCommand = "";
 
-      suspendTimeout = 1800;
+      suspendTimeout = 0; # = disable
       suspendCommand = "";
       resumeLockCommand = "";
 
