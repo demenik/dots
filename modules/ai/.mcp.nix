@@ -18,6 +18,10 @@
           type = "remote";
           url = "https://gitmcp.io/docs";
         };
+        marimo = {
+          type = "remote";
+          url = "http://localhost:2718/mcp/server";
+        };
       }
       (lib.mkIf (config.sops.secrets ? mcp-context7) {
         context7 = {
