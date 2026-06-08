@@ -34,7 +34,7 @@
         After = ["graphical-session-pre.target"];
         PartOf = ["graphical-session.target"];
         X-Restart-Triggers = [
-          (builtins.toJSON config.programs.noctalia-shell.settings)
+          (builtins.toJSON config.programs.noctalia-shell)
         ];
       };
       Service = {
