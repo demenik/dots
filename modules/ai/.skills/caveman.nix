@@ -8,12 +8,12 @@
       owner = "JuliusBrussee";
       repo = "caveman";
       rev = "main";
-      hash = "sha256-pHPMQGr9/ufsUODmqHm2T6sCOaeOOJl4baX4OeeYp6k=";
+      hash = "sha256-BydREt/vai3j7kO5+e1OxsjXf6Vy+jSY1yA/yyxjHbI=";
     };
 
     cavemanSkillsList = [
       "caveman"
-      "compress"
+      "caveman-compress"
       "caveman-commit"
       "caveman-help"
       "caveman-review"
