@@ -42,7 +42,10 @@
 
         Service = {
           Type = "notify";
-          ExecStartPre = "${lib.getExe' pkgs.uutils-coreutils-noprefix "mkdir"} -p ${mountPoint}";
+          ExecStartPre = [
+            "-/run/wrappers/bin/fusermount -u -z ${mountPoint}"
+            "-${lib.getExe' pkgs.coreutils "mkdir"} -p ${mountPoint}"
+          ];
           ExecStart = ''
             ${lib.getExe pkgs.rclone} mount nextcloud: ${mountPoint} \
               --config "${configFile}" \
