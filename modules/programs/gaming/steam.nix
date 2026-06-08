@@ -10,10 +10,6 @@
     wm.windowrules = [
       {
         matchClass = "steam";
-        workspace = "1";
-      }
-      {
-        matchClass = "steam";
         matchTitle = "Sign in to Steam|Launching...";
 
         floating = true;
