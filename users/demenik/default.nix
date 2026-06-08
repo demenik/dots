@@ -23,6 +23,7 @@
     ../../modules/editors/nvim
     ../../modules/editors/godot.nix
     ../../modules/editors/vscodium.nix
+    ../../modules/editors/android.nix
 
     ../../modules/browser/librewolf
 
