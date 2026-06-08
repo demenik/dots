@@ -16,15 +16,15 @@
       enable = true;
       settings.default_session = {
         user = "greeter";
-        command = ''
-          ${lib.getExe pkgs.tuigreet} \
-            --time \
-            --remember \
-            --remember-session \
-            --asterisks \
-            --sessions "/run/current-system/sw/share/wayland-sessions:/run/current-system/sw/share/xsessions" \
-            --cmd "${fallbackCmd}"
-        '';
+        command = builtins.concatStringsSep " " [
+          "${lib.getExe pkgs.tuigreet}"
+          "--time"
+          "--remember"
+          "--remember-session"
+          "--asterisks"
+          "--sessions \"/run/current-system/sw/share/wayland-sessions:/run/current-system/sw/share/xsessions\""
+          "--cmd \"${fallbackCmd}\""
+        ];
       };
     };
   };
