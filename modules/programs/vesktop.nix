@@ -71,7 +71,7 @@
             "94e2d5": "primary_fixed",
             "89dceb": "secondary_fixed",
             "74c7ec": "tertiary_fixed",
-            "b4befe": "primary_fixed_variant",
+            "b4befe": "primary_container",
             "f2cdcd": "error_container",
             "eba0ac": "error_container",
             "f5e0dc": "error_container",
@@ -105,7 +105,7 @@
             r, g, b, a = match.groups()
             hex_val = f"{int(r):02x}{int(g):02x}{int(b):02x}"
             tag = get_closest_tag(hex_val)
-            return f"{{{{colors.{tag}.default.hex | set_alpha {a}}}}}"
+            return f"rgba({{{{colors.{tag}.default.rgb_csv}}}}, {a})"
 
         content = re.sub(r'rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9.]+)\s*\)', rgba_replacer, content)
 
