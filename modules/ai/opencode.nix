@@ -28,7 +28,7 @@
       package = opencode-wrapped;
 
       settings = {
-        theme = "catppuccin";
+        theme = "system";
         plugin = [
           "opencode-gemini-auth@latest"
         ];
