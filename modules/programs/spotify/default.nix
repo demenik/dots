@@ -4,7 +4,7 @@
   moduleConfig = {
     wm.windowrules = [
       {
-        matchClass = "spotify";
+        matchClass = "Spotify";
         workspace = "3";
       }
     ];
