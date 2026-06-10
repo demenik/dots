@@ -24,6 +24,7 @@
     ../../modules/editors/godot.nix
     ../../modules/editors/vscodium.nix
     ../../modules/editors/android.nix
+    ../../modules/editors/idea.nix
 
     ../../modules/browser/librewolf
 
