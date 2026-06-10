@@ -42,6 +42,7 @@
             "*.env.*" = "ask";
             "*.env.example" = "allow";
           };
+          edit."*" = "allow";
           list = "allow";
           glob = "allow";
           grep = "allow";
