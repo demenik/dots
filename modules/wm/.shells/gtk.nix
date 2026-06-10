@@ -110,14 +110,14 @@
             });
       };
 
-      theme = lib.mkIf (config.theme.type == "colorScheme") {
+      theme = {
         name = "adw-gtk3-dark";
         package = pkgs.adw-gtk3;
       };
       gtk3.extraCss = lib.mkIf (config.theme.type == "colorScheme") gtkCss;
-      gtk4 = lib.mkIf (config.theme.type == "colorScheme") {
+      gtk4 = {
         inherit (config.gtk) theme;
-        extraCss = gtkCss;
+        extraCss = lib.mkIf (config.theme.type == "colorScheme") gtkCss;
       };
     };
 
