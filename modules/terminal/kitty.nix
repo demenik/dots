@@ -34,6 +34,8 @@
 
           background_opacity = "0.825";
           window_padding_width = 0;
+
+          auto_reload_config = -1; # TODO: remove when pkgs.kitty is at https://github.com/kovidgoyal/kitty/commit/54ecc67339d012c2e2e1647ee81389f379236974 (see https://github.com/kovidgoyal/kitty/issues/10102)
         }
         // lib.optionalAttrs (config.theme.type == "colorScheme") {
           foreground = c.base05;
