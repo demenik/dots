@@ -6,11 +6,6 @@
     wm.windowrules = [
       {
         matchClass = "vesktop";
-        matchTitle = "vesktop";
-        noInitialFocus = true;
-      }
-      {
-        matchClass = "vesktop";
         workspace = "3";
         noInitialFocus = true;
       }
