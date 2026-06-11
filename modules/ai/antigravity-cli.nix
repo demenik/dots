@@ -11,43 +11,40 @@
   }: let
     utils = import ./.utils.nix {inherit pkgs lib config;};
 
-    antigravity-cli = let
-      version = "1.0.0-5288553236791296";
-    in
-      pkgs.stdenv.mkDerivation {
-        pname = "antigravity-cli";
-        version = "1.0.0";
+    antigravity-cli = pkgs.stdenv.mkDerivation rec {
+      pname = "antigravity-cli";
+      version = "1.0.7";
 
-        src = pkgs.fetchurl {
-          url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/${version}/linux-x64/cli_linux_x64.tar.gz";
-          sha256 = "sha256-cAljQFdPr8SgbE08gFcxTiLUdc4cgg0K1R/wf7fpnrY=";
-        };
-
-        nativeBuildInputs = [pkgs.autoPatchelfHook pkgs.makeWrapper];
-
-        buildInputs = with pkgs; [
-          stdenv.cc.cc.lib
-        ];
-
-        dontBuild = true;
-        dontConfigure = true;
-
-        unpackPhase = ''
-          mkdir -p source
-          tar -xzf "$src" -C source
-        '';
-        sourceRoot = "source";
-
-        installPhase = ''
-          mkdir -p "$out"/bin
-          cp antigravity "$out"/bin/agy
-          chmod +x "$out"/bin/agy
-
-          wrapProgram "$out"/bin/agy \
-            --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.nodejs]} \
-            ${builtins.concatStringsSep " " utils.wrapperArgs}
-        '';
+      src = pkgs.fetchurl {
+        url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/${version}/linux-x64/cli_linux_x64.tar.gz";
+        sha256 = "sha256-9btGXtuTghLrChhdaMQg/1t48Ixy3lptiN/vr3rxcHQ=";
       };
+
+      nativeBuildInputs = [pkgs.autoPatchelfHook pkgs.makeWrapper];
+
+      buildInputs = with pkgs; [
+        stdenv.cc.cc.lib
+      ];
+
+      dontBuild = true;
+      dontConfigure = true;
+
+      unpackPhase = ''
+        mkdir -p source
+        tar -xzf "$src" -C source
+      '';
+      sourceRoot = "source";
+
+      installPhase = ''
+        mkdir -p "$out"/bin
+        cp antigravity "$out"/bin/agy
+        chmod +x "$out"/bin/agy
+
+        wrapProgram "$out"/bin/agy \
+          --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.nodejs]} \
+          ${builtins.concatStringsSep " " utils.wrapperArgs}
+      '';
+    };
   in {
     home.packages = [antigravity-cli];
 
