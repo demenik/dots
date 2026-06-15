@@ -47,7 +47,7 @@
       gtk3.bookmarks = let
         home = config.home.homeDirectory;
       in [
-        "file:///"
+        "file:/// /"
         "file://${home}/Downloads"
         "file://${home}/dev"
         "file://${home}/dots"
