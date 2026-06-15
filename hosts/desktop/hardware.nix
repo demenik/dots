@@ -112,6 +112,11 @@
         options = ["fmask=0077" "dmask=0077"];
       };
 
+      "/mnt/WINDOWS" = {
+        device = "/dev/disk/by-label/WINDOWS";
+        fsType = "ntfs3";
+        options = ["rw" "uid=1000" "gid=100" "nofail" "user" "x-systemd.automount" "x-gvfs-show"];
+      };
       "/mnt/SSD" = {
         device = "/dev/disk/by-label/SSD";
         fsType = "ntfs3";
