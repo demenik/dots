@@ -13,11 +13,12 @@
 
     antigravity-cli = pkgs.stdenv.mkDerivation rec {
       pname = "antigravity-cli";
-      version = "1.0.7";
+      wholeVersion = "1.0.9-5825833043099648";
+      version = "1.0.9";
 
       src = pkgs.fetchurl {
-        url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/${version}/linux-x64/cli_linux_x64.tar.gz";
-        sha256 = "sha256-9btGXtuTghLrChhdaMQg/1t48Ixy3lptiN/vr3rxcHQ=";
+        url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/${wholeVersion}/linux-x64/cli_linux_x64.tar.gz";
+        sha256 = "sha256-dzngufp5xOksHSIK8+DET33bupvgCTlXUDZPhvpuuPg=";
       };
 
       nativeBuildInputs = [pkgs.autoPatchelfHook pkgs.makeWrapper];
