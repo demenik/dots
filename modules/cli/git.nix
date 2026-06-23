@@ -82,14 +82,6 @@
           echo "password=$(tr -d '\n' <"${passwordPath}")"
         fi
       '';
-
-    githubCredHelper = passwordPath:
-      pkgs.writeShellScript "github-cred-helper" ''
-        if [ "$1" = "get" ]; then
-          echo "username=git"
-          echo "password=$(tr -d '\n' <"${passwordPath}")"
-        fi
-      '';
   in {
     home.file.".ssh/allowed_signers".text =
       lib.concatMapStrings (email: "${email} ${config.git.signing.pubKey}\n") emails;
@@ -125,7 +117,7 @@
           useHttpPath = true;
         };
         "credential \"https://github.com\"" = lib.mkIf (config.sops.secrets ? github-token) {
-          helper = "!${githubCredHelper config.sops.secrets.github-token.path}";
+          helper = "!${credHelper "demenik" config.sops.secrets.github-token.path}";
         };
       };
 
@@ -149,6 +141,7 @@
 
     programs.gh = {
       enable = true;
+      gitCredentialHelper.enable = false;
       settings = {
         git_protocol = "ssh";
       };
