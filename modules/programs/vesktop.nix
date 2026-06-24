@@ -115,17 +115,35 @@
       '';
     };
   in {
-    theme.templates.discord.enable = true;
-    theme.templates.vesktop-catppuccin = {
-      enable = true;
-      target = "~/.config/vesktop/themes/noctalia-catppuccin.css";
-      source = catppuccinNoctalia;
+    theme.templates = {
+      discord.enable = true;
+      vencord-catppuccin = {
+        enable = true;
+        target = "~/.config/vesktop/themes/noctalia-catppuccin.css";
+        source = catppuccinNoctalia;
+      };
+      vesktop-settings = {
+        enable = true;
+        target = "~/.config/vesktop/settings.json";
+        text =
+          # json
+          ''
+            {
+              "arRPC": true,
+              "discordBranch": "stable",
+              "minimizeToTray": false,
+              "splashBackground": "{{colors.surface.default.hex}}",
+              "splashColor": "{{colors.primary.default.hex}}",
+              "tray": false
+            }
+          '';
+      };
     };
 
     programs.vesktop = {
       enable = true;
 
-      settings = {
+      settings = lib.mkIf (config.theme.type == "colorScheme") {
         discordBranch = "stable";
         tray = false;
         minimizeToTray = false;
