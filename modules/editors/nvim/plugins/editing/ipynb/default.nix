@@ -76,6 +76,14 @@ in {
         enable = true;
         settings = {
           backend = "kitty";
+          integrations = {
+            markdown.enabled = false;
+            asciidoc.enabled = false;
+            neorg.enabled = false;
+            rst.enabled = false;
+            typst.enabled = false;
+          };
+          hijack_file_patterns = [];
           window_overlap_clear_enabled = true;
           window_overlap_clear_ft_ignore = ["cmp_menu" "cmp_docs" ""];
         };
