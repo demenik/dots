@@ -9,12 +9,17 @@
   }: {
     programs.btop = {
       enable = true;
+      package = pkgs.btop-rocm;
+
       settings = {
         color_theme =
           if config.theme.type == "colorScheme"
           then "catppuccin-mocha"
           else "noctalia";
         theme_background = false;
+
+        shown_boxes = "cpu mem net proc gpu0";
+        gpu_mirror_graph = true;
       };
       themes = lib.mkIf (config.theme.type == "colorScheme") {
         catppuccin-mocha = pkgs.fetchurl {
