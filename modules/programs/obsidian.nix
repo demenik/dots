@@ -105,6 +105,14 @@
             .markdown-rendered em {
               color: #000000 !important;
             }
+
+            .markdown-rendered table,
+            .markdown-rendered th,
+            .markdown-rendered td {
+              color: #000000 !important;
+              border: 1px solid #000000 !important;
+              border-collapse: collapse !important;
+            }
           }
         '';
     };
