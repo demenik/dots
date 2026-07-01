@@ -5,6 +5,9 @@
   ...
 }: {
   hardware.xpadneo.enable = true;
+  boot.kernel.sysctl = {
+    "net.bluetooth.extended_retransmission_mode" = 1;
+  };
 
   services.udev.packages = with pkgs; [
     game-devices-udev-rules
