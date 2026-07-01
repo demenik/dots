@@ -24,7 +24,7 @@ in {
         inherit scale;
         bitdepth = 10;
         colorMode = "hdr";
-        vrr = true;
+        vrr = "on-demand";
       }
       {
         output = secondaryMonitor;
