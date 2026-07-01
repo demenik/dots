@@ -5,12 +5,15 @@ let
 in {
   modules = [../../modules/system/ntfs.nix];
   moduleConfig = {
-    wm.monitors = [
+    wm.monitors = let
+      width = 2560;
+      scale = 1.25;
+    in [
       {
         output = mainMonitor;
         primary = true;
         mode = {
-          width = 2560;
+          inherit width;
           height = 1440;
           refresh = 239.97;
         };
@@ -18,7 +21,7 @@ in {
           x = 0;
           y = 0;
         };
-        scale = 1.25;
+        inherit scale;
         bitdepth = 10;
         colorMode = "hdr";
         vrr = true;
@@ -31,8 +34,8 @@ in {
           refresh = 143.98;
         };
         position = {
-          x = 2560;
-          y = 0;
+          x = builtins.floor (width / scale);
+          y = -300;
         };
         scale = 1;
         transform.rotation = 90;
