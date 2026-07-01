@@ -35,7 +35,7 @@ in {
         };
         position = {
           x = builtins.floor (width / scale);
-          y = -300;
+          y = -450;
         };
         scale = 1;
         transform.rotation = 90;
