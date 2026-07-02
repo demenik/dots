@@ -51,36 +51,6 @@
 
     home.file = lib.mkMerge [
       {
-        ".gemini/antigravity-cli/keybindings.json".text = builtins.toJSON {
-          "cli.enter" = ["enter"];
-          "cli.escape" = ["ctrl+c" "esc"];
-          "cli.clear_screen" = ["ctrl+l"];
-          "cli.exit" = ["ctrl+x"];
-          "cli.suspend" = ["ctrl+z"];
-
-          "confirm.edit_command" = ["e"];
-          "confirm.yes" = ["y"];
-          "confirm.no" = ["n"];
-
-          "edit.open_editor" = ["ctrl+g"];
-          "edit.paste" = ["ctrl+v"];
-          "edit.redo" = ["ctrl+shift+z"];
-          "edit.undo" = ["ctrl+_" "ctrl+shift+-"];
-          "edit.yank" = ["ctrl+y"];
-
-          "navigation.up" = ["up"];
-          "navigation.down" = ["down"];
-          "navigation.left" = ["left"];
-          "navigation.right" = ["right"];
-          "navigation.go_to_top" = ["ctrl+home"];
-          "navigation.go_to_bottom" = ["ctrl+end"];
-          "navigation.page_up" = ["pgup" "shift+up"];
-          "navigation.page_down" = ["pgdown" "shift+down"];
-          "navigation.tab" = ["tab"];
-
-          "prompt.insert_newline" = ["alt+enter" "ctrl+j" "shift+enter"];
-        };
-
         ".gemini/config/mcp_config.json".text = builtins.toJSON {
           mcpServers =
             lib.mapAttrs (
