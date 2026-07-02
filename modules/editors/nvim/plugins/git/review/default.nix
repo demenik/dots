@@ -35,7 +35,7 @@
             owner = "dlyongemallo";
             repo = "diffview.nvim";
             rev = "main";
-            hash = "sha256-WC4pIxUU64zOk6HnmXGzQrnyryW1hrPpRZKe9rf7bvE=";
+            hash = "sha256-S5j1W8mQviTXTIdgWBWiY/6ZcX92iAamY2z0eUfe2ng=";
           };
           doCheck = false;
         };
