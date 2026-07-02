@@ -33,6 +33,7 @@
     programs.nixvim = {
       enable = true;
       defaultEditor = true;
+      nixpkgs.source = inputs.nixpkgs;
 
       extraConfigLua =
         # lua
