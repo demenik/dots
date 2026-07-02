@@ -32,4 +32,8 @@
       "~.*.pro-output-9".enable = false;
     };
   };
+
+  homeConfig = {
+    services.easyeffects.enable = true;
+  };
 }
