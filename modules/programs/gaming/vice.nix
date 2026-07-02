@@ -75,12 +75,17 @@
 
         encoder = "auto";
         backend = "auto";
-        container = "mp4";
+        container = "mkv";
 
         capture_audio = true;
         capture_microphone = true;
         gsr_audio_source = "app-inverse:spotify";
-        audio_tracks = [];
+        audio_tracks = [
+          "app-inverse:vesktop"
+          "default_input"
+          "app:vesktop"
+        ];
+        audio_tracks_mix_first = true;
       };
 
       hotkeys.clip = "KEY_F9";
