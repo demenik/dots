@@ -18,6 +18,7 @@
     ../../modules/programs/coolercontrol.nix
 
     ../../modules/programs/gaming/steam.nix
+    ../../modules/programs/gaming/vice.nix
 
     ../../modules/cli/git.nix
   ];
