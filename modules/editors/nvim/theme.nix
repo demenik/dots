@@ -90,7 +90,7 @@
       # bash
       ''
         for socket in /run/user/$(id -u)/nvim*.0; do
-          [ -S "$socket" ] && ${pkgs.neovim}/bin/nvim --server "$socket" --remote-send "<C-\><C-N>:lua package.loaded['theme-colors'] = nil; local cp = require('catppuccin'); cp.options.color_overrides = cp.options.color_overrides or {}; cp.options.color_overrides.all = require('theme-colors'); cp.setup(); cp.compile(); vim.cmd('colorscheme catppuccin')<CR>" || true
+          [ -S "$socket" ] && ${pkgs.neovim}/bin/nvim --server "$socket" --remote-send "<C-\><C-N>:lua package.loaded['theme-colors'] = nil; local cp = require('catppuccin'); cp.options.color_overrides = cp.options.color_overrides or {}; cp.options.color_overrides.all = require('theme-colors'); cp.setup(cp.options); cp.compile(); vim.cmd('colorscheme catppuccin')<CR>" || true
         done
       '';
     text = ''
@@ -98,7 +98,7 @@
         rosewater = "{{colors.primary.default.hex | blend "#F5E0DC", 0.6 | set_saturation 80}}",
         flamingo = "{{colors.primary.default.hex | blend "#F2CDCD", 0.6 | set_saturation 80}}",
         pink = "{{colors.primary.default.hex | blend "#FFC0CB", 0.6 | set_saturation 80}}",
-        mauve = "{{colors.tertiary.default.hex}}",
+        mauve = "{{colors.primary.default.hex}}",
         red = "{{colors.error.default.hex}}",
         maroon = "{{colors.primary.default.hex | blend "#EBA0AC", 0.6 | set_saturation 80}}",
         peach = "{{colors.primary.default.hex | blend "#FFA500", 0.6 | set_saturation 80}}",
@@ -107,7 +107,7 @@
         teal = "{{colors.primary.default.hex | blend "#008080", 0.6 | set_saturation 80}}",
         sky = "{{colors.primary.default.hex | blend "#87CEEB", 0.6 | set_saturation 80}}",
         sapphire = "{{colors.primary.default.hex | blend "#0F52BA", 0.6 | set_saturation 80}}",
-        blue = "{{colors.primary.default.hex}}",
+        blue = "{{colors.primary.default.hex | blend "#0000FF", 0.6 | set_saturation 80}}",
         lavender = "{{colors.primary.default.hex | blend "#E6E6FA", 0.6 | set_saturation 80}}",
         text = "{{colors.on_surface.default.hex}}",
         subtext1 = "{{colors.on_surface_variant.default.hex}}",
