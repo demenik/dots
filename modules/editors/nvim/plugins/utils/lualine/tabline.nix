@@ -3,31 +3,32 @@ c: let
     # lua
     "
     function()
+      local cp = require('catppuccin.palettes').get_palette()
       local mode_color = {
-        n = '${c.base0D}',
-        i = '${c.base0B}',
+        n = cp.blue,
+        i = cp.green,
 
-        v = '${c.base0E}',
-        [''] = '${c.base0E}',
-        V = '${c.base0E}',
+        v = cp.mauve,
+        [''] = cp.mauve,
+        V = cp.mauve,
 
-        c = '${c.base0E}',
-        no = '${c.base08}',
+        c = cp.mauve,
+        no = cp.red,
 
-        s = '${c.base09}',
-        S = '${c.base09}',
-        [''] = '${c.base09}',
+        s = cp.peach,
+        S = cp.peach,
+        [''] = cp.peach,
 
-        ic = '${c.base0A}',
-        R = '${c.base0E}',
-        Rv = '${c.base0E}',
-        cv = '${c.base08}',
-        ce = '${c.base08}',
-        r = '${c.base0C}',
-        rm = '${c.base0C}',
-        ['r?'] = '${c.base0C}',
-        ['!'] = '${c.base08}',
-        t = '${c.base0F}',
+        ic = cp.yellow,
+        R = cp.mauve,
+        Rv = cp.mauve,
+        cv = cp.red,
+        ce = cp.red,
+        r = cp.teal,
+        rm = cp.teal,
+        ['r?'] = cp.teal,
+        ['!'] = cp.red,
+        t = cp.flamingo,
       }
       return { fg = mode_color[vim.fn.mode()] }
     end

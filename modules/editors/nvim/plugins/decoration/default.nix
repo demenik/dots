@@ -60,8 +60,19 @@
     };
 
     extraConfigLua = ''
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        callback = function()
+          local cp = require("catppuccin.palettes").get_palette()
+          vim.api.nvim_set_hl(0, "CurrentWord", { fg = cp.mauve })
+        end,
+      })
+      pcall(function()
+        local cp = require("catppuccin.palettes").get_palette()
+        vim.api.nvim_set_hl(0, "CurrentWord", { fg = cp.mauve })
+      end)
+
       vim.cmd([[
-        hi CurrentWord guifg=#cba6f7
         let g:vim_current_word#hightlight_twins = 0
         let g:vim_current_word#excluded_filetypes = ["minifiles", "netrw", "snacks_dashboard"]
       ]])

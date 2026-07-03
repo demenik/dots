@@ -1,4 +1,4 @@
-{config, ...}: {
+{
   programs.nixvim = {
     # Hide bottom bar
     opts = {
@@ -18,7 +18,24 @@
     ];
 
     plugins.lualine = let
-      c = config.colors.withHashtag;
+      c = {
+        base00.__raw = "require('catppuccin.palettes').get_palette().base";
+        base01.__raw = "require('catppuccin.palettes').get_palette().mantle";
+        base02.__raw = "require('catppuccin.palettes').get_palette().surface0";
+        base03.__raw = "require('catppuccin.palettes').get_palette().surface1";
+        base04.__raw = "require('catppuccin.palettes').get_palette().surface2";
+        base05.__raw = "require('catppuccin.palettes').get_palette().text";
+        base06.__raw = "require('catppuccin.palettes').get_palette().rosewater";
+        base07.__raw = "require('catppuccin.palettes').get_palette().rosewater";
+        base08.__raw = "require('catppuccin.palettes').get_palette().red";
+        base09.__raw = "require('catppuccin.palettes').get_palette().peach";
+        base0A.__raw = "require('catppuccin.palettes').get_palette().yellow";
+        base0B.__raw = "require('catppuccin.palettes').get_palette().green";
+        base0C.__raw = "require('catppuccin.palettes').get_palette().teal";
+        base0D.__raw = "require('catppuccin.palettes').get_palette().blue";
+        base0E.__raw = "require('catppuccin.palettes').get_palette().mauve";
+        base0F.__raw = "require('catppuccin.palettes').get_palette().flamingo";
+      };
     in {
       enable = true;
       settings = {

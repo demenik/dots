@@ -1,18 +1,5 @@
-{config, ...}: {
+{
   programs.nixvim = {
-    highlight = let
-      c = config.colors.withHashtag;
-    in {
-      SnacksDashboardHeader.fg = c.base04;
-      SnacksDashboardKey.fg = c.accent;
-      SnacksDashboardDesc.fg = c.base05;
-      SnacksDashboardIcon.fg = c.accent;
-      SnacksDashboardTitle = {
-        fg = c.base04;
-        italic = true;
-      };
-    };
-
     plugins.snacks.settings.dashboard = let
       themes = import ./themes.nix;
       theme = themes.comfy;
@@ -70,6 +57,26 @@
     extraConfigLua =
       # lua
       ''
+        vim.api.nvim_create_autocmd("ColorScheme", {
+          pattern = "*",
+          callback = function()
+            local cp = require("catppuccin.palettes").get_palette()
+            vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = cp.subtext1 })
+            vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = cp.mauve })
+            vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = cp.text })
+            vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = cp.mauve })
+            vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = cp.subtext1, italic = true })
+          end,
+        })
+        pcall(function()
+          local cp = require("catppuccin.palettes").get_palette()
+          vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = cp.subtext1 })
+          vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = cp.mauve })
+          vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = cp.text })
+          vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = cp.mauve })
+          vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = cp.subtext1, italic = true })
+        end)
+
         local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
         vim.api.nvim_create_autocmd("User", {
           pattern = "NvimTreeSetup",
