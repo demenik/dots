@@ -61,20 +61,20 @@
           pattern = "*",
           callback = function()
             local cp = require("catppuccin.palettes").get_palette()
-            vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = cp.subtext1 })
+            vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = cp.overlay1 })
             vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = cp.mauve })
             vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = cp.text })
             vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = cp.mauve })
-            vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = cp.subtext1, italic = true })
+            vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = cp.overlay1, italic = true })
           end,
         })
         pcall(function()
           local cp = require("catppuccin.palettes").get_palette()
-          vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = cp.subtext1 })
+          vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = cp.overlay1 })
           vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = cp.mauve })
           vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = cp.text })
           vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = cp.mauve })
-          vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = cp.subtext1, italic = true })
+          vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = cp.overlay1, italic = true })
         end)
 
         local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
