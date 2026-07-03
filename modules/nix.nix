@@ -48,12 +48,6 @@
       '';
     };
   in {
-    nixpkgs.config = {
-      permittedInsecurePackages = [
-        "pnpm-10.29.2"
-      ];
-    };
-
     programs.nh = {
       enable = true;
       package = nh-wrapped;
