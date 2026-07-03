@@ -50,6 +50,7 @@
     ../../modules/ai/opencode.nix
     ../../modules/ai/gemini-cli.nix
     ../../modules/ai/antigravity-cli.nix
+    ../../modules/ai/claude-code.nix
     ../../modules/cli/bat.nix
     ../../modules/cli/btop.nix
     ../../modules/cli/zip.nix
