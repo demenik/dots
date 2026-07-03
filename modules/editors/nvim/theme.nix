@@ -15,7 +15,7 @@
         show_end_of_buffer = true;
 
         color_overrides = lib.optionalAttrs (config.theme.type == "template") {
-          mocha.__raw = "(pcall(require, 'theme-colors') and require('theme-colors') or {})";
+          all.__raw = "(pcall(require, 'theme-colors') and require('theme-colors') or {})";
         };
 
         integrations = {
@@ -90,7 +90,7 @@
       # bash
       ''
         for socket in /run/user/$(id -u)/nvim*.0; do
-          [ -S "$socket" ] && ${lib.getExe pkgs.neovim} --server "$socket" --remote-send "<C-\><C-N>:lua package.loaded['theme-colors'] = nil; vim.cmd('colorscheme catppuccin')<CR>" || true
+          [ -S "$socket" ] && ${pkgs.neovim}/bin/nvim --server "$socket" --remote-send "<C-\><C-N>:lua package.loaded['theme-colors'] = nil; local cp = require('catppuccin'); cp.options.color_overrides = cp.options.color_overrides or {}; cp.options.color_overrides.all = require('theme-colors'); cp.setup(); cp.compile(); vim.cmd('colorscheme catppuccin')<CR>" || true
         done
       '';
     text = ''
