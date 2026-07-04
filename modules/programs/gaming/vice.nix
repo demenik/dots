@@ -5,57 +5,61 @@
     programs.gpu-screen-recorder.enable = true;
   };
 
+  overlays.home = [
+    (final: prev: {
+      vice = final.python3Packages.buildPythonApplication {
+        pname = "vice";
+        version = "1.3.4";
+        pyproject = true;
+
+        src = final.fetchFromGitHub {
+          owner = "eklonofficial";
+          repo = "Vice";
+          rev = "v1.3.4";
+          hash = "sha256-zZv3DJf0gWFTu/jisVkgi+fMlRAHYo+j2xXH1SIaGqM=";
+        };
+
+        nativeBuildInputs = with final.python3Packages; [
+          setuptools
+          wheel
+          final.makeWrapper
+        ];
+
+        propagatedBuildInputs = with final.python3Packages; [
+          evdev
+          aiohttp
+          click
+          psutil
+          pywebview
+          tomli-w
+          pyqt6-webengine
+          qtpy
+        ];
+
+        makeWrapperArgs = [
+          "--prefix PATH : ${final.lib.makeBinPath (with final; [
+            ffmpeg
+            gpu-screen-recorder
+            wl-clipboard
+            xclip
+          ])}"
+        ];
+
+        meta = {
+          description = "Medal.tv-style game clip recorder for Linux";
+          homepage = "https://github.com/eklonofficial/Vice";
+          mainProgram = "vice";
+        };
+      };
+    })
+  ];
+
   home = {
     pkgs,
     lib,
     config,
     ...
   }: let
-    vice = pkgs.python3Packages.buildPythonApplication {
-      pname = "vice";
-      version = "1.3.4";
-      pyproject = true;
-
-      src = pkgs.fetchFromGitHub {
-        owner = "eklonofficial";
-        repo = "Vice";
-        rev = "v1.3.4";
-        hash = "sha256-zZv3DJf0gWFTu/jisVkgi+fMlRAHYo+j2xXH1SIaGqM=";
-      };
-
-      nativeBuildInputs = with pkgs.python3Packages; [
-        setuptools
-        wheel
-        pkgs.makeWrapper
-      ];
-
-      propagatedBuildInputs = with pkgs.python3Packages; [
-        evdev
-        aiohttp
-        click
-        psutil
-        pywebview
-        tomli-w
-        pyqt6-webengine
-        qtpy
-      ];
-
-      makeWrapperArgs = [
-        "--prefix PATH : ${lib.makeBinPath (with pkgs; [
-          ffmpeg
-          gpu-screen-recorder
-          wl-clipboard
-          xclip
-        ])}"
-      ];
-
-      meta = {
-        description = "Medal.tv-style game clip recorder for Linux";
-        homepage = "https://github.com/eklonofficial/Vice";
-        mainProgram = "vice";
-      };
-    };
-
     toml = pkgs.formats.toml {};
 
     display =
@@ -64,7 +68,7 @@
       else null;
   in {
     home.packages = [
-      vice
+      pkgs.vice
     ];
 
     xdg.configFile."vice/config.toml".source = toml.generate "vice-config.toml" (lib.filterAttrs (n: v: v != null) {
@@ -108,7 +112,7 @@
 
       Service = {
         Type = "simple";
-        ExecStart = "${lib.getExe vice} start";
+        ExecStart = "${lib.getExe pkgs.vice} start";
         Restart = "always";
         RestartSec = 3;
       };

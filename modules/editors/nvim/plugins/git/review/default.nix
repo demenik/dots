@@ -28,17 +28,7 @@
     plugins = {
       diffview = {
         enable = true;
-        package = pkgs.vimUtils.buildVimPlugin {
-          pname = "diffview.nvim";
-          version = "latest";
-          src = pkgs.fetchFromGitHub {
-            owner = "dlyongemallo";
-            repo = "diffview.nvim";
-            rev = "main";
-            hash = "sha256-S5j1W8mQviTXTIdgWBWiY/6ZcX92iAamY2z0eUfe2ng=";
-          };
-          doCheck = false;
-        };
+        package = pkgs.vimPlugins.diffview-nvim;
       };
     };
   };

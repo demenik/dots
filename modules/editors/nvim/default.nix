@@ -15,6 +15,8 @@
     };
   };
 
+  overlays.home = import ./overlays.nix;
+
   home = {
     inputs,
     config,

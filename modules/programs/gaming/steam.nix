@@ -19,9 +19,13 @@
     ];
   };
 
-  nixos = {pkgs, ...}: let
-    protonBuilds = import ./proton pkgs;
-  in {
+  overlays.both = [
+    (final: prev: {
+      dwproton = final.callPackage ./proton/dwproton.nix {};
+    })
+  ];
+
+  nixos = {pkgs, ...}: {
     programs.steam = {
       enable = true;
       package = pkgs.steam.override {
@@ -37,7 +41,7 @@
 
       extraCompatPackages = with pkgs; [
         proton-ge-bin
-        protonBuilds.dwproton
+        dwproton
       ];
     };
 
