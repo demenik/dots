@@ -1,6 +1,26 @@
 {
   name = "tmux";
 
+  overlays.home = [
+    (final: prev: {
+      tmuxPlugins =
+        prev.tmuxPlugins
+        // {
+          tmux-notify = prev.tmuxPlugins.mkTmuxPlugin {
+            pluginName = "tmux-notify";
+            version = "unstable-2025-01-26";
+            src = final.fetchFromGitHub {
+              owner = "rickstaa";
+              repo = "tmux-notify";
+              rev = "b713320af05837c3b44e4d51167ff3062dbeae4b";
+              hash = "sha256-wOmq2stWXAFmYrRuIqf9IPATYXJ+OFoYXnJdHUnJQxY=";
+            };
+            rtpFilePath = "tnotify.tmux";
+          };
+        };
+    })
+  ];
+
   home = {
     imports = [
       ./plugins
