@@ -112,7 +112,7 @@
 
       Service = {
         Type = "simple";
-        ExecStart = "${lib.getExe pkgs.vice} start";
+        ExecStart = "${lib.getExe pkgs.vice} start --no-open-ui";
         Restart = "always";
         RestartSec = 3;
       };
