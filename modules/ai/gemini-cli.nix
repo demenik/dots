@@ -3,6 +3,15 @@
 
   modules = [./default.nix];
 
+  overlays.home = [
+    (final: prev: {
+      gemini-cli-catppuccin-theme = final.fetchurl {
+        url = "https://raw.githubusercontent.com/catppuccin/gemini-cli/refs/heads/main/themes/catppuccin-mocha.json";
+        hash = "sha256-dRD5ixkbdRgnejWkLSzSnBWzlQap4Kz18n49NtXQfU4=";
+      };
+    })
+  ];
+
   home = {
     pkgs,
     lib,
@@ -46,10 +55,7 @@
 
           ui = {
             theme = "Catppuccin Mocha";
-            customThemes."Catppuccin Mocha" = builtins.fromJSON (builtins.readFile (pkgs.fetchurl {
-              url = "https://raw.githubusercontent.com/catppuccin/gemini-cli/refs/heads/main/themes/catppuccin-mocha.json";
-              hash = "sha256-dRD5ixkbdRgnejWkLSzSnBWzlQap4Kz18n49NtXQfU4=";
-            }));
+            customThemes."Catppuccin Mocha" = builtins.fromJSON (builtins.readFile pkgs.gemini-cli-catppuccin-theme);
 
             footer.hideSandboxStatus = true;
             useAlternateBuffer = true;
