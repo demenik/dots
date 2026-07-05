@@ -1,5 +1,5 @@
 {
-  name = "android";
+  name = "android-studio";
 
   home = {pkgs, ...}: {
     home.packages = with pkgs; [

@@ -1,6 +1,6 @@
 {
   imports = [
-    ../full.nix
+    ../.full.nix
 
     ./hardware.nix
     ./audio.nix
