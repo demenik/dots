@@ -37,7 +37,7 @@
         ];
 
         makeWrapperArgs = [
-          "--prefix PATH : ${final.lib.makeBinPath (with final; [
+          "--prefix PATH : /run/wrappers/bin:${final.lib.makeBinPath (with final; [
             ffmpeg
             gpu-screen-recorder
             wl-clipboard
@@ -83,13 +83,12 @@
 
         capture_audio = true;
         capture_microphone = true;
-        gsr_audio_source = "app-inverse:spotify";
         audio_tracks = [
-          "app-inverse:vesktop"
-          "default_input"
-          "app:vesktop"
+          "app-inverse:spotify|app-inverse:Chromium" # game audio
+          "default_input" # microphone
+          "app:Chromium" # vesktop
         ];
-        audio_tracks_mix_first = true;
+        audio_tracks_mix_first = false;
       };
 
       hotkeys.clip = "KEY_F9";
