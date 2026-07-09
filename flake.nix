@@ -52,7 +52,26 @@
     hostsDir = ./hosts;
     nixosConfigurations = flake-modules.lib.mkNixosConfigurations {inherit hostsDir inputs;};
     homeConfigurations = flake-modules.lib.mkHomeConfigurations {inherit hostsDir inputs;};
+
+    forEachSystem = f:
+      inputs.nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ] (system: f inputs.nixpkgs.legacyPackages.${system});
   in {
     inherit nixosConfigurations homeConfigurations;
+
+    devShells = forEachSystem (pkgs: {
+      default = pkgs.mkShell {
+        packages = [pkgs.alejandra];
+      };
+    });
+
+    formatter = forEachSystem (pkgs:
+      pkgs.writeShellScriptBin "alejandra" ''
+        exec ${pkgs.lib.getExe pkgs.alejandra} -q "$@"
+      '');
   };
 }
