@@ -6,6 +6,20 @@ My NixOS dotfiles. This setup manages my NixOS systems and Home-Manager environm
 
 The backbone of this repository is [**flake-modules**](https://github.com/demenik/flake-modules), a framework I developed to simplify the management of multi-host and multi-user Nix configurations. It allows bundling NixOS and Home-Manager Config into modules which can be imported by NixOS and non NixOS hosts.
 
+### Package Overlay Updates
+This repository utilizes the **Auto-Update Overlays** feature of `flake-modules` to keep fetcher-based packages (e.g. `fetchFromGitHub`, `fetchGit`) defined in overlays up-to-date. The tool automatically scans active overlays, fetches the latest commits from upstream, calculates the new hashes, and modifies the source configuration files in-place.
+
+- **Check for updates (Dry Run):**
+  ```bash
+  nix run .#overlay-update -- --dry-run
+  ```
+- **Apply updates:**
+  ```bash
+  nix run .#overlay-update
+  ```
+
+For more details on setting up and extending this feature, see [flake-modules's USAGE.md - Updating Overlays](https://github.com/demenik/flake-modules/blob/main/USAGE.md#updating-overlays).
+
 ## Highlights
 
 - **Flakes**: Fully reproducible configuration using Nix Flakes.
