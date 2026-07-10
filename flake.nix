@@ -63,6 +63,12 @@
   in {
     inherit nixosConfigurations homeConfigurations;
 
+    apps = forEachSystem (pkgs: {
+      overlay-update = flake-modules.lib.mkUpdaterApp {
+        inherit pkgs hostsDir inputs;
+      };
+    });
+
     devShells = forEachSystem (pkgs: {
       default = pkgs.mkShell {
         packages = [pkgs.alejandra];
