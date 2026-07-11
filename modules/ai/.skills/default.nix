@@ -1,5 +1,5 @@
 {
-  imports = [
+  modules = [
     ./caveman.nix
     ./slides.nix
   ];
