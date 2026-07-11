@@ -3,6 +3,34 @@
 
   modules = [./default.nix];
 
+  overlays.home = [
+    (final: prev: {
+      antigravity-cli = prev.antigravity-cli.overrideAttrs (old: rec {
+        passthru =
+          (old.passthru or {})
+          // {
+            fmUpdate = {
+              version = "1.1.1-6269367663591424";
+              script = "curl -sL https://antigravity.google/cli/install.sh | grep -oP 'DOWNLOAD_BASE_URL=\"\\K[^\"]+' | xargs -I {} curl -sL {}/manifests/linux_amd64.json | grep -oP '\"url\": \".*/antigravity-cli/\\K[^/]+'";
+            };
+          };
+
+        version = builtins.head (prev.lib.splitString "-" passthru.fmUpdate.version);
+
+        src = prev.fetchurl {
+          url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/${passthru.fmUpdate.version}/linux-x64/cli_linux_x64.tar.gz";
+          hash = "sha256-I/+VgIR4SVtrNV9w2EQXSJpz5d6lVFqvpOH6D9UovJM=";
+        };
+
+        meta =
+          (old.meta or {})
+          // {
+            license = prev.lib.licenses.free;
+          };
+      });
+    })
+  ];
+
   home = {
     pkgs,
     lib,
@@ -11,43 +39,18 @@
   }: let
     utils = import ./.utils.nix {inherit pkgs lib config;};
 
-    antigravity-cli = pkgs.stdenv.mkDerivation rec {
-      pname = "antigravity-cli";
-      wholeVersion = "1.0.9-5825833043099648";
-      version = "1.0.9";
-
-      src = pkgs.fetchurl {
-        url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/${wholeVersion}/linux-x64/cli_linux_x64.tar.gz";
-        sha256 = "sha256-dzngufp5xOksHSIK8+DET33bupvgCTlXUDZPhvpuuPg=";
-      };
-
-      nativeBuildInputs = [pkgs.autoPatchelfHook pkgs.makeWrapper];
-
-      buildInputs = with pkgs; [
-        stdenv.cc.cc.lib
-      ];
-
-      dontBuild = true;
-      dontConfigure = true;
-
-      unpackPhase = ''
-        mkdir -p source
-        tar -xzf "$src" -C source
-      '';
-      sourceRoot = "source";
-
-      installPhase = ''
-        mkdir -p "$out"/bin
-        cp antigravity "$out"/bin/agy
-        chmod +x "$out"/bin/agy
-
-        wrapProgram "$out"/bin/agy \
+    antigravity-cli-wrapped = pkgs.symlinkJoin {
+      name = "antigravity-cli-wrapped";
+      paths = [pkgs.antigravity-cli];
+      nativeBuildInputs = [pkgs.makeWrapper];
+      postBuild = ''
+        wrapProgram "$out/bin/agy" \
           --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.nodejs]} \
           ${builtins.concatStringsSep " " utils.wrapperArgs}
       '';
     };
   in {
-    home.packages = [antigravity-cli];
+    home.packages = [antigravity-cli-wrapped];
 
     home.file = lib.mkMerge [
       {

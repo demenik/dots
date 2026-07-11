@@ -61,11 +61,16 @@
       }:
         stdenv.mkDerivation rec {
           pname = "kotlin-lsp";
-          version = "262.4739.0";
+          version = "262.8190.0";
+
+          passthru.fmUpdate = {
+            inherit version;
+            script = "curl -s https://api.github.com/repos/Kotlin/kotlin-lsp/releases/latest | grep -oP '\"name\": \"v\\K[^\"]+'";
+          };
 
           src = fetchzip {
-            url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-server-${version}.tar.gz";
-            hash = "sha256-V4w2gnwJCrW0+iNyKrGsd+wXGBUoI/BoVYSxlHVzo64=";
+            url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}.tar.gz";
+            hash = "sha256-kxV0AU1TEi7U84boc45V7GJNJzo3uWraHEo6q4Kd9+U=";
             stripRoot = false;
           };
 
