@@ -1,14 +1,14 @@
 {lib, ...}: {
   name = "nextcloud-mount";
   moduleOptions = with lib; {
-    nextcloudMount.mountpoint = mkOption {
+    nextcloud-mount.mountpoint = mkOption {
       type = types.nullOr types.str;
       default = null;
       description = "Path to mount nextcloud to. Default: ~/Nextcloud";
     };
   };
 
-  secrets.nextcloudMount = {
+  secrets.nextcloud-mount = {
     description = "rclone config for nextcloud";
     usedBy = "hm";
   };
@@ -19,10 +19,10 @@
     config,
     ...
   }: let
-    configFile = config.sops.secrets.nextcloudMount.path;
+    configFile = config.sops.secrets.nextcloud-mount.path;
     mountPoint =
-      if config.nextcloudMount.mountpoint != null
-      then config.nextcloudMount.mountpoint
+      if config.nextcloud-mount.mountpoint != null
+      then config.nextcloud-mount.mountpoint
       else "${config.home.homeDirectory}/Nextcloud";
 
     iconName = "nextcloud-mount";

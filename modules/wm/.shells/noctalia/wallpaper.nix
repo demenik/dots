@@ -17,7 +17,7 @@
     )
     config.wm.monitors);
 in {
-  systemd.user.services.nextcloud-mount = lib.mkIf (config ? nextcloudMount) {
+  systemd.user.services.nextcloud-mount = lib.mkIf (config ? nextcloud-mount) {
     Service.ExecStartPost = lib.mkAfter [
       reloadWallpaper
     ];

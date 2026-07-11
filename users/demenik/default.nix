@@ -139,16 +139,14 @@
   };
 
   secrets = {
-    nextcloudMount.path = ./secrets/nextcloud-mount.sops.yaml;
-    anki.path = ./secrets/anki.sops.yaml;
-    wakatime.path = ./secrets/wakatime.sops.yaml;
-    gitea-token.path = ./secrets/gitea.sops.yaml;
-    github-token.path = ./secrets/github-token.sops.yaml;
-    gitlab.path = ./secrets/gitlab.sops.yaml;
-    uni-ulm-vpn.path = ./secrets/uni-ulm-vpn.sops.yaml;
-    homelab-vpn.path = ./secrets/homelab-vpn.sops.yaml;
+    "nextcloud-mount/nextcloud-mount".path = ./secrets/nextcloud-mount.sops.yaml;
+    "anki/anki".path = ./secrets/anki.sops.yaml;
+    "nvim/wakatime".path = ./secrets/wakatime.sops.yaml;
+    "git/gitea-token".path = ./secrets/gitea.sops.yaml;
+    "git/github-token".path = ./secrets/github-token.sops.yaml;
+    "nvim/gitlab".path = ./secrets/gitlab.sops.yaml;
 
-    mcp-context7 = {
+    "ai/mcp-context7" = {
       path = ./secrets/mcp.sops.yaml;
       key = "context7";
     };

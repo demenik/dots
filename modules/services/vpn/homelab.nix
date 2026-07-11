@@ -1,5 +1,5 @@
 {
-  name = "homlab-vpn";
+  name = "homelab-vpn";
 
   secrets = {
     homelab-vpn = {
