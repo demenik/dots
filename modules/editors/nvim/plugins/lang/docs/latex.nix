@@ -6,6 +6,7 @@
 
     plugins.vimtex = {
       enable = true;
+      texlivePackage = null;
       settings = {
         view_method = "sioyek";
         quickfix_mode = 0; # supress error reporting on save and build

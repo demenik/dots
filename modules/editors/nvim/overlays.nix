@@ -145,8 +145,8 @@
           src = final.fetchFromGitHub {
             owner = "trixnz";
             repo = "sops.nvim";
-            rev = "1efefbb1716b7bf79c0015d7b8fb0fa55f957c78";
-            hash = "sha256-dxYUIfnsGXDEawgyJBXQTKg932XdzlIa0R41oY1PZuo=";
+            rev = "4de0cb71746d7a6de6311c85bc39873e56bcefc7";
+            hash = "sha256-pMnAGm7tkgM5pxhNEs06Qdx69qztMd14uNpuRi4I4qE=";
           };
         };
 
@@ -156,8 +156,8 @@
           src = final.fetchFromGitHub {
             owner = "dlyongemallo";
             repo = "diffview.nvim";
-            rev = "3bb7a69e0a1aed30e4d49374a6f928256757b8a7";
-            hash = "sha256-k489d4kAIXdgLj6wQdsyFBAiapSIzlYkSXEPoJa8hqc=";
+            rev = "e51af76acc83fe728e9c9dae527bee330d90436d";
+            hash = "sha256-3s5JbRoT9gBzK0hnxiRo4PBzQeONz54VXzFKpJi9DLQ=";
           };
           doCheck = false;
         };

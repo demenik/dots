@@ -48,9 +48,11 @@ in {
       python3Packages.jupytext
 
       # pnglatex deps
-      (texlive.combine {
-        inherit (texlive) scheme-small dvipng pdfcrop;
-      })
+      (texliveSmall.withPackages (ps:
+        with ps; [
+          dvipng
+          pdfcrop
+        ]))
       netpbm
       poppler-utils
     ];

@@ -13,6 +13,7 @@
 
     claude-code-wrapped = pkgs.symlinkJoin {
       name = "claude-code-wrapped";
+      version = pkgs.claude-code.version;
       paths = [pkgs.claude-code];
       buildInputs = [pkgs.makeWrapper];
       postBuild = ''
