@@ -70,7 +70,7 @@
 
           src = fetchzip {
             url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}.tar.gz";
-            hash = "sha256-kxV0AU1TEi7U84boc45V7GJNJzo3uWraHEo6q4Kd9+U=";
+            hash = "sha256-tGqU5h1IKi2fZy+oBN/GjujbIMMg4AKlbBKw3D9NU5Y=";
             stripRoot = false;
           };
 
