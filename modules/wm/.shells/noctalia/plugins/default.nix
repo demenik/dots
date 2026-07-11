@@ -1,9 +1,19 @@
-{
+{lib, ...}: {
   imports = [
     ./screentoolkit.nix
   ];
 
-  home = {
+  moduleOptions = with lib; {
+    programs.noctalia.plugins = {
+      privacy-indicator.micFilterRegexes = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "List of regexes for audio input sources to filter out from the privacy indicator";
+      };
+    };
+  };
+
+  home = {config, ...}: {
     imports = [
       ./vpn.nix
       ./tailscale.nix
@@ -45,7 +55,9 @@
           iconSpacing = 2;
           removeMargins = false;
 
-          micFilterRegex = "";
+          micFilterRegex =
+            builtins.concatStringsSep "|"
+            config.programs.noctalia.plugins.privacy-indicator.micFilterRegexes;
         };
       };
     };

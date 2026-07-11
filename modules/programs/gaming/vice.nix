@@ -1,6 +1,20 @@
 {
   name = "vice";
 
+  moduleConfig = {
+    lib,
+    config,
+    ...
+  }: {
+    programs = lib.mkIf (config.programs ? noctalia) {
+      noctalia.plugins = lib.mkIf (config.programs.noctalia.plugins ? privacy-indicator) {
+        privacy-indicator.micFilterRegexes = [
+          "^gsr-default_input$"
+        ];
+      };
+    };
+  };
+
   nixos = {
     programs.gpu-screen-recorder.enable = true;
   };
