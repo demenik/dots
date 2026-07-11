@@ -14,7 +14,7 @@
   };
 
   secrets = {
-    "uni-ulm-vpn/uni-ulm-vpn".path = ./secrets/uni-ulm-vpn.sops.yaml;
-    "homelab-vpn/homelab-vpn".path = ./secrets/homelab-vpn.sops.yaml;
+    "uni-ulm-vpn/uni-ulm-vpn".path = ./.secrets/uni-ulm-vpn.sops.yaml;
+    "homelab-vpn/homelab-vpn".path = ./.secrets/homelab-vpn.sops.yaml;
   };
 }

@@ -28,7 +28,7 @@
   };
 
   secrets = {
-    "eduroam/eduroam".path = ../secrets/eduroam.sops.yaml;
+    "eduroam/eduroam".path = ../.secrets/eduroam.sops.yaml;
   };
 
   nixosConfig = {
