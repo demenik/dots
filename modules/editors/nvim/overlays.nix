@@ -54,7 +54,7 @@
       {
         lib,
         stdenv,
-        fetchzip,
+        fetchurl,
         makeWrapper,
         autoPatchelfHook,
         zlib,
@@ -68,10 +68,9 @@
             script = "curl -s https://api.github.com/repos/Kotlin/kotlin-lsp/releases/latest | grep -oP '\"name\": \"v\\K[^\"]+'";
           };
 
-          src = fetchzip {
+          src = fetchurl {
             url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}.tar.gz";
-            hash = "sha256-tGqU5h1IKi2fZy+oBN/GjujbIMMg4AKlbBKw3D9NU5Y=";
-            stripRoot = false;
+            hash = "sha256-i0xw6VBlQg54Z8mar58Y4LTnYxHsRT5MGjnj9q53TL8=";
           };
 
           nativeBuildInputs = [
@@ -191,7 +190,7 @@
             owner = "krivahtoo";
             repo = "silicon.nvim";
             rev = "d8a6852b7158cc98f44ab12a0811ccf7d111dc71";
-            hash = "sha256-3ABUsfJpb6RO6AiuuSL5gwDofJIwC5tlEMzBrlY9/s0=";
+            hash = "sha256-OPl1zSaf3pZKyuFj3uod4pEkAM6+G9XnEVSHtm4UiYQ=";
           };
         };
       };
