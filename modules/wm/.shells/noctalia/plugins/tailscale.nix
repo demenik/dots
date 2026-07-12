@@ -74,7 +74,7 @@ in {
       pluginPatches =
         # bash
         ''
-          if [ -d "tailscale" ] && ! grep -q "Color.mPrimary" "tailscale/BarWidget.qml"; then
+          if [ -d "tailscale" ] && [ -f "tailscale/BarWidget.qml" ] && ! grep -q "Color.mPrimary" "tailscale/BarWidget.qml"; then
             patch -p1 --no-backup-if-mismatch <"${tailscaleIconPatch}"
           fi
         '';

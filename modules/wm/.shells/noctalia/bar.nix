@@ -71,9 +71,7 @@ in {
               displayMode = "onhover";
             };
           }
-          {
-            id = "plugin:tailscale";
-          }
+          {id = "plugin:tailscale";}
           {
             id = "Bluetooth";
             displayMode = "onhover";
@@ -89,9 +87,7 @@ in {
             showNoctaliaPerformance = true;
             showPowerProfiles = true;
           }
-          {
-            id = "plugin:screen-toolkit";
-          }
+          {id = "plugin:screen-toolkit";}
         ];
 
         center = [
@@ -155,9 +151,7 @@ in {
             hideWhenZero = false;
             hideWhenZeroUnread = false;
           }
-          {
-            id = "plugin:privacy-indicator";
-          }
+          {id = "plugin:privacy-indicator";}
         ];
       };
     };
