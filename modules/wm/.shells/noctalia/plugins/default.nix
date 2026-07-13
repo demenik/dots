@@ -1,6 +1,7 @@
 {lib, ...}: {
   imports = [
     ./screentoolkit.nix
+    ./mullvad.nix
   ];
 
   moduleOptions = with lib; {

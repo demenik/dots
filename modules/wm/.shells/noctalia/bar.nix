@@ -71,6 +71,7 @@ in {
               displayMode = "onhover";
             };
           }
+          {id = "plugin:mullvad";}
           {id = "plugin:tailscale";}
           {
             id = "Bluetooth";
