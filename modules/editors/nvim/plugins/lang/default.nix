@@ -18,5 +18,6 @@
     ./ruby.nix
     ./dart.nix
     ./shell.nix
+    ./qml.nix
   ];
 }
