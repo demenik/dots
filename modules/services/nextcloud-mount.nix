@@ -13,6 +13,10 @@
     usedBy = "hm";
   };
 
+  nixos = {
+    programs.fuse.enable = true;
+  };
+
   home = {
     pkgs,
     lib,
