@@ -27,26 +27,31 @@
 
         sources = [
           {
-            enabled = true;
+            enabled = false;
             name = "Official Noctalia Plugins";
             url = "https://github.com/noctalia-dev/noctalia-plugins";
+          }
+          {
+            enabled = true;
+            name = "demenik's Noctalia Plugins";
+            url = "https://github.com/demenik/noctalia-v4-plugins";
           }
         ];
 
         states = {
-          privacy-indicator = {
+          "563115:privacy-indicator" = {
             enabled = true;
-            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+            sourceUrl = "https://github.com/demenik/noctalia-v4-plugins";
           };
-          polkit-agent = {
+          "563115:polkit-agent" = {
             enabled = true;
-            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+            sourceUrl = "https://github.com/demenik/noctalia-v4-plugins";
           };
         };
       };
 
       pluginSettings = {
-        privacy-indicator = {
+        "563115:privacy-indicator" = {
           hideInactive = true;
           enableToast = false;
 

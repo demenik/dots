@@ -1,13 +1,13 @@
 {pkgs, ...}: {
   programs.noctalia-shell = {
     plugins = {
-      states.network-manager-vpn = {
+      states."563115:network-manager-vpn" = {
         enabled = true;
-        sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        sourceUrl = "https://github.com/demenik/noctalia-v4-plugins";
       };
     };
 
-    pluginSettings.network-manager-vpn = {
+    pluginSettings."563115:network-manager-vpn" = {
       displayMode = "alwaysHide";
       disconnectedColor = "none";
       connectedColor = "primary";

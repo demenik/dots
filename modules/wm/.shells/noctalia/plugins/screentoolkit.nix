@@ -16,9 +16,9 @@
 
   home = {pkgs, ...}: {
     programs.noctalia-shell = {
-      plugins.states.screen-toolkit = {
+      plugins.states."563115:screen-toolkit" = {
         enabled = true;
-        sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        sourceUrl = "https://github.com/demenik/noctalia-v4-plugins";
       };
 
       wrapper = {
@@ -47,16 +47,6 @@
         pythonPackages = with pkgs.python3Packages; [
           pygobject3
         ];
-
-        pluginPatches =
-          # bash
-          ''
-            for f in screen-toolkit/scripts/*.sh; do
-              if [ -f "$f" ]; then
-                sed -i '1s|^.*$|#!/usr/bin/env bash|' "$f"
-              fi
-            done
-          '';
       };
     };
   };

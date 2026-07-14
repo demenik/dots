@@ -11,14 +11,6 @@
   pythonEnv = pkgs.python3.withPackages (ps: cfg.pythonPackages);
   giTypelib = lib.makeSearchPath "lib/girepository-1.0" cfg.giPackages;
 
-  pluginPatcher = pkgs.writeShellScript "noctalia-plugin-patcher" ''
-    mkdir -p ~/.config/noctalia/plugins
-    (
-      cd ~/.config/noctalia/plugins || exit 0
-      ${cfg.pluginPatches}
-    )
-  '';
-
   wrapArgs = [
     (
       let
@@ -32,12 +24,6 @@
     (
       if cfg.giPackages != []
       then "--prefix GI_TYPELIB_PATH : ${giTypelib}"
-      else ""
-    )
-
-    (
-      if cfg.pluginPatches != ""
-      then "--run ${pluginPatcher}"
       else ""
     )
   ];
@@ -86,11 +72,6 @@ in {
       type = types.lines;
       default = "";
       description = "Custom shell commands to run during postBuild";
-    };
-    pluginPatches = mkOption {
-      type = types.lines;
-      default = "";
-      description = "Custom shell commands to run inside ~/.config/noctalia/plugins at startup";
     };
   };
 

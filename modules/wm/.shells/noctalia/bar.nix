@@ -64,15 +64,15 @@ in {
             # textColor = "none";
           }
           {
-            id = "plugin:network-manager-vpn";
+            id = "plugin:563115:network-manager-vpn";
             defaultSettings = {
               connectedColor = "primary";
               disconnectedColor = "none";
               displayMode = "onhover";
             };
           }
-          {id = "plugin:mullvad";}
-          {id = "plugin:tailscale";}
+          {id = "plugin:563115:mullvad";}
+          {id = "plugin:563115:tailscale";}
           {
             id = "Bluetooth";
             displayMode = "onhover";
@@ -88,7 +88,7 @@ in {
             showNoctaliaPerformance = true;
             showPowerProfiles = true;
           }
-          {id = "plugin:screen-toolkit";}
+          {id = "plugin:563115:screen-toolkit";}
         ];
 
         center = [
@@ -152,7 +152,7 @@ in {
             hideWhenZero = false;
             hideWhenZeroUnread = false;
           }
-          {id = "plugin:privacy-indicator";}
+          {id = "plugin:563115:privacy-indicator";}
         ];
       };
     };

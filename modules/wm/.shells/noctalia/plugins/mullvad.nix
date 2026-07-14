@@ -5,12 +5,12 @@
 
   home = {
     programs.noctalia-shell = {
-      plugins.states.mullvad = {
+      plugins.states."563115:mullvad" = {
         enabled = true;
-        sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        sourceUrl = "https://github.com/demenik/noctalia-v4-plugins";
       };
 
-      pluginSettings.mullvad = {
+      pluginSettings."563115:mullvad" = {
         favoriteCountries = [
           "de"
           "us"
