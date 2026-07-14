@@ -147,10 +147,7 @@
     "anki/anki".path = ./secrets/anki.sops.yaml;
     "nvim/wakatime".path = ./secrets/wakatime.sops.yaml;
 
-    "ai/mcp-context7" = {
-      path = ./secrets/mcp.sops.yaml;
-      key = "context7";
-    };
+    "ai/mcp-context7".path = ./secrets/mcp.sops.yaml;
   };
 
   nixosConfig = {
