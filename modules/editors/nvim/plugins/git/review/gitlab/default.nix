@@ -4,10 +4,10 @@
   config,
   ...
 }: let
-  hasGitlabSecret = config.sops.secrets ? gitlab;
+  hasGitlabSecret = config.sops.secrets ? gitlab-tokens;
   secretPath =
     if hasGitlabSecret
-    then config.sops.secrets.gitlab.path
+    then config.sops.secrets.gitlab-tokens.path
     else "";
 in {
   programs.nixvim = lib.mkIf hasGitlabSecret {

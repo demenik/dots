@@ -8,8 +8,8 @@
       required = false;
     };
 
-    gitlab = {
-      description = "Gitlab Tokens as a map: <instance url> -> <token>";
+    gitlab-tokens = {
+      description = "Gitlab Tokens as a map: <instance url>=<token>";
       usedBy = "hm";
       required = false;
     };
