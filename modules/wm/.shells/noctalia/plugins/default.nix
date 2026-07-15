@@ -47,6 +47,10 @@
             enabled = true;
             sourceUrl = "https://github.com/demenik/noctalia-v4-plugins";
           };
+          "563115:obsidian-provider" = {
+            enabled = true;
+            sourceUrl = "https://github.com/demenik/noctalia-v4-plugins";
+          };
         };
       };
 
