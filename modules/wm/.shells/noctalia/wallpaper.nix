@@ -46,10 +46,7 @@ in {
 
     transitionType = [
       "fade"
-      "disc"
-      "stripes"
       "wipe"
-      "pixelate"
       "honeycomb"
     ];
     transitionDuration = 1500;
