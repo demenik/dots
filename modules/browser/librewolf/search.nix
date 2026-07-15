@@ -39,19 +39,14 @@
         ];
       };
     in {
-      xng = mkEngine {
-        icon = "https://search.demenik.dev/static/themes/simple/img/favicon.svg";
-        template = "https://search.demenik.dev";
-        params.q = "{searchTerms}";
-      };
       ud = mkEngine {
-        icon = "https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico";
+        icon = "https://unduck.demenik.dev/search.svg";
         template = "https://unduck.demenik.dev";
         params.q = "{searchTerms}";
       };
 
       np = mkEngine {
-        icon = "https://search.nixos.org/images/nix-logo.png";
+        icon = "https://search.nixos.org/images/nixos-logomark-default-gradient-none.svg";
         definedAliases = ["@np"];
         template = "https://search.nixos.org/packages";
         params = {
@@ -66,7 +61,7 @@
         params.query = "{searchTerms}";
       };
       no = mkEngine {
-        icon = "https://search.nixos.org/images/nix-logo.png";
+        icon = "https://search.nixos.org/images/nixos-logomark-default-gradient-none.svg";
         definedAliases = ["@no"];
         template = "https://search.nixos.org/options";
         params = {
@@ -96,7 +91,7 @@
         template = "https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#{searchTerms}";
       };
       crates = mkEngine {
-        icon = "https://crates.io/assets/cargo.png";
+        icon = "https://crates.io/_app/immutable/assets/cargo.VCOwdw75.png";
         definedAliases = ["@crates"];
         template = "https://crates.io/search";
         params.q = "{searchTerms}";
