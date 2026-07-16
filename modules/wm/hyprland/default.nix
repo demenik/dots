@@ -34,10 +34,17 @@
       ./theme.nix
     ];
 
-    home.packages = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-    ];
+    xdg.portal = {
+      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+      config.common = {
+        "org.freedesktop.impl.portal.Screencast" = "hyprland";
+        "org.freedesktop.impl.portal.Screenshot" = "hyprland";
+      };
+    };
+    xdg.configFile."hypr/xdph.conf".text = ''
+      [screencopy]
+      allow_token_by_default = true
+    '';
 
     wayland.windowManager.hyprland = {
       enable = true;

@@ -2,6 +2,7 @@
   name = "wayland";
   modules = [
     ./default.nix
+    ./portal.nix
   ];
 
   home = {pkgs, ...}: {
