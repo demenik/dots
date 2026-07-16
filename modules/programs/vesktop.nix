@@ -22,6 +22,16 @@
     ];
   };
 
+  overlays.both = [
+    (final: prev: {
+      vesktop = prev.vesktop.override {
+        electron_40 = final.electron.overrideAttrs (old: {
+          version = "40.10.5"; # fixes "ERROR: electron version mismatch between package.json and nixpkgs"
+        });
+      };
+    })
+  ];
+
   home = {
     pkgs,
     lib,
