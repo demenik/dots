@@ -25,10 +25,18 @@
     })
   ];
 
-  nixos = {pkgs, ...}: {
+  nixos = {
+    inputs,
+    pkgs,
+    ...
+  }: {
+    nixpkgs.overlays = [
+      inputs.millennium.overlays.default
+    ];
+
     programs.steam = {
       enable = true;
-      package = pkgs.steam.override {
+      package = pkgs.millennium-steam.override {
         extraEnv.MANGOHUD = true;
       };
 
@@ -47,5 +55,9 @@
 
     programs.gamescope.enable = true;
     hardware.steam-hardware.enable = true;
+  };
+
+  home = {
+    theme.templates.steam.enable = true;
   };
 }
