@@ -97,12 +97,13 @@
 
         capture_audio = true;
         capture_microphone = true;
+        audio_tracks_mix_first = false;
         audio_tracks = [
+          "app-inverse:spotify|default_input" # mix
           "app-inverse:spotify|app-inverse:Chromium" # game audio
           "default_input" # microphone
           "app:Chromium" # vesktop
         ];
-        audio_tracks_mix_first = false;
       };
 
       hotkeys.clip = "KEY_F9";
@@ -119,7 +120,9 @@
     systemd.user.services.vice-daemon = {
       Unit = {
         Description = "Vice Replay Clipping Daemon";
-        After = ["graphical-session.target"];
+        After =
+          ["graphical-session.target"]
+          ++ lib.optional config.services.easyeffects.enable "easyeffects.service";
         PartOf = ["graphical-session.target"];
       };
 
