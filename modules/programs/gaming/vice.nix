@@ -88,7 +88,7 @@
     xdg.configFile."vice/config.toml".source = toml.generate "vice-config.toml" (lib.filterAttrs (n: v: v != null) {
       recording = {
         inherit display;
-        clip_duration = 30;
+        clip_duration = 60;
         fps = 60;
 
         encoder = "auto";
