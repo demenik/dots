@@ -17,7 +17,7 @@
 
     ../../modules/system/eduroam.nix
 
-    ../../modules/cli/git.nix
+    ../../modules/cli/git
   ];
 
   moduleConfig = {

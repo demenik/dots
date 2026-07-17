@@ -8,7 +8,7 @@
     ../../modules/shell/zsh
     ../../modules/editors/nvim
 
-    ../../modules/cli/git.nix
+    ../../modules/cli/git
     ../../modules/cli/zoxide.nix
     ../../modules/cli/eza.nix
     ../../modules/cli/btop.nix
