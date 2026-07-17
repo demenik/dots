@@ -18,6 +18,7 @@
     imports = [
       ./vpn.nix
       ./tailscale.nix
+      ./screencast-picker.nix
     ];
 
     programs.noctalia-shell = {
