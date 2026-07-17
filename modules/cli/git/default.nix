@@ -31,6 +31,7 @@
 
   home = {pkgs, ...}: {
     imports = [
+      ./aliases.nix
       ./creds.nix
       ./remotes.nix
       ./signing.nix
