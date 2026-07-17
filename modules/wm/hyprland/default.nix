@@ -28,6 +28,8 @@
     ...
   }: {
     imports = [
+      ./xdph.nix
+
       ./binds.nix
       ./rules.nix
       ./wmRules.nix
@@ -41,10 +43,7 @@
         "org.freedesktop.impl.portal.Screenshot" = "hyprland";
       };
     };
-    xdg.configFile."hypr/xdph.conf".text = ''
-      [screencopy]
-      allow_token_by_default = true
-    '';
+    services.xdph.settings.screencopy.allowTokenByDefault = true;
 
     wayland.windowManager.hyprland = {
       enable = true;
