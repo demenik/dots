@@ -5,6 +5,10 @@
 }: let
   inherit (pkgs) writeShellApplication;
 in {
+  imports = [
+    ./jlog.nix
+  ];
+
   home.packages = [
     (writeShellApplication {
       name = "nix";
