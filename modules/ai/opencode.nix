@@ -56,12 +56,27 @@
 
           bash = {
             "*" = "ask";
-            "ls *" = "allow";
             "nix eval *" = "allow";
 
             "git log *" = "allow";
             "git diff *" = "allow";
             "git status *" = "allow";
+
+            "echo *" = "allow";
+            "ls *" = "allow";
+            "grep *" = "allow";
+            "find *" = "allow";
+            "head *" = "allow";
+            "tail *" = "allow";
+            "xargs *" = "allow";
+            "sort *" = "allow";
+
+            "cargo build *" = "allow";
+            "cargo check *" = "allow";
+            "cargo test *" = "allow";
+            "cargo fmt *" = "allow";
+
+            "bun install *" = "allow";
           };
 
           context7_resolve-library-id = "allow";
