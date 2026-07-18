@@ -38,6 +38,7 @@
         playNext
         volumePercentage
         allOfArtist
+        spicyLyrics
       ];
 
       theme = lib.mkIf (config.theme.type == "colorScheme") spicePkgs.themes.catppuccin;
@@ -198,6 +199,17 @@
         ''
           .main-connectBar-connectBar {
             order: -1;
+          }
+        ''
+
+        # Hide Lyrics button (replaced by spicyLyrics extension) + fix dot below spicedLyrics button
+        # css
+        ''
+          button[data-testid="lyrics-button"] {
+            display: none !important;
+          }
+          button:has(#SpicyLyricsPageSvg):after {
+            transform: unset !important;
           }
         ''
       ];
