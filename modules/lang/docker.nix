@@ -13,7 +13,7 @@
   }:
     lib.mkIf config.lang.docker.enable {
       home.packages = with pkgs; [
-        dockerfile-language-server-nodejs
+        dockerfile-language-server
         docker-compose-language-service
       ];
 
