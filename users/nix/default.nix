@@ -8,6 +8,8 @@
     ../../modules/shell/zsh
     ../../modules/editors/nvim
 
+    ../../modules/lang
+
     ../../modules/cli/git
     ../../modules/cli/zoxide.nix
     ../../modules/cli/eza.nix
@@ -40,6 +42,13 @@
       base0D = "89b4fa";
       base0E = "cba6f7";
       base0F = "f2cdcd";
+    };
+
+    lang = {
+      nix.enable = true;
+      shell.enable = true;
+      configs.enable = true;
+      docker.enable = true;
     };
   };
 

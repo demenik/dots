@@ -1,9 +1,9 @@
-{pkgs, ...}: {
-  programs.nixvim = {
-    extraPackages = with pkgs; [sioyek tectonic];
-
-    lsp.servers.texlab.enable = true;
-
+{
+  lib,
+  config,
+  ...
+}: {
+  programs.nixvim = lib.mkIf config.lang.latex.enable {
     plugins.vimtex = {
       enable = true;
       texlivePackage = null;

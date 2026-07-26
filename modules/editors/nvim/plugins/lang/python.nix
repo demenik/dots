@@ -1,18 +1,10 @@
-{pkgs, ...}: {
-  programs.nixvim = {
-    extraPackages = with pkgs; [
-      ruff
-      black
-      python312Packages.flake8
-    ];
-
-    lsp.servers.pyright.enable = true;
-
+{
+  lib,
+  config,
+  ...
+}: {
+  programs.nixvim = lib.mkIf config.lang.python.enable {
     plugins = {
-      lint.lintersByFt.python = ["ruff"];
-
-      conform-nvim.settings.formatters_by_ft.python = ["black"];
-
       noice.settings.routes = [
         {
           filter = {

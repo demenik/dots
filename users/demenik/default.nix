@@ -41,6 +41,8 @@
     ../../modules/cli/direnv.nix
     ../../modules/cli/devenv.nix
 
+    ../../modules/lang
+
     ../../modules/editors/nvim
     ../../modules/editors/godot.nix
     ../../modules/editors/vscodium.nix
@@ -136,6 +138,8 @@
       base0E = "cba6f7";
       base0F = "f2cdcd";
     };
+
+    lang."*".enable = true;
   };
 
   secrets = {

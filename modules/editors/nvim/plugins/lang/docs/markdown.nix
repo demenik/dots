@@ -1,14 +1,10 @@
-{pkgs, ...}: {
-  programs.nixvim = {
-    extraPackages = with pkgs; [
-      markdownlint-cli2
-    ];
-
-    lsp.servers.marksman.enable = true;
-
+{
+  lib,
+  config,
+  ...
+}: {
+  programs.nixvim = lib.mkIf config.lang.markdown.enable {
     plugins = {
-      lint.lintersByFt.markdown = ["markdownlint-cli2"];
-
       markdown-preview = {
         enable = true;
         settings = {

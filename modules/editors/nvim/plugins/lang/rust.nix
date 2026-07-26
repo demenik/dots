@@ -1,10 +1,10 @@
-{pkgs, ...}: {
-  programs.nixvim = {
-    extraPackages = with pkgs; [
-      rustfmt
-      clippy
-    ];
-
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
+  programs.nixvim = lib.mkIf config.lang.rust.enable {
     lsp.servers.rust_analyzer = {
       enable = true;
       packageFallback = true;
@@ -45,10 +45,6 @@
           '';
         };
       };
-
-      lint.lintersByFt.rust = ["clippy"];
-
-      conform-nvim.settings.formatters_by_ft.rust = ["rustfmt"];
     };
   };
 }

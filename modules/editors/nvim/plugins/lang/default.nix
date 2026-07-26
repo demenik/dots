@@ -1,23 +1,40 @@
 {
+  lib,
+  config,
+  ...
+}: let
+  enabledLangs = lib.filterAttrs (name: info: info.enable) config.lang.meta;
+in {
   imports = [
     ./docs
-    ./nix.nix
+    ./java.nix
     ./lua.nix
-    ./web.nix
-    ./configs.nix
-    ./db.nix
-    ./docker.nix
-    ./go.nix
     ./python.nix
     ./rust.nix
-    ./cpp.nix
-    ./csharp.nix
-    ./kotlin.nix
-    ./java.nix
-    ./godot.nix
-    ./ruby.nix
-    ./dart.nix
-    ./shell.nix
-    ./qml.nix
+    ./web.nix
   ];
+
+  programs.nixvim = {
+    lsp.servers = lib.foldl' (
+      acc: info:
+        lib.foldl' (
+          acc2: lspName:
+            acc2 // {"${lspName}".enable = true;}
+        )
+        acc
+        info.lsps
+    ) {} (lib.attrValues enabledLangs);
+
+    plugins = {
+      lint.lintersByFt = lib.foldl' (
+        acc: info:
+          lib.recursiveUpdate acc info.linters
+      ) {} (lib.attrValues enabledLangs);
+
+      conform-nvim.settings.formatters_by_ft = lib.foldl' (
+        acc: info:
+          lib.recursiveUpdate acc info.formatters
+      ) {} (lib.attrValues enabledLangs);
+    };
+  };
 }

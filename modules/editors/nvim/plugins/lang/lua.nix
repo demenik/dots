@@ -1,10 +1,10 @@
-{pkgs, ...}: {
-  programs.nixvim = {
-    extraPackages = with pkgs; [
-      selene
-      stylua
-    ];
-
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
+  programs.nixvim = lib.mkIf config.lang.lua.enable {
     lsp.servers.lua_ls = {
       enable = true;
       config = {
@@ -30,10 +30,6 @@
           ];
         };
       };
-
-      lint.lintersByFt.lua = ["selene"];
-
-      conform-nvim.settings.formatters_by_ft.lua = ["stylua"];
     };
   };
 }

@@ -1,6 +1,7 @@
 {
-  lib,
   pkgs,
+  lib,
+  config,
   ...
 }: let
   google-style-xml = pkgs.fetchurl {
@@ -8,11 +9,7 @@
     hash = "sha256-51Uku2fj/8iNXGgO11JU4HLj28y7kcSgxwjc+r8r35E=";
   };
 in {
-  programs.nixvim = {
-    extraPackages = with pkgs; [
-      checkstyle
-    ];
-
+  programs.nixvim = lib.mkIf config.lang.java.enable {
     plugins = {
       jdtls = {
         enable = true;
@@ -34,8 +31,6 @@ in {
           };
         };
       };
-
-      lint.lintersByFt.java = ["checkstyle"];
     };
   };
 }
