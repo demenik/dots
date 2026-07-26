@@ -55,21 +55,44 @@
               --config "${configFile}" \
               --vfs-cache-mode full \
               --vfs-cache-max-age 24h \
-              --vfs-write-back 5s \
+              --vfs-read-ahead 128M \
               --vfs-fast-fingerprint \
+              --vfs-read-chunk-size 1M \
+              --vfs-read-chunk-size-limit 10M \
+              --transfers 4 \
               --dir-cache-time 8760h \
-              --poll-interval 15s \
+              --attr-timeout 8760h \
+              --rc \
+              --rc-no-auth \
+              --rc-addr localhost:5572 \
               --allow-other=false \
               --volname "Nextcloud"
           '';
           ExecStartPost = [
             ''-${lib.getExe' pkgs.glib "gio"} set "${mountPoint}" metadata::custom-icon-name ${iconName}''
+            ''-${lib.getExe pkgs.rclone} rc vfs/refresh recursive=true _async=true''
           ];
           ExecStop = "/run/wrappers/bin/fusermount -u -z ${mountPoint}";
           Restart = "always";
           RestartSec = "5s";
         };
         Install.WantedBy = ["default.target"];
+      };
+
+      timers.nextcloud-mount-refresh = {
+        Unit.Description = "Refresh Nextcloud rclone cache";
+        Timer = {
+          OnBootSec = "2m";
+          OnUnitActiveSec = "5m";
+        };
+        Install.WantedBy = ["timers.target"];
+      };
+      services.nextcloud-mount-refresh = {
+        Unit.Description = "Refresh Nextcloud rclone cache";
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${lib.getExe pkgs.rclone} rc vfs/refresh recursive=true _async=true";
+        };
       };
     };
   };
