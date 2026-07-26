@@ -15,10 +15,13 @@
 
         fps = true;
         frametime = true;
+        fps_metrics = ["avg" "0.01" "0.001"];
 
         cpu_stats = true;
         cpu_temp = true;
         cpu_mhz = true;
+        core_load = true;
+        core_bars = true;
 
         gpu_stats = true;
         gpu_temp = true;
