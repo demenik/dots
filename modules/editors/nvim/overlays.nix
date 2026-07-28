@@ -58,19 +58,20 @@
         makeWrapper,
         autoPatchelfHook,
         zlib,
+        jq,
       }:
         stdenv.mkDerivation rec {
           pname = "kotlin-lsp";
-          version = "262.8190.0";
+          version = "262.9593.0";
 
           passthru.fmUpdate = {
             inherit version;
-            script = "curl -s https://api.github.com/repos/Kotlin/kotlin-lsp/releases/latest | grep -oP '\"name\": \"v\\K[^\"]+'";
+            script = "curl -s https://api.github.com/repos/Kotlin/kotlin-lsp/releases/latest | ${lib.getExe jq} -r '.name | ltrimstr(\"v\")'";
           };
 
           src = fetchurl {
             url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}.tar.gz";
-            hash = "sha256-i0xw6VBlQg54Z8mar58Y4LTnYxHsRT5MGjnj9q53TL8=";
+            hash = "sha256-LZnY4Zj75KqPRIHjd5lyTOlIA7TqEqYLQWBA4/zXzF4=";
           };
 
           nativeBuildInputs = [

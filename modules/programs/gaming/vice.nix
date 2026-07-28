@@ -29,8 +29,8 @@
         src = final.fetchFromGitHub {
           owner = "eklonofficial";
           repo = "Vice";
-          rev = "0522b97c5eff45b612d22ec37b7963a2c604b60a";
-          hash = "sha256-1PsO46V3ZIWW37+beLY4Q/iLWyp4bPJlUmY89fx7Cmg=";
+          rev = "43d12c171a47ad928aa066232de33c7373b85ebe";
+          hash = "sha256-bF3PmUwG28RRgFJbFPT+r9KNEktrVn4ZHHE4j4m+R9M=";
         };
 
         nativeBuildInputs = with final.python3Packages; [

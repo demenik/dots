@@ -10,7 +10,7 @@
           (old.passthru or {})
           // {
             fmUpdate = {
-              version = "1.1.7-5951805767680000";
+              version = "1.1.8-5636713813508096";
               script = "curl -sL https://antigravity.google/cli/install.sh | grep -oP 'DOWNLOAD_BASE_URL=\"\\K[^\"]+' | xargs -I {} curl -sL {}/manifests/linux_amd64.json | grep -oP '\"url\": \".*/antigravity-cli/\\K[^/]+'";
             };
           };
@@ -19,7 +19,7 @@
 
         src = prev.fetchurl {
           url = "https://storage.googleapis.com/antigravity-public/antigravity-cli/${passthru.fmUpdate.version}/linux-x64/cli_linux_x64.tar.gz";
-          hash = "sha256-lGzQYljQ7ectAxFVDJFDFXmIIfajl/U6x2CRmCahmvQ=";
+          hash = "sha256-6S5iFVMrPOhEVeNBlEBndTrZD20kzrzsgALOE35RYs4=";
         };
 
         meta =
