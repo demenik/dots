@@ -10,7 +10,7 @@
         "*".identityFile = "~/.ssh/id_ed25519";
 
         "homelab" = {
-          hostname = "192.168.178.197";
+          hostname = "homelab.home.arpa";
           user = "nix";
           port = 22000;
         };
