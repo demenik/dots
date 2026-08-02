@@ -3,7 +3,13 @@
 
   modules = [../default.nix];
 
-  home = {pkgs, ...}: {
-    home.packages = [pkgs.prismlauncher];
+  home = {
+    pkgs,
+    config,
+    ...
+  }: {
+    home.packages = [
+      (config.programs.gaming.wrapper.exposeOnPath pkgs.prismlauncher)
+    ];
   };
 }

@@ -13,8 +13,14 @@
     Install opentabletdriver
   '';
 
-  home = {pkgs, ...}: {
-    home.packages = [pkgs.osu-lazer-bin];
+  home = {
+    pkgs,
+    config,
+    ...
+  }: {
+    home.packages = [
+      (config.programs.gaming.wrapper.wrapPackage "osu" pkgs.osu-lazer-bin)
+    ];
 
     xdg = {
       dataFile."mime/packages/osu.xml".text =

@@ -17,6 +17,20 @@
         noInitialFocus = true;
       }
     ];
+
+    programs.gaming.wrapper.games = {
+      # CS2
+      "steam:730".gamescope = {
+        enable = true;
+        args = {
+          w = "1440";
+          h = "1080";
+          S = "stretch";
+
+          force-grab-cursor = true;
+        };
+      };
+    };
   };
 
   overlays.both = [
@@ -28,6 +42,7 @@
   nixos = {
     inputs,
     pkgs,
+    config,
     ...
   }: {
     nixpkgs.overlays = [
@@ -38,6 +53,7 @@
       enable = true;
       package = pkgs.millennium-steam.override {
         extraEnv.MANGOHUD = true;
+        extraPkgs = _: [config.programs.gaming.wrapper.script];
       };
 
       remotePlay.openFirewall = true;
