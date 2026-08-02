@@ -50,68 +50,6 @@
       '';
     };
 
-    kotlin-lsp = final.callPackage (
-      {
-        lib,
-        stdenv,
-        fetchurl,
-        makeWrapper,
-        autoPatchelfHook,
-        zlib,
-        jq,
-      }:
-        stdenv.mkDerivation rec {
-          pname = "kotlin-lsp";
-          version = "262.9593.0";
-
-          passthru.fmUpdate = {
-            inherit version;
-            script = "curl -s https://api.github.com/repos/Kotlin/kotlin-lsp/releases/latest | ${lib.getExe jq} -r '.name | ltrimstr(\"v\")'";
-          };
-
-          src = fetchurl {
-            url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}.tar.gz";
-            hash = "sha256-LZnY4Zj75KqPRIHjd5lyTOlIA7TqEqYLQWBA4/zXzF4=";
-          };
-
-          nativeBuildInputs = [
-            makeWrapper
-            autoPatchelfHook
-          ];
-          buildInputs = [
-            stdenv.cc.cc.lib
-            zlib
-          ];
-
-          autoPatchelfIgnoreMissingDeps = true;
-
-          installPhase = ''
-            runHook preInstall
-
-            cd kotlin-server-* || cd .
-
-            rm -f bin/libgcompat-ext.so
-
-            mkdir -p "$out"/bin "$out"/libexec/kotlin-lsp
-            cp -r * "$out"/libexec/kotlin-lsp/
-
-            TARGET_BIN="$out/libexec/kotlin-lsp/bin/intellij-server"
-            chmod +x "$TARGET_BIN"
-
-            makeWrapper "$TARGET_BIN" "$out"/bin/kotlin-lsp
-
-            runHook postInstall
-          '';
-
-          meta = {
-            description = "Kotlin Language Server (Standalone Binary)";
-            homepage = "https://github.com/Kotlin/kotlin-lsp";
-            license = lib.licenses.asl20;
-            platforms = lib.platforms.linux;
-          };
-        }
-    ) {};
-
     silicon-theme-catppuccin = final.fetchFromGitHub {
       owner = "catppuccin";
       repo = "sublime-text";
