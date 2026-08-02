@@ -26,6 +26,32 @@
       enable = true;
       package = claude-code-wrapped;
 
+      settings = {
+        defaultMode = "acceptEdits";
+        permissions = {
+          allow = [
+            "Read(./.env.example)"
+
+            "Bash(nix eval *)"
+
+            "Bash(git log *)"
+            "Bash(git diff *)"
+            "Bash(git status *)"
+
+            "Bash(cargo build *)"
+            "Bash(cargo check *)"
+            "Bash(cargo test *)"
+            "Bash(cargo fmt *)"
+
+            "Bash(bun install *)"
+          ];
+          ask = [
+            "Read(./.env)"
+            "Read(./.env.*)"
+          ];
+        };
+      };
+
       mcpServers =
         lib.mapAttrs (
           name: server:
