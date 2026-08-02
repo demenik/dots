@@ -50,6 +50,12 @@
             "Read(./.env.*)"
           ];
         };
+
+        attribution = {
+          commit = "";
+          pr = "";
+          sessionUrl = false;
+        };
       };
 
       mcpServers =
