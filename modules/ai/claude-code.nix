@@ -51,6 +51,26 @@
           ];
         };
 
+        hooks = {
+          Notification = let
+            mkNotify = matchers: content:
+              map (matcher: {
+                inherit matcher;
+                hooks = [
+                  {
+                    type = "command";
+                    command = "${lib.getExe' pkgs.libnotify "notify-send"} 'Claude Code' '${content}'";
+                  }
+                ];
+              })
+              matchers;
+          in
+            lib.mkMerge [
+              (mkNotify ["permission_prompt" "elicitation_dialog" "agent_needs_input"] "Claude Code requires user input")
+              (mkNotify ["idle_prompt" "agent_completed"] "Claude Code is done")
+            ];
+        };
+
         attribution = {
           commit = "";
           pr = "";
