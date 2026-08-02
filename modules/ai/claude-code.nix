@@ -27,6 +27,8 @@
       package = claude-code-wrapped;
 
       settings = {
+        editorMode = "vim";
+
         defaultMode = "acceptEdits";
         permissions = {
           allow = [
