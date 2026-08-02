@@ -28,6 +28,7 @@ in
 
     GRADLE_OPTS = pkgs.lib.concatStringsSep " " [
       "-Dorg.gradle.java.installations.auto-download=false"
+      "-Dorg.gradle.java.installations.paths=${pinnedJdk.home}"
       "-Dorg.gradle.project.android.aapt2FromMavenOverride=${pkgs.aapt}/bin/aapt2"
     ];
   }

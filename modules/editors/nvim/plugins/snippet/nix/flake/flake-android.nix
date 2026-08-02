@@ -23,7 +23,7 @@
         platformVersions = ["<2>"];
         abiVersions = ["<3>"];
       };
-      pinnedJdk = pkgs.jdk<4>_headless;
+      pinnedJdk = pkgs.jdk <4>_headless;
     in {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
@@ -39,6 +39,7 @@
 
         GRADLE_OPTS = pkgs.lib.concatStringsSep " " [
           "-Dorg.gradle.java.installations.auto-download=false"
+          "-Dorg.gradle.java.installations.paths=${pinnedJdk.home}"
           "-Dorg.gradle.project.android.aapt2FromMavenOverride=${pkgs.aapt}/bin/aapt2"
         ];
       };
