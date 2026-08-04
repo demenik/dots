@@ -2,7 +2,14 @@
   name = "lang-go";
 
   moduleOptions = with lib; {
-    lang.go.enable = mkEnableOption "Enable Go language tools";
+    lang.go = {
+      enable = mkEnableOption "Enable Go language tools";
+      onPath = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Add the Go lsp/linter to PATH (the go toolchain is always added)";
+      };
+    };
   };
 
   home = {
@@ -10,17 +17,23 @@
     lib,
     config,
     ...
-  }:
-    lib.mkIf config.lang.go.enable {
-      home.packages = with pkgs; [
-        golangci-lint
-        go
-        gotools
-        gopls
-      ];
+  }: let
+    cfg = config.lang.go;
+    packages = {
+      inherit (pkgs) gopls;
+      golangcilint = pkgs.golangci-lint;
+      goimports = pkgs.gotools;
+      gofmt = pkgs.go;
+    };
+  in
+    lib.mkIf cfg.enable {
+      home.packages =
+        [pkgs.go pkgs.gotools]
+        ++ lib.optionals cfg.onPath [pkgs.gopls pkgs.golangci-lint];
 
       lang.meta.go = {
         enable = true;
+        inherit packages;
         lsps = ["gopls"];
         linters = {
           go = ["golangcilint"];

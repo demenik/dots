@@ -2,7 +2,14 @@
   name = "lang-kotlin";
 
   moduleOptions = with lib; {
-    lang.kotlin.enable = mkEnableOption "Enable Kotlin language tools";
+    lang.kotlin = {
+      enable = mkEnableOption "Enable Kotlin language tools";
+      onPath = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Add Kotlin lsp/linter/formatter tools to PATH";
+      };
+    };
   };
 
   overlays.home = [
@@ -76,15 +83,19 @@
     lib,
     config,
     ...
-  }:
-    lib.mkIf config.lang.kotlin.enable {
-      home.packages = with pkgs; [
-        kotlin-lsp
-        ktlint
-      ];
+  }: let
+    cfg = config.lang.kotlin;
+    packages = {
+      inherit (pkgs) ktlint;
+      kotlin_lsp = pkgs.kotlin-lsp;
+    };
+  in
+    lib.mkIf cfg.enable {
+      home.packages = lib.mkIf cfg.onPath (lib.unique (builtins.attrValues packages));
 
       lang.meta.kotlin = {
         enable = true;
+        inherit packages;
         lsps = ["kotlin_lsp"];
         linters = {
           kotlin = ["ktlint"];

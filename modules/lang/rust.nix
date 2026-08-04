@@ -2,7 +2,14 @@
   name = "lang-rust";
 
   moduleOptions = with lib; {
-    lang.rust.enable = mkEnableOption "Enable Rust language tools";
+    lang.rust = {
+      enable = mkEnableOption "Enable Rust language tools";
+      onPath = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Add Rust lsp/linter/formatter tools to PATH";
+      };
+    };
   };
 
   home = {
@@ -10,16 +17,19 @@
     lib,
     config,
     ...
-  }:
-    lib.mkIf config.lang.rust.enable {
-      home.packages = with pkgs; [
-        rustfmt
-        clippy
-        rust-analyzer
-      ];
+  }: let
+    cfg = config.lang.rust;
+    packages = {
+      inherit (pkgs) clippy rustfmt;
+      rust_analyzer = pkgs.rust-analyzer;
+    };
+  in
+    lib.mkIf cfg.enable {
+      home.packages = lib.mkIf cfg.onPath (lib.unique (builtins.attrValues packages));
 
       lang.meta.rust = {
         enable = true;
+        inherit packages;
         lsps = ["rust_analyzer"];
         linters = {
           rust = ["clippy"];

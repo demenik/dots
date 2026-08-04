@@ -12,12 +12,13 @@
     ...
   }:
     lib.mkIf config.lang.dart.enable {
-      home.packages = with pkgs; [
-        flutter
-      ];
+      home.packages = [pkgs.flutter];
 
       lang.meta.dart = {
         enable = true;
+        packages = {
+          dartls = pkgs.flutter;
+        };
         lsps = ["dartls"];
         linters = {};
         formatters = {};

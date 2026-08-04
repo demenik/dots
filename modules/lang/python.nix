@@ -2,7 +2,14 @@
   name = "lang-python";
 
   moduleOptions = with lib; {
-    lang.python.enable = mkEnableOption "Enable Python language tools";
+    lang.python = {
+      enable = mkEnableOption "Enable Python language tools";
+      onPath = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Add Python lsp/linter/formatter tools to PATH";
+      };
+    };
   };
 
   home = {
@@ -10,17 +17,19 @@
     lib,
     config,
     ...
-  }:
-    lib.mkIf config.lang.python.enable {
-      home.packages = with pkgs; [
-        ruff
-        black
-        python312Packages.flake8
-        pyright
-      ];
+  }: let
+    cfg = config.lang.python;
+    packages = {
+      inherit (pkgs) pyright ruff black;
+      inherit (pkgs.python312Packages) flake8;
+    };
+  in
+    lib.mkIf cfg.enable {
+      home.packages = lib.mkIf cfg.onPath (lib.unique (builtins.attrValues packages));
 
       lang.meta.python = {
         enable = true;
+        inherit packages;
         lsps = ["pyright"];
         linters = {
           python = ["ruff"];

@@ -21,7 +21,7 @@
     ./shell.nix
     ./web.nix
   ];
-  langs = builtins.map (p: lib.removeSuffix ".nix" (builtins.baseNameOf (builtins.toString p))) langPaths;
+  langs = map (p: lib.removeSuffix ".nix" (baseNameOf (toString p))) langPaths;
 in {
   name = "lang";
   modules = langPaths;
@@ -49,7 +49,12 @@ in {
               default = {};
             };
             formatters = mkOption {
-              type = types.attrsOf (types.anything);
+              type = types.attrsOf types.anything;
+              default = {};
+            };
+            packages = mkOption {
+              description = "Tool id (as used in lsps/linters/formatters) to package derivation, for consumers that want the binary without relying on PATH";
+              type = types.attrsOf types.package;
               default = {};
             };
           };

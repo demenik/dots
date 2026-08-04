@@ -2,7 +2,14 @@
   name = "lang-shell";
 
   moduleOptions = with lib; {
-    lang.shell.enable = mkEnableOption "Enable Shell scripting language tools";
+    lang.shell = {
+      enable = mkEnableOption "Enable Shell scripting language tools";
+      onPath = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Add Shell lsp/linter/formatter tools to PATH";
+      };
+    };
   };
 
   home = {
@@ -10,16 +17,19 @@
     lib,
     config,
     ...
-  }:
-    lib.mkIf config.lang.shell.enable {
-      home.packages = with pkgs; [
-        shfmt
-        shellcheck
-        bash-language-server
-      ];
+  }: let
+    cfg = config.lang.shell;
+    packages = {
+      inherit (pkgs) shellcheck shfmt;
+      bashls = pkgs.bash-language-server;
+    };
+  in
+    lib.mkIf cfg.enable {
+      home.packages = lib.mkIf cfg.onPath (lib.unique (builtins.attrValues packages));
 
       lang.meta.shell = {
         enable = true;
+        inherit packages;
         lsps = ["bashls"];
         linters = {
           bash = ["shellcheck"];

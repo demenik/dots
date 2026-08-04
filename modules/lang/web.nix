@@ -4,7 +4,14 @@ in {
   name = "lang-web";
 
   moduleOptions = with lib; {
-    lang.web.enable = mkEnableOption "Enable Web development language tools";
+    lang.web = {
+      enable = mkEnableOption "Enable Web development language tools";
+      onPath = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Add Web development lsp/linter/formatter tools to PATH";
+      };
+    };
   };
 
   home = {
@@ -12,21 +19,24 @@ in {
     lib,
     config,
     ...
-  }:
-    lib.mkIf config.lang.web.enable {
-      home.packages = with pkgs; [
-        prettier
-        prettierd
-        stylelint
-        eslint_d
-        typescript-language-server
-        tailwindcss-language-server
-        astro-language-server
-        vscode-langservers-extracted
-      ];
+  }: let
+    cfg = config.lang.web;
+    packages = {
+      inherit (pkgs) stylelint eslint_d prettierd prettier;
+      html = pkgs.vscode-langservers-extracted;
+      ts_ls = pkgs.typescript-language-server;
+      cssls = pkgs.vscode-langservers-extracted;
+      eslint = pkgs.vscode-langservers-extracted;
+      tailwindcss = pkgs.tailwindcss-language-server;
+      astro = pkgs.astro-language-server;
+    };
+  in
+    lib.mkIf cfg.enable {
+      home.packages = lib.mkIf cfg.onPath (lib.unique (builtins.attrValues packages));
 
       lang.meta.web = {
         enable = true;
+        inherit packages;
         lsps = ["html" "ts_ls" "cssls" "eslint" "tailwindcss" "astro"];
         linters = {
           css = ["stylelint"];

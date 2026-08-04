@@ -14,9 +14,7 @@ in {
       jdtls = {
         enable = true;
         settings = {
-          cmd = [
-            "${lib.getExe' pkgs.jdt-language-server "jdtls"}"
-          ];
+          cmd = [(lib.getExe' config.lang.meta.java.packages.jdtls "jdtls")];
           root_dir.__raw = ''
             require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" })
           '';
