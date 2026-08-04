@@ -104,6 +104,7 @@ in {
     imports = [
       (modulesPath + "/installer/scan/not-detected.nix")
       ./fans.nix
+      ./razer.nix
     ];
 
     hardware.keyboard.qmk = {
