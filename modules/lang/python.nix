@@ -29,5 +29,9 @@
           python = ["black"];
         };
       };
+
+      programs.claude-code.plugins = lib.mkIf config.programs.claude-code.enable {
+        "pyright-lsp" = "${pkgs.claude-plugins}/plugins/pyright-lsp";
+      };
     };
 }

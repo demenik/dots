@@ -45,5 +45,9 @@ in {
           astro = prettier_config;
         };
       };
+
+      programs.claude-code.plugins = lib.mkIf config.programs.claude-code.enable {
+        "typescript-lsp" = "${pkgs.claude-plugins}/plugins/typescript-lsp";
+      };
     };
 }

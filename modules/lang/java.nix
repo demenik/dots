@@ -25,5 +25,9 @@
         };
         formatters = {};
       };
+
+      programs.claude-code.plugins = lib.mkIf config.programs.claude-code.enable {
+        "jdtls-lsp" = "${pkgs.claude-plugins}/plugins/jdtls-lsp";
+      };
     };
 }

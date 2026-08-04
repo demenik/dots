@@ -28,5 +28,9 @@
           lua = ["stylua"];
         };
       };
+
+      programs.claude-code.plugins = lib.mkIf config.programs.claude-code.enable {
+        "lua-lsp" = "${pkgs.claude-plugins}/plugins/lua-lsp";
+      };
     };
 }

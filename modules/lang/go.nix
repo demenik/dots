@@ -29,5 +29,9 @@
           go = ["goimports" "gofmt"];
         };
       };
+
+      programs.claude-code.plugins = lib.mkIf config.programs.claude-code.enable {
+        "gopls-lsp" = "${pkgs.claude-plugins}/plugins/gopls-lsp";
+      };
     };
 }

@@ -93,5 +93,9 @@
           kotlin = ["ktlint"];
         };
       };
+
+      programs.claude-code.plugins = lib.mkIf config.programs.claude-code.enable {
+        "kotlin-lsp" = "${pkgs.claude-plugins}/plugins/kotlin-lsp";
+      };
     };
 }

@@ -29,5 +29,9 @@
           cs = ["csharpier"];
         };
       };
+
+      programs.claude-code.plugins = lib.mkIf config.programs.claude-code.enable {
+        "csharp-lsp" = "${pkgs.claude-plugins}/plugins/csharp-lsp";
+      };
     };
 }

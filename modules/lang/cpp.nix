@@ -33,5 +33,9 @@
           cmake = ["cmake_format"];
         };
       };
+
+      programs.claude-code.plugins = lib.mkIf config.programs.claude-code.enable {
+        "clangd-lsp" = "${pkgs.claude-plugins}/plugins/clangd-lsp";
+      };
     };
 }

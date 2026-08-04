@@ -3,6 +3,17 @@
 
   modules = [./default.nix];
 
+  overlays.both = [
+    (final: prev: {
+      claude-plugins = final.fetchFromGitHub {
+        owner = "anthropics";
+        repo = "claude-plugins-official";
+        rev = "b7e93a4e7c950ba5b22a2bdb9a61e2631f75a51e";
+        hash = "sha256-u6suHaAGCr3BufCUYhcgmwx/UWovCY7RPUCfKCg/0SU=";
+      };
+    })
+  ];
+
   home = {
     pkgs,
     lib,

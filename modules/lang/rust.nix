@@ -28,5 +28,9 @@
           rust = ["rustfmt"];
         };
       };
+
+      programs.claude-code.plugins = lib.mkIf config.programs.claude-code.enable {
+        "rust-analyzer-lsp" = "${pkgs.claude-plugins}/plugins/rust-analyzer-lsp";
+      };
     };
 }
