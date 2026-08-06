@@ -33,6 +33,8 @@
       '';
     };
   in {
+    home.file.".claude/CLAUDE.md".source = ./.guidelines.md;
+
     programs.claude-code = {
       enable = true;
       package = claude-code-wrapped;
