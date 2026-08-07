@@ -41,7 +41,6 @@
           "xargs *"
           "sort *"
         ];
-        ask = ["*"];
       };
 
       read = {
