@@ -27,8 +27,11 @@
       enable = true;
       package = opencode-wrapped;
 
-      settings = {
+      tui = {
         theme = "system";
+      };
+
+      settings = {
         plugin = [
           "opencode-gemini-auth@latest"
         ];
