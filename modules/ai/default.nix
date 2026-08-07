@@ -3,6 +3,7 @@
 
   imports = [
     ./.mcp.nix
+    ./.permissions.nix
     ./.skills
   ];
 
@@ -57,6 +58,96 @@
           };
         });
       };
+
+      permissions = let
+        commandRuleSetType = types.submodule {
+          options = {
+            allow = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "Subcommands/args to allow for this command.";
+            };
+            ask = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "Subcommands/args that require user confirmation for this command.";
+            };
+            deny = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "Subcommands/args to deny for this command.";
+            };
+          };
+        };
+
+        permissionRuleSetType = types.submodule ({config, ...}: {
+          options = {
+            allow = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "Patterns that are automatically allowed without confirmation, plus patterns generated from 'commands'.";
+            };
+            ask = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "Patterns that require user confirmation before running, plus patterns generated from 'commands'.";
+            };
+            deny = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "Patterns that are always denied, plus patterns generated from 'commands'.";
+            };
+            commands = mkOption {
+              default = {};
+              description = ''
+                Shorthand for "<command> <subcommand> *" patterns. Define a command once
+                (e.g. "bun") with the subcommands/args it applies to (e.g. ["install"]);
+                each is expanded and merged into 'allow'/'ask'/'deny'.
+              '';
+              type = types.attrsOf commandRuleSetType;
+            };
+          };
+
+          config = let
+            expand = action:
+              flatten (mapAttrsToList (
+                  command: rules: map (subcommand: "${command} ${subcommand} *") rules.${action}
+                )
+                config.commands);
+          in {
+            allow = mkAfter (expand "allow");
+            ask = mkAfter (expand "ask");
+            deny = mkAfter (expand "deny");
+          };
+        });
+
+        mkRuleSetOption = description:
+          mkOption {
+            inherit description;
+            default = {};
+            type = permissionRuleSetType;
+          };
+      in
+        mkOption {
+          description = "Permission rules for AI coding CLI tools, grouped by category. Each category accepts lists of patterns to allow, ask for confirmation, or deny. Wiring these into individual CLI configs is out of scope here.";
+          default = {};
+          type = types.submodule {
+            options = {
+              bash = mkRuleSetOption "Permission rules for shell/bash command execution.";
+              read = mkRuleSetOption "Permission rules for reading files.";
+              write = mkRuleSetOption "Permission rules for creating or overwriting files.";
+              edit = mkRuleSetOption "Permission rules for editing existing files.";
+              mcp = mkRuleSetOption "Permission rules for MCP server tool calls.";
+              webFetch = mkRuleSetOption "Permission rules for fetching remote URLs.";
+              webSearch = mkRuleSetOption "Permission rules for performing web searches.";
+              other = mkOption {
+                description = "Permission rules for arbitrary named tools or categories not covered above, keyed by tool/category name.";
+                default = {};
+                type = types.attrsOf permissionRuleSetType;
+              };
+            };
+          };
+        };
 
       skills = mkOption {
         description = "AI Skills configurations";

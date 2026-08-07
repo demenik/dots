@@ -43,31 +43,7 @@
         editorMode = "vim";
 
         defaultMode = "acceptEdits";
-        permissions = {
-          allow = [
-            "Read(./.env.example)"
-
-            "Bash(nix eval *)"
-
-            "Bash(git log *)"
-            "Bash(git diff *)"
-            "Bash(git status *)"
-            "Bash(git check-ignore *)"
-
-            "Bash(cargo build *)"
-            "Bash(cargo check *)"
-            "Bash(cargo test *)"
-            "Bash(cargo fmt *)"
-            "Bash(cargo clippy *)"
-
-            "Bash(bun install *)"
-            "Bash(bunx prettier *)"
-          ];
-          ask = [
-            "Read(./.env)"
-            "Read(./.env.*)"
-          ];
-        };
+        permissions = utils.claudeCodePermissions;
 
         hooks = {
           Notification = let

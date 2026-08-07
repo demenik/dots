@@ -33,61 +33,7 @@
           "opencode-gemini-auth@latest"
         ];
 
-        permission = {
-          "*" = "ask";
-
-          read = {
-            "*" = "allow";
-            "*.env" = "ask";
-            "*.env.*" = "ask";
-            "*.env.example" = "allow";
-          };
-          edit."*" = "allow";
-          list = "allow";
-          glob = "allow";
-          grep = "allow";
-
-          todoread = "allow";
-          todowrite = "allow";
-
-          webfetch = "allow";
-          websearch = "allow";
-          codesearch = "allow";
-
-          bash = {
-            "*" = "ask";
-            "nix eval *" = "allow";
-
-            "git log *" = "allow";
-            "git diff *" = "allow";
-            "git status *" = "allow";
-
-            "echo *" = "allow";
-            "ls *" = "allow";
-            "grep *" = "allow";
-            "find *" = "allow";
-            "head *" = "allow";
-            "tail *" = "allow";
-            "xargs *" = "allow";
-            "sort *" = "allow";
-
-            "cargo build *" = "allow";
-            "cargo check *" = "allow";
-            "cargo test *" = "allow";
-            "cargo fmt *" = "allow";
-
-            "bun install *" = "allow";
-          };
-
-          context7_resolve-library-id = "allow";
-          context7_query-docs = "allow";
-
-          gitmcp_match_common_libs_owner_repo_mapping = "allow";
-          gitmcp_fetch_generic_documentation = "allow";
-          gitmcp_search_generic_documentation = "allow";
-          gitmcp_search_generic_code = "allow";
-          gitmcp_fetch_generic_url_content = "allow";
-        };
+        permission = {"*" = "ask";} // utils.opencodePermissions;
 
         mcp =
           lib.mapAttrs (
