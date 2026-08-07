@@ -43,27 +43,31 @@
         }
       ];
 
-      initContent =
-        lib.mkBefore
-        # zsh
-        ''
-          zmodload zsh/zprof
-          bindkey -e
+      initContent = lib.mkMerge [
+        (
+          lib.mkBefore
+          # zsh
+          ''
+            zmodload zsh/zprof
+            bindkey -e
 
-          autoload -Uz compinit
-          () {
-            setopt localoptions extendedglob
-            local dump_file="${config.xdg.configHome}/zsh/.zcompdump"
-            if [[ -n "$dump_file"(#qN.m-1) ]]; then
-              compinit -C -d "$dump_file"
-            else
-              compinit -d "$dump_file"
-            fi
-          }
+            autoload -Uz compinit
+            () {
+              setopt localoptions extendedglob
+              local dump_file="${config.xdg.configHome}/zsh/.zcompdump"
+              if [[ -n "$dump_file"(#qN.m-1) ]]; then
+                compinit -C -d "$dump_file"
+              else
+                compinit -d "$dump_file"
+              fi
+            }
 
-          # Set SHELL in nix shells
-          export SHELL=${config.shell.command}
-        '';
+            # Set SHELL in nix shells
+            export SHELL=${config.shell.command}
+          ''
+        )
+        (lib.mkAfter (builtins.readFile ./cds.sh))
+      ];
     };
   };
 }
