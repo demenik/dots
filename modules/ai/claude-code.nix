@@ -42,8 +42,12 @@
       settings = {
         editorMode = "vim";
 
-        defaultMode = "acceptEdits";
-        permissions = utils.claudeCodePermissions;
+        permissions =
+          {
+            defaultMode = "acceptEdits";
+            disableAutoMode = "disable";
+          }
+          // utils.claudeCodePermissions;
 
         hooks = {
           Notification = let
