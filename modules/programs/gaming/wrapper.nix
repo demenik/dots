@@ -210,7 +210,7 @@ in {
           fi
 
           if [ "$gamescope_enable" = "true" ]; then
-            cmd=(gamescope "''${gamescope_args[@]}" -- "''${cmd[@]}")
+            cmd=(env -u MANGOHUD gamescope "''${gamescope_args[@]}" -- "''${cmd[@]}")
           fi
 
           if [ "''${#env_args[@]}" -gt 0 ]; then
