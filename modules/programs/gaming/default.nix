@@ -26,14 +26,14 @@
         args = {
           W = getMonitorAttr ["mode" "width"] 1920;
           H = getMonitorAttr ["mode" "height"] 1080;
+          r = builtins.ceil (getMonitorAttr ["mode" "refresh"] 144);
           f = true;
 
           adaptive-sync = (getMonitorAttr ["vrr"] false) != false;
           hdr-enabled = (getMonitorAttr ["colorMode"] "auto") == "hdr";
-
-          mangoapp = true;
         };
       };
+      mangohud.enable = true;
     };
   };
 

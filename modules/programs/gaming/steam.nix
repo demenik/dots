@@ -52,7 +52,6 @@
     programs.steam = {
       enable = true;
       package = pkgs.millennium-steam.override {
-        extraEnv.MANGOHUD = true;
         extraPkgs = _: [config.programs.gaming.wrapper.script];
       };
 

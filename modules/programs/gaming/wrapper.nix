@@ -23,6 +23,12 @@
         default = null;
         description = "Whether to wrap this game with gamemoderun. Defaults to `programs.gaming.wrapper.defaults.gamemode.enable` when null.";
       };
+
+      mangohud.enable = mkOption {
+        type = types.nullOr types.bool;
+        default = null;
+        description = "Whether to show the MangoHud overlay for this game (via gamescope's mangoapp when gamescope is used, or the MANGOHUD env var otherwise). Defaults to `programs.gaming.wrapper.defaults.mangohud.enable` when null.";
+      };
     };
   };
 in {
@@ -46,6 +52,12 @@ in {
           type = types.bool;
           default = false;
           description = "Whether games wrap with gamemoderun by default when not overridden per-game.";
+        };
+
+        mangohud.enable = mkOption {
+          type = types.bool;
+          default = false;
+          description = "Whether to show the MangoHud overlay by default when not overridden per-game (via gamescope's mangoapp when gamescope is used, or the MANGOHUD env var otherwise).";
         };
       };
 
@@ -139,18 +151,24 @@ in {
         ) (attrNames present);
 
       effectiveGames =
-        mapAttrs (_: game: {
+        mapAttrs (_: game: let
+          mangohudEnable =
+            if game.mangohud.enable == null
+            then cfg.defaults.mangohud.enable
+            else game.mangohud.enable;
+        in {
           gamescope = {
             enable =
               if game.gamescope.enable == null
               then cfg.defaults.gamescope.enable
               else game.gamescope.enable;
-            args = cfg.defaults.gamescope.args // game.gamescope.args;
+            args = (cfg.defaults.gamescope.args // game.gamescope.args) // {mangoapp = mangohudEnable;};
           };
           gamemode.enable =
             if game.gamemode.enable == null
             then cfg.defaults.gamemode.enable
             else game.gamemode.enable;
+          mangohud.enable = mangohudEnable;
         })
         cfg.games;
 
@@ -159,6 +177,7 @@ in {
           gamescope_enable=${boolToString game.gamescope.enable}
           gamescope_args=(${concatMapStringsSep " " escapeShellArg (mkFlags game.gamescope.args)})
           gamemode_enable=${boolToString game.gamemode.enable}
+          mangohud_enable=${boolToString game.mangohud.enable}
           ;;
       '';
 
@@ -177,6 +196,7 @@ in {
           gamescope_enable=${boolToString cfg.defaults.gamescope.enable}
           gamescope_args=(${concatMapStringsSep " " escapeShellArg (mkFlags cfg.defaults.gamescope.args)})
           gamemode_enable=${boolToString cfg.defaults.gamemode.enable}
+          mangohud_enable=${boolToString cfg.defaults.mangohud.enable}
 
           case "$game_id" in
             ${concatStrings (mapAttrsToList mkCase effectiveGames)}
@@ -210,7 +230,13 @@ in {
           fi
 
           if [ "$gamescope_enable" = "true" ]; then
-            cmd=(env -u MANGOHUD gamescope "''${gamescope_args[@]}" -- "''${cmd[@]}")
+            cmd=(gamescope "''${gamescope_args[@]}" -- "''${cmd[@]}")
+          fi
+
+          if [ "$gamescope_enable" = "true" ] || [ "$mangohud_enable" != "true" ]; then
+            cmd=(env -u MANGOHUD "''${cmd[@]}")
+          else
+            cmd=(env MANGOHUD=1 "''${cmd[@]}")
           fi
 
           if [ "''${#env_args[@]}" -gt 0 ]; then
