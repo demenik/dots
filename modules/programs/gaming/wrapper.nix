@@ -29,6 +29,18 @@
         default = null;
         description = "Whether to show the MangoHud overlay for this game (via gamescope's mangoapp when gamescope is used, or the MANGOHUD env var otherwise). Defaults to `programs.gaming.wrapper.defaults.mangohud.enable` when null.";
       };
+
+      env = mkOption {
+        type = types.attrsOf (types.nullOr types.str);
+        default = {};
+        description = "Extra environment variables for this game, merged over `programs.gaming.wrapper.defaults.env` (set a key to null to unset an inherited default).";
+      };
+
+      extraArgs = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "Extra CLI arguments appended after the game's own arguments, in addition to `programs.gaming.wrapper.defaults.extraArgs`.";
+      };
     };
   };
 in {
@@ -58,6 +70,18 @@ in {
           type = types.bool;
           default = false;
           description = "Whether to show the MangoHud overlay by default when not overridden per-game (via gamescope's mangoapp when gamescope is used, or the MANGOHUD env var otherwise).";
+        };
+
+        env = mkOption {
+          type = types.attrsOf types.str;
+          default = {};
+          description = "Default extra environment variables, merged under each game's `env`.";
+        };
+
+        extraArgs = mkOption {
+          type = types.listOf types.str;
+          default = [];
+          description = "Default extra CLI arguments, prepended before each game's `extraArgs`.";
         };
       };
 
@@ -150,6 +174,11 @@ in {
             else [flag (toString value)]
         ) (attrNames present);
 
+      mkEnvArgs = env: let
+        args = filterAttrs (_: v: v != null) env;
+      in
+        map (name: "${name}=${args.${name}}") (attrNames args);
+
       effectiveGames =
         mapAttrs (_: game: let
           mangohudEnable =
@@ -169,6 +198,8 @@ in {
             then cfg.defaults.gamemode.enable
             else game.gamemode.enable;
           mangohud.enable = mangohudEnable;
+          env = cfg.defaults.env // game.env;
+          extraArgs = cfg.defaults.extraArgs ++ game.extraArgs;
         })
         cfg.games;
 
@@ -178,6 +209,8 @@ in {
           gamescope_args=(${concatMapStringsSep " " escapeShellArg (mkFlags game.gamescope.args)})
           gamemode_enable=${boolToString game.gamemode.enable}
           mangohud_enable=${boolToString game.mangohud.enable}
+          game_env_args=(${concatMapStringsSep " " escapeShellArg (mkEnvArgs game.env)})
+          extra_args=(${concatMapStringsSep " " escapeShellArg game.extraArgs})
           ;;
       '';
 
@@ -197,6 +230,8 @@ in {
           gamescope_args=(${concatMapStringsSep " " escapeShellArg (mkFlags cfg.defaults.gamescope.args)})
           gamemode_enable=${boolToString cfg.defaults.gamemode.enable}
           mangohud_enable=${boolToString cfg.defaults.mangohud.enable}
+          game_env_args=(${concatMapStringsSep " " escapeShellArg (mkEnvArgs cfg.defaults.env)})
+          extra_args=(${concatMapStringsSep " " escapeShellArg cfg.defaults.extraArgs})
 
           case "$game_id" in
             ${concatStrings (mapAttrsToList mkCase effectiveGames)}
@@ -223,7 +258,7 @@ in {
             esac
           done
 
-          cmd=("$@")
+          cmd=("$@" "''${extra_args[@]}")
 
           if [ "$gamemode_enable" = "true" ]; then
             cmd=(gamemoderun "''${cmd[@]}")
@@ -241,6 +276,10 @@ in {
 
           if [ "''${#env_args[@]}" -gt 0 ]; then
             cmd=(env "''${env_args[@]}" "''${cmd[@]}")
+          fi
+
+          if [ "''${#game_env_args[@]}" -gt 0 ]; then
+            cmd=(env "''${game_env_args[@]}" "''${cmd[@]}")
           fi
 
           exec "''${cmd[@]}"
