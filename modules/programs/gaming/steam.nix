@@ -27,7 +27,11 @@
           h = "1080";
           S = "stretch";
 
+          # https://github.com/ValveSoftware/gamescope/issues/1636#issuecomment-2568139933
+          backend = "sdl";
+
           force-grab-cursor = true;
+          hdr-enabled = false;
         };
       };
     };
