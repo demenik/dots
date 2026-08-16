@@ -34,6 +34,8 @@
           hdr-enabled = false;
         };
       };
+      # Overwatch
+      "steam:730".mangohud.enable = false;
     };
   };
 
