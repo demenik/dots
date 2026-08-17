@@ -71,7 +71,6 @@
     ../../modules/programs/gaming/games/minecraft.nix
 
     ../../modules/ai/opencode.nix
-    ../../modules/ai/gemini-cli.nix
     ../../modules/ai/antigravity-cli.nix
     ../../modules/ai/claude-code.nix
     ../../modules/cli/bat.nix
