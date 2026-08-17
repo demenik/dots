@@ -44,8 +44,14 @@
       };
 
       # Overwatch
-      "steam:730" = {
-        mangohud.enable = false;
+      "steam:2357570" = {
+        gamescope = {
+          enable = true;
+          args = {
+            force-grab-cursor = true;
+            hdr-enabled = false;
+          };
+        };
         env = {
           DXVK_CONFIG = "\"dxvk.trackPipelineLifetime = True;\"";
           __GL_SHADER_DISK_CACHE_SKIP_CLEANUP = "1";
