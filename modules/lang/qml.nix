@@ -28,6 +28,12 @@
     lib.mkIf cfg.enable {
       home.packages = lib.mkIf cfg.onPath (lib.unique (builtins.attrValues packages));
 
+      home.file.".config/.qmlformat.ini".text = ''
+        [General]
+        IndentWidth=2
+        UseTabs=false
+      '';
+
       lang.meta.qml = {
         enable = true;
         inherit packages;
