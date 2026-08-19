@@ -11,6 +11,7 @@ in {
     ./java.nix
     ./lua.nix
     ./python.nix
+    ./qml.nix
     ./rust.nix
     ./web.nix
   ];
