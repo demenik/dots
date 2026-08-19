@@ -62,6 +62,13 @@ in {
           name = "Dominik Bernroider";
         };
       })
+      (mkRemoteConfig {
+        host = "git.overleaf.com";
+        config.user = {
+          email = "dominik.bernroider@uni-ulm.de";
+          name = "Dominik Bernroider";
+        };
+      })
     ];
   };
 }

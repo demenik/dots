@@ -21,5 +21,9 @@ in {
     "credential \"https://github.com\"" = lib.mkIf (config.sops.secrets ? github-token) {
       helper = "!${credHelper "demenik" config.sops.secrets.github-token.path}";
     };
+
+    "credential \"https://git.overleaf.com\"" = lib.mkIf (config.sops.secrets ? overleaf-git-token) {
+      helper = "!${credHelper "git" config.sops.secrets.overleaf-git-token.path}";
+    };
   };
 }

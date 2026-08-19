@@ -144,6 +144,7 @@
   secrets = {
     "git/gitea-token".path = ./secrets/git.sops.yaml;
     "git/github-token".path = ./secrets/git.sops.yaml;
+    "git/overleaf-git-token".path = ./secrets/git.sops.yaml;
     "nvim/gitlab-tokens".path = ./secrets/git.sops.yaml;
 
     "nextcloud-mount/nextcloud-mount".path = ./secrets/nextcloud-mount.sops.yaml;

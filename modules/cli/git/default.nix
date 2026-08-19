@@ -27,6 +27,11 @@
       required = false;
       description = "GitHub Personal Access Token";
     };
+    overleaf-git-token = {
+      usedBy = "hm";
+      required = false;
+      description = "Overleaf Git Token";
+    };
   };
 
   home = {pkgs, ...}: {
