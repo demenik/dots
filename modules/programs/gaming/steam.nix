@@ -45,8 +45,9 @@
 
       # Overwatch
       "steam:2357570" = {
+        mangohud.enable = false;
         gamescope = {
-          enable = true;
+          enable = false;
           args = {
             force-grab-cursor = true;
             hdr-enabled = false;
