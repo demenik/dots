@@ -32,6 +32,53 @@
           ${builtins.concatStringsSep " " utils.wrapperArgs}
       '';
     };
+
+    claude-tmux-status = pkgs.writeShellApplication {
+      name = "claude-tmux-status";
+      runtimeInputs = [pkgs.tmux pkgs.jq];
+      text = ''
+        event="''${1:-}"
+        pane="''${TMUX_PANE:-}"
+        [ -z "$pane" ] && exit 0
+
+        input="$(cat)"
+
+        status=""
+        case "$event" in
+        UserPromptSubmit | PostToolUse)
+          status="working"
+          ;;
+        Notification)
+          message="$(jq -r '.message // ""' <<<"$input")"
+          if [[ "$message" == *permission* ]]; then
+            status="permission"
+          else
+            status="waiting"
+          fi
+          ;;
+        Stop)
+          status="done"
+          ;;
+        SessionStart)
+          status="waiting"
+          ;;
+        SessionEnd)
+          status=""
+          ;;
+        esac
+
+        tmux set-option -t "$pane" -w @claude_status "$status" 2>/dev/null || true
+      '';
+    };
+
+    statusHook = event: {
+      hooks = [
+        {
+          type = "command";
+          command = "${lib.getExe claude-tmux-status} ${event}";
+        }
+      ];
+    };
   in {
     home.file.".claude/CLAUDE.md".source = ./.guidelines.md;
 
@@ -53,6 +100,15 @@
           commit = "";
           pr = "";
           sessionUrl = false;
+        };
+
+        hooks = {
+          UserPromptSubmit = [(statusHook "UserPromptSubmit")];
+          PostToolUse = [({matcher = "";} // statusHook "PostToolUse")];
+          Notification = [(statusHook "Notification")];
+          Stop = [(statusHook "Stop")];
+          SessionStart = [(statusHook "SessionStart")];
+          SessionEnd = [(statusHook "SessionEnd")];
         };
       };
 
