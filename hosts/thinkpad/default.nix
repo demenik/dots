@@ -12,7 +12,7 @@
   modules = [
     ../default.nix
     ../../modules/system/boot/systemd-boot.nix
-    ../../modules/greeter/greetd.nix
+    ../../modules/greeter/greetd/noctalia-greeter.nix
     ../../modules/system/fprint.nix
 
     ../../modules/system/eduroam.nix

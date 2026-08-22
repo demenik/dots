@@ -10,6 +10,7 @@
 
   nixos = {
     pkgs,
+    lib,
     config,
     ...
   }: {
@@ -20,6 +21,10 @@
         if config.fprint.driver != null
         then config.fprint.driver
         else pkgs.libfprint-2-tod1-goodix-550a;
+    };
+
+    programs = lib.optionalAttrs (config.programs ? noctalia-greeter) {
+      noctalia-greeter.settings.auth.allow_empty_password = true;
     };
   };
 }

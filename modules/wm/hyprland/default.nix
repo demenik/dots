@@ -13,6 +13,7 @@
     greeter.sessions = [
       (lib.getExe' pkgs.hyprland "start-hyprland")
     ];
+    greeter.sessionName = "Hyprland";
   };
 
   nixos = {

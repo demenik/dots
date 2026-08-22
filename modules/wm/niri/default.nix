@@ -16,6 +16,7 @@
     greeter.sessions = [
       (lib.getExe' inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri-stable "niri-session")
     ];
+    greeter.sessionName = "Niri";
   };
 
   home = {

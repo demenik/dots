@@ -14,7 +14,7 @@
   modules = [
     ../default.nix
     ../../modules/system/boot/lanzaboote.nix
-    ../../modules/greeter/greetd.nix
+    ../../modules/greeter/greetd/noctalia-greeter.nix
     ../../modules/programs/coolercontrol.nix
 
     ../../modules/programs/gaming/steam.nix
