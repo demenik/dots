@@ -82,6 +82,29 @@
   in {
     home.file.".claude/CLAUDE.md".source = ./.guidelines.md;
 
+    programs.tmux.statusIcons.groups.claude = {
+      variable = "@claude_status";
+      states = {
+        permission = {
+          icon = "󰠗";
+          color = "red";
+          blink = true;
+        };
+        working = {
+          icon = "󰦖";
+          color = "yellow";
+        };
+        waiting = {
+          icon = "󱋑";
+          color = "blue";
+        };
+        done = {
+          icon = "";
+          color = "green";
+        };
+      };
+    };
+
     programs.claude-code = {
       enable = true;
       package = claude-code-wrapped;

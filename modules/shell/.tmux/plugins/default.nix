@@ -3,7 +3,7 @@
     ./vim-tmux-nav.nix
     ./notify.nix
     ./theme.nix
-    ./claude-status.nix
+    ./status-icons.nix
   ];
 
   programs.tmux.plugins = with pkgs.tmuxPlugins; [
