@@ -16,6 +16,14 @@
         options.desc = "Comment line";
         action = "<cmd>normal gcc<cr>";
       }
+      {
+        key = "<C-LeftMouse>";
+        options = {
+          desc = "Go to file + line on Ctrl+Click";
+          silent = true;
+        };
+        action = "<LeftMouse>gF";
+      }
 
       (toggle "w" "wrap")
       (toggle "n" "number")

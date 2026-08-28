@@ -6,6 +6,7 @@
       backup = false;
       writebackup = false;
       mouse = "a";
+      path = ".,,**";
 
       # Appearance
       breakindent = true;
