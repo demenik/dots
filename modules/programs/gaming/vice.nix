@@ -6,7 +6,7 @@
     config,
     ...
   }: {
-    programs = lib.mkIf (config.programs ? noctalia) {
+    programs = lib.optionalAttrs (config.programs ? noctalia) {
       noctalia.plugins = lib.mkIf (config.programs.noctalia.plugins ? privacy-indicator) {
         privacy-indicator.micFilterRegexes = [
           "^gsr-.*$"
