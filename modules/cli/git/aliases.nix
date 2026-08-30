@@ -12,7 +12,17 @@
 
     amend = "commit --amend --no-edit";
     uncommit = "reset --soft HEAD~1";
-    fix = ''!f() { git commit --fixup "$1" && git rebase -i --autosquash "$1"~1; }; f'';
+    fix = ''
+      !f() {
+        if [ -z \""$1"\" ]; then
+          echo \"Error: Target commit hash required.\"
+          return 1
+        fi
+        git commit --fixup \""$1"\" &&
+          GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash --autostash \""$1"\"~1
+      }
+      f
+    '';
 
     lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
     search = "!git log -S";
