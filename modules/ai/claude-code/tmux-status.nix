@@ -52,7 +52,7 @@ with lib; let
     ];
   };
 in
-  mkIf (config.programs.tmux ? statusIcons) {
+  mkIf config.programs.tmux.enable {
     programs.tmux.statusIcons.groups.claude = {
       variable = "@claude_status";
       states = {
