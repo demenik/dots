@@ -21,14 +21,12 @@
         keys = {
           prefix = "ctrl+space";
 
-          focus_pane_left = "alt+left";
-          focus_pane_down = "alt+down";
-          focus_pane_up = "alt+up";
-          focus_pane_right = "alt+right";
-
           previous_tab = "shift+left";
           next_tab = "shift+right";
           indexed.tabs = "ctrl";
+
+          split_vertical = "prefix+#";
+          split_horizontal = "prefix+-";
 
           copy_mode = "prefix+v";
         };
