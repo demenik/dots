@@ -5,6 +5,13 @@
 }: {
   programs.git.settings.alias = {
     st = "status -sb";
+    stt =
+      "!"
+      + lib.getExe (pkgs.writeShellApplication {
+        name = "git-stt";
+        runtimeInputs = with pkgs; [git python3];
+        text = "python3 " + toString ./stt.py;
+      });
     sw = "switch";
     swc = ''!f() { remote=\''${2:-origin}; git fetch "$remote" "$1" && git switch -c "$1" "$remote/$1"; }; f'';
     br = "branch";
