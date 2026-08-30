@@ -4,6 +4,10 @@
     ../default.nix
   ];
 
+  imports = [
+    ./plugins
+  ];
+
   home = {config, ...}: {
     imports = [
       ./init.nix
