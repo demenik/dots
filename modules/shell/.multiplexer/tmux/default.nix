@@ -1,5 +1,8 @@
 {
   name = "tmux";
+  modules = [
+    ../default.nix
+  ];
 
   overlays.home = [
     (final: prev: {

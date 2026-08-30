@@ -28,6 +28,8 @@
       ./vi.nix
     ];
 
+    home.packages = with pkgs; [jq]; # needed for cds script
+
     programs.zsh = {
       enable = true;
       package = pkgs.zsh;

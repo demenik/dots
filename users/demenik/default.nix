@@ -34,7 +34,7 @@
 
     ../../modules/terminal/kitty.nix
     ../../modules/shell/zsh
-    ../../modules/shell/.tmux
+    ../../modules/shell/.multiplexer/herdr
 
     ../../modules/cli/sudo-rs.nix
     ../../modules/cli/uutils.nix
@@ -139,6 +139,8 @@
     };
 
     lang."*".enable = true;
+
+    multiplexer.autoAttach.backend = "herdr";
   };
 
   secrets = {

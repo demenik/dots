@@ -6,7 +6,7 @@
 
     ../../modules/nix.nix
     ../../modules/shell/zsh
-    ../../modules/shell/.tmux
+    ../../modules/shell/.multiplexer/herdr
     ../../modules/editors/nvim
 
     ../../modules/cli/git
@@ -44,6 +44,8 @@
       base0E = "cba6f7";
       base0F = "f2cdcd";
     };
+
+    multiplexer.autoAttach.backend = "herdr";
   };
 
   homeConfig = {
