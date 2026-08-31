@@ -75,7 +75,7 @@
       m = builtins.match "([a-zA-Z0-9-]+)_(.*)" pattern;
     in
       if m != null
-      then "mcp__${builtins.elemAt m 0}__${builtins.elemAt m 1}"
+      then "mcp__plugin_hm_${builtins.elemAt m 0}__${builtins.elemAt m 1}"
       else pattern;
   in {
     allow = wrapAction "allow" ++ map mcpRule config.ai.permissions.mcp.allow;
