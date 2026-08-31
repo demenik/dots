@@ -4,9 +4,9 @@
   nixos = {
     services.i2pd = {
       enable = true;
-      proto = {
-        httpProxy.enable = true;
-        socksProxy.enable = true;
+      settings = {
+        httpproxy.enabled = true;
+        socksproxy.enabled = true;
       };
     };
   };
