@@ -31,7 +31,10 @@
           copy_mode = "prefix+v";
         };
 
-        ui.mouse_capture = true;
+        ui = {
+          mouse_capture = true;
+          tab_bar_position = "bottom";
+        };
 
         experimental.kitty_graphics = config.programs.kitty.enable;
       };
