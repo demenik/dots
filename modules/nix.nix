@@ -58,5 +58,10 @@
         extraArgs = "--keep 5 --keep-since 1d";
       };
     };
+
+    ai.mcp.nixmcp = {
+      type = "local";
+      command = [(lib.getExe pkgs.mcp-nixos)];
+    };
   };
 }
