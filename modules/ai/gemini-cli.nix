@@ -70,24 +70,7 @@
 
           mcpServers =
             lib.mapAttrs (
-              name: server:
-                lib.filterAttrs (n: v: v != null && v != {}) {
-                  command = utils.getCommand server;
-                  args = utils.getArgs server;
-                  inherit (server) url headers;
-
-                  env = lib.filterAttrs (k: v: v != null) (
-                    lib.mapAttrs (
-                      k: v:
-                        if v.text != null
-                        then v.text
-                        else if v.path != null
-                        then "\$${k}"
-                        else null
-                    )
-                    server.env
-                  );
-                }
+              name: server: utils.mkMcpServer {inherit name server;}
             )
             config.ai.mcp;
         };

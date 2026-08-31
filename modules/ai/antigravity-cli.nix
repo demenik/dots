@@ -60,35 +60,33 @@
         ".gemini/config/mcp_config.json".text = builtins.toJSON {
           mcpServers =
             lib.mapAttrs (
-              name: server:
-                lib.filterAttrs (n: v: v != null && v != {}) {
-                  command =
-                    if server.type == "remote"
-                    then "npx"
-                    else utils.getCommand server;
-                  args =
-                    if server.type == "remote"
-                    then [
-                      "-y"
-                      "mcp-remote@0.1.38"
-                      server.url
-                      "--transport"
-                      (
-                        if lib.hasPrefix "http://" server.url
-                        then "http-only"
-                        else "sse"
-                      )
-                    ]
-                    else utils.getArgs server;
-                  env = lib.filterAttrs (k: v: v != null) (
-                    lib.mapAttrs (
-                      k: v:
-                        if v.text != null
-                        then v.text
-                        else null
-                    )
-                    server.env
-                  );
+              name: server: let
+                localCommand = utils.mcpLocalCommand name server;
+              in
+                lib.hm.mcp.transformMcpServer {
+                  server = {
+                    command =
+                      if server.type == "remote"
+                      then "npx"
+                      else builtins.head localCommand;
+                    args =
+                      if server.type == "remote"
+                      then [
+                        "-y"
+                        "mcp-remote@0.1.38"
+                        server.url
+                        "--transport"
+                        (
+                          if lib.hasPrefix "http://" server.url
+                          then "http-only"
+                          else "sse"
+                        )
+                      ]
+                      else lib.tail localCommand;
+                    env = lib.filterAttrs (_: v: v != null) (
+                      lib.mapAttrs (_: v: v.text) server.env
+                    );
+                  };
                 }
             )
             config.ai.mcp;

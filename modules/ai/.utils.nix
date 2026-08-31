@@ -19,21 +19,26 @@
     )
     config.ai.skills;
 
-  allEnvList = lib.flatten (
+  # Only remote servers need their secret in the CLI process environment, since
+  # it is consumed as a request header. Local-server secrets are scoped to a
+  # per-server launcher script instead (see mkMcpServer/mcpLocalCommand)
+  remoteEnvList = lib.flatten (
     lib.mapAttrsToList (
-      n: s:
-        lib.mapAttrsToList (
-          envName: envConfig: {
-            inherit envName;
-            inherit (envConfig) path text;
-          }
+      _: s:
+        lib.optionals (s.type == "remote") (
+          lib.mapAttrsToList (
+            envName: envConfig: {
+              inherit envName;
+              inherit (envConfig) path text;
+            }
+          )
+          s.env
         )
-        s.env
     )
     config.ai.mcp
   );
 
-  uniqueEnvs = lib.unique allEnvList;
+  uniqueEnvs = lib.unique remoteEnvList;
 
   wrapperArgs =
     map (
@@ -46,15 +51,56 @@
     )
     uniqueEnvs;
 
-  getCommand = server:
-    if server.type == "local" && server.command != null && (builtins.length server.command > 0)
-    then builtins.head server.command
-    else null;
+  # Bridge an `ai.mcp.<name>` entry to the shape home-manager's `lib.hm.mcp`
+  # helpers expect: scalar command plus args list, and env as file-ref
+  # submodules (`{ file = path; }`) or literal strings.
+  mcpToHm = server: let
+    hasCommand = server.command != null && server.command != [];
+  in
+    {
+      command =
+        if hasCommand
+        then builtins.head server.command
+        else null;
+      args =
+        if hasCommand
+        then lib.tail server.command
+        else [];
+      inherit (server) url headers;
+    }
+    // lib.optionalAttrs (server.type == "local") {
+      env =
+        lib.mapAttrs (
+          _: v:
+            if v.path != null
+            then {file = v.path;}
+            else v.text
+        )
+        server.env;
+    };
 
-  getArgs = server:
-    if server.type == "local" && server.command != null && (builtins.length server.command > 0)
-    then lib.tail server.command
-    else null;
+  # Launch command for a local server as an argv list, with file-backed
+  # secrets folded into a per-server wrapper script that reads them at
+  # startup. Returns null for remote servers.
+  mcpLocalCommand = name: server:
+    if server.type != "local"
+    then null
+    else let
+      wrapped = lib.hm.mcp.wrapEnvFilesCommand {inherit pkgs name;} (mcpToHm server);
+    in
+      [wrapped.command] ++ wrapped.args;
+
+  # Normalise an `ai.mcp` server for a consumer: per-server secret wrapping
+  # plus home-manager's shared cleanup (enabled/disabled resolution, dropping
+  # null/empty values).
+  mkMcpServer = {
+    name,
+    server,
+  }:
+    lib.hm.mcp.transformMcpServer {
+      server = mcpToHm server;
+      extraTransforms = [(lib.hm.mcp.wrapEnvFilesCommand {inherit pkgs name;})];
+    };
 
   claudeCodePermissions = let
     toolCategories = {

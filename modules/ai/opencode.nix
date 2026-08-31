@@ -46,7 +46,7 @@
                 inherit (server) url;
                 headers =
                   lib.mapAttrs (
-                    k: v:
+                    _: v:
                       builtins.replaceStrings
                       (map (s: "\$${s}") (lib.attrNames server.env))
                       (map (s: "{env:${s}}") (lib.attrNames server.env))
@@ -55,30 +55,20 @@
                   server.headers;
               };
 
-              localConfig = let
-                envFiltered = lib.filterAttrs (k: v: v != null) (
-                  lib.mapAttrs (
-                    k: v:
-                      if v.text != null
-                      then v.text
-                      else null
-                  )
-                  server.env
-                );
-              in {
+              localConfig = {
                 type = "local";
-                inherit (server) command;
-                environment =
-                  if envFiltered == {}
-                  then null
-                  else envFiltered;
+                command = utils.mcpLocalCommand name server;
+                environment = lib.filterAttrs (_: v: v != null) (
+                  lib.mapAttrs (_: v: v.text) server.env
+                );
               };
             in
-              lib.filterAttrs (n: v: v != null && v != {}) (
-                if server.type == "remote"
-                then remoteConfig
-                else localConfig
-              )
+              lib.hm.mcp.transformMcpServer {
+                server =
+                  if server.type == "remote"
+                  then remoteConfig
+                  else localConfig;
+              }
           )
           config.ai.mcp;
       };
