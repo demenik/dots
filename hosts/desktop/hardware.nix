@@ -117,7 +117,6 @@ in {
       kernelModules = ["kvm-amd"];
 
       loader.systemd-boot.consoleMode = "auto";
-      lanzaboote.extraDirectories."EFI/Microsoft/Boot" = "/mnt/WINDOWS_ESP/EFI/Microsoft/Boot";
     };
 
     fileSystems = {
@@ -131,11 +130,6 @@ in {
         options = ["fmask=0077" "dmask=0077"];
       };
 
-      "/mnt/WINDOWS_ESP" = {
-        device = "/dev/disk/by-label/SYSTEM";
-        fsType = "vfat";
-        options = ["nofail" "x-systemd.automount" "x-systemd.idle-timeout=10min" "x-gvfs-hide"];
-      };
       "/mnt/WINDOWS" = {
         device = "/dev/disk/by-label/WINDOWS";
         fsType = "ntfs3";
@@ -145,7 +139,6 @@ in {
           "fmask=0113"
           "dmask=0002"
           "windows_names"
-          "discard"
           "nofail"
           "user"
           "x-systemd.automount"
@@ -162,7 +155,6 @@ in {
           "fmask=0113"
           "dmask=0002"
           "windows_names"
-          "discard"
           "nofail"
           "user"
           "x-systemd.automount"
