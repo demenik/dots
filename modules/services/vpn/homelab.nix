@@ -22,10 +22,7 @@
       enable = true;
       authKeyFile = authKeyPath;
 
-      extraUpFlags = [
-        "--reset"
-        "--accept-routes"
-      ];
+      useRoutingFeatures = "client";
     };
 
     networking.networkmanager = {
