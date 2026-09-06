@@ -1,6 +1,35 @@
-{
-  home = {pkgs, ...}: let
+{lib, ...}: {
+  moduleOptions = with lib; {
+    programs.herdr.mirror = {
+      settings = mkOption {
+        type = with types; attrsOf anything;
+        default = {};
+        description = ''
+          Global herdr-mirror options written to the root of
+          `~/.config/herdr-mirror/hosts.toml`.
+        '';
+      };
+
+      hosts = mkOption {
+        type = with types; attrsOf (attrsOf anything);
+        default = {};
+        example = {work.target = "user@host";};
+        description = ''
+          Per-host mirror targets (`[hosts.<name>]`). `target` is required per
+          host. When empty and `settings` is empty, no config file is written.
+        '';
+      };
+    };
+  };
+
+  home = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: let
     version = "0.4.3";
+    cfg = config.programs.herdr.mirror;
 
     plat = {
       x86_64-linux = {
@@ -25,15 +54,28 @@
       url = "https://github.com/nikok6/herdr-mirror/releases/download/v${version}/herdr-mirror-linux-${arch}";
       inherit hash;
     };
+
+    hasConfig = cfg.hosts != {} || cfg.settings != {};
+    hostsToml =
+      (pkgs.formats.toml {}).generate "herdr-mirror-hosts.toml"
+      (cfg.settings // {hosts = cfg.hosts;});
+
+    pkg = pkgs.runCommand "herdr-mirror-${version}" {} ''
+      cp -r "${src}" "$out"
+      chmod -R u+w "$out"
+      install -Dm755 "${bin}" "$out"/target/release/herdr-mirror
+    '';
   in {
+    # Plugin keybindings hardcode the absolute ~/.local/bin/herdr-mirror path
+    home.file.".local/bin/herdr-mirror".source = "${pkg}/target/release/herdr-mirror";
+
     programs.herdr.plugins = [
       {
-        package = pkgs.runCommand "herdr-mirror-${version}" {} ''
-          cp -r "${src}" "$out"
-          chmod -R u+w "$out"
-          install -Dm755 "${bin}" "$out"/target/release/herdr-mirror
-        '';
+        package = pkg;
         runtimeInputs = [pkgs.openssh];
+        configFiles = lib.mkIf hasConfig {
+          "herdr-mirror/hosts.toml".source = hostsToml;
+        };
       }
     ];
   };

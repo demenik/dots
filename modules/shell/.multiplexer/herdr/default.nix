@@ -13,6 +13,7 @@
       ./init.nix
       ./theme.nix
       ./wrapper.nix
+      ./service.nix
     ];
 
     programs.herdr = {

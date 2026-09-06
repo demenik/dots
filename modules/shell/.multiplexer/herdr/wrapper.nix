@@ -96,6 +96,8 @@ in {
         built `herdr-plugin.toml`; run any manifest build steps in the
         derivation, since `herdr plugin link` does not. `runtimeInputs` are
         prefixed onto herdr's PATH so the plugin's own commands resolve.
+        `configFiles` are merged into `xdg.configFile` so a plugin can ship
+        its own declaratively rendered config.
       '';
       type = types.listOf (types.coercedTo types.package (package: {inherit package;}) (types.submodule {
         options = {
@@ -107,6 +109,14 @@ in {
             type = types.listOf types.package;
             default = [];
             description = "Packages added to herdr's PATH for this plugin's commands.";
+          };
+          configFiles = mkOption {
+            type = types.attrsOf types.anything;
+            default = {};
+            description = ''
+              Entries merged into `xdg.configFile` (paths relative to
+              `$XDG_CONFIG_HOME`) for this plugin's config files.
+            '';
           };
         };
       }));
@@ -121,6 +131,10 @@ in {
     )
     ++ [
       (mkIf (pluginPath != "") {programs.herdr.package = wrappedPackage;})
+
+      (mkIf (cfg.plugins != []) {
+        xdg.configFile = lib.mkMerge (map (p: p.configFiles) cfg.plugins);
+      })
 
       (mkIf (cfg.plugins != [] && cfg.package != null) {
         home.activation.herdrPlugins =

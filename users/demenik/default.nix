@@ -141,6 +141,7 @@
     lang."*".enable = true;
 
     multiplexer.autoAttach.backend = "herdr";
+    programs.herdr.mirror.hosts.homelab.target = "homelab";
   };
 
   secrets = {
