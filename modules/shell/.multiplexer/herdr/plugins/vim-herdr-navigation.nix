@@ -22,12 +22,7 @@
       '';
     };
 
-    home.activation.linkVimHerdrNavigation =
-      lib.hm.dag.entryAfter ["writeBoundary"]
-      # bash
-      ''
-        ${lib.getExe pkgs.herdr} plugin link "${pkgs.vim-herdr-navigation}" >/dev/null 2>&1 || true
-      '';
+    programs.herdr.plugins = [pkgs.vim-herdr-navigation];
 
     programs.herdr.settings.keys.command = [
       {

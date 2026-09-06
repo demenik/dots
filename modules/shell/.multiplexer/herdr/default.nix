@@ -12,10 +12,13 @@
     imports = [
       ./init.nix
       ./theme.nix
+      ./wrapper.nix
     ];
 
     programs.herdr = {
       enable = true;
+
+      integrations = ["claude" "opencode"];
 
       settings = {
         onboarding = false;
