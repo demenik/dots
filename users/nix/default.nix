@@ -7,9 +7,11 @@
     ../../modules/nix.nix
     ../../modules/shell/zsh
     ../../modules/editors/nvim
+    ../../modules/shell/.multiplexer/herdr
 
     ../../modules/lang
 
+    ../../modules/ai/claude-code
     ../../modules/cli/git
     ../../modules/cli/zoxide.nix
     ../../modules/cli/eza.nix
