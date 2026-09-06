@@ -1,4 +1,11 @@
-{lib, ...}: {
+{lib, ...}: let
+  nixpkgsConfig = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "pnpm-10.29.2"
+    ];
+  };
+in {
   name = "nix";
   moduleOptions = with lib; {
     dots.path = mkOption {
@@ -20,18 +27,14 @@
       };
     };
 
-    nixpkgs.config = {
-      allowUnfree = true;
-      permittedInsecurePackages = [
-        "pnpm-10.29.2"
-      ];
-    };
+    nixpkgs.config = nixpkgsConfig;
   };
 
   home = {
     pkgs,
     lib,
     config,
+    isStandalone,
     ...
   }: let
     nh-wrapped = pkgs.writeShellApplication {
@@ -48,6 +51,8 @@
       '';
     };
   in {
+    nixpkgs.config = lib.mkIf isStandalone nixpkgsConfig;
+
     programs.nh = {
       enable = true;
       package = nh-wrapped;
