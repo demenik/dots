@@ -56,8 +56,26 @@
       };
     };
   };
+
+  pluginPath = lib.makeBinPath (lib.concatMap (p: p.runtimeInputs) cfg.plugins);
+
+  wrappedPackage = pkgs.symlinkJoin {
+    name = "herdr-wrapped";
+    paths = [cfg.wrapper.package];
+    nativeBuildInputs = [pkgs.makeWrapper];
+    postBuild = lib.optionalString (pluginPath != "") ''
+      wrapProgram "$out/bin/herdr" --prefix PATH : ${pluginPath}
+    '';
+    meta.mainProgram = "herdr";
+  };
 in {
   options.programs.herdr = {
+    wrapper.package = mkOption {
+      type = types.package;
+      default = pkgs.herdr;
+      description = "Base herdr package the wrapper wraps.";
+    };
+
     integrations = mkOption {
       type = types.listOf (types.enum supported);
       default = [];
@@ -71,13 +89,27 @@ in {
     };
 
     plugins = mkOption {
-      type = types.listOf types.package;
       default = [];
       description = ''
-        herdr plugins to link on activation. Each package must be a directory
-        containing a built `herdr-plugin.toml`; run any manifest build steps in
-        the derivation, since `herdr plugin link` does not.
+        herdr plugins to link on activation. A bare package is coerced to
+        `{ package = <pkg>; }`. Each package must be a directory containing a
+        built `herdr-plugin.toml`; run any manifest build steps in the
+        derivation, since `herdr plugin link` does not. `runtimeInputs` are
+        prefixed onto herdr's PATH so the plugin's own commands resolve.
       '';
+      type = types.listOf (types.coercedTo types.package (package: {inherit package;}) (types.submodule {
+        options = {
+          package = mkOption {
+            type = types.package;
+            description = "Directory containing a built `herdr-plugin.toml`.";
+          };
+          runtimeInputs = mkOption {
+            type = types.listOf types.package;
+            default = [];
+            description = "Packages added to herdr's PATH for this plugin's commands.";
+          };
+        };
+      }));
     };
   };
 
@@ -88,12 +120,14 @@ in {
       supported
     )
     ++ [
+      (mkIf (pluginPath != "") {programs.herdr.package = wrappedPackage;})
+
       (mkIf (cfg.plugins != [] && cfg.package != null) {
         home.activation.herdrPlugins =
           lib.hm.dag.entryAfter ["writeBoundary"]
           (
             lib.concatMapStringsSep "\n"
-            (p: ''run ${lib.getExe cfg.package} plugin link ${lib.escapeShellArg "${p}"} >/dev/null 2>&1 || true'')
+            (p: ''run ${lib.getExe cfg.package} plugin link ${lib.escapeShellArg "${p.package}"} >/dev/null 2>&1 || true'')
             cfg.plugins
           );
       })
