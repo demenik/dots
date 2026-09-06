@@ -121,9 +121,5 @@
     programs.kitty.extraConfig = lib.optionalString (config.theme.type == "template") ''
       include themes/noctalia.conf
     '';
-
-    home.shellAliases = {
-      ssh = "kitten ssh";
-    };
   };
 }
