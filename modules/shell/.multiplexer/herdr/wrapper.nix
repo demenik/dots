@@ -59,6 +59,50 @@
 
   pluginPath = lib.makeBinPath (lib.concatMap (p: p.runtimeInputs) cfg.plugins);
 
+  herdrBin = lib.optionalString (cfg.package != null) (lib.getExe cfg.package);
+
+  renderEnvFile = settings:
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList
+      (k: v: "${k}=${
+        if lib.isBool v
+        then lib.boolToString v
+        else toString v
+      }")
+      settings
+    );
+
+  pluginSettingsFiles = lib.listToAttrs (
+    lib.concatMap
+    (p:
+      lib.optional (p.settingsFile != null) {
+        name = p.settingsFile;
+        value.text = renderEnvFile p.settings;
+      })
+    cfg.plugins
+  );
+
+  linkPlugin = p: let
+    idExports = lib.optionalString (p.id != null) ''
+      export HERDR_PLUGIN_CONFIG_DIR=${lib.escapeShellArg "${config.xdg.configHome}/herdr/plugins/config/${p.id}"}
+      export HERDR_PLUGIN_STATE_DIR=${lib.escapeShellArg "${config.xdg.stateHome}/herdr/plugins/${p.id}"}
+    '';
+    setup = lib.optionalString (p.setup != "") ''
+      (
+        export HERDR=${lib.escapeShellArg herdrBin}
+        export HERDR_PLUGIN_DIR=${lib.escapeShellArg "${p.package}"}
+        ${idExports}${p.setup}
+      )
+    '';
+  in ''
+    run ${herdrBin} plugin link ${lib.escapeShellArg "${p.package}"} >/dev/null 2>&1 || true${setup}'';
+
+  pluginActivation = lib.concatStringsSep "\n" (
+    map linkPlugin cfg.plugins
+    ++ lib.optional (lib.any (p: p.reloadConfig) cfg.plugins)
+    "run ${herdrBin} server reload-config >/dev/null 2>&1 || true"
+  );
+
   wrappedPackage = pkgs.symlinkJoin {
     name = "herdr-wrapped";
     paths = [cfg.wrapper.package];
@@ -97,7 +141,10 @@ in {
         derivation, since `herdr plugin link` does not. `runtimeInputs` are
         prefixed onto herdr's PATH so the plugin's own commands resolve.
         `configFiles` are merged into `xdg.configFile` so a plugin can ship
-        its own declaratively rendered config.
+        its own declaratively rendered config; `settings` + `settingsFile`
+        cover the common `KEY=value` env-file case. `setup` runs a shell
+        snippet on activation after the link (for plugins with an imperative
+        `configure` step), and `reloadConfig` reloads a live server afterward.
       '';
       type = types.listOf (types.coercedTo types.package (package: {inherit package;}) (types.submodule {
         options = {
@@ -118,6 +165,56 @@ in {
               `$XDG_CONFIG_HOME`) for this plugin's config files.
             '';
           };
+          id = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            example = "herdr-agent-quota";
+            description = ''
+              Plugin id from its `herdr-plugin.toml`. When set, `setup` runs
+              with `HERDR_PLUGIN_CONFIG_DIR` and `HERDR_PLUGIN_STATE_DIR`
+              exported to the directories herdr uses for this plugin at
+              runtime, so a `configure`-style tool writes where the running
+              plugin reads.
+            '';
+          };
+          settings = mkOption {
+            type = types.attrsOf (types.oneOf [types.str types.int types.bool]);
+            default = {};
+            example = {HERDR_AUTO_TITLE_MAX_LENGTH = 24;};
+            description = ''
+              `KEY=value` pairs rendered into `settingsFile` as an env file
+              (booleans become `true`/`false`). Ignored without `settingsFile`.
+            '';
+          };
+          settingsFile = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            example = "herdr-auto-title/config.env";
+            description = ''
+              Path relative to `$XDG_CONFIG_HOME` for the env file rendered
+              from `settings`. Merged into `xdg.configFile` alongside
+              `configFiles`.
+            '';
+          };
+          setup = mkOption {
+            type = types.lines;
+            default = "";
+            description = ''
+              Shell run on activation immediately after this plugin is linked.
+              Use home-manager's `run` wrapper for dry-run support. `$HERDR` is
+              the herdr binary and `$HERDR_PLUGIN_DIR` the linked plugin path;
+              `id` adds the `HERDR_PLUGIN_*_DIR` exports. Pair with
+              `reloadConfig` when the snippet writes herdr's own config.
+            '';
+          };
+          reloadConfig = mkOption {
+            type = types.bool;
+            default = false;
+            description = ''
+              Run `herdr server reload-config` once after every plugin `setup`
+              snippet, so a live server picks up config a snippet wrote.
+            '';
+          };
         };
       }));
     };
@@ -133,17 +230,14 @@ in {
       (mkIf (pluginPath != "") {programs.herdr.package = wrappedPackage;})
 
       (mkIf (cfg.plugins != []) {
-        xdg.configFile = lib.mkMerge (map (p: p.configFiles) cfg.plugins);
+        xdg.configFile = lib.mkMerge (
+          (map (p: p.configFiles) cfg.plugins) ++ [pluginSettingsFiles]
+        );
       })
 
       (mkIf (cfg.plugins != [] && cfg.package != null) {
         home.activation.herdrPlugins =
-          lib.hm.dag.entryAfter ["writeBoundary"]
-          (
-            lib.concatMapStringsSep "\n"
-            (p: ''run ${lib.getExe cfg.package} plugin link ${lib.escapeShellArg "${p.package}"} >/dev/null 2>&1 || true'')
-            cfg.plugins
-          );
+          lib.hm.dag.entryAfter ["writeBoundary"] pluginActivation;
       })
     ]
   ));
