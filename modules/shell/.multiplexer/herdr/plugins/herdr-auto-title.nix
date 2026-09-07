@@ -14,6 +14,9 @@
       inherit version src;
       vendorHash = "sha256-QxFp1b7pf7bn3Hh0hyaj8ke5Z61N+WwjhHt3pFiapTs=";
       subPackages = ["cmd/herdr-auto-title"];
+
+      # Skips herdr-mirror panes
+      patches = [./patches/herdr-auto-title-ignore-mirror.patch];
     };
   in {
     programs.herdr.plugins = [

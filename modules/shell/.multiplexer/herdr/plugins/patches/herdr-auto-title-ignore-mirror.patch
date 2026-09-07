@@ -1,0 +1,232 @@
+diff --git a/internal/app/app.go b/internal/app/app.go
+index c6983fc..34ca47c 100644
+--- a/internal/app/app.go
++++ b/internal/app/app.go
+@@ -118,7 +118,15 @@ func (a *App) readAndRename(ctx context.Context, client herdr.Client) error {
+ 		// Read here rather than during assembly: the reads are what a poll
+ 		// spends, and only a tab that will be renamed is worth them. The
+ 		// resolver picks the same pane, because the choice is made from state.
+-		a.readInto(ctx, client, state.SelectContextPane(tab), checkouts)
++		pane := state.SelectContextPane(tab)
++		a.readInto(ctx, client, pane, checkouts)
++
++		// A herdr-mirror pane's local context describes the mirror, not the
++		// remote pane it shows, so every mirror tab would be named alike.
++		// herdr-mirror names them from the remote itself.
++		if a.cfg.IgnoreMirror && pane.IsMirror() {
++			continue
++		}
+ 
+ 		decision := a.titles.Resolve(tab)
+ 		if a.manual.Observe(state.SightingFrom(tab, decision.Name)) {
+diff --git a/internal/app/app_test.go b/internal/app/app_test.go
+index aa1c5aa..bfdc1e8 100644
+--- a/internal/app/app_test.go
++++ b/internal/app/app_test.go
+@@ -221,6 +221,44 @@ func TestATabAlreadyCorrectlyNamedIsLeftAlone(t *testing.T) {
+ 	}
+ }
+ 
++func TestAMirrorPaneIsLeftForHerdrMirror(t *testing.T) {
++	// Every herdr-mirror pane sits in the same placeholder directory and runs
++	// the same process, so a title built from that names them all alike.
++	// herdr-mirror keeps their labels in step with the remote itself.
++	cfg := testConfig()
++	cfg.IgnoreMirror = true
++	h := startConfigured(t, herdrtest.New(
++		[]herdr.TabInfo{{TabID: "wE:t1", Label: "1"}},
++		[]herdr.PaneInfo{{
++			PaneID: "wE:p1", TabID: "wE:t1", Focused: true,
++			CWD: "/Users/dev/.local/state/herdr-mirror/.mirror-pane",
++		}},
++	), cfg)
++	h.awaitPolls(5)
++
++	if renames := h.client.Renames(); len(renames) != 0 {
++		t.Errorf("issued %v, want no rename of a mirror tab", renames)
++	}
++}
++
++func TestAMirrorPaneIsNamedWhenIgnoreMirrorIsOff(t *testing.T) {
++	// The guard is the only thing holding the rename back: with it off the
++	// same pane is named from its placeholder directory like any other.
++	cfg := testConfig()
++	cfg.IgnoreMirror = false
++	h := startConfigured(t, herdrtest.New(
++		[]herdr.TabInfo{{TabID: "wE:t1", Label: "1"}},
++		[]herdr.PaneInfo{{
++			PaneID: "wE:p1", TabID: "wE:t1", Focused: true,
++			CWD: "/Users/dev/.local/state/herdr-mirror/.mirror-pane",
++		}},
++	), cfg)
++
++	if got := h.awaitRenames(1)[0].Label; got != ".mirror-pane" {
++		t.Errorf("rename = %q, want .mirror-pane", got)
++	}
++}
++
+ func TestATabWithNoContextGetsTheFallback(t *testing.T) {
+ 	h := start(t,
+ 		[]herdr.TabInfo{{TabID: "wE:t1", Label: "1"}},
+diff --git a/internal/app/config.go b/internal/app/config.go
+index c28989c..d5c5664 100644
+--- a/internal/app/config.go
++++ b/internal/app/config.go
+@@ -26,6 +26,8 @@ const (
+ 	EnvManual     = "HERDR_AUTO_TITLE_MANUAL_FILE"
+ 	EnvTranscript = "HERDR_AUTO_TITLE_TRANSCRIPT"
+ 	EnvAgentName  = "HERDR_AUTO_TITLE_AGENT_NAME"
++	// EnvIgnoreMirror leaves herdr-mirror panes for herdr-mirror to name.
++	EnvIgnoreMirror = "HERDR_AUTO_TITLE_IGNORE_MIRROR"
+ )
+ 
+ // ConfigFile is the configuration file, read from the same directory the
+@@ -61,6 +63,12 @@ type Config struct {
+ 	// what it is working on. Turned off, a pane whose agent has said nothing
+ 	// is named like any other pane in that directory.
+ 	ShowAgentName bool
++	// IgnoreMirror leaves a tab whose context pane is a herdr-mirror pane
++	// untouched. Such a pane's local context is a fixed placeholder directory
++	// and the herdr-mirror process, which describe none of what it shows, so
++	// every mirror tab would otherwise be named alike; herdr-mirror keeps them
++	// in step with the remote itself.
++	IgnoreMirror bool
+ }
+ 
+ // LoadConfig reads configuration from the configuration file and the
+@@ -80,6 +88,7 @@ func LoadConfig() (Config, []string) {
+ 		ManualPath:      state.DefaultManualPath(),
+ 		ReadTranscripts: true,
+ 		ShowAgentName:   true,
++		IgnoreMirror:    true,
+ 	}
+ 
+ 	cfg.Debug = fromEnv(&warnings, EnvDebug, cfg.Debug, boolean)
+@@ -90,6 +99,7 @@ func LoadConfig() (Config, []string) {
+ 	cfg.ShowPosition = fromEnv(&warnings, EnvPosition, cfg.ShowPosition, boolean)
+ 	cfg.ReadTranscripts = fromEnv(&warnings, EnvTranscript, cfg.ReadTranscripts, boolean)
+ 	cfg.ShowAgentName = fromEnv(&warnings, EnvAgentName, cfg.ShowAgentName, boolean)
++	cfg.IgnoreMirror = fromEnv(&warnings, EnvIgnoreMirror, cfg.IgnoreMirror, boolean)
+ 	// A path needs neither parsing nor checking, so it does not go through
+ 	// fromEnv: any string the user set is the path they meant, and an empty
+ 	// one asks for locks that do not outlive the process.
+diff --git a/internal/app/config_test.go b/internal/app/config_test.go
+index 56b6213..7f2731f 100644
+--- a/internal/app/config_test.go
++++ b/internal/app/config_test.go
+@@ -25,6 +25,7 @@ func isolate(t *testing.T) {
+ 	names := []string{
+ 		EnvDebug, EnvPoll, EnvMaxLength, EnvBranchMax,
+ 		EnvPosition, EnvManual, EnvTranscript, EnvAgentName,
++		EnvIgnoreMirror,
+ 	}
+ 
+ 	for _, name := range names {
+@@ -84,6 +85,24 @@ func TestLoadConfigDefaults(t *testing.T) {
+ 	if !cfg.ShowAgentName {
+ 		t.Error("agent names are off by default")
+ 	}
++
++	if !cfg.IgnoreMirror {
++		t.Error("mirror panes are named by default")
++	}
++}
++
++func TestLoadConfigTurnsIgnoreMirrorOff(t *testing.T) {
++	isolate(t)
++	t.Setenv(EnvIgnoreMirror, "false")
++
++	cfg, warnings := LoadConfig()
++	if len(warnings) != 0 {
++		t.Errorf("warnings = %v, want none", warnings)
++	}
++
++	if cfg.IgnoreMirror {
++		t.Error("mirror panes are ignored despite being enabled")
++	}
+ }
+ 
+ func TestLoadConfigTurnsPositionsOff(t *testing.T) {
+diff --git a/internal/state/mirror.go b/internal/state/mirror.go
+new file mode 100644
+index 0000000..b8f166b
+--- /dev/null
++++ b/internal/state/mirror.go
+@@ -0,0 +1,34 @@
++package state
++
++import "path/filepath"
++
++// The two marks a herdr-mirror pane carries locally: the placeholder directory
++// every mirror pane is parked in, and the process each one runs.
++const (
++	mirrorMarkerDir = ".mirror-pane"
++	mirrorCommand   = "herdr-mirror"
++)
++
++// IsMirror reports whether the pane is a herdr-mirror pane: a local window onto
++// a pane on another host. Everything the snapshot says about it locally - the
++// placeholder directory, the herdr-mirror process - describes the mirror rather
++// than what the remote pane is showing, so a title built from it names every
++// mirror pane alike. herdr-mirror keeps such a tab's label in step with the
++// remote itself.
++func (p *PaneState) IsMirror() bool {
++	if p == nil {
++		return false
++	}
++
++	if filepath.Base(filepath.Clean(p.Dir)) == mirrorMarkerDir {
++		return true
++	}
++
++	for _, process := range p.Processes {
++		if process.Name == mirrorCommand {
++			return true
++		}
++	}
++
++	return false
++}
+diff --git a/internal/state/mirror_test.go b/internal/state/mirror_test.go
+new file mode 100644
+index 0000000..aa2be96
+--- /dev/null
++++ b/internal/state/mirror_test.go
+@@ -0,0 +1,37 @@
++package state
++
++import "testing"
++
++func TestIsMirror(t *testing.T) {
++	cases := []struct {
++		name string
++		pane *PaneState
++		want bool
++	}{
++		{"nil", nil, false},
++		{"empty", &PaneState{}, false},
++		{
++			"placeholder directory",
++			&PaneState{Dir: "/home/dev/.local/state/herdr-mirror/.mirror-pane"},
++			true,
++		},
++		{
++			"herdr-mirror process",
++			&PaneState{Dir: "/home/dev/work", Processes: []Process{{Name: "herdr-mirror"}}},
++			true,
++		},
++		{
++			"plain pane",
++			&PaneState{Dir: "/home/dev/work/dashboard", Processes: []Process{{Name: "nvim"}}},
++			false,
++		},
++	}
++
++	for _, tc := range cases {
++		t.Run(tc.name, func(t *testing.T) {
++			if got := tc.pane.IsMirror(); got != tc.want {
++				t.Errorf("IsMirror() = %v, want %v", got, tc.want)
++			}
++		})
++	}
++}
