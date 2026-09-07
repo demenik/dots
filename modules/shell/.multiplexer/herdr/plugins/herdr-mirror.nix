@@ -78,5 +78,39 @@
         };
       }
     ];
+
+    programs.herdr.settings.keys = lib.mkIf hasConfig {
+      new_tab = "prefix+alt+c";
+      new_workspace = "prefix+alt+n";
+      split_vertical = lib.mkForce "prefix+alt+#";
+      split_horizontal = lib.mkForce "prefix+alt+-";
+
+      command = [
+        {
+          key = "prefix+c";
+          type = "plugin_action";
+          command = "mirror.remote-new-tab";
+          description = "New tab (remote-aware)";
+        }
+        {
+          key = "prefix+shift+n";
+          type = "plugin_action";
+          command = "mirror.new-workspace-pick";
+          description = "New workspace (host picker)";
+        }
+        {
+          key = "prefix+#";
+          type = "plugin_action";
+          command = "mirror.remote-split-right";
+          description = "Split right (remote-aware)";
+        }
+        {
+          key = "prefix+-";
+          type = "plugin_action";
+          command = "mirror.remote-split-down";
+          description = "Split down (remote-aware)";
+        }
+      ];
+    };
   };
 }
