@@ -87,6 +87,7 @@
       export HERDR_PLUGIN_CONFIG_DIR=${lib.escapeShellArg "${config.xdg.configHome}/herdr/plugins/config/${p.id}"}
       export HERDR_PLUGIN_STATE_DIR=${lib.escapeShellArg "${config.xdg.stateHome}/herdr/plugins/${p.id}"}
     '';
+    link = "run ${herdrBin} plugin link ${lib.escapeShellArg "${p.package}"} >/dev/null 2>&1 || true";
     setup = lib.optionalString (p.setup != "") ''
       (
         export HERDR=${lib.escapeShellArg herdrBin}
@@ -94,8 +95,8 @@
         ${idExports}${p.setup}
       )
     '';
-  in ''
-    run ${herdrBin} plugin link ${lib.escapeShellArg "${p.package}"} >/dev/null 2>&1 || true${setup}'';
+  in
+    lib.concatStringsSep "\n" ([link] ++ lib.optional (setup != "") setup);
 
   pluginActivation = lib.concatStringsSep "\n" (
     map linkPlugin cfg.plugins
