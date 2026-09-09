@@ -47,7 +47,7 @@
           [
             <0>
           ]
-          ++ lib.optionals stdenv.isDarwin [
+          ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
             darwin.apple_sdk.frameworks.Security
           ];
 

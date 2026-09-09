@@ -47,7 +47,7 @@
           ''
             run env HERDR_BIN_PATH="$HERDR" \
               ${bin}/bin/herdr-agent-quota configure --apply \
-              ${lib.cli.toGNUCommandLineShell {} settings} \
+              ${lib.cli.toCommandLineShellGNU {} settings} \
               >/dev/null 2>&1 || true
           '';
       }
