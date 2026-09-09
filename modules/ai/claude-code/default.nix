@@ -37,6 +37,8 @@
 
     home.file.".claude/CLAUDE.md".source = ../.guidelines.md;
 
+    home.file."${config.programs.claude-code.configDir}/settings.json".force = true;
+
     programs.claude-code = {
       enable = true;
       package = claude-code-wrapped;
