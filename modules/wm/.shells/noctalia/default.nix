@@ -7,6 +7,7 @@
 
     ./plugins
     ./launcher.nix
+    ./boot-to-windows.nix
   ];
 
   home = {

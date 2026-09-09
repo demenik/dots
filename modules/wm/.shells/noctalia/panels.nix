@@ -7,6 +7,8 @@
     if config.wm.primaryMonitor != null
     then [config.wm.primaryMonitor.output]
     else [];
+
+  bootToWindows = config.programs.noctalia.bootToWindows;
 in {
   programs.noctalia-shell.settings = {
     controlCenter = {
@@ -67,10 +69,17 @@ in {
           {action = "logout";}
           {action = "shutdown";}
           {action = "rebootToUefi";}
-          {
-            action = "userspaceReboot";
-            enabled = false;
-          }
+          (
+            {action = "userspaceReboot";}
+            // (
+              if bootToWindows.enable
+              then {
+                enabled = true;
+                command = "systemctl start --no-block boot-to-windows.service";
+              }
+              else {enabled = false;}
+            )
+          )
         ];
     };
 
