@@ -66,6 +66,13 @@
       url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    klips = {
+      url = "git+file:///home/demenik/dev/klips";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
   };
 
   outputs = {flake-modules, ...} @ inputs: let
