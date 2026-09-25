@@ -8,8 +8,8 @@
       claude-plugins = final.fetchFromGitHub {
         owner = "anthropics";
         repo = "claude-plugins-official";
-        rev = "3deb821cb71ccfaaf2ffa9935e977df314ce5cd5";
-        hash = "sha256-8LgDacLKv4gLPYrgIwg/O8IfySBwa/AxgrLXFdliROc=";
+        rev = "ad30d62cd52ad0d0af1beda1eab7f61c601045d0";
+        hash = "sha256-h0PAEOOst6xzTiFO5C6oQRwuRgQVQqUXqQqML3yL/mc=";
       };
     })
   ];

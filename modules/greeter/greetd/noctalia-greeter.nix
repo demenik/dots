@@ -113,7 +113,7 @@
 
     environment.systemPackages = lib.optional cursor.enable cursor.package;
 
-    programs.noctalia-greeter = {
+    services.displayManager.noctalia-greeter = {
       enable = true;
       inherit settings;
     };

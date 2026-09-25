@@ -34,7 +34,6 @@
         shuffle
         fullAlbumDate
         showQueueDuration
-        betterGenres
         playNext
         volumePercentage
         allOfArtist
