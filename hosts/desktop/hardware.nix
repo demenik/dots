@@ -43,12 +43,12 @@ in {
       {
         output = tv;
         mode = {
-          width = 4096;
+          width = 3840;
           height = 2160;
           refresh = 120.0;
         };
         position = {
-          x = -4096;
+          x = -3840;
           y = 0;
         };
         scale = 2;
