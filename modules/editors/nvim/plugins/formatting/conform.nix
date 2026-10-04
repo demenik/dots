@@ -13,6 +13,7 @@
 
         formatters = {
           prettierd.env.NODE_PATH = "./node_modules";
+          biome.require_cwd = true;
         };
 
         formatters_by_ft = {
