@@ -24,12 +24,12 @@
         priority = 1050;
       };
 
-      ".*.pro-output-8" = {
+      "~.*pro-output-8" = {
         alias = "TV";
         priority = 1030;
       };
-      "~.*.pro-output-[0-7]".enable = false;
-      "~.*.pro-output-9".enable = false;
+      "~.*pro-output-[0-7]".enable = false;
+      "~.*pro-output-9".enable = false;
     };
   };
 
