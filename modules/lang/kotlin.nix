@@ -26,7 +26,7 @@
         }:
           stdenv.mkDerivation rec {
             pname = "kotlin-lsp";
-            version = "263.4702.0";
+            version = "263.6379.0";
 
             passthru.fmUpdate = {
               inherit version;
@@ -34,8 +34,8 @@
             };
 
             src = fetchurl {
-              url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}.tar.gz";
-              hash = "sha256-HhHS5f77+eohWtjda+lfIiKJfNCG6Mt6ZhpSCEpZBAU=";
+              url = "https://download.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}.tar.gz";
+              hash = "sha256-q4ykRV3C/F/hok2yvMxGwQQlTSxGUVXEJR7mXfjz98w=";
             };
 
             nativeBuildInputs = [
