@@ -116,20 +116,8 @@
     services.displayManager.noctalia-greeter = {
       enable = true;
       inherit settings;
+      passwordless-sync-users = lib.attrNames config.home-manager.users;
     };
-
-    security.polkit.extraConfig =
-      # js
-      ''
-        polkit.addRule(function (action, subject) {
-          if (
-            action.id == "org.noctalia.greeter.apply-appearance" &&
-            subject.isInGroup("wheel")
-          ) {
-            return polkit.Result.YES;
-          }
-        });
-      '';
   };
 
   home = {
@@ -160,7 +148,12 @@
             echo "noctalia-greeter-sync: wallpaper source unreadable, keeping last synced wallpaper" >&2
           fi
 
-          pkexec noctalia-greeter-apply-appearance "$sync_dir"
+          staging="/run/user/$(id -u)/noctalia-greeter-sync"
+          rm -rf "$staging"
+          mkdir -m 0700 "$staging"
+          install -m 0600 -t "$staging" "$sync_dir/sync.toml" "$sync_dir"/wallpaper.*
+
+          pkexec "$(readlink -f "$(command -v noctalia-greeter-apply-appearance)")" --sync "$staging"
         '';
       text =
         # toml

@@ -23,8 +23,7 @@
         else pkgs.libfprint-2-tod1-goodix-550a;
     };
 
-    services.displayManager = lib.optionalAttrs (config.services.displayManager ? noctalia-greeter) {
-      noctalia-greeter.settings.auth.allow_empty_password = true;
-    };
+    services.displayManager.noctalia-greeter.settings.auth.allow_empty_password =
+      lib.mkIf config.services.displayManager.noctalia-greeter.enable true;
   };
 }
