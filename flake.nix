@@ -73,6 +73,10 @@
         rust-overlay.follows = "rust-overlay";
       };
     };
+    craftapps = {
+      url = "github:olafkfreund/nix-craftapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {flake-modules, ...} @ inputs: let
