@@ -1,5 +1,12 @@
 .titlebar-spacer[type="post-tabs"],
 .titlebar-button.titlebar-close {
   display: none !important;
-  width: 0 !important;
+}
+
+sidebar-panel-header {
+  display: none !important;
+}
+
+#sidebar-box {
+  padding-inline-start: 0px !important;
 }
