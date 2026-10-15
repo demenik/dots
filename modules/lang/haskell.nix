@@ -20,7 +20,8 @@
   }: let
     cfg = config.lang.haskell;
     packages = {
-      inherit (pkgs) haskell-language-server;
+      inherit (pkgs) haskell-language-server hlint fourmolu;
+      cabal_fmt = pkgs.haskellPackages.cabal-fmt;
     };
   in
     lib.mkIf cfg.enable {
@@ -30,6 +31,13 @@
         enable = true;
         inherit packages;
         lsps = ["hls"];
+        linters = {
+          haskell = ["hlint"];
+        };
+        formatters = {
+          haskell = ["fourmolu"];
+          cabal = ["cabal_fmt"];
+        };
       };
     };
 }
