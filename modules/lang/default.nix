@@ -8,6 +8,7 @@
     ./docker.nix
     ./go.nix
     ./godot.nix
+    ./haskell.nix
     ./java.nix
     ./kotlin.nix
     ./latex.nix
