@@ -35,6 +35,9 @@
           split_horizontal = "prefix+-";
 
           copy_mode = "prefix+v";
+
+          toggle_sidebar = "prefix+e";
+          edit_scrollback = "prefix+shift+e";
         };
 
         ui = {
