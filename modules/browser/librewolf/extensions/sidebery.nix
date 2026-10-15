@@ -1,5 +1,25 @@
-{firefoxAddons, ...}: {
+# Sync settings values from the live profile (run from the repo root; new keys are not added):
+#   jq -r '.settings | to_entries[] | "\(.key)\t\(.value | tojson)"' ~/.librewolf/default/browser-extension-data/{3c078156-979c-498b-8990-85f7987dd929}/storage.js | while IFS=$'\t' read -r k v; do v=${v//\\/\\\\}; v=${v//|/\\|}; v=${v//&/\\&}; sed -i "s|^\(\s*$k = \).*;$|\1$v;|" modules/browser/librewolf/extensions/sidebery.nix; done
+{
+  config,
+  firefoxAddons,
+  ...
+}: let
+  font = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
+in {
   programs.librewolf.profiles.default.extensions.packages = [firefoxAddons.sidebery];
+
+  librewolf.extensionStorage."{3c078156-979c-498b-8990-85f7987dd929}".sidebarCSS =
+    # css
+    ''
+      #root.root {
+        --tabs-font: 400 13px/1.5 "${font}", monospace;
+        --tabs-count-font: 400 8px/1 "${font}", monospace;
+        --ctx-menu-font: 400 12px/1.5 "${font}", monospace;
+        --bookmarks-bookmark-font: 400 12px/1.5 "${font}", monospace;
+        --bookmarks-folder-font: 400 12px/1.5 "${font}", monospace;
+      }
+    '';
 
   librewolf.extensionStorage."{3c078156-979c-498b-8990-85f7987dd929}".settings = {
     copyMultiBullet = "";
@@ -47,7 +67,7 @@
     subPanelBookmarks = true;
     subPanelHistory = true;
     subPanelRecentlyClosedBar = true;
-    subPanelSync = true;
+    subPanelSync = false;
 
     dndActSearchTab = true;
     dndActTabFromLink = true;
@@ -256,10 +276,10 @@
     wheelThresholdY = 60;
 
     syncName = "";
-    syncSaveCtxMenu = false;
-    syncSaveKeybindings = false;
-    syncSaveSettings = false;
-    syncSaveStyles = false;
+    syncSaveCtxMenu = true;
+    syncSaveKeybindings = true;
+    syncSaveSettings = true;
+    syncSaveStyles = true;
     syncUseFirefox = true;
     syncUseGoogleDrive = false;
     syncUseGoogleDriveApi = false;
