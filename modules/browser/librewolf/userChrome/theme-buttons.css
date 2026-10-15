@@ -1,0 +1,17 @@
+:root {
+  --button-background-color-muted: color-mix(
+    in srgb,
+    currentColor 10%,
+    transparent
+  );
+  --button-background-color-muted-hover: color-mix(
+    in srgb,
+    currentColor 16%,
+    transparent
+  );
+  --button-background-color-muted-active: color-mix(
+    in srgb,
+    currentColor 22%,
+    transparent
+  );
+}
