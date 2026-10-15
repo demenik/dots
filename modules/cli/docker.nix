@@ -1,18 +1,11 @@
 {
   name = "docker";
 
-  nixos = {
-    lib,
-    users,
-    ...
-  }: {
-    virtualisation.docker = {
+  nixos.virtualisation.docker = {
+    enable = false;
+    rootless = {
       enable = true;
-      rootless.enable = true;
+      setSocketVariable = true;
     };
-
-    users.users = lib.genAttrs (map (u: u.username) users) (name: {
-      extraGroups = ["docker"];
-    });
   };
 }
