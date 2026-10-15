@@ -30,6 +30,9 @@
       else "${config.home.homeDirectory}/Nextcloud";
 
     iconName = "nextcloud-mount";
+
+    rcSocket = "%t/rclone-nextcloud.sock";
+    rcCall = "${lib.getExe pkgs.rclone} rc --unix-socket ${rcSocket} vfs/refresh recursive=true _async=true";
   in {
     xdg.dataFile."icons/hicolor/scalable/apps/${iconName}.svg".source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/nextcloud/desktop/refs/heads/master/theme/colored/Nextcloud-icon.svg";
@@ -64,13 +67,13 @@
               --attr-timeout 8760h \
               --rc \
               --rc-no-auth \
-              --rc-addr localhost:5572 \
+              --rc-addr unix://${rcSocket} \
               --allow-other=false \
               --volname "Nextcloud"
           '';
           ExecStartPost = [
             ''-${lib.getExe' pkgs.glib "gio"} set "${mountPoint}" metadata::custom-icon-name ${iconName}''
-            ''-${lib.getExe pkgs.rclone} rc vfs/refresh recursive=true _async=true''
+            "-${rcCall}"
           ];
           ExecStop = "/run/wrappers/bin/fusermount -u -z ${mountPoint}";
           Restart = "always";
@@ -91,7 +94,7 @@
         Unit.Description = "Refresh Nextcloud rclone cache";
         Service = {
           Type = "oneshot";
-          ExecStart = "${lib.getExe pkgs.rclone} rc vfs/refresh recursive=true _async=true";
+          ExecStart = rcCall;
         };
       };
     };
