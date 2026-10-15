@@ -23,8 +23,6 @@
       "*.sops.json diff=sops"
       "*.sops.env diff=sops"
     ];
-    settings = {
-      diff.sops.textconv = "${lib.getExe pkgs.sops} -d";
-    };
+    settings.alias.sops = "!git -c diff.sops.textconv='${lib.getExe pkgs.sops} -d'";
   };
 }

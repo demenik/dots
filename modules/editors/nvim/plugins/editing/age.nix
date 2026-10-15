@@ -26,8 +26,6 @@ in {
     attributes = [
       "*.age diff=age"
     ];
-    settings = {
-      diff.age.textconv = "${lib.getExe pkgs.rage} -i ${identityFile} -d";
-    };
+    settings.alias.age = "!git -c diff.age.textconv='${lib.getExe pkgs.rage} -i ${identityFile} -d'";
   };
 }
