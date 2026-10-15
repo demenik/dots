@@ -34,11 +34,9 @@
           "ls *"
           "grep *"
           "rg *"
-          "find *"
           "fd *"
           "head *"
           "tail *"
-          "xargs *"
           "sort *"
         ];
       };
@@ -50,7 +48,19 @@
 
       edit.allow = ["*"];
 
-      webFetch.allow = ["*"];
+      webFetch.allow = map (d: "domain:${d}") [
+        "github.com"
+        "raw.githubusercontent.com"
+        "docs.rs"
+        "nixos.org"
+        "search.nixos.org"
+        "wiki.nixos.org"
+        "nix.dev"
+        "noogle.dev"
+        "developer.mozilla.org"
+        "pypi.org"
+        "www.npmjs.com"
+      ];
       webSearch.allow = ["*"];
 
       mcp.allow = [

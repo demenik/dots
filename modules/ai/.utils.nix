@@ -142,8 +142,10 @@
       then "deny"
       else if rules.ask != []
       then "ask"
-      else if rules.allow != []
+      else if lib.elem "*" rules.allow
       then "allow"
+      else if rules.allow != []
+      then "ask"
       else null;
 
     simpleActionAttrs = name: rules:
