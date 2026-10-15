@@ -1,6 +1,7 @@
 let
   files = [
     ./adjust-nav.css
+    ./hide-sidebar-launcher.css
     ./hide-tabs.css
     ./theme-buttons.css
   ];

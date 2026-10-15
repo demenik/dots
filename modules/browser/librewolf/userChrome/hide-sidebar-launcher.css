@@ -1,0 +1,4 @@
+#sidebar-container,
+#sidebar-launcher-splitter {
+  display: none !important;
+}
