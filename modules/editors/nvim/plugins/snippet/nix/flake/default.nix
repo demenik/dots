@@ -78,6 +78,10 @@
         "0" = null;
       };
     };
+    flakehaskell = {
+      template = builtins.readFile ./flake-haskell.nix;
+      placeholders."0" = null;
+    };
 
     shellandroid = {
       template = builtins.readFile ./shell-android.nix;
