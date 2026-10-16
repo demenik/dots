@@ -2,30 +2,35 @@
   programs.librewolf.profiles.default = {
     containersForce = true;
     containers = {
-      Privat = {
+      Private = {
+        name = "Private";
         id = 10;
         icon = "circle";
         color = "purple";
       };
       Uni = {
+        name = "Uni";
         id = 6;
         icon = "circle";
-        color = "blue";
+        color = "pink";
       };
       Work = {
+        name = "Work";
         id = 9;
+        icon = "circle";
+        color = "red";
+      };
+      I2P = {
+        name = "I2P";
+        id = 7;
         icon = "circle";
         color = "orange";
       };
-      I2P = {
-        id = 7;
-        icon = "circle";
-        color = "turquoise";
-      };
       Tor = {
+        name = "Tor";
         id = 8;
         icon = "circle";
-        color = "pink";
+        color = "yellow";
       };
     };
   };
