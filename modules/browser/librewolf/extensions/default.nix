@@ -30,6 +30,7 @@ in {
     ./languagetool.nix
     ./pywalfox.nix
     ./sidebery.nix
+    ./theme-vars
     ./ublock-origin.nix
   ];
 
