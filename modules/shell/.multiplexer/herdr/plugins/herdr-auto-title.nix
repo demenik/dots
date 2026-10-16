@@ -5,7 +5,7 @@ in {
     (final: prev: {
       herdr-auto-title = final.buildGoModule (finalAttrs: {
         pname = "herdr-auto-title";
-        version = "0.4.0";
+        version = "0.13.2";
 
         passthru.fmUpdate = {
           inherit (finalAttrs) version;
@@ -16,7 +16,7 @@ in {
           owner = "kryptamine";
           repo = "herdr-auto-title";
           rev = "v${finalAttrs.version}";
-          hash = "sha256-8InVHoi/uWLaUrmud5yzE+P99ik4tVQxseolNkVjt+g=";
+          hash = "sha256-CNSw6J+Xbo0PaO5EwmW9zZ14KxxnTRAs8/87pW4q9Ok=";
         };
 
         vendorHash = "sha256-QxFp1b7pf7bn3Hh0hyaj8ke5Z61N+WwjhHt3pFiapTs=";

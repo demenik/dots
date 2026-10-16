@@ -4,8 +4,8 @@
       herdr-resurrect = final.fetchFromGitHub {
         owner = "ntindle";
         repo = "herdr-resurrect";
-        rev = "5afa6755d4f35c62c7522ba4fd04922d1ac69602";
-        hash = "sha256-t4HCaLy2yWkeuvDovFTRdG0jQvlyKf5Z+u5UIU3xvts=";
+        rev = "109a9376549e29646c77fdfb7ed8ba456a9d6617";
+        hash = "sha256-nFffAoY+PE1hwHMK1jBgLUFHcgLzS+3KO/kIN8u6W/o=";
       };
     })
   ];

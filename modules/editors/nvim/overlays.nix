@@ -33,8 +33,8 @@
     gitlabNvimSrc = final.fetchFromGitHub {
       owner = "harrisoncramer";
       repo = "gitlab.nvim";
-      rev = "0af8e71fd508fe755ee9a7c9dba6d709b17a8842";
-      hash = "sha256-q5U5dCO/ez4PiSoTS6h/rVJHIXZ6u9LbkvrBlErR8Pc=";
+      rev = "0228b3b9aad2bf091fc72534c23a2751e7d649de";
+      hash = "sha256-0f/CnB7s/URokTYWV/rbJuOzFTGLi+4obIL9izPmxX8=";
     };
 
     gitlab-nvim-server = final.buildGoModule {
@@ -66,8 +66,8 @@
           src = final.fetchFromGitHub {
             owner = "Aasim-A";
             repo = "scrollEOF.nvim";
-            rev = "e462b9a07b8166c3e8011f1dcbc6bf68b67cd8d7";
-            hash = "sha256-y7yOCRSGTtQcFyWVkGe3xQqstHZMQKayxtqkOVlZ4PM=";
+            rev = "e5199e8036420d2a1d56f54b5e4a85cd21692237";
+            hash = "sha256-XaA7iujjRApOpFzDTITUjs+SXuc11vOgbUylyDRVbXk=";
           };
         };
 
@@ -99,8 +99,8 @@
           src = final.fetchFromGitHub {
             owner = "dlyongemallo";
             repo = "diffview.nvim";
-            rev = "5152bada7d81cd602373e77534aabc631419e8e0";
-            hash = "sha256-gA9brMpvV6I7pHHarRE90oRUeEd1UNIkxaJTJnBgu0I=";
+            rev = "2a2d89a07f5d5d3cef7f542b99c3e28050ca205c";
+            hash = "sha256-0Zu2HPU9rzsyIOVLPWB9ABmfu5UffYkJtkIQUtBLVOs=";
           };
           doCheck = false;
         };

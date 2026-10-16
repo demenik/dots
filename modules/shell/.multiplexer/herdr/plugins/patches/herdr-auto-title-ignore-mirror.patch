@@ -1,33 +1,80 @@
 diff --git a/internal/app/app.go b/internal/app/app.go
-index c6983fc..34ca47c 100644
+index ec357cb..dbf359e 100644
 --- a/internal/app/app.go
 +++ b/internal/app/app.go
-@@ -118,7 +118,15 @@ func (a *App) readAndRename(ctx context.Context, client herdr.Client) error {
- 		// Read here rather than during assembly: the reads are what a poll
- 		// spends, and only a tab that will be renamed is worth them. The
- 		// resolver picks the same pane, because the choice is made from state.
--		a.readInto(ctx, client, state.SelectContextPane(tab), checkouts)
-+		pane := state.SelectContextPane(tab)
-+		a.readInto(ctx, client, pane, checkouts)
+@@ -44,6 +44,8 @@ type App struct {
+ 	panes resolver.PaneResolver
+ 	// preferAgent names a tab after its agent pane rather than its focused one.
+ 	preferAgent bool
++	// ignoreMirror leaves herdr-mirror panes and their tabs unnamed.
++	ignoreMirror bool
+ 	// topics says what each workspace's active tab is doing, and is nil when the
+ 	// user turned that off.
+ 	topics   *resolver.Topics
+@@ -73,15 +75,16 @@ func New(
+ 	instance Instance,
+ ) *App {
+ 	return &App{
+-		pollEvery:   cfg.Poll,
+-		log:         log,
+-		titles:      titles,
+-		panes:       panes,
+-		topics:      topics,
+-		reported:    newTopicReports(),
+-		preferAgent: cfg.PreferAgentPane,
+-		changes:     state.NewChanges(),
+-		labels:      labels.Load(cfg.ManualPath, log),
++		pollEvery:    cfg.Poll,
++		log:          log,
++		titles:       titles,
++		panes:        panes,
++		topics:       topics,
++		reported:     newTopicReports(),
++		preferAgent:  cfg.PreferAgentPane,
++		ignoreMirror: cfg.IgnoreMirror,
++		changes:      state.NewChanges(),
++		labels:       labels.Load(cfg.ManualPath, log),
+ 		reads: reads.New(reads.Options{
+ 			ClaudeDirs:      cfg.ClaudeDirs,
+ 			BranchMax:       cfg.BranchMax,
+@@ -393,6 +396,13 @@ func (a *App) nameTab(
+ 	// spends, and only a tab that will be renamed is worth them.
+ 	poll.Fill(ctx, tab.Context)
+ 
++	// A herdr-mirror pane's local context describes the mirror, not the
++	// remote pane it shows, so every mirror tab would be named alike.
++	// herdr-mirror names them from the remote itself.
++	if a.ignoreMirror && tab.Context.IsMirror() {
++		return
++	}
 +
-+		// A herdr-mirror pane's local context describes the mirror, not the
-+		// remote pane it shows, so every mirror tab would be named alike.
-+		// herdr-mirror names them from the remote itself.
-+		if a.cfg.IgnoreMirror && pane.IsMirror() {
+ 	pass.Tab(ctx, tab, a.titles.Resolve(tab))
+ }
+ 
+@@ -420,6 +430,10 @@ func (a *App) namePanes(
+ 			return
+ 		}
+ 
++		if a.ignoreMirror && tab.Panes[i].IsMirror() {
 +			continue
 +		}
- 
- 		decision := a.titles.Resolve(tab)
- 		if a.manual.Observe(state.SightingFrom(tab, decision.Name)) {
++
+ 		pass.Pane(ctx, tab.Panes[i], decision)
+ 	}
+ }
 diff --git a/internal/app/app_test.go b/internal/app/app_test.go
-index aa1c5aa..bfdc1e8 100644
+index 802561b..8146f31 100644
 --- a/internal/app/app_test.go
 +++ b/internal/app/app_test.go
-@@ -221,6 +221,44 @@ func TestATabAlreadyCorrectlyNamedIsLeftAlone(t *testing.T) {
+@@ -326,6 +326,43 @@ func TestATabAlreadyCorrectlyNamedIsLeftAlone(t *testing.T) {
  	}
  }
  
++const mirrorDir = "/Users/dev/.local/state/herdr-mirror/.mirror-pane"
++
 +func TestAMirrorPaneIsLeftForHerdrMirror(t *testing.T) {
++	t.Parallel()
++
 +	// Every herdr-mirror pane sits in the same placeholder directory and runs
 +	// the same process, so a title built from that names them all alike.
 +	// herdr-mirror keeps their labels in step with the remote itself.
@@ -35,12 +82,9 @@ index aa1c5aa..bfdc1e8 100644
 +	cfg.IgnoreMirror = true
 +	h := startConfigured(t, herdrtest.New(
 +		[]herdr.TabInfo{{TabID: "wE:t1", Label: "1"}},
-+		[]herdr.PaneInfo{{
-+			PaneID: "wE:p1", TabID: "wE:t1", Focused: true,
-+			CWD: "/Users/dev/.local/state/herdr-mirror/.mirror-pane",
-+		}},
++		[]herdr.PaneInfo{{PaneID: "wE:p1", TabID: "wE:t1", Focused: true, CWD: mirrorDir}},
 +	), cfg)
-+	h.awaitPolls(5)
++	h.polls(5)
 +
 +	if renames := h.client.Renames(); len(renames) != 0 {
 +		t.Errorf("issued %v, want no rename of a mirror tab", renames)
@@ -48,90 +92,92 @@ index aa1c5aa..bfdc1e8 100644
 +}
 +
 +func TestAMirrorPaneIsNamedWhenIgnoreMirrorIsOff(t *testing.T) {
++	t.Parallel()
++
 +	// The guard is the only thing holding the rename back: with it off the
 +	// same pane is named from its placeholder directory like any other.
-+	cfg := testConfig()
-+	cfg.IgnoreMirror = false
-+	h := startConfigured(t, herdrtest.New(
++	h := start(t,
 +		[]herdr.TabInfo{{TabID: "wE:t1", Label: "1"}},
-+		[]herdr.PaneInfo{{
-+			PaneID: "wE:p1", TabID: "wE:t1", Focused: true,
-+			CWD: "/Users/dev/.local/state/herdr-mirror/.mirror-pane",
-+		}},
-+	), cfg)
++		[]herdr.PaneInfo{{PaneID: "wE:p1", TabID: "wE:t1", Focused: true, CWD: mirrorDir}},
++	)
++	h.poll()
 +
-+	if got := h.awaitRenames(1)[0].Label; got != ".mirror-pane" {
++	if got := h.client.Renames()[0].Label; got != ".mirror-pane" {
 +		t.Errorf("rename = %q, want .mirror-pane", got)
 +	}
 +}
 +
  func TestATabWithNoContextGetsTheFallback(t *testing.T) {
- 	h := start(t,
- 		[]herdr.TabInfo{{TabID: "wE:t1", Label: "1"}},
+ 	t.Parallel()
+ 
 diff --git a/internal/app/config.go b/internal/app/config.go
-index c28989c..d5c5664 100644
+index fad59d7..82a6d29 100644
 --- a/internal/app/config.go
 +++ b/internal/app/config.go
-@@ -26,6 +26,8 @@ const (
- 	EnvManual     = "HERDR_AUTO_TITLE_MANUAL_FILE"
- 	EnvTranscript = "HERDR_AUTO_TITLE_TRANSCRIPT"
- 	EnvAgentName  = "HERDR_AUTO_TITLE_AGENT_NAME"
+@@ -34,6 +34,9 @@ const (
+ 	EnvWorkspaceMaxLength = "HERDR_AUTO_TITLE_WORKSPACE_MAX_LENGTH"
+ 
+ 	EnvClaudeDirs = "HERDR_AUTO_TITLE_CLAUDE_DIRS"
++
 +	// EnvIgnoreMirror leaves herdr-mirror panes for herdr-mirror to name.
 +	EnvIgnoreMirror = "HERDR_AUTO_TITLE_IGNORE_MIRROR"
  )
  
- // ConfigFile is the configuration file, read from the same directory the
-@@ -61,6 +63,12 @@ type Config struct {
- 	// what it is working on. Turned off, a pane whose agent has said nothing
- 	// is named like any other pane in that directory.
- 	ShowAgentName bool
-+	// IgnoreMirror leaves a tab whose context pane is a herdr-mirror pane
+ // EnvClaudeConfigDir is Claude Code's own variable, not one of ours: it names
+@@ -94,6 +97,12 @@ type Config struct {
+ 	// adds. A home the user's shell picks per directory cannot be discovered,
+ 	// so it is named.
+ 	ClaudeDirs []string
++	// IgnoreMirror leaves herdr-mirror panes, and tabs named after one,
 +	// untouched. Such a pane's local context is a fixed placeholder directory
 +	// and the herdr-mirror process, which describe none of what it shows, so
-+	// every mirror tab would otherwise be named alike; herdr-mirror keeps them
-+	// in step with the remote itself.
++	// every mirror would otherwise be named alike; herdr-mirror keeps them in
++	// step with the remote itself.
 +	IgnoreMirror bool
+ 	// Home is the user's home directory, or "" when there is none.
+ 	Home string
  }
- 
- // LoadConfig reads configuration from the configuration file and the
-@@ -80,6 +88,7 @@ func LoadConfig() (Config, []string) {
- 		ManualPath:      state.DefaultManualPath(),
- 		ReadTranscripts: true,
- 		ShowAgentName:   true,
-+		IgnoreMirror:    true,
- 	}
- 
- 	cfg.Debug = fromEnv(&warnings, EnvDebug, cfg.Debug, boolean)
-@@ -90,6 +99,7 @@ func LoadConfig() (Config, []string) {
- 	cfg.ShowPosition = fromEnv(&warnings, EnvPosition, cfg.ShowPosition, boolean)
- 	cfg.ReadTranscripts = fromEnv(&warnings, EnvTranscript, cfg.ReadTranscripts, boolean)
- 	cfg.ShowAgentName = fromEnv(&warnings, EnvAgentName, cfg.ShowAgentName, boolean)
+@@ -126,6 +135,7 @@ func LoadConfig() (Config, []string) {
+ 		RenamePanes:      true,
+ 		ReportWorkspaces: true,
+ 		ClaudeDirs:       homes,
++		IgnoreMirror:     true,
+ 		Home:             userHome(),
+ 		// ShowAgentName stays false: most sessions run one agent, whose name
+ 		// would repeat on every tab.
+@@ -149,6 +159,7 @@ func LoadConfig() (Config, []string) {
+ 		cfg.WorkspaceMaxLength,
+ 		count,
+ 	)
 +	cfg.IgnoreMirror = fromEnv(&warnings, EnvIgnoreMirror, cfg.IgnoreMirror, boolean)
  	// A path needs neither parsing nor checking, so it does not go through
  	// fromEnv: any string the user set is the path they meant, and an empty
  	// one asks for locks that do not outlive the process.
 diff --git a/internal/app/config_test.go b/internal/app/config_test.go
-index 56b6213..7f2731f 100644
+index 0b5f2c2..84a0889 100644
 --- a/internal/app/config_test.go
 +++ b/internal/app/config_test.go
-@@ -25,6 +25,7 @@ func isolate(t *testing.T) {
- 	names := []string{
- 		EnvDebug, EnvPoll, EnvMaxLength, EnvBranchMax,
- 		EnvPosition, EnvManual, EnvTranscript, EnvAgentName,
+@@ -40,6 +40,7 @@ func isolate(t *testing.T) {
+ 		// Claude Code's own variable is cleared with ours: it now decides a
+ 		// Config field, so a developer's real home would otherwise be read.
+ 		EnvClaudeDirs, EnvClaudeConfigDir,
 +		EnvIgnoreMirror,
  	}
  
  	for _, name := range names {
-@@ -84,6 +85,24 @@ func TestLoadConfigDefaults(t *testing.T) {
- 	if !cfg.ShowAgentName {
- 		t.Error("agent names are off by default")
+@@ -112,11 +113,29 @@ func TestLoadConfigDefaults(t *testing.T) {
+ 		t.Error("pane IDs are shown by default")
  	}
-+
+ 
 +	if !cfg.IgnoreMirror {
 +		t.Error("mirror panes are named by default")
 +	}
-+}
 +
+ 	if home, _ := os.UserHomeDir(); cfg.Home != home {
+ 		t.Errorf("home = %q, want %q", cfg.Home, home)
+ 	}
+ }
+ 
 +func TestLoadConfigTurnsIgnoreMirrorOff(t *testing.T) {
 +	isolate(t)
 +	t.Setenv(EnvIgnoreMirror, "false")
@@ -142,11 +188,13 @@ index 56b6213..7f2731f 100644
 +	}
 +
 +	if cfg.IgnoreMirror {
-+		t.Error("mirror panes are ignored despite being enabled")
++		t.Error("mirror panes are ignored despite being turned off")
 +	}
- }
- 
++}
++
  func TestLoadConfigTurnsPositionsOff(t *testing.T) {
+ 	isolate(t)
+ 	t.Setenv(EnvPosition, "false")
 diff --git a/internal/state/mirror.go b/internal/state/mirror.go
 new file mode 100644
 index 0000000..b8f166b
