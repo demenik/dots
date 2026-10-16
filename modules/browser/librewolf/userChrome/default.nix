@@ -4,6 +4,7 @@
     ./hide-sidebar-launcher.css
     ./hide-tabs.css
     ./theme-buttons.css
+    ./theme-menus.css
   ];
 
   contents = map (file: builtins.readFile file) files;
