@@ -1,6 +1,6 @@
 menupopup:not([type="arrow"]) {
-  --panel-background-color: inherit;
-  --panel-text-color: inherit;
+  --panel-background-color: inherit !important;
+  --panel-text-color: inherit !important;
 }
 
 menupopup :is(menu, menuitem)[_moz-menuactive]:not([disabled]) {
