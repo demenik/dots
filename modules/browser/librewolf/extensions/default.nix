@@ -24,6 +24,7 @@
     cfg;
 in {
   imports = [
+    ./bitwarden.nix
     ./canvasblocker.nix
     ./cookie-auto-decline.nix
     ./languagetool.nix
@@ -47,7 +48,6 @@ in {
 
     programs.librewolf.profiles.default.extensions.packages = with firefoxAddons; [
       betterttv
-      bitwarden
       darkreader
       header-editor
       privacy-badger
