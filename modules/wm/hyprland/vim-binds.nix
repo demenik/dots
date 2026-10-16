@@ -34,7 +34,7 @@
   in {
     _args = [
       "${mod} + ${k}"
-      (mkLua "hl.dsp.window.${cmd}({ x = ${toString v.x}, y = ${toString v.y} })")
+      (mkLua "hl.dsp.window.${cmd}({ x = ${toString v.x}, y = ${toString v.y}, relative = true })")
     ];
   };
 in
