@@ -97,7 +97,9 @@
           "font.name.serif.x-western" = builtins.head config.fonts.fontconfig.defaultFonts.serif;
         };
 
-        userChrome = import ./userChrome;
+        userChrome = import ./userChrome {
+          font = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
+        };
 
         userContent = let
           inherit (config.fonts.fontconfig.defaultFonts) monospace emoji;

@@ -1,4 +1,4 @@
-let
+{font}: let
   files = [
     ./adjust-nav.css
     ./hide-sidebar-launcher.css
@@ -9,4 +9,11 @@ let
   contents = map (file: builtins.readFile file) files;
   combined = builtins.concatStringsSep "\n" contents;
 in
-  combined
+  # css
+  ''
+    ${combined}
+
+    * {
+      font-family: "${font}", sans-serif !important;
+    }
+  ''
