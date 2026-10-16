@@ -16,6 +16,7 @@
         packages = with pkgs; [
           ghc
           ormolu
+          <0>
         ];
       };
     });
