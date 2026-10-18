@@ -52,6 +52,7 @@ in {
         :root {
         <* for name, value in colors *>
           --${prefix}-{{name | kebab_case}}: {{value.default.hex}};
+          --${prefix}-{{name | kebab_case}}-rgb: {{value.default.rgb_csv}};
         <* endfor *>
         }
       '';
