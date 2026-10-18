@@ -24,7 +24,7 @@
     cfg;
 in {
   imports = [
-    ./bitwarden.nix
+    ./bitwarden
     ./canvasblocker.nix
     ./cookie-auto-decline.nix
     ./languagetool.nix

@@ -1,11 +1,8 @@
 {
   lib,
   config,
-  firefoxAddons,
   ...
 }: {
-  programs.librewolf.profiles.default.extensions.packages = [firefoxAddons.bitwarden];
-
   wayland.windowManager.hyprland.extraConfig =
     lib.mkIf config.wayland.windowManager.hyprland.enable
     # lua
@@ -70,8 +67,6 @@
       end)
 
       hl.on("window.title", function(w)
-        -- Firefox sets the title before mapping, while focus is still on the
-        -- opening window; later focus events may already point elsewhere.
         if not w.mapped then
           if not bitwarden.parents[w.address] then
             bitwarden.parents[w.address] = bitwarden.focused
