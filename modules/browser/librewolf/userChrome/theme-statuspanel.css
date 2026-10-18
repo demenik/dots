@@ -1,0 +1,5 @@
+#statuspanel-label {
+  background-color: var(--toolbar-background-color) !important;
+  color: var(--toolbar-text-color) !important;
+  border-color: color-mix(in srgb, currentColor 16%, transparent) !important;
+}

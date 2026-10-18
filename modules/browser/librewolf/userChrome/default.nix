@@ -5,6 +5,7 @@
     ./hide-tabs.css
     ./theme-buttons.css
     ./theme-menus.css
+    ./theme-statuspanel.css
   ];
 
   contents = map (file: builtins.readFile file) files;
