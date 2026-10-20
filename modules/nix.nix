@@ -28,6 +28,15 @@ in {
     };
 
     nixpkgs.config = nixpkgsConfig;
+
+    programs.nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        dates = "weekly";
+        extraArgs = "--keep 3 --keep-since 14d";
+      };
+    };
   };
 
   home = {
@@ -57,10 +66,10 @@ in {
       enable = true;
       package = nh-wrapped;
 
-      clean = {
+      clean = lib.mkIf isStandalone {
         enable = true;
         dates = "weekly";
-        extraArgs = "--keep 5 --keep-since 1d";
+        extraArgs = "--keep 3 --keep-since 14d";
       };
     };
 
