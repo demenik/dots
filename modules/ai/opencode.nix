@@ -23,6 +23,8 @@
   in {
     home.file = utils.mkSkillDirLinks ".config/opencode/skills";
 
+    xdg.configFile."opencode/AGENTS.md".text = config.ai.guidelines.text;
+
     programs.opencode = {
       enable = true;
       package = opencode-wrapped;

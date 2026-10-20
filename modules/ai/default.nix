@@ -1,6 +1,8 @@
 {
   name = "ai";
 
+  modules = [./.guidelines];
+
   imports = [
     ./.mcp.nix
     ./.permissions.nix

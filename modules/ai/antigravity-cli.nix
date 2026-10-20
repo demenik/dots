@@ -57,6 +57,8 @@
 
     home.file = lib.mkMerge [
       {
+        ".gemini/GEMINI.md".text = config.ai.guidelines.text;
+
         ".gemini/config/mcp_config.json".text = builtins.toJSON {
           mcpServers =
             lib.mapAttrs (

@@ -1,6 +1,8 @@
 {
   name = "eza";
 
+  modules = [../ai/.guidelines];
+
   home = {
     programs.eza = {
       enable = true;
@@ -16,5 +18,9 @@
     home.shellAliases = {
       ls = "eza";
     };
+
+    ai.guidelines.sections.tools.text = ''
+      - `ls` is aliased to `eza --classify --group-directories-first`. Entries carry type suffixes (`/`, `*`, `@`), so do not parse its output as plain file names.
+    '';
   };
 }

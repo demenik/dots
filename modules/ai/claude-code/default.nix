@@ -35,7 +35,7 @@
   in {
     imports = [./tmux-status.nix];
 
-    home.file.".claude/CLAUDE.md".source = ../.guidelines.md;
+    home.file.".claude/CLAUDE.md".text = config.ai.guidelines.text;
 
     home.file."${config.programs.claude-code.configDir}/settings.json".force = true;
 

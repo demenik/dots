@@ -1,5 +1,8 @@
 {lib, ...}: {
   name = "shells";
+
+  modules = [../ai/.guidelines];
+
   moduleOptions = with lib; {
     shell = {
       command = mkOption {

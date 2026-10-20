@@ -1,6 +1,8 @@
 {
   name = "bat";
 
+  modules = [../ai/.guidelines];
+
   overlays.home = [
     (final: prev: {
       bat-theme-catppuccin = final.fetchFromGitHub {
@@ -27,5 +29,9 @@
     home.shellAliases = {
       cat = "bat";
     };
+
+    ai.guidelines.sections.tools.text = ''
+      - `cat` is aliased to `bat`. When piped it behaves like plain `cat`; use `bat -p` for undecorated output in a terminal.
+    '';
   };
 }
