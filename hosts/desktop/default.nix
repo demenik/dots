@@ -20,6 +20,9 @@
     ../../modules/programs/gaming/steam.nix
     ../../modules/programs/gaming/klips.nix
 
+    ../../modules/programs/gaming/games/osu.nix
+    ../../modules/programs/gaming/games/minecraft.nix
+
     ../../modules/cli/git
   ];
 

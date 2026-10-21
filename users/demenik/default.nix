@@ -68,9 +68,6 @@
     ../../modules/programs/wireshark.nix
     ../../modules/programs/craftapps.nix
 
-    ../../modules/programs/gaming/games/osu.nix
-    ../../modules/programs/gaming/games/minecraft.nix
-
     ../../modules/ai/opencode.nix
     ../../modules/ai/claude-code
     ../../modules/cli/bat.nix
