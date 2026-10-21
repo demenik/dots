@@ -1,0 +1,74 @@
+--- a/gtk/gtksettings.c
++++ b/gtk/gtksettings.c
+@@ -1106,6 +1106,43 @@
+   return new_cascade;
+ }
+ 
++static guint user_css_reload_id = 0;
++
++static gboolean
++reload_user_css (gpointer data)
++{
++  GtkCssProvider *css_provider = data;
++  char *css_path;
++
++  user_css_reload_id = 0;
++
++  css_path = g_build_filename (g_get_user_config_dir (),
++                               "gtk-4.0",
++                               "gtk.css",
++                               NULL);
++
++  if (g_file_test (css_path,
++                   G_FILE_TEST_IS_REGULAR))
++    gtk_css_provider_load_from_path (css_provider, css_path);
++  else
++    gtk_css_provider_load_from_string (css_provider, "");
++
++  g_free (css_path);
++
++  return G_SOURCE_REMOVE;
++}
++
++static void
++user_css_dir_changed (GFileMonitor      *monitor,
++                      GFile             *file,
++                      GFile             *other_file,
++                      GFileMonitorEvent  event,
++                      gpointer           data)
++{
++  if (user_css_reload_id == 0)
++    user_css_reload_id = g_timeout_add (100, reload_user_css, data);
++}
++
+ static void
+ settings_init_style (GtkSettings *settings)
+ {
+@@ -1130,7 +1167,10 @@
+   /* Add provider for user file */
+   if (G_UNLIKELY (!css_provider))
+     {
++      static GFileMonitor *css_monitor = NULL;
+       char *css_path;
++      char *css_dir;
++      GFile *css_dir_file;
+ 
+       css_provider = gtk_css_provider_new ();
+ 
+@@ -1154,6 +1194,16 @@
+         gtk_css_provider_load_from_path (css_provider, css_path);
+ 
+       g_free (css_path);
++
++      css_dir = g_build_filename (g_get_user_config_dir (), "gtk-4.0", NULL);
++      css_dir_file = g_file_new_for_path (css_dir);
++      css_monitor = g_file_monitor_directory (css_dir_file, G_FILE_MONITOR_NONE, NULL, NULL);
++      if (css_monitor)
++        g_signal_connect (css_monitor, "changed",
++                          G_CALLBACK (user_css_dir_changed), css_provider);
++
++      g_object_unref (css_dir_file);
++      g_free (css_dir);
+     }
+ 
+   _gtk_style_cascade_add_provider (cascade,

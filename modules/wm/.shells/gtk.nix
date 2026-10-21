@@ -1,6 +1,17 @@
 {
   name = "gtk";
 
+  nixos = {pkgs, ...}: {
+    system.replaceDependencies.replacements = [
+      {
+        oldDependency = pkgs.gtk4;
+        newDependency = pkgs.gtk4.overrideAttrs (old: {
+          patches = (old.patches or []) ++ [./patches/gtk4-user-css-hot-reload.patch];
+        });
+      }
+    ];
+  };
+
   home = {
     pkgs,
     lib,
