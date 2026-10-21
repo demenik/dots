@@ -98,10 +98,22 @@
   in
     lib.concatStringsSep "\n" ([link] ++ lib.optional (setup != "") setup);
 
+  reloadAll = pkgs.writeShellScript "herdr-reload-all" ''
+    dir=${lib.escapeShellArg "${config.xdg.configHome}/herdr"}
+    for s in "$dir/herdr.sock" "$dir"/sessions/*/herdr.sock; do
+      [ -S "$s" ] && HERDR_SOCKET_PATH="$s" ${
+      if herdrBin != ""
+      then herdrBin
+      else "herdr"
+    } server reload-config >/dev/null 2>&1
+    done
+    exit 0
+  '';
+
   pluginActivation = lib.concatStringsSep "\n" (
     map linkPlugin cfg.plugins
     ++ lib.optional (lib.any (p: p.reloadConfig) cfg.plugins)
-    "run ${herdrBin} server reload-config >/dev/null 2>&1 || true"
+    "run ${reloadAll}"
   );
 
   wrappedPackage = pkgs.symlinkJoin {
@@ -115,6 +127,14 @@
   };
 in {
   options.programs.herdr = {
+    reloadAllCommand = mkOption {
+      type = types.str;
+      readOnly = true;
+      internal = true;
+      default = "${reloadAll}";
+      description = "Command reloading config on every running herdr server (all sessions).";
+    };
+
     wrapper.package = mkOption {
       type = types.package;
       default = pkgs.herdr;

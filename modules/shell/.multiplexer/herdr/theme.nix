@@ -55,7 +55,7 @@ in {
 
   theme.templates.herdr-theme = lib.mkIf (config.theme.type == "template") {
     target = "~/.config/herdr/config.toml";
-    post_hook = "herdr server reload-config || true";
+    post_hook = config.programs.herdr.reloadAllCommand;
     text = builtins.readFile (toml.generate "herdr-config-template" (
       lib.recursiveUpdate config.programs.herdr.settings {theme.custom = themeCustom;}
     ));
