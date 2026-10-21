@@ -195,6 +195,7 @@
           MessageEventsAPI.enabled = true;
           MessagePopoverAPI.enabled = true;
           UserSettingsAPI.enabled = true;
+          AddAttachments.enabled = true;
           AlwaysTrust = {
             enabled = true;
             domain = true;
@@ -249,6 +250,7 @@
           CrashHandler.enabled = true;
           Decor.enabled = true;
           DisableCallIdle.enabled = true;
+          DirectFileDownload.enabled = true;
           DontRoundMyTimestamps.enabled = true;
           FakeNitro = {
             enabled = true;
