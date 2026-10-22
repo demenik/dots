@@ -67,6 +67,7 @@
     ../../modules/programs/bisq.nix
     ../../modules/programs/wireshark.nix
     ../../modules/programs/craftapps.nix
+    ../../modules/programs/zotero.nix
 
     ../../modules/ai/opencode.nix
     ../../modules/ai/claude-code
