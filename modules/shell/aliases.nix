@@ -1,7 +1,5 @@
 {
   home.shellAliases = {
-    "nix-shell" = "nix-shell --run \"$SHELL\" \"$@\"";
-
     v = "nvim";
     g = "git";
     c = "clear";
