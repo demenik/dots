@@ -1,9 +1,6 @@
 {lib, ...}: let
   nixpkgsConfig = {
     allowUnfree = true;
-    permittedInsecurePackages = [
-      "pnpm-10.29.2"
-    ];
   };
 in {
   name = "nix";
