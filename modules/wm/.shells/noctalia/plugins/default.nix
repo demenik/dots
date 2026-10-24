@@ -2,6 +2,7 @@
   imports = [
     ./screentoolkit.nix
     ./mullvad.nix
+    ./tailscale.nix
   ];
 
   moduleOptions = with lib; {
@@ -17,7 +18,6 @@
   home = {config, ...}: {
     imports = [
       ./vpn.nix
-      ./tailscale.nix
       ./screencast-picker.nix
     ];
 
