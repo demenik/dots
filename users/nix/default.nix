@@ -58,17 +58,11 @@
     users.users.nix.linger = true;
   };
 
-  homeConfig = {lib, ...}: {
+  homeConfig = {
     programs = {
       home-manager.enable = true;
 
       herdr.service.enable = true;
-
-      nixvim = {
-        plugins = {
-          treesitter.folding = lib.mkForce false;
-        };
-      };
     };
   };
 }
