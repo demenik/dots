@@ -58,7 +58,7 @@
                 fetch_upstream_icon = true;
                 fetch_status = true;
                 upstream_icons = {
-                  "gitea.demenik.dev" = "";
+                  "git.demenik.dev" = "";
                 };
               };
             }

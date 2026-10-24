@@ -13,7 +13,7 @@
     '';
 in {
   programs.git.settings = {
-    "credential \"https://gitea.demenik.dev\"" = lib.mkIf (config.sops.secrets ? gitea-token) {
+    "credential \"https://git.demenik.dev\"" = lib.mkIf (config.sops.secrets ? gitea-token) {
       helper = "!${credHelper "demenik" config.sops.secrets.gitea-token.path}";
       useHttpPath = true;
     };

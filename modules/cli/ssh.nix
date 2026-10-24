@@ -34,7 +34,7 @@
           user = "git";
           identitiesOnly = true;
         };
-        "gitea.demenik.dev" = {
+        "git.demenik.dev" = {
           user = "git";
           identitiesOnly = true;
         };
