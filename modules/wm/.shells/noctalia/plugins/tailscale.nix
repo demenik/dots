@@ -9,11 +9,16 @@
       lib.filter
       (user: config.home-manager.users.${user}.programs.noctalia-shell.plugins.states."563115:tailscale".enabled or false)
       config.flake-modules.users;
-  in {
-    services.tailscale.extraSetFlags =
-      lib.mkIf (config.services.tailscale.enable && pluginUsers != [])
-      ["--operator=${lib.head pluginUsers}"];
-  };
+  in
+    lib.mkIf (config.services.tailscale.enable && pluginUsers != []) {
+      services.tailscale.extraSetFlags = ["--operator=${lib.head pluginUsers}"];
+
+      systemd.services.tailscaled-set = {
+        wantedBy = ["multi-user.target"];
+        partOf = ["tailscaled.service"];
+        serviceConfig.RemainAfterExit = true;
+      };
+    };
 
   home = {config, ...}: {
     programs.noctalia-shell = {
