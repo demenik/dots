@@ -23,7 +23,7 @@
   ];
 
   modules = [
-    ../../modules/wm/.shells
+    ../../modules/wm/.shells/desktop.nix
 
     ../../modules/wm/hyprland
     ../../modules/wm/.shells/noctalia

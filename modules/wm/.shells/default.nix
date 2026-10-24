@@ -4,9 +4,6 @@
   modules = [
     ./.colorScheme.nix
     ./.templates.nix
-
-    ./gtk.nix
-    ./qt.nix
   ];
 
   moduleOptions = with lib; {
