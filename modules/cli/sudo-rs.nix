@@ -10,4 +10,16 @@
       '';
     };
   };
+
+  home.programs.zsh.initContent =
+    # zsh
+    ''
+      sudo() {
+        if [[ -n $SUDO_ASKPASS ]] && ! { : </dev/tty } 2>/dev/null; then
+          command sudo -A "$@"
+        else
+          command sudo "$@"
+        fi
+      }
+    '';
 }

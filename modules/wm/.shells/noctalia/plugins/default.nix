@@ -19,6 +19,7 @@
     imports = [
       ./vpn.nix
       ./screencast-picker.nix
+      ./polkit-agent.nix
     ];
 
     programs.noctalia-shell = {
@@ -41,10 +42,6 @@
 
         states = {
           "563115:privacy-indicator" = {
-            enabled = true;
-            sourceUrl = "https://github.com/demenik/noctalia-v4-plugins";
-          };
-          "563115:polkit-agent" = {
             enabled = true;
             sourceUrl = "https://github.com/demenik/noctalia-v4-plugins";
           };
