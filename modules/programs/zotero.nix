@@ -105,6 +105,15 @@
   }: {
     home.packages = with pkgs; [zotero-bin];
 
+    ai.mcp.zotero = {
+      type = "local";
+      command = [(lib.getExe' pkgs.uv "uvx") "--python" (lib.getExe pkgs.python3) "zotero-mcp-server"];
+      env = {
+        ZOTERO_LOCAL.text = "true";
+        UV_PYTHON_DOWNLOADS.text = "never";
+      };
+    };
+
     programs.librewolf.profiles.default.extensions.packages = lib.mkIf config.programs.librewolf.enable [
       firefoxAddons.zotero-connector
     ];
