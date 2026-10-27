@@ -32,7 +32,6 @@
     iconName = "nextcloud-mount";
 
     rcSocket = "%t/rclone-nextcloud.sock";
-    rcCall = "${lib.getExe pkgs.rclone} rc --unix-socket ${rcSocket} vfs/refresh recursive=true _async=true";
   in {
     xdg.dataFile."icons/hicolor/scalable/apps/${iconName}.svg".source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/nextcloud/desktop/refs/heads/master/theme/colored/Nextcloud-icon.svg";
@@ -63,8 +62,8 @@
               --vfs-read-chunk-size 1M \
               --vfs-read-chunk-size-limit 10M \
               --transfers 4 \
-              --dir-cache-time 8760h \
-              --attr-timeout 8760h \
+              --dir-cache-time 15m \
+              --attr-timeout 15m \
               --rc \
               --rc-no-auth \
               --rc-addr unix://${rcSocket} \
@@ -73,29 +72,12 @@
           '';
           ExecStartPost = [
             ''-${lib.getExe' pkgs.glib "gio"} set "${mountPoint}" metadata::custom-icon-name ${iconName}''
-            "-${rcCall}"
           ];
           ExecStop = "/run/wrappers/bin/fusermount -u -z ${mountPoint}";
           Restart = "always";
           RestartSec = "5s";
         };
         Install.WantedBy = ["default.target"];
-      };
-
-      timers.nextcloud-mount-refresh = {
-        Unit.Description = "Refresh Nextcloud rclone cache";
-        Timer = {
-          OnBootSec = "2m";
-          OnUnitActiveSec = "5m";
-        };
-        Install.WantedBy = ["timers.target"];
-      };
-      services.nextcloud-mount-refresh = {
-        Unit.Description = "Refresh Nextcloud rclone cache";
-        Service = {
-          Type = "oneshot";
-          ExecStart = rcCall;
-        };
       };
     };
   };
