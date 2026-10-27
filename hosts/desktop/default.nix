@@ -24,7 +24,12 @@
     ../../modules/programs/gaming/games/minecraft.nix
 
     ../../modules/cli/git
+    ../../modules/system/bluetooth-autoconnect.nix
   ];
+
+  secrets = {
+    "bluetooth-autoconnect/devices".path = ./.secrets/bluetooth.sops.yaml;
+  };
 
   moduleConfig = {
     git.signing = {
