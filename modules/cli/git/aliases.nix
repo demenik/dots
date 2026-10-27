@@ -19,17 +19,27 @@
 
     amend = "commit --amend --no-edit";
     uncommit = "reset --soft HEAD~1";
-    fix = ''
-      !f() {
-        if [ -z \""$1"\" ]; then
-          echo \"Error: Target commit hash required.\"
-          return 1
-        fi
-        git commit --fixup \""$1"\" &&
-          GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash --autostash \""$1"\"~1
-      }
-      f
-    '';
+    fix =
+      "!"
+      + lib.getExe (pkgs.writeShellApplication {
+        name = "git-fix";
+        runtimeInputs = with pkgs; [git];
+        text = ''
+          if [ -z "''${1:-}" ]; then
+            echo "Error: Target commit hash required." >&2
+            exit 1
+          fi
+          if [ -n "$(git branch -r --contains "$1")" ]; then
+            read -r -p "Commit $1 was already pushed, rewrite history anyway? [y/N] " answer
+            case "$answer" in
+              [yY] | [yY][eE][sS]) ;;
+              *) exit 1 ;;
+            esac
+          fi
+          git commit --fixup "$1"
+          GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash --autostash "$1~1"
+        '';
+      });
 
     lg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
     search = "!git log -S";
