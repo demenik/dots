@@ -59,6 +59,7 @@
     ../../modules/programs/obsidian.nix
     ../../modules/programs/nautilus.nix
     ../../modules/programs/element.nix
+    ../../modules/programs/figma.nix
     ../../modules/programs/gimp.nix
     ../../modules/programs/aseprite.nix
     ../../modules/programs/anki.nix
