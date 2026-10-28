@@ -3,6 +3,8 @@ let
   secondaryMonitor = "HDMI-A-1";
   tv = "HDMI-A-2";
 in {
+  imports = [./fans.nix];
+
   modules = [../../modules/system/ntfs.nix];
   moduleConfig = {
     wm.monitors = let
@@ -103,7 +105,6 @@ in {
   }: {
     imports = [
       (modulesPath + "/installer/scan/not-detected.nix")
-      ./fans.nix
       ./razer.nix
     ];
 
