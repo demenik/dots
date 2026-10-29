@@ -92,13 +92,24 @@
 
   # Normalise an `ai.mcp` server for a consumer: per-server secret wrapping
   # plus home-manager's shared cleanup (enabled/disabled resolution, dropping
-  # null/empty values).
+  # null/empty values). Header references are rewritten from `$VAR` to `${VAR}`,
+  # since Claude Code only expands the braced form and sends `$VAR` literally.
   mkMcpServer = {
     name,
     server,
-  }:
+  }: let
+    envNames = lib.attrNames server.env;
+    headers =
+      lib.mapAttrs (
+        _:
+          builtins.replaceStrings
+          (map (s: "\$${s}") envNames)
+          (map (s: "\${${s}}") envNames)
+      )
+      server.headers;
+  in
     lib.hm.mcp.transformMcpServer {
-      server = mcpToHm server;
+      server = mcpToHm (server // {inherit headers;});
       extraTransforms = [(lib.hm.mcp.wrapEnvFilesCommand {inherit pkgs name;})];
     };
 

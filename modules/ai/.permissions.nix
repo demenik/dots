@@ -72,6 +72,38 @@
         "gitmcp_search_generic_documentation"
         "gitmcp_search_generic_code"
         "gitmcp_fetch_generic_url_content"
+      ]
+      ++ map (t: "n8n_${t}") [
+        "get_user_preferences"
+        "get_workflow_sdk_reference"
+        "get_workflow_best_practices"
+        "get_agent_builder_reference"
+        "get_node_types"
+        "search_nodes"
+        "discover_agent_assets"
+        "list_n8n_gateway_services"
+
+        "search_projects"
+        "search_folders"
+        "search_workflows"
+        "list_workflow_tags"
+        "get_workflow_details"
+        "get_workflow_history"
+        "get_workflow_version"
+        "get_workflow_versions_diff"
+        "search_workflow_executions"
+        "get_workflow_execution"
+
+        "search_agents"
+        "get_agent"
+        "list_agent_versions"
+
+        "search_data_tables"
+        "get_data_table_rows"
+
+        "validate_workflow"
+        "validate_node_config"
+        "validate_agent"
       ];
 
       other = {

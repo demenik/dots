@@ -154,6 +154,7 @@
     "nvim/wakatime".path = ./secrets/wakatime.sops.yaml;
 
     "ai/mcp-context7".path = ./secrets/mcp.sops.yaml;
+    "ai/mcp-n8n".path = ./secrets/mcp.sops.yaml;
   };
 
   nixosConfig = {
