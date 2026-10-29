@@ -4,7 +4,7 @@
   modules = [./.guidelines];
 
   imports = [
-    ./.mcp.nix
+    ./.mcp
     ./.permissions.nix
     ./.skills
   ];
