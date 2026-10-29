@@ -37,18 +37,39 @@
           after = resumeTargets;
           wantedBy = ["multi-user.target"] ++ resumeTargets;
 
+          restartIfChanged = false;
           serviceConfig.Type = "oneshot";
 
-          path = [pkgs.liquidctl pkgs.coreutils];
+          path = [pkgs.liquidctl pkgs.coreutils pkgs.systemd];
 
           script = ''
+            daemon_active=false
+            if systemctl is-active --quiet coolercontrold.service; then
+              daemon_active=true
+              systemctl stop coolercontrold.service
+            fi
+
+            ok=false
             for _ in $(seq 30); do
               if liquidctl --match "Commander Pro" initialize --direct-access --fan-mode "${fanModeArg}"; then
-                exit 0
+                ok=true
+                break
               fi
               sleep 1
             done
-            exit 1
+
+            for dev in /sys/bus/hid/drivers/corsair-cpro/0003:1B1C:0C10.*; do
+              [ -e "$dev" ] || continue
+              name=$(basename "$dev")
+              echo "$name" >/sys/bus/hid/drivers/corsair-cpro/unbind
+              echo "$name" >/sys/bus/hid/drivers/corsair-cpro/bind
+            done
+
+            if $daemon_active; then
+              systemctl start --no-block coolercontrold.service
+            fi
+
+            $ok
           '';
         };
       })
