@@ -186,6 +186,8 @@ in {
       sounds = {
         enabled = true;
         volume = 0.25;
+        separateSounds = false;
+        normalSoundFile = "${../../../../assets/sounds/notification.mp3}";
       };
     };
   };

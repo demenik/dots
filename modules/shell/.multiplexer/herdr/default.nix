@@ -43,6 +43,7 @@
         ui = {
           mouse_capture = true;
           tab_bar_position = "bottom";
+          sound.path = "${../../../../assets/sounds/notification.mp3}";
         };
 
         experimental.kitty_graphics = config.programs.kitty.enable;
