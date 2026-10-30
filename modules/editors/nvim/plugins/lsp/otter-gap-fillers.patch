@@ -1,0 +1,45 @@
+--- a/lua/otter/config.lua
++++ b/lua/otter/config.lua
+@@ -59,6 +59,11 @@
+       -- ipython cell magic (lines starting with %) and shell commands (lines starting with !)
+       python = "^(%s*[%%!].*)",
+     },
++    -- A table of functions to join injected regions that are separated by excluded nodes on the same line.
++    -- The key is the language of the main buffer, the value is `fun(gap: string, lang: string, before: string, after: string): string?`.
++    -- It receives the text between the two regions (and the injected text around it on that line)
++    -- and returns its replacement, or nil to keep them separate.
++    gap_fillers = {},
+   },
+   -- remove whitespace from the beginning of the code chunks when writing to the otter buffers
+   -- and calculate it back in when handling lsp requests
+--- a/lua/otter/keeper.lua
++++ b/lua/otter/keeper.lua
+@@ -250,9 +250,28 @@
+       ::continue_prune::
+     end
+ 
++    -- Regions separated by excluded nodes on the same row (e.g. string interpolations or
++    -- escape sequences in the host language) would otherwise be written to the same otter
++    -- buffer line, with the later one overwriting the earlier one.
++    local gap_filler = (OtterConfig.buffers.gap_fillers or {})[keeper.rafts[main_nr].parser:lang()]
+     local merged = {}
+     for _, chunk in ipairs(pruned) do
+       local last = merged[#merged]
++      if
++        gap_filler
++        and last
++        and #chunk.text > 0
++        and chunk.range.from[1] == last.range.to[1]
++        and chunk.range.from[2] > last.range.to[2]
++      then
++        local row = chunk.range.from[1]
++        local gap = api.nvim_buf_get_text(main_nr, row, last.range.to[2], row, chunk.range.from[2], {})[1]
++        local filler = gap_filler(gap, lang, last.text[#last.text] or "", chunk.text[1])
++        if filler then
++          chunk.text[1] = filler .. chunk.text[1]
++          chunk.range.from = { row, last.range.to[2] }
++        end
++      end
+       if last and chunk.range.from[1] == last.range.to[1] and chunk.range.from[2] == last.range.to[2] then
+         if chunk.range.from[2] > 0 and #chunk.text > 0 and #last.text > 0 then
+           last.text[#last.text] = last.text[#last.text] .. chunk.text[1]
