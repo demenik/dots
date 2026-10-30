@@ -18,30 +18,42 @@
         };
       };
 
-      androidComposition = pkgs.androidenv.composeAndroidPackages {
-        buildToolsVersions = ["<1>"];
-        platformVersions = ["<2>"];
-        abiVersions = ["<3>"];
-      };
+      buildToolsVersion = "<1>";
+      platformVersion = "<2>";
       pinnedJdk = pkgs.jdk<4>_headless;
+
+      mkAndroidSdk = extra:
+        (pkgs.androidenv.composeAndroidPackages ({
+            buildToolsVersions = [buildToolsVersion];
+            platformVersions = [platformVersion];
+            includeCmake = false;
+          }
+          // extra))
+        .androidsdk;
+
+      mkAndroidShell = androidSdk: extraPackages:
+        pkgs.mkShell rec {
+          packages = [pinnedJdk androidSdk pkgs.gradle_9] ++ extraPackages;
+
+          JAVA_HOME = pinnedJdk.home;
+          ANDROID_HOME = "${androidSdk}/libexec/android-sdk";
+          ANDROID_SDK_ROOT = ANDROID_HOME;
+
+          GRADLE_OPTS = pkgs.lib.concatStringsSep " " [
+            "-Dorg.gradle.java.installations.auto-download=false"
+            "-Dorg.gradle.java.installations.paths=${pinnedJdk.home}"
+            "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_HOME}/build-tools/${buildToolsVersion}/aapt2"
+          ];
+        };
     in {
-      devShells.default = pkgs.mkShell {
-        packages = with pkgs; [
-          jdk
-          androidComposition.androidsdk
-          gradle
-          <0>
-        ];
+      devShells.default = mkAndroidShell (mkAndroidSdk {}) (with pkgs; [<0>]);
 
-        JAVA_HOME = pinnedJdk.home;
-        ANDROID_HOME = "${androidComposition.androidsdk}/libexec/android-sdk";
-        ANDROID_SDK_ROOT = "${androidComposition.androidsdk}/libexec/android-sdk";
-
-        GRADLE_OPTS = pkgs.lib.concatStringsSep " " [
-          "-Dorg.gradle.java.installations.auto-download=false"
-          "-Dorg.gradle.java.installations.paths=${pinnedJdk.home}"
-          "-Dorg.gradle.project.android.aapt2FromMavenOverride=${pkgs.aapt}/bin/aapt2"
-        ];
-      };
+      devShells.emulator = mkAndroidShell (mkAndroidSdk {
+        platformVersions = [platformVersion "<5>"];
+        includeEmulator = true;
+        includeSystemImages = true;
+        systemImageTypes = ["<6>" "google_apis"];
+        abiVersions = ["<3>"];
+      }) [];
     });
 }
