@@ -1,6 +1,6 @@
 {
   imports = [
-    ./otter.nix
+    ./otter
   ];
 
   programs.nixvim = {

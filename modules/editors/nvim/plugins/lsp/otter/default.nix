@@ -4,11 +4,17 @@
       enable = true;
       autoActivate = false;
       package = pkgs.vimPlugins.otter-nvim.overrideAttrs (old: {
-        patches = (old.patches or []) ++ [./otter-gap-fillers.patch];
+        patches = (old.patches or []) ++ [./gap-fillers.patch ./separate-injections.patch];
       });
 
       settings = {
         handle_leading_whitespace = true;
+
+        buffers.combine_injections = {
+          markdown = ["python" "r" "julia"];
+          quarto = true;
+          rmd = true;
+        };
 
         # Treesitter excludes interpolations and escapes from injected Nix strings, which splits a
         # line into several regions. Join them again so shellcheck etc. see valid code.

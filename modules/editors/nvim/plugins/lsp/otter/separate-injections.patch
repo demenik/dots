@@ -1,0 +1,540 @@
+--- a/lua/otter/config.lua
++++ b/lua/otter/config.lua
+@@ -61,6 +61,8 @@
+     },
+     -- main buffer language -> fun(gap, lang, before, after): string?, replaces a same-line gap between regions
+     gap_fillers = {},
++    -- main buffer filetype -> true or languages whose injections share one otter buffer (default: one per injection)
++    combine_injections = {},
+   },
+   -- remove whitespace from the beginning of the code chunks when writing to the otter buffers
+   -- and calculate it back in when handling lsp requests
+--- a/lua/otter/diagnostics.lua
++++ b/lua/otter/diagnostics.lua
+@@ -5,14 +5,15 @@
+ M.setup = function(main_nr)
+   ---@type integer[]
+   local nss = {}
+-  for lang, bufnr in pairs(keeper.rafts[main_nr].buffers) do
+-    local ns = api.nvim_create_namespace("otter-lang-" .. lang)
+-    nss[bufnr] = ns
+-  end
+   keeper.rafts[main_nr].diagnostics_namespaces = nss
+ 
+   local sync_diagnostics = function(args)
+-    if vim.tbl_contains(vim.tbl_values(keeper.rafts[main_nr].buffers), args.buf) then
++    for key, bufnr in pairs(keeper.rafts[main_nr].buffers) do
++      if bufnr == args.buf then
++        nss[bufnr] = nss[bufnr] or api.nvim_create_namespace("otter-lang-" .. key)
++      end
++    end
++    if nss[args.buf] ~= nil then
+       vim.diagnostic.reset(nss[args.buf], main_nr)
+       local diags = args.data.diagnostics
+       if diags then
+--- a/lua/otter/init.lua
++++ b/lua/otter/init.lua
+@@ -8,8 +8,6 @@
+ local keeper = require("otter.keeper")
+ local otterls = require("otter.lsp")
+ 
+-local path_to_otterpath = require("otter.tools.functions").path_to_otterpath
+-
+ ---@param main_nr integer
+ local function stop_otterls(main_nr)
+   local raft = keeper.rafts[main_nr]
+@@ -79,7 +77,6 @@
+   postambles = postambles or OtterConfig.buffers.postambles
+   ignore_pattern = ignore_pattern or OtterConfig.buffers.ignore_pattern
+   local main_nr = api.nvim_get_current_buf()
+-  local main_path = api.nvim_buf_get_name(main_nr)
+   local main_lang = api.nvim_get_option_value("filetype", { buf = main_nr })
+   local parsername = vim.treesitter.language.get_lang(main_lang)
+   if not parsername then
+@@ -112,6 +109,7 @@
+     return
+   end
+   keeper.rafts[main_nr] = {
++    main_lang = main_lang,
+     languages = {},
+     buffers = {},
+     paths = {},
+@@ -152,7 +150,6 @@
+     return
+   end
+ 
+-  -- create otter buffers
+   for _, lang in ipairs(languages) do
+     if not OtterConfig.extensions[lang] then
+       vim.notify(
+@@ -161,74 +158,10 @@
+       )
+       goto continue
+     end
+-    local extension = "." .. OtterConfig.extensions[lang]
+-    if extension ~= nil then
+-      local otter_path = path_to_otterpath(main_path, extension)
+-      local otter_uri = "file://" .. otter_path
+-      local otter_nr = vim.uri_to_bufnr(otter_uri)
+-      api.nvim_buf_set_name(otter_nr, otter_path)
+-      api.nvim_set_option_value("swapfile", false, { buf = otter_nr })
+-      keeper.rafts[main_nr].buffers[lang] = otter_nr
+-      keeper.rafts[main_nr].paths[lang] = otter_path
+-      keeper.rafts[main_nr].preambles[lang] = preambles[lang] or {}
+-      keeper.rafts[main_nr].postambles[lang] = postambles[lang] or {}
+-      keeper.rafts[main_nr].ignore_pattern[lang] = ignore_pattern[lang] or nil
+-      keeper.rafts[main_nr].otter_nr_to_lang[otter_nr] = lang
+-      table.insert(keeper.rafts[main_nr].languages, lang)
+-
+-      -- closure to clean up this otter buffer and file
+-      local cleanup = function(ev)
+-        if api.nvim_buf_is_loaded(otter_nr) then
+-          api.nvim_buf_delete(otter_nr, { force = true })
+-          vim.fn.delete(otter_path)
+-        end
+-      end
+-      -- remove otter buffer when main buffer is closed
+-      api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
+-        buffer = main_nr,
+-        group = api.nvim_create_augroup("OtterAutocloseOnMainDelete" .. otter_nr, {}),
+-        callback = cleanup,
+-      })
+-      -- Remove otter buffer before exiting, preventing unsaved otter
+-      -- buffers from triggering a 'No write since last change' message.
+-      -- Must be a separate autocmd that is not attached to buffer = main_nr
+-      -- because the active buffer may be different from the main buffer when
+-      -- exiting.
+-      -- Must be ExitPre, not QuitPre, because QuitPre also triggers when a
+-      -- window with the main buffer is closed, even though the
+-      -- buffer may still be loaded in another window.
+-      api.nvim_create_autocmd({ "ExitPre" }, {
+-        pattern = "*",
+-        group = api.nvim_create_augroup("OtterAutocloseOnQuit" .. otter_nr, {}),
+-        callback = cleanup,
+-      })
+-
+-      if OtterConfig.buffers.write_to_disk then
+-        -- write to disk when main buffer is written
+-        api.nvim_create_autocmd("BufWritePost", {
+-          buffer = main_nr,
+-          group = api.nvim_create_augroup("OtterAutowrite" .. otter_nr, {}),
+-          callback = function(_)
+-            if api.nvim_buf_is_loaded(otter_nr) then
+-              keeper.sync_raft(main_nr)
+-              api.nvim_buf_call(otter_nr, function()
+-                vim.cmd("silent write! " .. otter_path)
+-              end)
+-            end
+-          end,
+-        })
+-      else
+-        -- prevent the otter buffer from being written to disk when
+-        -- e.g. write all :wa is called
+-        api.nvim_create_autocmd("BufWriteCmd", {
+-          buffer = otter_nr,
+-          group = api.nvim_create_augroup("OtterNoWrite" .. otter_nr, {}),
+-          callback = function()
+-            -- does nothing
+-          end,
+-        })
+-      end
+-    end
++    keeper.rafts[main_nr].preambles[lang] = preambles[lang] or {}
++    keeper.rafts[main_nr].postambles[lang] = postambles[lang] or {}
++    keeper.rafts[main_nr].ignore_pattern[lang] = ignore_pattern[lang] or nil
++    table.insert(keeper.rafts[main_nr].languages, lang)
+     ::continue::
+   end
+ 
+@@ -241,66 +174,16 @@
+     end,
+   })
+ 
+-  -- this has to happen again after the
+-  -- otter buffers got their own lsps
+-  -- to really make sure the clients are
+-  -- attached to their otter buffers
+-  keeper.sync_raft(main_nr)
+-
+-  -- manually attach language server that corresponds to the filetype
+-  -- without setting the filetype
+-  -- to prevent other plugins we don't need in the otter buffers
+-  -- from automatically attaching when ft is set
+-  for _, lang in ipairs(keeper.rafts[main_nr].languages) do
+-    local otter_nr = keeper.rafts[main_nr].buffers[lang]
+-
+-    if OtterConfig.buffers.write_to_disk then
+-      -- and also write out once before lsps can complain
+-      local otter_path = keeper.rafts[main_nr].paths[lang]
+-      api.nvim_buf_call(otter_nr, function()
+-        vim.cmd("silent write! " .. otter_path)
+-      end)
+-    end
+-
+-    if OtterConfig.buffers.set_filetype == false then
+-      vim.deprecate(
+-        "otter.config.buffers.set_filetype = false",
+-        "Use the default otter.nvim behavior instead. Otter now always sets the filetype to accomodate different ways of initializing language servers without conflicts.",
+-        "3.1.0",
+-        "otter.nvim",
+-        false
+-      )
+-    end
+-
+-    -- or if requested set the filetype
+-    if OtterConfig.buffers.set_filetype then
+-      api.nvim_set_option_value("filetype", lang, { buf = otter_nr })
+-    else
+-      local function get_aucmds(group)
+-        return api.nvim_get_autocmds({ group = group, pattern = lang })
+-      end
+-
+-      local autocommands = {}
+-      local groups = { "lspconfig", "nvim.lsp.enable" }
+-
+-      for _, group in ipairs(groups) do
+-        local ok, cmds = pcall(get_aucmds, group)
+-        if ok then
+-          for _, cmd in ipairs(cmds) do
+-            table.insert(autocommands, cmd)
+-          end
+-        end
+-      end
+-
+-      for _, command in ipairs(autocommands) do
+-        local opt = { buf = otter_nr }
+-        command.callback(opt)
+-      end
+-    end
++  if OtterConfig.buffers.set_filetype == false then
++    vim.deprecate(
++      "otter.config.buffers.set_filetype = false",
++      "Use the default otter.nvim behavior instead. Otter now always sets the filetype to accomodate different ways of initializing language servers without conflicts.",
++      "3.1.0",
++      "otter.nvim",
++      false
++    )
+   end
+ 
+-  -- see above.
+-  -- needs to happen here again
+   keeper.sync_raft(main_nr)
+ 
+   if diagnostics then
+--- a/lua/otter/keeper.lua
++++ b/lua/otter/keeper.lua
+@@ -27,6 +27,7 @@
+ end
+ 
+ ---@class Raft
++---@field main_lang string
+ ---@field languages string[]
+ ---@field buffers table<string, integer>
+ ---@field paths table<string, string>
+@@ -130,6 +131,7 @@
+ ---@field lang string
+ ---@field text string[]
+ ---@field leading_offset number
++---@field group string?
+ 
+ ---Extract code chunks from the specified buffer using treesitter language injection metadata.
+ ---This uses the LanguageTree's built-in injection handling which automatically parses
+@@ -166,6 +168,7 @@
+ 
+     -- Process all trees for this language
+     for _, lang_tree in ipairs(tree) do
++      local host = lang_tree:parent()
+       -- Get the regions where this language is injected
+       -- included_regions returns a table mapping tree index to list of Range6
+       -- Each Range6 is: { start_row, start_col, start_bytes, end_row, end_col, end_bytes }
+@@ -178,6 +181,18 @@
+         for _, region in ipairs(region_list) do
+           local start_row, start_col, _, end_row, end_col, _ = unpack(region)
+ 
++          -- Combined injections share one tree, the owning host node tells them apart
++          local group
++          local host_tree = host and host:tree_for_range({ start_row, start_col, end_row, end_col }, { ignore_injections = true })
++          local node = host_tree and host_tree:root():named_descendant_for_range(start_row, start_col, end_row, end_col)
++          if node then
++            local sr, sc, er, ec = node:range()
++            if sr == start_row and sc == start_col and er == end_row and ec == end_col and node:parent() then
++              node = node:parent()
++            end
++            group = node:id()
++          end
++
+           -- Bounds checking: skip regions that are out of bounds
+           -- This can happen when the parser has stale data during incomplete edits
+           if start_row < 0 or end_row < 0 or start_row >= line_count or end_row >= line_count then
+@@ -204,6 +219,7 @@
+             range = { from = { start_row, start_col }, to = { end_row, end_col } },
+             lang = lang,
+             text = lines,
++            group = group,
+           }
+ 
+           if code_chunks[lang] == nil then
+@@ -258,6 +274,7 @@
+       if
+         gap_filler
+         and last
++        and chunk.group == last.group
+         and #chunk.text > 0
+         and chunk.range.from[1] == last.range.to[1]
+         and chunk.range.from[2] > last.range.to[2]
+@@ -380,7 +397,7 @@
+         if in_region then
+           -- Adjust end_col for leading whitespace handling if needed
+           if OtterConfig.handle_leading_whitespace then
+-            local buf = keeper.rafts[main_nr].buffers[lang]
++            local buf = keeper.get_otter_nr(main_nr, lang, { row, col })
+             if buf then
+               local lines = vim.api.nvim_buf_get_lines(buf, end_row - 1, end_row, false)
+               if lines[1] then
+@@ -511,6 +528,138 @@
+   end
+ end
+ 
++keeper.combines = function(main_nr, lang)
++  local combine = (OtterConfig.buffers.combine_injections or {})[keeper.rafts[main_nr].main_lang]
++  return combine == true or (type(combine) == "table" and vim.tbl_contains(combine, lang))
++end
++
++keeper.otter_key = function(main_nr, lang, n)
++  if keeper.combines(main_nr, lang) then
++    return lang
++  end
++  return lang .. "#" .. n
++end
++
++keeper.chunk_groups = function(main_nr, lang, chunks)
++  if keeper.combines(main_nr, lang) then
++    return { chunks }
++  end
++  local groups, index = {}, {}
++  for _, chunk in ipairs(chunks) do
++    local id = chunk.group or chunk
++    if index[id] == nil then
++      table.insert(groups, {})
++      index[id] = #groups
++    end
++    table.insert(groups[index[id]], chunk)
++  end
++  return groups
++end
++
++---@param position table? 0-based (row, col), defaults to the cursor
++keeper.get_otter_nr = function(main_nr, lang, position)
++  local raft = keeper.rafts[main_nr]
++  if keeper.combines(main_nr, lang) then
++    return raft.buffers[lang]
++  end
++  if position == nil then
++    local cursor = api.nvim_win_get_cursor(0)
++    position = { cursor[1] - 1, cursor[2] }
++  end
++  for n, group in ipairs(keeper.chunk_groups(main_nr, lang, raft.code_chunks[lang] or {})) do
++    for _, chunk in ipairs(group) do
++      if pos_le(chunk.range.from, position) and pos_le(position, chunk.range.to) then
++        return raft.buffers[keeper.otter_key(main_nr, lang, n)]
++      end
++    end
++  end
++  return nil
++end
++
++keeper.add_otter = function(main_nr, lang, key, lines)
++  local raft = keeper.rafts[main_nr]
++  local n = key:match("#(%d+)$")
++  local extension = (n and "." .. n or "") .. "." .. OtterConfig.extensions[lang]
++  local otter_path = fn.path_to_otterpath(api.nvim_buf_get_name(main_nr), extension)
++  local otter_uri = "file://" .. otter_path
++  local otter_nr = vim.uri_to_bufnr(otter_uri)
++  api.nvim_buf_set_name(otter_nr, otter_path)
++  api.nvim_set_option_value("swapfile", false, { buf = otter_nr })
++  raft.buffers[key] = otter_nr
++  raft.paths[key] = otter_path
++  raft.otter_nr_to_lang[otter_nr] = lang
++  api.nvim_buf_set_lines(otter_nr, 0, -1, false, lines)
++
++  local cleanup = function(ev)
++    if api.nvim_buf_is_loaded(otter_nr) then
++      api.nvim_buf_delete(otter_nr, { force = true })
++      vim.fn.delete(otter_path)
++    end
++  end
++  api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
++    buffer = main_nr,
++    group = api.nvim_create_augroup("OtterAutocloseOnMainDelete" .. otter_nr, {}),
++    callback = cleanup,
++  })
++  -- ExitPre, not QuitPre: the main buffer may still be loaded in another window
++  api.nvim_create_autocmd({ "ExitPre" }, {
++    pattern = "*",
++    group = api.nvim_create_augroup("OtterAutocloseOnQuit" .. otter_nr, {}),
++    callback = cleanup,
++  })
++
++  if OtterConfig.buffers.write_to_disk then
++    api.nvim_create_autocmd("BufWritePost", {
++      buffer = main_nr,
++      group = api.nvim_create_augroup("OtterAutowrite" .. otter_nr, {}),
++      callback = function(_)
++        if api.nvim_buf_is_loaded(otter_nr) then
++          keeper.sync_raft(main_nr)
++          api.nvim_buf_call(otter_nr, function()
++            vim.cmd("silent write! " .. otter_path)
++          end)
++        end
++      end,
++    })
++    api.nvim_buf_call(otter_nr, function()
++      vim.cmd("silent write! " .. otter_path)
++    end)
++  else
++    api.nvim_create_autocmd("BufWriteCmd", {
++      buffer = otter_nr,
++      group = api.nvim_create_augroup("OtterNoWrite" .. otter_nr, {}),
++      callback = function() end,
++    })
++  end
++
++  if OtterConfig.buffers.set_filetype then
++    api.nvim_set_option_value("filetype", lang, { buf = otter_nr })
++  else
++    local function get_aucmds(group)
++      return api.nvim_get_autocmds({ group = group, pattern = lang })
++    end
++
++    local autocommands = {}
++    local groups = { "lspconfig", "nvim.lsp.enable" }
++
++    for _, group in ipairs(groups) do
++      local ok, cmds = pcall(get_aucmds, group)
++      if ok then
++        for _, cmd in ipairs(cmds) do
++          table.insert(autocommands, cmd)
++        end
++      end
++    end
++
++    for _, command in ipairs(autocommands) do
++      local opt = { buf = otter_nr }
++      command.callback(opt)
++    end
++  end
++
++  return otter_nr
++end
++
+ ---@param main_nr integer bufnr of the parent buffer
+ ---@return boolean has_raft true if the buffer has otters attached
+ keeper.has_raft = function(main_nr)
+@@ -576,14 +725,18 @@
+     langs = { language }
+   end
+   for _, lang in ipairs(langs) do
+-    local otter_nr = keeper.rafts[main_nr].buffers[lang]
+-    if otter_nr ~= nil then
+-      local code_chunks = all_code_chunks[lang]
+-      if code_chunks ~= nil then
++    local groups = keeper.chunk_groups(main_nr, lang, all_code_chunks[lang] or {})
++    local n = 1
++    -- also wipe otter buffers of removed injections
++    while n <= #groups or keeper.rafts[main_nr].buffers[keeper.otter_key(main_nr, lang, n)] ~= nil do
++      local key = keeper.otter_key(main_nr, lang, n)
++      local code_chunks = groups[n]
++      local ls = {}
++      if code_chunks ~= nil and #code_chunks > 0 then
+         local nmax = code_chunks[#code_chunks].range["to"][1] -- last code line
+ 
+         -- create list with empty lines the length of the buffer
+-        local ls = fn.empty_lines(nmax)
++        ls = fn.empty_lines(nmax)
+ 
+         -- set preamble lines
+         local preamble = keeper.rafts[main_nr].preambles[lang]
+@@ -611,16 +764,22 @@
+         for _, l in ipairs(postamble) do
+           table.insert(ls, l)
+         end
++      end
+ 
+-        -- set code lines
+-        result = do_with_maybe_texlock(function()
+-          api.nvim_buf_set_lines(otter_nr, 0, -1, false, ls)
+-        end)
+-      else
+-        -- no code chunks so we wipe the otter buffer
+-        result = do_with_maybe_texlock(function()
+-          api.nvim_buf_set_lines(otter_nr, 0, -1, false, {})
+-        end)
++      result = do_with_maybe_texlock(function()
++        local raft = keeper.rafts[main_nr]
++        if raft == nil then
++          return
++        end
++        if raft.buffers[key] ~= nil then
++          api.nvim_buf_set_lines(raft.buffers[key], 0, -1, false, ls)
++        elseif #ls > 0 then
++          keeper.add_otter(main_nr, lang, key, ls)
++        end
++      end)
++      n = n + 1
++      if keeper.combines(main_nr, lang) then
++        break
+       end
+     end
+   end
+--- a/lua/otter/lsp/init.lua
++++ b/lua/otter/lsp/init.lua
+@@ -113,20 +113,26 @@
+ 
+           -- lang can be explicitly passed to otter-ls
+           local lang = params.otter.lang
++          local pos = nil
++          if params.position ~= nil then
++            pos = {
++              params.position.line + 1,
++              params.position.character,
++            }
++          end
+           if lang == nil then
+             -- otherwise it is determined by position params
+             -- or cursor position if those are absent
+-            local pos = nil
+-            if params.position ~= nil then
+-              pos = {
+-                params.position.line + 1,
+-                params.position.character,
+-              }
+-            end
+             lang, _, _, _, _ = keeper.get_current_language_context(main_nr, pos)
+           end
++          if lang == nil or not vim.tbl_contains(keeper.rafts[main_nr].languages, lang) then
++            handler(nil, nil, params.context)
++            return
++          end
+ 
+-          local otter_nr = keeper.rafts[main_nr].buffers[lang]
++          keeper.sync_raft(main_nr, lang)
++
++          local otter_nr = keeper.get_otter_nr(main_nr, lang, pos and { pos[1] - 1, pos[2] })
+           if otter_nr == nil then
+             -- if we don't have an otter for lang, there is nothing to be done
+             handler(nil, nil, params.context)
+@@ -149,14 +155,6 @@
+             handler(nil, nil, params.context)
+             return
+           end
+-
+-          -- update the otter buffer of that language
+-          local success = keeper.sync_raft(main_nr, lang)
+-          if not success then
+-            -- no otter buffer for lang
+-            handler(nil, nil, params.context)
+-            return
+-          end
+ 
+           -- general modifications to params for all methods
+           params.textDocument = {

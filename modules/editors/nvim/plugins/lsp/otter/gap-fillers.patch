@@ -1,26 +1,21 @@
 --- a/lua/otter/config.lua
 +++ b/lua/otter/config.lua
-@@ -59,6 +59,11 @@
+@@ -59,6 +59,8 @@
        -- ipython cell magic (lines starting with %) and shell commands (lines starting with !)
        python = "^(%s*[%%!].*)",
      },
-+    -- A table of functions to join injected regions that are separated by excluded nodes on the same line.
-+    -- The key is the language of the main buffer, the value is `fun(gap: string, lang: string, before: string, after: string): string?`.
-+    -- It receives the text between the two regions (and the injected text around it on that line)
-+    -- and returns its replacement, or nil to keep them separate.
++    -- main buffer language -> fun(gap, lang, before, after): string?, replaces a same-line gap between regions
 +    gap_fillers = {},
    },
    -- remove whitespace from the beginning of the code chunks when writing to the otter buffers
    -- and calculate it back in when handling lsp requests
 --- a/lua/otter/keeper.lua
 +++ b/lua/otter/keeper.lua
-@@ -250,9 +250,28 @@
+@@ -250,9 +250,26 @@
        ::continue_prune::
      end
  
-+    -- Regions separated by excluded nodes on the same row (e.g. string interpolations or
-+    -- escape sequences in the host language) would otherwise be written to the same otter
-+    -- buffer line, with the later one overwriting the earlier one.
++    -- Regions split on one row by excluded nodes (e.g. interpolations) would overwrite each other
 +    local gap_filler = (OtterConfig.buffers.gap_fillers or {})[keeper.rafts[main_nr].parser:lang()]
      local merged = {}
      for _, chunk in ipairs(pruned) do
