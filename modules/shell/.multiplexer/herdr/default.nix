@@ -14,6 +14,7 @@
       ./theme.nix
       ./wrapper.nix
       ./service.nix
+      ./move-pane.nix
     ];
 
     programs.herdr = {
@@ -29,7 +30,14 @@
 
           previous_tab = "shift+left";
           next_tab = "shift+right";
+          move_tab_previous = "shift+alt+left";
+          move_tab_next = "shift+alt+right";
           indexed.tabs = "ctrl";
+
+          swap_pane_left = ["prefix+shift+h" "ctrl+alt+h" "ctrl+alt+left"];
+          swap_pane_down = ["prefix+shift+j" "ctrl+alt+j" "ctrl+alt+down"];
+          swap_pane_up = ["prefix+shift+k" "ctrl+alt+k" "ctrl+alt+up"];
+          swap_pane_right = ["prefix+shift+l" "ctrl+alt+l" "ctrl+alt+right"];
 
           split_vertical = "prefix+#";
           split_horizontal = "prefix+-";
