@@ -11,7 +11,7 @@
     ./grug-far.nix
     ./leetcode.nix
     ./opencode.nix
-    ./presence.nix
+    ./presence
     ./scrollback.nix
     # ./silicon.nix
     ./todo-comments.nix
