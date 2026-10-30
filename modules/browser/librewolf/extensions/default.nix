@@ -50,15 +50,11 @@ in {
     programs.librewolf.profiles.default.extensions.packages = with firefoxAddons; [
       betterttv
       darkreader
-      header-editor
-      privacy-badger
       react-devtools
       return-youtube-dislikes
       sponsorblock
       stylus
       tampermonkey
-      video-downloadhelper
-      yomitan
 
       (buildFirefoxXpiAddon {
         pname = "auto-resume-downloads";
