@@ -72,7 +72,7 @@ in {
 
     ai.mcp.nixmcp = {
       type = "local";
-      command = [(lib.getExe pkgs.mcp-nixos)];
+      command = [(lib.getExe' pkgs.uv "uvx") "--python" (lib.getExe pkgs.python3) "mcp-nixos"];
     };
   };
 }
