@@ -13,8 +13,8 @@
     '';
 in {
   programs.git.settings = {
-    "credential \"https://git.demenik.dev\"" = lib.mkIf (config.sops.secrets ? gitea-token) {
-      helper = "!${credHelper "demenik" config.sops.secrets.gitea-token.path}";
+    "credential \"https://git.demenik.dev\"" = lib.mkIf (config.sops.secrets ? forgejo-token) {
+      helper = "!${credHelper "demenik" config.sops.secrets.forgejo-token.path}";
       useHttpPath = true;
     };
 

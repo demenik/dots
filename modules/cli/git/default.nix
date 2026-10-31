@@ -17,10 +17,10 @@
   };
 
   secrets = {
-    gitea-token = {
+    forgejo-token = {
       usedBy = "hm";
       required = false;
-      description = "Gitea Access Token";
+      description = "Forgejo Access Token";
     };
     github-token = {
       usedBy = "hm";
@@ -64,7 +64,7 @@
 
     home.packages = with pkgs; [
       glab
-      tea
+      forgejo-cli
 
       cocogitto
     ];

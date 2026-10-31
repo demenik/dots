@@ -29,7 +29,7 @@
               permalink = "/-/blob/{commit}/{file}#L{line_start}-{line_end}";
               commit = "/-/commit/{commit}";
             };
-            "gitea%.demenik%.dev" = {
+            "git%.demenik%.dev" = {
               branch = "/src/branch/{branch}";
               file = "/src/branch/{branch}/{file}#L{line_start}-L{line_end}";
               permalink = "/src/commit/{commit}/{file}#L{line_start}-L{line_end}";

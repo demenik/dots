@@ -144,7 +144,7 @@
   };
 
   secrets = {
-    "git/gitea-token".path = ./secrets/git.sops.yaml;
+    "git/forgejo-token".path = ./secrets/git.sops.yaml;
     "git/github-token".path = ./secrets/git.sops.yaml;
     "git/overleaf-git-token".path = ./secrets/git.sops.yaml;
     "nvim/gitlab-tokens".path = ./secrets/git.sops.yaml;

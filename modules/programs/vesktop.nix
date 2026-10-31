@@ -318,7 +318,7 @@
           TextReplace = {
             enabled = true;
             regexRules = [
-              # === GitHub/Gitea ===
+              # === GitHub/Gitea/Forgejo ===
               {
                 # Issue
                 find = ''(https?:\/\/[a-zA-Z0-9.-]+\/(?:[^\/\s]+\/)*([^\/\s]+\/[^\/\s]+)\/issues\/(\d+)([?#][^\s"'<)]*)?)'';
