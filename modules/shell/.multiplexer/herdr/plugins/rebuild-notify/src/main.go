@@ -1,4 +1,4 @@
-// Tracks nh rebuilds in every herdr pane and mirrors their state into a
+// Tracks nh rebuilds and deploy-rs runs in every herdr pane and mirrors their state into a
 // workspace token. Matching runs server-side via `pane.output_matched`, which
 // fires only when a match newly appears in the watched window
 package main
@@ -23,11 +23,13 @@ const (
 
 // Phase lines are followed by a pause (eval, sudo, activation), so a small
 // window catches them while letting the previous run's lines scroll out.
+// The first rule starts a run; matches cover nh and deploy-rs output.
 var rules = []rule{
-	{"building", regexp.MustCompile(`^> Building (NixOS|Home-Manager|Darwin) configuration`), 3},
-	{"activating", regexp.MustCompile(`^> Activating configuration`), 3},
+	{"building", regexp.MustCompile(`^> Building (NixOS|Home-Manager|Darwin) configuration|\[deploy\] \[INFO\] (Running checks|Evaluating flake|Building profile) `), 3},
+	{"copying", regexp.MustCompile(`\[deploy\] \[INFO\] Copying profile `), 3},
+	{"activating", regexp.MustCompile(`^> Activating configuration|\[deploy\] \[INFO\] Activating profile `), 3},
 	{"bootloader", regexp.MustCompile(`^> Adding configuration to bootloader`), 3},
-	{"sudo", regexp.MustCompile(`^\[sudo[^\]]*\] [Pp]assword[^:]*: *\**$`), 1},
+	{"sudo", regexp.MustCompile(`^(\[sudo[^\]]*\] [Pp]assword[^:]*|\(sudo for [^)]*\) [Pp]assword): *\**$`), 1},
 }
 
 type rule struct {
@@ -39,9 +41,9 @@ type rule struct {
 var (
 	herdr    = envOr("HERDR_BIN_PATH", "herdr")
 	socket   = os.Getenv("HERDR_SOCKET_PATH")
-	errorRe  = regexp.MustCompile(`^Error:`)
+	errorRe  = regexp.MustCompile(`^Error:|\[(deploy|activate)\] \[ERROR\]`)
 	startRe  = rules[0].re
-	priority = map[string]int{"done": 1, "building": 2, "activating": 2, "bootloader": 2, "failed": 3, "sudo": 4}
+	priority = map[string]int{"done": 1, "building": 2, "copying": 2, "activating": 2, "bootloader": 2, "failed": 3, "sudo": 4}
 )
 
 type msg struct {

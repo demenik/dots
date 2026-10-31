@@ -64,7 +64,7 @@
           {
             token = "$rebuild";
             rules =
-              map (s: rule s {fg = colors.running;}) ["building" "activating" "bootloader"]
+              map (s: rule s {fg = colors.running;}) ["building" "copying" "activating" "bootloader"]
               ++ [
                 (rule "sudo" {
                   fg = colors.bad;
