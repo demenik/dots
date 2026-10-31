@@ -22,20 +22,21 @@
           makeWrapper,
           autoPatchelfHook,
           zlib,
+          curl,
           jq,
         }:
           stdenv.mkDerivation rec {
             pname = "kotlin-lsp";
-            version = "263.6379.0";
+            version = "263.7084.0";
 
             passthru.fmUpdate = {
               inherit version;
-              script = "curl -s https://api.github.com/repos/Kotlin/kotlin-lsp/releases/latest | ${lib.getExe jq} -r '.name | ltrimstr(\"v\")'";
+              script = "${lib.getExe curl} -s https://api.github.com/repos/Kotlin/kotlin-lsp/releases/latest | ${lib.getExe jq} -r '.name | ltrimstr(\"v\")'";
             };
 
             src = fetchurl {
               url = "https://download.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}.tar.gz";
-              hash = "sha256-q4ykRV3C/F/hok2yvMxGwQQlTSxGUVXEJR7mXfjz98w=";
+              hash = "sha256-rgxLAeF6tzpKUienjqmebcvj5JlgAxWyJ1mk5M3dEd8=";
             };
 
             nativeBuildInputs = [
