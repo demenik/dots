@@ -53,13 +53,7 @@
             hdr-enabled = false;
           };
         };
-        env = {
-          DXVK_CONFIG = "\"dxvk.trackPipelineLifetime = True;\"";
-          __GL_SHADER_DISK_CACHE_SKIP_CLEANUP = "1";
-          __GL_SHADER_DISK_CACHE_SIZE = "10737418240";
-          PROTON_LOCAL_SHADER_CACHE = "1";
-          DXVK_ASYNC = "1";
-        };
+        env.PROTON_LOCAL_SHADER_CACHE = "1";
       };
     };
   };
