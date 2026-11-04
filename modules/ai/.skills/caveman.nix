@@ -6,8 +6,8 @@
       cavemanSkillSrc = prev.fetchFromGitHub {
         owner = "JuliusBrussee";
         repo = "caveman";
-        rev = "d262ab3882952a59312ff3537cd86d894523c5ab";
-        hash = "sha256-2xZHdWkWJrPAJ8++qW0Xmb3eORZ41e+GsZjIphqTtlI=";
+        rev = "2e068f735253cce28256744804785f01887d9646";
+        hash = "sha256-DFS9Xp9msSFF4WwdPd9RdghjBzc0x4yVomM6nxQWPKw=";
       };
     })
   ];

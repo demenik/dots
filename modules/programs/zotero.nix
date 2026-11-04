@@ -5,7 +5,7 @@
     (final: prev: {
       zotero-bin = final.stdenv.mkDerivation (finalAttrs: {
         pname = "zotero-bin";
-        version = "10.0.6";
+        version = "10.0.7";
 
         passthru.fmUpdate = {
           inherit (finalAttrs) version;
@@ -14,7 +14,7 @@
 
         src = final.fetchurl {
           url = "https://download.zotero.org/client/release/${finalAttrs.version}/Zotero-${finalAttrs.version}_linux-x86_64.tar.xz";
-          hash = "sha256-JGwldKmsUmq+rzAn/9IvxFU2pasl8ie7Hfky/KnO3WM=";
+          hash = "sha256-3fQ7UEE/AOqbqGPHkTpPE1AojB6BtFwqrxkiJ7Z9lUk=";
         };
 
         nativeBuildInputs = with final; [

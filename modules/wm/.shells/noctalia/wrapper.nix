@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   config,
@@ -11,7 +12,12 @@
   pythonEnv = pkgs.python3.withPackages (ps: cfg.pythonPackages);
   giTypelib = lib.makeSearchPath "lib/girepository-1.0" cfg.giPackages;
 
+  # noctalia is built against nixpkgs-noctalia and cannot load the system's newer mesa
+  noctaliaMesa = inputs.nixpkgs-noctalia.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa;
+
   wrapArgs = [
+    "--set __EGL_VENDOR_LIBRARY_FILENAMES ${noctaliaMesa}/share/glvnd/egl_vendor.d/50_mesa.json"
+
     (
       let
         binPath = lib.makeBinPath (cfg.packages ++ [pythonEnv]);
@@ -48,7 +54,7 @@ in {
   options.programs.noctalia-shell.wrapper = {
     package = mkOption {
       type = types.package;
-      default = pkgs.noctalia-shell;
+      default = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
       description = "The base package to wrap";
     };
 

@@ -5,7 +5,7 @@ in {
     (final: prev: {
       herdr-auto-title = final.buildGoModule (finalAttrs: {
         pname = "herdr-auto-title";
-        version = "0.13.2";
+        version = "0.19.0";
 
         passthru.fmUpdate = {
           inherit (finalAttrs) version;
@@ -16,14 +16,11 @@ in {
           owner = "kryptamine";
           repo = "herdr-auto-title";
           rev = "v${finalAttrs.version}";
-          hash = "sha256-CNSw6J+Xbo0PaO5EwmW9zZ14KxxnTRAs8/87pW4q9Ok=";
+          hash = "sha256-HfZqth8aFy05KkSPAyWCJKKtAQanVZMrU+6rRVCRgcg=";
         };
 
         vendorHash = "sha256-QxFp1b7pf7bn3Hh0hyaj8ke5Z61N+WwjhHt3pFiapTs=";
         subPackages = ["cmd/herdr-auto-title"];
-
-        # Skips herdr-mirror panes
-        patches = [./patches/herdr-auto-title-ignore-mirror.patch];
 
         # herdr expects the plugin manifest and binary at the package root
         postInstall = ''

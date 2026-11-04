@@ -8,8 +8,8 @@
         src = final.fetchFromGitHub {
           owner = "catppuccin";
           repo = "thunderbird";
-          rev = "0289f3bd9566f9666682f66a3355155c0d0563fc";
-          hash = "sha256-07gT37m1+OhRTbUk51l0Nhx+I+tl1il5ayx2ow23APY=";
+          rev = "575ab278460137dba10c1a23d00af0bc583fe509";
+          hash = "sha256-ScuymVAaJ0FL6hJkHIiGuPI15XJsq+6Y/qKm/nUUNp4=";
         };
 
         installPhase = ''

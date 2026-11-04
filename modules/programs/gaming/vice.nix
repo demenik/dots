@@ -51,7 +51,10 @@
         ];
 
         makeWrapperArgs = [
-          "--prefix PATH : /run/wrappers/bin:${final.lib.makeBinPath (with final; [
+          "--prefix"
+          "PATH"
+          ":"
+          "/run/wrappers/bin:${final.lib.makeBinPath (with final; [
             ffmpeg
             gpu-screen-recorder
             wl-clipboard

@@ -54,9 +54,10 @@
       url = "github:demenik/statusbar";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-noctalia.url = "github:NixOS/nixpkgs/nixos-26.05";
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell/legacy-v4";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-noctalia";
     };
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";

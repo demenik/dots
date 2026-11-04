@@ -92,15 +92,15 @@
     };
 
   home = {
-    pkgs,
     lib,
     config,
+    options,
     ...
   }: let
     cfg = config.programs.noctalia.bootToWindows;
   in
     lib.mkIf cfg.enable {
-      programs.noctalia-shell.wrapper.package = pkgs.noctalia-shell.overrideAttrs (old: {
+      programs.noctalia-shell.wrapper.package = options.programs.noctalia-shell.wrapper.package.default.overrideAttrs (old: {
         postPatch =
           (old.postPatch or "")
           + ''
